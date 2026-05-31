@@ -1,0 +1,1836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FleetForge · Interactive Business Case Demo</title>
+<style>
+  :root {
+    --excel-bg: #ffffff;
+    --excel-grid: #d0d0d0;
+    --excel-grid-strong: #909090;
+    --excel-header-bg: #e8eaed;
+    --excel-header-text: #404040;
+    --excel-row-header: #f3f4f6;
+    --excel-text: #1a1a1a;
+    --excel-muted: #707070;
+    --excel-tco-bg: #e6f0fa;
+    --excel-roi-bg: #f0e6fa;
+    --green: #1e7a3c;
+    --green-bg: #e8f5ec;
+    --green-strong-bg: #c8eed4;
+    --red: #b41e1e;
+    --red-bg: #fbeaea;
+    --gold: #b8860b;
+    --gold-bg: #fef5e0;
+    --accent-dark: #0d2438;
+    --accent: #1e4d6b;
+    --sans: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
+    --mono: 'SF Mono', Menlo, Consolas, monospace;
+    --serif: 'Charter', 'Iowan Old Style', Georgia, serif;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: #f0f0f0; color: var(--excel-text);
+    font-family: var(--sans); font-size: 13px; line-height: 1.4;
+  }
+
+  /* ========== STICKY BAR ========== */
+  .sticky-bar {
+    position: sticky; top: 0; z-index: 50;
+    background: var(--accent-dark); color: white;
+    padding: 10px 14px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+  .sticky-grid {
+    max-width: 980px; margin: 0 auto;
+    display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr 1fr;
+    gap: 14px; align-items: center;
+  }
+  .sticky-cell {
+    text-align: left; line-height: 1.15; padding-left: 10px;
+    border-left: 1px solid rgba(255,255,255,0.2);
+  }
+  .sticky-cell:first-child { border-left: none; padding-left: 0; }
+  .sticky-label {
+    font-family: var(--mono); font-size: 9px; letter-spacing: 0.1em;
+    text-transform: uppercase; color: rgba(255,255,255,0.6);
+    font-weight: 700; display: block; margin-bottom: 3px;
+  }
+  .sticky-value {
+    font-size: 19px; font-weight: 700; color: #b3e5c7;
+    letter-spacing: -0.01em; line-height: 1;
+  }
+  .sticky-value.main { font-size: 22px; color: white; }
+  .sticky-value .decimals { font-size: 0.65em; opacity: 0.85; font-weight: 600; }
+  .sticky-value .unit { font-size: 0.6em; opacity: 0.85; font-weight: 600; margin-left: 1px; }
+
+  /* ========== CONTAINER ========== */
+  .wrap { max-width: 980px; margin: 0 auto; padding: 24px 16px 60px; }
+
+  /* ========== DEMO BANNER ========== */
+  .demo-banner {
+    background: var(--gold-bg);
+    border: 1px solid var(--gold);
+    border-left: 3px solid var(--gold);
+    padding: 12px 18px;
+    margin-bottom: 14px;
+    font-size: 13px; line-height: 1.55;
+    border-radius: 4px;
+  }
+  .demo-banner strong { color: var(--accent-dark); }
+  .demo-banner .demo-label {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--gold); font-weight: 700;
+    margin-bottom: 4px; display: block;
+  }
+
+  /* ========== DOC HEADER ========== */
+  .doc-header {
+    background: white; padding: 20px 22px; margin-bottom: 14px;
+    border: 1px solid var(--excel-grid);
+    display: flex; justify-content: space-between; align-items: baseline;
+  }
+  .doc-title { font-size: 22px; font-weight: 700; color: var(--accent-dark); margin: 0; font-family: var(--serif); letter-spacing: -0.01em; }
+  .doc-meta {
+    font-family: var(--mono); font-size: 11px;
+    color: var(--excel-muted); letter-spacing: 0.04em;
+    text-align: right;
+  }
+
+  /* ========== PARAMETER PANEL ========== */
+  .params {
+    background: white; padding: 18px 22px; margin-bottom: 18px;
+    border: 1px solid var(--excel-grid);
+    border-top: 3px solid var(--accent);
+  }
+  .params-header {
+    display: flex; justify-content: space-between;
+    align-items: baseline; margin-bottom: 14px;
+  }
+  .params-title {
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--accent); font-weight: 700;
+  }
+  .params-hint {
+    font-size: 12px; color: var(--excel-muted);
+    font-style: italic;
+  }
+  .params-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
+  }
+  .param-group label {
+    display: block; font-family: var(--mono);
+    font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--excel-muted); font-weight: 700; margin-bottom: 4px;
+  }
+  .param-group select,
+  .param-group input[type="range"] {
+    width: 100%; padding: 7px 10px;
+    border: 1px solid var(--excel-grid);
+    border-radius: 4px; font-size: 13px;
+    background: white; color: var(--excel-text);
+    font-family: var(--sans);
+  }
+  .param-group select:focus {
+    outline: none; border-color: var(--accent);
+    box-shadow: 0 0 0 2px rgba(30, 77, 107, 0.12);
+  }
+  .param-group .range-wrap {
+    display: flex; align-items: center; gap: 8px;
+  }
+  .param-group .range-value {
+    font-family: var(--mono); font-size: 12px;
+    font-weight: 700; color: var(--accent);
+    min-width: 50px; text-align: right;
+  }
+  .param-group input[type="range"] { padding: 0; height: 6px; cursor: pointer; }
+  .param-hint {
+    margin-top: 6px;
+    padding-top: 5px;
+    border-top: 1px dashed var(--excel-grid);
+    display: flex; justify-content: space-between; align-items: baseline;
+    font-family: var(--mono); font-size: 10px;
+    color: var(--excel-muted); letter-spacing: 0.02em;
+    line-height: 1.4;
+  }
+  .param-hint-value {
+    color: var(--green); font-weight: 700;
+    white-space: nowrap;
+  }
+
+  /* ========== EXPLANATION ========== */
+  .explainer {
+    background: white; padding: 14px 18px;
+    border: 1px solid var(--excel-grid);
+    border-left: 3px solid var(--accent);
+    margin-bottom: 18px;
+    font-size: 13px; line-height: 1.65;
+  }
+  .explainer h4 {
+    margin: 0 0 6px; font-family: var(--mono); font-size: 10px;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent);
+    font-weight: 700;
+  }
+  .explainer p { margin: 0; color: var(--excel-text); }
+
+  /* ========== EXCEL TABEL ========== */
+  .excel-block {
+    background: white;
+    border: 1px solid var(--excel-grid-strong);
+    margin-bottom: 18px;
+    overflow: auto;
+  }
+  .excel-block-title {
+    background: var(--excel-header-bg);
+    border-bottom: 1px solid var(--excel-grid-strong);
+    padding: 8px 12px;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--excel-header-text); font-weight: 700;
+    display: flex; justify-content: space-between; align-items: baseline;
+  }
+  .excel-block-title .sub {
+    font-size: 10px; letter-spacing: 0.05em; color: var(--excel-muted);
+    text-transform: none; font-weight: 600;
+  }
+
+  table.excel {
+    width: 100%;
+    border-collapse: collapse;
+    font-variant-numeric: tabular-nums;
+    font-family: var(--sans);
+  }
+  table.excel th, table.excel td {
+    border: 1px solid var(--excel-grid);
+    padding: 7px 10px;
+    font-size: 13px;
+    text-align: right;
+    background: white;
+    color: var(--excel-text);
+  }
+  table.excel thead th {
+    background: var(--excel-header-bg);
+    color: var(--excel-header-text);
+    font-weight: 700; font-size: 11px;
+    letter-spacing: 0.05em; text-transform: uppercase;
+    text-align: center; padding: 8px 10px;
+    border-bottom: 1px solid var(--excel-grid-strong);
+  }
+  table.excel thead tr.col-letters th {
+    background: #f7f7f7; color: var(--excel-muted);
+    font-family: var(--mono); font-size: 10px;
+    font-weight: 600; text-transform: none;
+    padding: 4px 0; text-align: center;
+  }
+  table.excel tbody td.row-label {
+    background: var(--excel-row-header);
+    color: var(--excel-header-text);
+    font-weight: 700; text-align: left;
+    font-size: 12px; padding-left: 12px;
+    border-right: 1px solid var(--excel-grid-strong);
+    width: 150px;
+  }
+  table.excel tbody td.row-num {
+    background: #f7f7f7; color: var(--excel-muted);
+    font-family: var(--mono); font-size: 10px;
+    font-weight: 600; text-align: center;
+    width: 28px; padding: 0;
+    border-right: 1px solid var(--excel-grid);
+  }
+  tr.row-tco td { background: var(--excel-tco-bg); font-weight: 700; }
+  tr.row-tco td.row-label { background: #cfe0ee; }
+  tr.row-roi td { background: var(--excel-roi-bg); }
+  tr.row-roi td.row-label { background: #ddd0ee; }
+  tr.row-sub td {
+    background: #fafafa; font-size: 12px; color: var(--excel-muted);
+    padding-top: 5px; padding-bottom: 5px;
+  }
+  tr.row-sub td.row-label.sub-label {
+    background: #f3f4f6; font-weight: 600; color: var(--excel-muted);
+    padding-left: 22px; font-size: 11.5px;
+  }
+  tr.row-sub td.val-pos { background: #ecf6ef !important; color: #2d8a52; font-weight: 600; }
+  tr.row-sub td.val-neg { background: #faf0f0 !important; color: #b46464; font-weight: 600; }
+  tr.row-sub td.row-num { font-size: 9px; color: #b0b0b0; }
+  td.cell-formula {
+    font-family: var(--mono); font-size: 11.5px;
+    color: var(--excel-muted); text-align: center;
+  }
+  td.val-pos { color: var(--green); background: var(--green-bg) !important; font-weight: 700; }
+  td.val-neg { color: var(--red); background: var(--red-bg) !important; font-weight: 700; }
+  tr.row-tco td.val-pos { background: #d4ecd9 !important; }
+  tr.row-tco td.val-neg { background: #f5d3d3 !important; }
+  table.excel.cashflow td.cf-neg { background: var(--red-bg); color: var(--red); font-weight: 700; }
+  table.excel.cashflow td.cf-pos { background: var(--green-bg); color: var(--green); font-weight: 700; }
+  table.excel.cashflow td.cf-check { background: var(--green-strong-bg) !important; }
+
+  /* Animated update flash */
+  @keyframes flash {
+    0% { background-color: #fff3a8; }
+    100% { background-color: inherit; }
+  }
+  .updated { animation: flash 0.6s ease-out; }
+
+  /* ========== FOOTER NOTE ========== */
+  .footer-note {
+    background: white; padding: 14px 18px; margin-top: 18px;
+    border: 1px solid var(--excel-grid);
+    font-size: 12px; color: var(--excel-muted); line-height: 1.65;
+  }
+  .footer-note strong { color: var(--excel-text); }
+  .footer-note h4 {
+    margin: 0 0 6px; font-family: var(--mono); font-size: 10px;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent);
+    font-weight: 700;
+  }
+  .footer-note h4:not(:first-child) { margin-top: 12px; }
+  .footer-note ul { margin: 4px 0 0; padding-left: 18px; }
+
+  /* Back link */
+  .backlink {
+    display: inline-block;
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--accent); text-decoration: none;
+    margin-bottom: 14px;
+  }
+  .backlink:hover { color: var(--accent-dark); text-decoration: underline; }
+
+  /* ========== MATH BREAKDOWN ========== */
+  .math-block {
+    background: #fdfcf9;
+    border: 1px solid var(--excel-grid-strong);
+    margin-top: 24px; margin-bottom: 18px;
+  }
+  .math-block-header {
+    padding: 20px 22px;
+    background: linear-gradient(180deg, #f7f5f0 0%, #fdfcf9 100%);
+    border-bottom: 1px solid var(--excel-grid-strong);
+  }
+  .math-block-tag {
+    display: inline-block;
+    font-family: var(--mono); font-size: 10px;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--accent); font-weight: 700;
+    background: white; padding: 4px 10px;
+    border: 1px solid var(--excel-grid);
+    border-radius: 3px; margin-bottom: 8px;
+  }
+  .math-block h3 {
+    font-family: var(--serif); font-size: 22px;
+    margin: 4px 0 8px; color: var(--accent-dark);
+    letter-spacing: -0.01em;
+  }
+  .math-block p {
+    margin: 0; font-size: 13px; line-height: 1.55;
+    color: var(--excel-muted); max-width: 720px;
+  }
+  .math-section {
+    padding: 18px 22px;
+    border-bottom: 1px solid var(--excel-grid);
+    display: grid; grid-template-columns: 40px 1fr; gap: 14px;
+  }
+  .math-section:last-of-type { border-bottom: none; }
+  .math-section-num {
+    font-family: var(--mono); font-size: 14px; font-weight: 700;
+    color: var(--accent); letter-spacing: 0.04em;
+    padding-top: 2px;
+  }
+  .math-section-body h4 {
+    margin: 0 0 12px; font-family: var(--serif); font-size: 17px;
+    color: var(--accent-dark); letter-spacing: -0.01em;
+  }
+  .math-section-body p {
+    margin: 0 0 10px; font-size: 12.5px; line-height: 1.55;
+  }
+
+  /* Variables grid (§1 + §2) */
+  .math-grid {
+    background: white;
+    border: 1px solid var(--excel-grid);
+  }
+  .math-row {
+    display: grid; grid-template-columns: 60px 1fr 160px;
+    align-items: baseline;
+    padding: 7px 12px;
+    border-bottom: 1px solid #f0eee5;
+    font-family: var(--mono); font-size: 12px;
+  }
+  .math-row:last-child { border-bottom: none; }
+  .math-row:nth-child(even) { background: #fbfaf6; }
+  .math-var {
+    font-weight: 700; color: var(--accent);
+    font-size: 13px;
+  }
+  .math-eq { color: var(--excel-muted); font-family: var(--sans); font-size: 12px; }
+  .math-val {
+    text-align: right; font-weight: 700;
+    color: var(--excel-text);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Derivation blocks (§3-§8) */
+  .math-derive {
+    background: white;
+    border: 1px solid var(--excel-grid);
+  }
+  .math-formula {
+    padding: 9px 14px;
+    border-bottom: 1px solid #f0eee5;
+    display: grid; grid-template-columns: 1fr 1fr 1fr 180px;
+    gap: 12px; align-items: baseline;
+  }
+  .math-formula:last-child { border-bottom: none; }
+  .math-formula:nth-child(even) { background: #fbfaf6; }
+  .math-formula.highlight {
+    background: #f0f6fc !important;
+    border-left: 3px solid var(--accent);
+  }
+  .math-formula.highlight.green {
+    background: #ecf6ef !important;
+    border-left: 3px solid var(--green);
+  }
+  .math-label {
+    font-size: 11.5px; color: var(--excel-muted);
+    font-family: var(--sans);
+    line-height: 1.4;
+  }
+  .math-expr {
+    font-family: var(--mono); font-size: 12.5px;
+    color: var(--excel-text); font-weight: 700;
+    line-height: 1.4;
+  }
+  .math-expr sub { font-size: 0.75em; vertical-align: sub; }
+  .math-expr sup { font-size: 0.75em; vertical-align: super; }
+  .math-sub {
+    font-family: var(--mono); font-size: 11.5px;
+    color: var(--accent); font-style: normal;
+    line-height: 1.4;
+  }
+  .math-result {
+    text-align: right;
+    font-family: var(--mono); font-size: 13px; font-weight: 700;
+    color: var(--green);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  .math-formula.highlight .math-result { color: var(--accent-dark); font-size: 14px; }
+  .math-formula.highlight.green .math-result { color: var(--green); font-size: 14px; }
+
+  /* Disclaimer */
+  .math-disclaimer {
+    padding: 18px 22px;
+    background: #fef9ed;
+    border-top: 2px solid var(--gold);
+  }
+  .math-disclaimer h4 {
+    margin: 0 0 8px; font-family: var(--mono); font-size: 10px;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold);
+    font-weight: 700;
+  }
+  .math-disclaimer ul {
+    margin: 4px 0 0; padding-left: 18px;
+    font-size: 12px; line-height: 1.6;
+  }
+  .math-disclaimer li { margin-bottom: 4px; }
+  .math-disclaimer strong { color: var(--excel-text); }
+
+  /* Math mobile */
+  @media (max-width: 720px) {
+    .math-section { grid-template-columns: 1fr; gap: 6px; padding: 14px 16px; }
+    .math-section-num { font-size: 12px; }
+    .math-row { grid-template-columns: 50px 1fr 90px; padding: 6px 8px; font-size: 10.5px; }
+    .math-eq { font-size: 10.5px; }
+    .math-formula { grid-template-columns: 1fr; gap: 4px; padding: 10px 12px; }
+    .math-formula.highlight { border-left-width: 3px; }
+    .math-result { text-align: left; padding-top: 2px; }
+    .math-label { font-weight: 700; color: var(--excel-text); }
+    .math-expr { font-size: 11.5px; }
+    .math-sub { font-size: 10.5px; }
+  }
+  @media (max-width: 720px) {
+    body { font-size: 12px; }
+    .sticky-grid { grid-template-columns: 1.3fr 1fr 1fr 1fr 1fr; gap: 6px; }
+    .sticky-cell { padding-left: 6px; }
+    .sticky-label { font-size: 7.5px; letter-spacing: 0.05em; }
+    .sticky-value { font-size: 13.5px; }
+    .sticky-value.main { font-size: 15px; }
+    .doc-header { flex-direction: column; gap: 4px; align-items: flex-start; padding: 14px; }
+    .doc-title { font-size: 18px; }
+    .doc-meta { text-align: left; }
+    .demo-banner { padding: 10px 14px; font-size: 12px; }
+    .params-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .params { padding: 14px; }
+    .excel-block-title { padding: 6px 10px; font-size: 9.5px; flex-direction: column; gap: 2px; align-items: flex-start; }
+    table.excel th, table.excel td { padding: 5px 6px; font-size: 11.5px; }
+    table.excel thead th { font-size: 9.5px; padding: 6px 4px; }
+    table.excel tbody td.row-label { font-size: 10.5px; width: 88px; padding-left: 8px; }
+    table.excel tbody td.row-label.sub-label { font-size: 10px; padding-left: 14px; }
+    table.excel tbody td.row-num { width: 18px; font-size: 9px; }
+    td.cell-formula { font-size: 9.5px; }
+    .footer-note { padding: 12px; font-size: 11px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- STICKY BAR -->
+<div class="sticky-bar">
+  <div class="sticky-grid">
+    <div class="sticky-cell">
+      <span class="sticky-label">Fleet TCO benefit · lifetime</span>
+      <span class="sticky-value main" id="kpi-tco">€5<span class="decimals">.87</span><span class="unit"> M</span></span>
+    </div>
+    <div class="sticky-cell">
+      <span class="sticky-label">TCO Δ per truck</span>
+      <span class="sticky-value" id="kpi-truck">−€73<span class="unit">k</span></span>
+    </div>
+    <div class="sticky-cell">
+      <span class="sticky-label">Annualized return on delta</span>
+      <span class="sticky-value" id="kpi-roi-tot">11.9<span class="decimals">%</span></span>
+    </div>
+    <div class="sticky-cell">
+      <span class="sticky-label">ROI delta CAPEX</span>
+      <span class="sticky-value" id="kpi-roi-delta">54<span class="decimals">%</span></span>
+    </div>
+    <div class="sticky-cell">
+      <span class="sticky-label">Payback</span>
+      <span class="sticky-value" id="kpi-payback">4.5<span class="unit">y</span></span>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <a href="index.html" class="backlink">← Back to FleetForge home</a>
+
+  <!-- DEMO BANNER -->
+  <div class="demo-banner">
+    <span class="demo-label">Interactive demo · FleetForge AI</span>
+    <strong>This is a live example of what FleetForge generates for any European transport operator.</strong> Adjust the parameters below and watch the entire business case recalculate. In production, our AI engine pulls the inputs automatically from your ERP (Odoo, SAP), the grid operator's capacity database (Fluvius, Stedin, Elia), logistics property data (Montea, WDP, Prologis depot availability), and the EU subsidy registers. A CFO who spent 6-18 months on this analysis can now run dozens of scenarios in minutes.
+  </div>
+
+  <!-- DOC HEADER -->
+  <div class="doc-header">
+    <div>
+      <div class="doc-title">Fleet Electrification Business Case</div>
+      <div style="font-size: 13px; color: var(--excel-muted); margin-top: 4px;">Generic transport operator · diesel → electric truck transition</div>
+    </div>
+    <div class="doc-meta">
+      <div><strong>Generated by</strong> FleetForge AI</div>
+      <div>Sample output · May 2026</div>
+    </div>
+  </div>
+
+  <!-- PARAMETERS -->
+  <div class="params">
+    <div class="params-header">
+      <div class="params-title">Adjust parameters → tables recalculate live</div>
+      <div class="params-hint">try moving the sliders</div>
+    </div>
+    <div class="params-grid">
+      <div class="param-group">
+        <label for="p-trucks">Fleet size</label>
+        <select id="p-trucks">
+          <option value="20">20 trucks</option>
+          <option value="50">50 trucks</option>
+          <option value="80" selected>80 trucks</option>
+          <option value="100">100 trucks</option>
+          <option value="150">150 trucks</option>
+          <option value="200">200 trucks</option>
+        </select>
+      </div>
+      <div class="param-group">
+        <label for="p-years">Contract length</label>
+        <select id="p-years">
+          <option value="5">5 years</option>
+          <option value="7" selected>7 years</option>
+          <option value="10">10 years</option>
+        </select>
+      </div>
+      <div class="param-group">
+        <label for="p-truck-model">Electric truck</label>
+        <select id="p-truck-model">
+          <option value="windrose" selected>Windrose R700 (€198k)</option>
+          <option value="volvo">Volvo FH Electric (€275k)</option>
+          <option value="daimler">Daimler eActros 600 (€260k)</option>
+          <option value="daf">DAF XD Electric (€235k)</option>
+        </select>
+      </div>
+      <div class="param-group">
+        <label for="p-country">Operating country</label>
+        <select id="p-country">
+          <option value="BE" selected>Belgium</option>
+          <option value="NL">Netherlands</option>
+          <option value="DE">Germany</option>
+          <option value="FR">France</option>
+        </select>
+      </div>
+      <div class="param-group">
+        <label for="p-diesel">Diesel price at pump (€/L)</label>
+        <div class="range-wrap">
+          <input type="range" id="p-diesel" min="1.30" max="2.00" step="0.05" value="1.50">
+          <span class="range-value" id="p-diesel-val">€1.50</span>
+        </div>
+        <div class="param-hint">
+          <span>after €0.1913/L professional refund (BE 2026)</span>
+          <span class="param-hint-value" id="p-diesel-net">net: €1.31/L</span>
+        </div>
+      </div>
+      <div class="param-group">
+        <label for="p-power">Depot power price (€/kWh)</label>
+        <div class="range-wrap">
+          <input type="range" id="p-power" min="0.15" max="0.30" step="0.01" value="0.22">
+          <span class="range-value" id="p-power-val">€0.22</span>
+        </div>
+      </div>
+      <div class="param-group">
+        <label for="p-subsidy">Subsidy on infra (% — EU + national)</label>
+        <div class="range-wrap">
+          <input type="range" id="p-subsidy" min="0" max="70" step="5" value="30">
+          <span class="range-value" id="p-subsidy-val">30%</span>
+        </div>
+      </div>
+      <div class="param-group">
+        <label for="p-km">Annual km per truck</label>
+        <select id="p-km">
+          <option value="80000">80,000 km</option>
+          <option value="100000" selected>100,000 km</option>
+          <option value="120000">120,000 km</option>
+          <option value="150000">150,000 km</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXPLAINER 1 -->
+  <div class="explainer">
+    <h4>How to read this · CAPEX breakdown</h4>
+    <p id="expl-capex">The first table compares total cost of ownership between a diesel and electric fleet over your chosen contract period. <strong>CAPEX</strong> is split between trucks (the vehicles themselves) and charging infrastructure (chargers + grid connection + battery buffer if needed). For electric, infra cost is shown <em>after</em> the selected EU subsidy. <strong>Notice:</strong> electric CAPEX is significantly higher upfront, but OPEX savings over 7-10 years more than compensate.</p>
+  </div>
+
+  <!-- TABLE 1: FLEET -->
+  <div class="excel-block">
+    <div class="excel-block-title">
+      <span id="title-fleet">Fleet · 80 trucks · 7 years (€ million)</span>
+      <span class="sub">gross CAPEX · subsidies in OPEX</span>
+    </div>
+    <table class="excel">
+      <thead>
+        <tr class="col-letters"><th></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th></tr>
+        <tr>
+          <th></th><th></th>
+          <th>Diesel</th><th>Electric</th><th>Δ €</th><th>Δ %</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="row-num">1</td>
+          <td class="row-label">CAPEX</td>
+          <td id="c-d-capex">9.60</td>
+          <td id="c-e-capex">20.44</td>
+          <td class="val-neg" id="c-dlt-capex">+10.84</td>
+          <td class="val-neg" id="c-pct-capex">+113%</td>
+        </tr>
+        <tr class="row-sub">
+          <td class="row-num">1a</td>
+          <td class="row-label sub-label">└ Trucks</td>
+          <td id="c-d-trucks">9.60</td>
+          <td id="c-e-trucks">15.84</td>
+          <td class="val-neg" id="c-dlt-trucks">+6.24</td>
+          <td class="val-neg" id="c-pct-trucks">+65%</td>
+        </tr>
+        <tr class="row-sub">
+          <td class="row-num">1b</td>
+          <td class="row-label sub-label">└ Chargers (net of subsidy)</td>
+          <td>—</td>
+          <td id="c-e-chargers">4.60</td>
+          <td class="val-neg" id="c-dlt-chargers">+4.60</td>
+          <td class="val-neg">—</td>
+        </tr>
+        <tr>
+          <td class="row-num">2</td>
+          <td class="row-label">OPEX (lifetime)</td>
+          <td id="c-d-opex">31.87</td>
+          <td id="c-e-opex">15.16</td>
+          <td class="val-pos" id="c-dlt-opex">−16.71</td>
+          <td class="val-pos" id="c-pct-opex">−52%</td>
+        </tr>
+        <tr class="row-sub">
+          <td class="row-num">2a</td>
+          <td class="row-label sub-label">└ Energy</td>
+          <td id="c-d-energy">19.80</td>
+          <td id="c-e-energy">11.90</td>
+          <td class="val-pos" id="c-dlt-energy">−7.90</td>
+          <td class="val-pos" id="c-pct-energy">−40%</td>
+        </tr>
+        <tr class="row-sub">
+          <td class="row-num">2b</td>
+          <td class="row-label sub-label">└ Other (maintenance, tolls, insurance)</td>
+          <td id="c-d-other">12.07</td>
+          <td id="c-e-other">3.26</td>
+          <td class="val-pos" id="c-dlt-other">−8.81</td>
+          <td class="val-pos" id="c-pct-other">−73%</td>
+        </tr>
+        <tr class="row-tco">
+          <td class="row-num">3</td>
+          <td class="row-label">TCO total</td>
+          <td id="c-d-tco">41.47</td>
+          <td id="c-e-tco">35.60</td>
+          <td class="val-pos" id="c-dlt-tco">−5.87</td>
+          <td class="val-pos" id="c-pct-tco">−14%</td>
+        </tr>
+        <tr class="row-roi">
+          <td class="row-num">4</td>
+          <td class="row-label">ROI total CAPEX</td>
+          <td>—</td>
+          <td class="cell-formula" id="c-roi-tot-formula">=5.87 / 20.44</td>
+          <td>—</td>
+          <td class="val-pos" id="c-roi-tot">29%</td>
+        </tr>
+        <tr class="row-roi">
+          <td class="row-num">5</td>
+          <td class="row-label">ROI delta CAPEX</td>
+          <td>—</td>
+          <td>—</td>
+          <td class="cell-formula" id="c-roi-delta-formula">=5.87 / 10.84</td>
+          <td class="val-pos" id="c-roi-delta">54%</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- EXPLAINER 2 -->
+  <div class="explainer">
+    <h4>How to read this · per truck</h4>
+    <p id="expl-pertruck">Same numbers, divided by fleet size — useful for CFOs benchmarking against current per-vehicle costs. <strong>TCO delta per truck</strong> is the single most important figure for procurement decisions. <strong>ROI total</strong> measures return on the full CAPEX outlay (as if you were comparing this investment to bonds). <strong>ROI delta</strong> measures return on the <em>incremental</em> investment over diesel — typically much higher.</p>
+  </div>
+
+  <!-- TABLE 2: PER TRUCK -->
+  <div class="excel-block">
+    <div class="excel-block-title">
+      <span id="title-pertruck">Per truck (€k, 7 years)</span>
+    </div>
+    <table class="excel">
+      <thead>
+        <tr class="col-letters"><th></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th></tr>
+        <tr>
+          <th></th><th></th>
+          <th>Diesel</th><th>Electric</th><th>Δ €</th><th>Δ %</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="row-num">1</td>
+          <td class="row-label">CAPEX</td>
+          <td id="pt-d-capex">120</td>
+          <td id="pt-e-capex">255</td>
+          <td class="val-neg" id="pt-dlt-capex">+135</td>
+          <td class="val-neg" id="pt-pct-capex">+113%</td>
+        </tr>
+        <tr class="row-sub">
+          <td class="row-num">1a</td>
+          <td class="row-label sub-label">└ Trucks</td>
+          <td id="pt-d-trucks">120</td>
+          <td id="pt-e-trucks">198</td>
+          <td class="val-neg" id="pt-dlt-trucks">+78</td>
+          <td class="val-neg">+65%</td>
+        </tr>
+        <tr class="row-sub">
+          <td class="row-num">1b</td>
+          <td class="row-label sub-label">└ Chargers</td>
+          <td>—</td>
+          <td id="pt-e-chargers">57</td>
+          <td class="val-neg" id="pt-dlt-chargers">+57</td>
+          <td class="val-neg">—</td>
+        </tr>
+        <tr>
+          <td class="row-num">2</td>
+          <td class="row-label">OPEX (lifetime)</td>
+          <td id="pt-d-opex">398</td>
+          <td id="pt-e-opex">190</td>
+          <td class="val-pos" id="pt-dlt-opex">−209</td>
+          <td class="val-pos">−52%</td>
+        </tr>
+        <tr class="row-tco">
+          <td class="row-num">3</td>
+          <td class="row-label">TCO total</td>
+          <td id="pt-d-tco">518</td>
+          <td id="pt-e-tco">445</td>
+          <td class="val-pos" id="pt-dlt-tco">−73</td>
+          <td class="val-pos">−14%</td>
+        </tr>
+        <tr class="row-roi">
+          <td class="row-num">4</td>
+          <td class="row-label">ROI total CAPEX</td>
+          <td>—</td>
+          <td class="cell-formula" id="pt-roi-tot-formula">=73 / 255</td>
+          <td>—</td>
+          <td class="val-pos" id="pt-roi-tot">29%</td>
+        </tr>
+        <tr class="row-roi">
+          <td class="row-num">5</td>
+          <td class="row-label">ROI delta CAPEX</td>
+          <td>—</td>
+          <td>—</td>
+          <td class="cell-formula" id="pt-roi-delta-formula">=73 / 135</td>
+          <td class="val-pos" id="pt-roi-delta">54%</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- EXPLAINER 3 -->
+  <div class="explainer">
+    <h4>How to read this · cashflow over time</h4>
+    <p id="expl-cashflow">The negative CAPEX hits in year 0. From year 1, operational savings start flowing in. <strong>EU subsidies typically arrive in years 2-4</strong> as tax-deductible OPEX items, not as upfront CAPEX reduction (accounting reality). The infrastructure residual value is captured in the final year. <strong>Look for the ✓ — that is when cumulative cashflow turns positive (payback achieved).</strong> Note: this is nominal cashflow. Apply your own discount rate for NPV.</p>
+  </div>
+
+  <!-- TABLE 3: CASHFLOW -->
+  <div class="excel-block">
+    <div class="excel-block-title">
+      <span id="title-cashflow">Annual cashflow vs diesel (€ million)</span>
+      <span class="sub" id="title-cashflow-sub">payback in year 5 · realistic curves</span>
+    </div>
+    <table class="excel cashflow">
+      <thead>
+        <tr class="col-letters" id="cf-letters">
+          <th></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th><th>H</th>
+        </tr>
+        <tr id="cf-years">
+          <th></th><th>Y 0</th><th>Y 1</th><th>Y 2</th><th>Y 3</th><th>Y 4</th><th>Y 5</th><th>Y 6</th><th>Y 7</th>
+        </tr>
+      </thead>
+      <tbody id="cf-body">
+        <tr>
+          <td class="row-num">1</td>
+          <td class="row-label">Δ CAPEX</td>
+          <td class="cf-neg" id="cf-capex">−10.84</td>
+          <td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td>
+        </tr>
+        <tr>
+          <td class="row-num">2</td>
+          <td class="row-label">Δ OPEX</td>
+          <td>—</td>
+          <td class="cf-opex">+1.80</td>
+          <td class="cf-opex">+1.62</td>
+          <td class="cf-opex">+1.77</td>
+          <td class="cf-opex">+1.93</td>
+          <td class="cf-opex">+2.50</td>
+          <td class="cf-opex">+2.55</td>
+          <td class="cf-opex">+2.44</td>
+        </tr>
+        <tr>
+          <td class="row-num">3</td>
+          <td class="row-label">Subsidy</td>
+          <td>—</td>
+          <td>—</td>
+          <td class="cf-sub">+0.68</td>
+          <td class="cf-sub">+0.68</td>
+          <td class="cf-sub">+0.67</td>
+          <td>—</td><td>—</td><td>—</td>
+        </tr>
+        <tr>
+          <td class="row-num">4</td>
+          <td class="row-label">Residual value</td>
+          <td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td>
+          <td class="cf-res">+0.32</td>
+        </tr>
+        <tr class="row-tco">
+          <td class="row-num">5</td>
+          <td class="row-label">Net Δ per year</td>
+          <td class="cf-neg" id="cf-net-0">−10.84</td>
+          <td class="cf-pos" id="cf-net-1">+1.80</td>
+          <td class="cf-pos" id="cf-net-2">+2.30</td>
+          <td class="cf-pos" id="cf-net-3">+2.45</td>
+          <td class="cf-pos" id="cf-net-4">+2.60</td>
+          <td class="cf-pos" id="cf-net-5">+2.50</td>
+          <td class="cf-pos" id="cf-net-6">+2.55</td>
+          <td class="cf-pos" id="cf-net-7">+2.76</td>
+        </tr>
+        <tr class="row-roi">
+          <td class="row-num">6</td>
+          <td class="row-label">Cumulative</td>
+          <td class="cf-neg" id="cf-cum-0">−10.84</td>
+          <td class="cf-neg" id="cf-cum-1">−9.04</td>
+          <td class="cf-neg" id="cf-cum-2">−6.74</td>
+          <td class="cf-neg" id="cf-cum-3">−4.29</td>
+          <td class="cf-neg" id="cf-cum-4">−1.69</td>
+          <td class="cf-pos cf-check" id="cf-cum-5">+0.81 ✓</td>
+          <td class="cf-pos" id="cf-cum-6">+3.36</td>
+          <td class="cf-pos" id="cf-cum-7">+6.12</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- EXPLAINER 4 -->
+  <div class="explainer">
+    <h4>How to read this · investment benchmark</h4>
+    <p id="bench-explainer">The fleet investment is compared against alternative uses of the same capital over the same period. <strong>Risk-adjusted, the electric fleet typically outperforms savings accounts and government bonds</strong>, while being more conservative than public equities. It also generates strategic value (ESG reporting, customer retention via zero-emission contracts, fuel independence) not captured in this table.</p>
+  </div>
+
+  <!-- TABLE 4: BENCHMARK -->
+  <div class="excel-block">
+    <div class="excel-block-title">
+      <span id="title-bench">Alternative uses of €20.44M capital over 7 years</span>
+      <span class="sub">annualized return · risk · liquidity</span>
+    </div>
+    <table class="excel">
+      <thead>
+        <tr class="col-letters"><th></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th></tr>
+        <tr>
+          <th></th><th></th><th>Investment</th><th>Yield/yr</th><th>Risk</th><th id="bench-end-header">End year 7</th>
+        </tr>
+      </thead>
+      <tbody id="bench-body">
+        <!-- Rows are generated dynamically by JavaScript -->
+      </tbody>
+    </table>
+  </div>
+
+  <!-- MATH BREAKDOWN -->
+  <div class="math-block">
+    <div class="math-block-header">
+      <span class="math-block-tag">Full calculation · transparent · auditable</span>
+      <h3>Every number, every formula, every substitution.</h3>
+      <p>Below is the complete mathematical derivation behind the tables above. Every value substitutes the parameters you selected. Bank analysts and CFOs can audit each step. All formulas are live — they recalculate when you change any parameter.</p>
+    </div>
+
+    <!-- 1. INPUTS -->
+    <div class="math-section">
+      <div class="math-section-num">§1</div>
+      <div class="math-section-body">
+        <h4>Input parameters</h4>
+        <div class="math-grid">
+          <div class="math-row"><span class="math-var">N</span><span class="math-eq">= number of trucks</span><span class="math-val" id="m-N">80</span></div>
+          <div class="math-row"><span class="math-var">y</span><span class="math-eq">= contract length (years)</span><span class="math-val" id="m-y">7</span></div>
+          <div class="math-row"><span class="math-var">P<sub>e</sub></span><span class="math-eq">= electric truck price (€k)</span><span class="math-val" id="m-Pe">198</span></div>
+          <div class="math-row"><span class="math-var">P<sub>d</sub></span><span class="math-eq">= diesel pump price (€/L)</span><span class="math-val" id="m-Pd">1.50</span></div>
+          <div class="math-row"><span class="math-var">R<sub>d</sub></span><span class="math-eq">= professional diesel refund (€/L, BE 2026)</span><span class="math-val">0.1913</span></div>
+          <div class="math-row"><span class="math-var">P<sub>k</sub></span><span class="math-eq">= depot power price (€/kWh)</span><span class="math-val" id="m-Pk">0.22</span></div>
+          <div class="math-row"><span class="math-var">s</span><span class="math-eq">= subsidy on infra (%)</span><span class="math-val" id="m-s">30</span></div>
+          <div class="math-row"><span class="math-var">k</span><span class="math-eq">= annual km per truck</span><span class="math-val" id="m-k">100,000</span></div>
+          <div class="math-row"><span class="math-var">f<sub>t</sub></span><span class="math-eq">= country toll factor</span><span class="math-val" id="m-ft">1.00</span></div>
+          <div class="math-row"><span class="math-var">f<sub>d</sub></span><span class="math-eq">= country diesel tax factor</span><span class="math-val" id="m-fd">1.00</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. FIXED ASSUMPTIONS -->
+    <div class="math-section">
+      <div class="math-section-num">§2</div>
+      <div class="math-section-body">
+        <h4>Fixed engineering assumptions</h4>
+        <div class="math-grid">
+          <div class="math-row"><span class="math-var">L<sub>d</sub></span><span class="math-eq">= diesel consumption</span><span class="math-val">30 L / 100 km</span></div>
+          <div class="math-row"><span class="math-var">L<sub>e</sub></span><span class="math-eq">= electric consumption</span><span class="math-val">1.1 kWh / km</span></div>
+          <div class="math-row"><span class="math-var">P<sub>0</sub></span><span class="math-eq">= diesel truck price</span><span class="math-val">€120k</span></div>
+          <div class="math-row"><span class="math-var">C<sub>g</sub></span><span class="math-eq">= charger CAPEX per truck (gross)</span><span class="math-val">€57k</span></div>
+          <div class="math-row"><span class="math-var">O<sub>d</sub></span><span class="math-eq">= diesel "other" OPEX per truck (7-year base)</span><span class="math-val">€151k</span></div>
+          <div class="math-row"><span class="math-var">O<sub>e</sub></span><span class="math-eq">= electric "other" OPEX per truck (7-year base)</span><span class="math-val">€41k</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. DIESEL TCO -->
+    <div class="math-section">
+      <div class="math-section-num">§3</div>
+      <div class="math-section-body">
+        <h4>Diesel fleet TCO</h4>
+
+        <div class="math-derive">
+          <div class="math-formula">
+            <div class="math-label">CAPEX</div>
+            <div class="math-expr">CAPEX<sub>d</sub> = P<sub>0</sub> × N</div>
+            <div class="math-sub" id="m-d-capex-sub">= 0.120 × 80</div>
+            <div class="math-result" id="m-d-capex">= €9.60 M</div>
+          </div>
+          <div class="math-formula">
+            <div class="math-label">Net diesel price</div>
+            <div class="math-expr">P<sub>d,net</sub> = max(0, P<sub>d</sub> − R<sub>d</sub>)</div>
+            <div class="math-sub" id="m-d-pnet-sub">= max(0, 1.50 − 0.1913)</div>
+            <div class="math-result" id="m-d-pnet">= €1.31 / L</div>
+          </div>
+          <div class="math-formula">
+            <div class="math-label">Energy OPEX (lifetime)</div>
+            <div class="math-expr">E<sub>d</sub> = (k × L<sub>d</sub> / 100) × P<sub>d,net</sub> × f<sub>d</sub> × y × N</div>
+            <div class="math-sub" id="m-d-energy-sub">= (100,000 × 30 / 100) × 1.31 × 1.00 × 7 × 80 / 1,000,000</div>
+            <div class="math-result" id="m-d-energy">= €22.00 M</div>
+          </div>
+          <div class="math-formula">
+            <div class="math-label">Other OPEX (maintenance, tolls, insurance, AdBlue − residual)</div>
+            <div class="math-expr">X<sub>d</sub> = O<sub>d</sub> × (y / 7) × f<sub>t</sub> × N</div>
+            <div class="math-sub" id="m-d-other-sub">= 0.151 × (7 / 7) × 1.00 × 80</div>
+            <div class="math-result" id="m-d-other">= €12.08 M</div>
+          </div>
+          <div class="math-formula highlight">
+            <div class="math-label">Total OPEX</div>
+            <div class="math-expr">OPEX<sub>d</sub> = E<sub>d</sub> + X<sub>d</sub></div>
+            <div class="math-sub" id="m-d-opex-sub">= 22.00 + 12.08</div>
+            <div class="math-result" id="m-d-opex">= €34.08 M</div>
+          </div>
+          <div class="math-formula highlight">
+            <div class="math-label">Total TCO diesel</div>
+            <div class="math-expr">TCO<sub>d</sub> = CAPEX<sub>d</sub> + OPEX<sub>d</sub></div>
+            <div class="math-sub" id="m-d-tco-sub">= 9.60 + 34.08</div>
+            <div class="math-result" id="m-d-tco">= €43.68 M</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. ELECTRIC TCO -->
+    <div class="math-section">
+      <div class="math-section-num">§4</div>
+      <div class="math-section-body">
+        <h4>Electric fleet TCO</h4>
+
+        <div class="math-derive">
+          <div class="math-formula">
+            <div class="math-label">Trucks CAPEX</div>
+            <div class="math-expr">CAPEX<sub>e,t</sub> = (P<sub>e</sub> / 1000) × N</div>
+            <div class="math-sub" id="m-e-trucks-sub">= (198 / 1000) × 80</div>
+            <div class="math-result" id="m-e-trucks">= €15.84 M</div>
+          </div>
+          <div class="math-formula">
+            <div class="math-label">Chargers CAPEX (gross)</div>
+            <div class="math-expr">CAPEX<sub>e,c,gross</sub> = C<sub>g</sub> × N</div>
+            <div class="math-sub" id="m-e-cgross-sub">= 0.057 × 80</div>
+            <div class="math-result" id="m-e-cgross">= €4.56 M</div>
+          </div>
+          <div class="math-formula">
+            <div class="math-label">Chargers CAPEX (net of subsidy)</div>
+            <div class="math-expr">CAPEX<sub>e,c</sub> = CAPEX<sub>e,c,gross</sub> × (1 − s/100)</div>
+            <div class="math-sub" id="m-e-cnet-sub">= 4.56 × (1 − 30/100) = 4.56 × 0.70</div>
+            <div class="math-result" id="m-e-cnet">= €3.19 M</div>
+          </div>
+          <div class="math-formula highlight">
+            <div class="math-label">Total CAPEX electric</div>
+            <div class="math-expr">CAPEX<sub>e</sub> = CAPEX<sub>e,t</sub> + CAPEX<sub>e,c</sub></div>
+            <div class="math-sub" id="m-e-capex-sub">= 15.84 + 3.19</div>
+            <div class="math-result" id="m-e-capex">= €19.03 M</div>
+          </div>
+          <div class="math-formula">
+            <div class="math-label">Energy OPEX (lifetime)</div>
+            <div class="math-expr">E<sub>e</sub> = (k × L<sub>e</sub>) × P<sub>k</sub> × y × N</div>
+            <div class="math-sub" id="m-e-energy-sub">= (100,000 × 1.1) × 0.22 × 7 × 80 / 1,000,000</div>
+            <div class="math-result" id="m-e-energy">= €13.55 M</div>
+          </div>
+          <div class="math-formula">
+            <div class="math-label">Other OPEX (lower maintenance, toll-free, no AdBlue, lower insurance)</div>
+            <div class="math-expr">X<sub>e</sub> = O<sub>e</sub> × (y / 7) × N</div>
+            <div class="math-sub" id="m-e-other-sub">= 0.041 × (7 / 7) × 80</div>
+            <div class="math-result" id="m-e-other">= €3.28 M</div>
+          </div>
+          <div class="math-formula highlight">
+            <div class="math-label">Total OPEX</div>
+            <div class="math-expr">OPEX<sub>e</sub> = E<sub>e</sub> + X<sub>e</sub></div>
+            <div class="math-sub" id="m-e-opex-sub">= 13.55 + 3.28</div>
+            <div class="math-result" id="m-e-opex">= €16.83 M</div>
+          </div>
+          <div class="math-formula highlight">
+            <div class="math-label">Total TCO electric</div>
+            <div class="math-expr">TCO<sub>e</sub> = CAPEX<sub>e</sub> + OPEX<sub>e</sub></div>
+            <div class="math-sub" id="m-e-tco-sub">= 19.03 + 16.83</div>
+            <div class="math-result" id="m-e-tco">= €35.86 M</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. SAVINGS + ROI -->
+    <div class="math-section">
+      <div class="math-section-num">§5</div>
+      <div class="math-section-body">
+        <h4>TCO savings &amp; ROI</h4>
+
+        <div class="math-derive">
+          <div class="math-formula">
+            <div class="math-label">CAPEX delta (extra investment vs diesel)</div>
+            <div class="math-expr">ΔCAPEX = CAPEX<sub>e</sub> − CAPEX<sub>d</sub></div>
+            <div class="math-sub" id="m-dCapex-sub">= 19.03 − 9.60</div>
+            <div class="math-result" id="m-dCapex">= €9.43 M</div>
+          </div>
+          <div class="math-formula">
+            <div class="math-label">OPEX savings over lifetime</div>
+            <div class="math-expr">ΔOPEX = OPEX<sub>d</sub> − OPEX<sub>e</sub></div>
+            <div class="math-sub" id="m-dOpex-sub">= 34.08 − 16.83</div>
+            <div class="math-result" id="m-dOpex">= €17.25 M</div>
+          </div>
+          <div class="math-formula highlight green">
+            <div class="math-label">Net TCO savings (the headline number)</div>
+            <div class="math-expr">S = TCO<sub>d</sub> − TCO<sub>e</sub> = ΔOPEX − ΔCAPEX</div>
+            <div class="math-sub" id="m-S-sub">= 43.68 − 35.86 = 17.25 − 9.43</div>
+            <div class="math-result" id="m-S">= €7.82 M</div>
+          </div>
+          <div class="math-formula">
+            <div class="math-label">ROI on total CAPEX (lifetime)</div>
+            <div class="math-expr">ROI<sub>tot</sub> = S / CAPEX<sub>e</sub></div>
+            <div class="math-sub" id="m-roiTot-sub">= 7.82 / 19.03</div>
+            <div class="math-result" id="m-roiTot">= 41%</div>
+          </div>
+          <div class="math-formula">
+            <div class="math-label">ROI on incremental investment (vs sunk diesel cost)</div>
+            <div class="math-expr">ROI<sub>Δ</sub> = S / ΔCAPEX</div>
+            <div class="math-sub" id="m-roiDelta-sub">= 7.82 / 9.43</div>
+            <div class="math-result" id="m-roiDelta">= 83%</div>
+          </div>
+          <div class="math-formula">
+            <div class="math-label">Annualized yield on total CAPEX (linear, not compound)</div>
+            <div class="math-expr">r<sub>tot</sub> = ROI<sub>tot</sub> / y</div>
+            <div class="math-sub" id="m-rTot-sub">= 41% / 7</div>
+            <div class="math-result" id="m-rTot">= 5.9% / yr</div>
+          </div>
+          <div class="math-formula">
+            <div class="math-label">Average annual OPEX saving</div>
+            <div class="math-expr">ΔOPEX<sub>/yr</sub> = ΔOPEX / y</div>
+            <div class="math-sub" id="m-opexYr-sub">= 17.25 / 7</div>
+            <div class="math-result" id="m-opexYr">= €2.46 M / yr</div>
+          </div>
+          <div class="math-formula highlight green">
+            <div class="math-label">Payback period (linear approximation)</div>
+            <div class="math-expr">T<sub>p</sub> = ΔCAPEX / ΔOPEX<sub>/yr</sub></div>
+            <div class="math-sub" id="m-pb-sub">= 9.43 / 2.46</div>
+            <div class="math-result" id="m-pb">= 3.83 years</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. PER TRUCK -->
+    <div class="math-section">
+      <div class="math-section-num">§6</div>
+      <div class="math-section-body">
+        <h4>Per truck</h4>
+        <div class="math-derive">
+          <div class="math-formula">
+            <div class="math-label">TCO savings per truck</div>
+            <div class="math-expr">S<sub>/truck</sub> = S × 1000 / N</div>
+            <div class="math-sub" id="m-Spt-sub">= 7.82 × 1000 / 80</div>
+            <div class="math-result" id="m-Spt">= €97.8k / truck</div>
+          </div>
+          <div class="math-formula">
+            <div class="math-label">Incremental CAPEX per truck</div>
+            <div class="math-expr">ΔCAPEX<sub>/truck</sub> = ΔCAPEX × 1000 / N</div>
+            <div class="math-sub" id="m-dCapexpt-sub">= 9.43 × 1000 / 80</div>
+            <div class="math-result" id="m-dCapexpt">= €117.9k / truck</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. CASHFLOW LOGIC -->
+    <div class="math-section">
+      <div class="math-section-num">§7</div>
+      <div class="math-section-body">
+        <h4>Cashflow distribution over years</h4>
+        <p>The annual cashflow table uses a realistic <em>growing</em> OPEX-saving curve, not a flat line. Maintenance gap widens over time (diesel grows €4.8k → €15.5k/yr, electric stays €2.2k → €6.8k/yr), so savings grow proportionally.</p>
+        <div class="math-derive">
+          <div class="math-formula">
+            <div class="math-label">Year-t OPEX saving (growing linear factor)</div>
+            <div class="math-expr">ΔOPEX<sub>t</sub> = (ΔOPEX / y) × [0.75 + 0.40 × (t−1)/(y−1)]</div>
+            <div class="math-sub">→ factor ranges from 0.75 (year 1) to 1.15 (year y), normalized so sum equals ΔOPEX</div>
+          </div>
+          <div class="math-formula">
+            <div class="math-label">EU subsidy distribution (years 2-4)</div>
+            <div class="math-expr">Subsidy<sub>total</sub> = CAPEX<sub>e,c,gross</sub> × s/100</div>
+            <div class="math-sub" id="m-subtot-sub">= 4.56 × 30/100</div>
+            <div class="math-result" id="m-subtot">= €1.37 M</div>
+          </div>
+          <div class="math-formula">
+            <div class="math-label">Subsidy split (years 2, 3, 4)</div>
+            <div class="math-expr">Y2: 34% · Y3: 33% · Y4: 33%</div>
+            <div class="math-sub">Matches AFIF + VLAIO disbursement timing (post-installation milestones)</div>
+          </div>
+          <div class="math-formula">
+            <div class="math-label">Cumulative cashflow</div>
+            <div class="math-expr">Cum<sub>t</sub> = Cum<sub>t-1</sub> + ΔOPEX<sub>t</sub> + Subsidy<sub>t</sub> + Residual<sub>t</sub></div>
+            <div class="math-sub">Cum<sub>0</sub> = −ΔCAPEX. Payback ✓ marked at first positive year.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8. BENCHMARK -->
+    <div class="math-section">
+      <div class="math-section-num">§8</div>
+      <div class="math-section-body">
+        <h4>Investment benchmark (compound interest)</h4>
+        <p>Each passive investment alternative is compounded annually on the same capital (CAPEX<sub>e</sub>) over the contract length. The fleet line uses actual TCO savings, not compound — it represents real cashflow benefit, not return on principal.</p>
+        <div class="math-derive">
+          <div class="math-formula">
+            <div class="math-label">Passive investment value at year y</div>
+            <div class="math-expr">V<sub>i</sub> = CAPEX<sub>e</sub> × [(1 + r<sub>i</sub>/100)<sup>y</sup> − 1]</div>
+            <div class="math-sub">where r<sub>i</sub> = yield% per investment (2.3% cash, 3.2% bond, 5.0% BBB, 5.5% Euro Stoxx, 7.5% MSCI World, 10% S&amp;P 500)</div>
+          </div>
+          <div class="math-formula">
+            <div class="math-label">Fleet value at year y</div>
+            <div class="math-expr">V<sub>fleet</sub> = S</div>
+            <div class="math-sub" id="m-Vfleet-sub">= 7.82</div>
+            <div class="math-result" id="m-Vfleet">= €7.82 M</div>
+          </div>
+          <div class="math-formula">
+            <div class="math-label">Implied annualized fleet yield (used for sort ranking)</div>
+            <div class="math-expr">r<sub>fleet</sub> = ROI<sub>tot</sub> / y</div>
+            <div class="math-sub" id="m-rFleet-sub">= 41% / 7</div>
+            <div class="math-result" id="m-rFleet">= 5.9% / yr</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LIMITATIONS -->
+    <div class="math-disclaimer">
+      <h4>Mathematical caveats &amp; honest limitations</h4>
+      <ul>
+        <li><strong>Linear payback:</strong> we use a simple linear approximation ΔCAPEX / avg yearly saving. Real payback uses the cumulative cashflow row in the cashflow table (which respects the growing-savings curve and subsidy timing). The two differ by ±0.5 year typically.</li>
+        <li><strong>No NPV / discounting:</strong> all values are nominal. To convert to NPV, apply discount rate <em>d</em> per year: NPV = Σ CF<sub>t</sub> / (1+d)<sup>t</sup>. At d=5%, lifetime savings drop ~15%. At d=8%, ~22%.</li>
+        <li><strong>Inflation:</strong> not modeled. Diesel and electricity prices are held constant over the contract. In practice diesel typically rises faster than electricity (especially with EU ETS-2 from 2027), so this <em>understates</em> the electric advantage.</li>
+        <li><strong>Battery degradation:</strong> we assume linear capacity over the contract. Real LFP cells lose 10-15% over 7 years; affects residual value but not OPEX.</li>
+        <li><strong>Public charging:</strong> excluded. If &gt;10% of mileage requires Milence-style charging (€0.46/kWh), the case weakens by €0.5-1.5M per fleet per year.</li>
+        <li><strong>Annualized fleet yield:</strong> simple linear (ROI / years), not compound IRR. Compound IRR would be slightly higher because savings come progressively, not lump-sum.</li>
+        <li><strong>Country factor:</strong> applies only to "other" OPEX (tolls) and diesel taxation. Energy prices, subsidy rates, and labor differ further across BE/NL/DE/FR but are not modeled here.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- FOOTER NOTE -->
+  <div class="footer-note">
+    <h4>What FleetForge actually does</h4>
+    <p>This demo runs in your browser using JavaScript and hardcoded formulas. In production, FleetForge connects to your ERP (Odoo, SAP), pulls real-time data from grid operators (Fluvius, Stedin, Elia), checks live EU subsidy availability (AFIF, CEF-T, VLAIO), validates with our banking partners (BNP Paribas Fortis Leasing, Belfius), coordinates with logistics property owners (Montea, WDP, Prologis, Goodman, Intervest) on depot retrofits, and generates a fully bankable proposal in PDF format ready for board approval. Our AI engine (Claude, GPT-5, Gemini) handles the analytical complexity. A human (our AI Operations Lead) validates every output before delivery.</p>
+
+    <h4>Why these numbers are realistic</h4>
+    <ul>
+      <li><strong>Annual km:</strong> 100,000 km/year is typical for heavy-duty regional transport. Long-haul reaches 150,000+ km/year.</li>
+      <li><strong>Gross CAPEX:</strong> we use gross (no upfront subsidy deduction). Subsidies appear as tax-deductible OPEX in years 2-4. This matches accounting reality.</li>
+      <li><strong>Maintenance curve:</strong> realistic — diesel grows €4.8k → €15.5k/yr over lifetime; electric stays €2.2k → €6.8k/yr (LFP battery + regenerative braking).</li>
+      <li><strong>Tolls:</strong> BE/NL/DE heavy goods toll — zero-emission trucks remain exempt until 2031.</li>
+      <li><strong>Public charging:</strong> NOT included. Public MCS charging (Milence €0.46/kWh) is not cost-competitive vs diesel. Business case assumes 90%+ depot charging.</li>
+      <li><strong>Residual value:</strong> electric truck €30k, infrastructure €0.78M, captured in year 7.</li>
+      <li><strong>Diesel price (pump vs. net):</strong> the slider shows the pump price you see at the station. For commercial fleets &gt; 7.5 t, Belgium refunds €0.1913/L excise duty in 2026 (down from €0.1924 in 2025, €0.1935 in 2024 — the scheme is gradually phased out). Our calculations use the net price after refund. NL, DE, FR have different schemes; this demo uses the BE rate as baseline.</li>
+      <li><strong>Subsidy range:</strong> EU AFIF caps at 50% of eligible infra costs (70% in outermost regions, for chargers ≥1MW). Stacked with Flemish Ecologiepremie+ (24-32% on trucks), VLIF/EP+ (up to 40% on battery storage), or Dutch SPULA (~20% on public charging) you reach 50-70% combined. Above 70% requires individual state-aid notification.</li>
+    </ul>
+
+    <h4>Sensitivities you can test</h4>
+    <ul>
+      <li>Move <strong>diesel price</strong> up: the case improves dramatically (every €0.10/L extra typically adds €3-5M in savings on a medium fleet over the contract period).</li>
+      <li>Move <strong>depot power price</strong> down: a long-term PPA at €0.14/kWh can add €2-3M+ to the case.</li>
+      <li>Increase <strong>subsidy</strong>: each 10% subsidy increase typically shifts ROI delta by 8-12 percentage points.</li>
+      <li>Extend the <strong>contract length</strong>: each extra year compounds the OPEX advantage. LFP batteries support 10+ year lifetimes.</li>
+      <li>Try <strong>different truck models</strong>: lower CAPEX directly improves ROI.</li>
+      <li>Change <strong>annual km</strong>: higher mileage means more fuel saved per year — energy-intensive fleets benefit most.</li>
+    </ul>
+  </div>
+
+</div>
+
+<script>
+(function() {
+  // === ELEMENTS ===
+  const $ = id => document.getElementById(id);
+  const elTrucks = $('p-trucks');
+  const elYears = $('p-years');
+  const elTruckModel = $('p-truck-model');
+  const elCountry = $('p-country');
+  const elDiesel = $('p-diesel');
+  const elPower = $('p-power');
+  const elSubsidy = $('p-subsidy');
+  const elKm = $('p-km');
+
+  // === ELECTRIC TRUCK PRICES (€k) ===
+  const TRUCK_PRICES = {
+    windrose: 198,
+    volvo: 275,
+    daimler: 260,
+    daf: 235
+  };
+
+  // === DIESEL EXCISE REFUND (professional, BE 2026) ===
+  // EUR per liter refunded to heavy-duty operators (trucks > 7.5t)
+  // Source: Belgian Customs & Excise, professional diesel scheme
+  // Trend is downward: 2024 €0.1935 → 2025 €0.1924 → 2026 €0.1913
+  const DIESEL_REFUND_PER_L = 0.1913;
+
+  // === COUNTRY ADJUSTMENT FACTORS ===
+  // These adjust regional differences (e.g., tolls, energy prices baseline)
+  const COUNTRY_FACTOR = {
+    BE: { tollFactor: 1.0, dieselTax: 1.0 },
+    NL: { tollFactor: 1.15, dieselTax: 1.05 },
+    DE: { tollFactor: 1.25, dieselTax: 0.95 },
+    FR: { tollFactor: 0.85, dieselTax: 0.9 }
+  };
+
+  // === MAIN CALCULATION ===
+  function calculate() {
+    const trucks = parseInt(elTrucks.value);
+    const years = parseInt(elYears.value);
+    const truckPriceK = TRUCK_PRICES[elTruckModel.value]; // €k per truck
+    const country = elCountry.value;
+    const dieselPrice = parseFloat(elDiesel.value); // €/L pump price
+    const dieselPriceNet = Math.max(0, dieselPrice - DIESEL_REFUND_PER_L); // after professional refund
+    const powerPrice = parseFloat(elPower.value); // €/kWh
+    const subsidyPct = parseInt(elSubsidy.value); // %
+    const kmPerYear = parseInt(elKm.value);
+
+    const ctry = COUNTRY_FACTOR[country];
+
+    // === DIESEL ===
+    // Diesel truck price: €120k flat
+    const dCapexTrucks = 0.120 * trucks; // €M
+    const dCapex = dCapexTrucks;
+
+    // Diesel energy: 30 L/100km · NET diesel price (after professional refund) · country tax factor
+    const dieselLPer100 = 30;
+    const dEnergyPerTruck = (kmPerYear * dieselLPer100 / 100) * dieselPriceNet * ctry.dieselTax * years / 1000000; // M per truck
+    const dEnergy = dEnergyPerTruck * trucks;
+
+    // Diesel "other" OPEX: maintenance + tolls + insurance + adblue − residual
+    // Base €151k per truck over 7y from earlier model · scaled
+    const dOtherPerTruckYr7 = 0.151; // €M per truck over 7y baseline
+    const dOther = dOtherPerTruckYr7 * (years / 7) * ctry.tollFactor * trucks;
+
+    const dOpex = dEnergy + dOther;
+    const dTco = dCapex + dOpex;
+
+    // === ELECTRIC ===
+    // Truck CAPEX based on selection
+    const eCapexTrucks = (truckPriceK / 1000) * trucks; // €M
+
+    // Charger CAPEX: €57k per truck gross
+    const eChargersGross = 0.057 * trucks; // €M
+    const eChargers = eChargersGross * (1 - subsidyPct / 100); // net of subsidy
+
+    const eCapex = eCapexTrucks + eChargers;
+
+    // Electric energy: 1.1 kWh/km
+    const eKwhPerKm = 1.1;
+    const eEnergyPerTruck = (kmPerYear * eKwhPerKm) * powerPrice * years / 1000000; // M per truck
+    const eEnergy = eEnergyPerTruck * trucks;
+
+    // Electric "other" OPEX: lower maintenance, lower insurance, toll-free, no AdBlue
+    // Base €41k per truck over 7y from earlier model · scaled
+    // No toll factor applies since ZE-trucks are toll-exempt
+    const eOtherPerTruckYr7 = 0.041; // €M per truck over 7y
+    const eOther = eOtherPerTruckYr7 * (years / 7) * trucks;
+
+    const eOpex = eEnergy + eOther;
+    const eTco = eCapex + eOpex;
+
+    // === DELTAS ===
+    const dltCapex = eCapex - dCapex;
+    const dltCapexTrucks = eCapexTrucks - dCapexTrucks;
+    const dltChargers = eChargers;
+    const dltOpex = eOpex - dOpex;
+    const dltEnergy = eEnergy - dEnergy;
+    const dltOther = eOther - dOther;
+    const dltTco = eTco - dTco;
+
+    // === RATIOS ===
+    const pctCapex = (dltCapex / dCapex) * 100;
+    const pctCapexTrucks = (dltCapexTrucks / dCapexTrucks) * 100;
+    const pctOpex = (dltOpex / dOpex) * 100;
+    const pctEnergy = (dltEnergy / dEnergy) * 100;
+    const pctOther = (dltOther / dOther) * 100;
+    const pctTco = (dltTco / dTco) * 100;
+
+    // === ROI ===
+    // Positive ROI means electric is better → flip sign for display
+    const tcoSavings = -dltTco; // positive number = savings
+    const roiTotal = (tcoSavings / eCapex) * 100;
+    const roiDelta = (tcoSavings / dltCapex) * 100;
+    const avgOpexSaving = -dltOpex / years;
+    const payback = dltCapex / avgOpexSaving;
+    const annualizedYield = roiTotal / years;
+    const annualizedYieldDelta = roiDelta / years;
+
+    // === STICKY BAR KPIs ===
+    setKPI('kpi-tco', formatM(tcoSavings, true) + '<span class="unit"> M</span>');
+    setKPI('kpi-truck', '−€' + Math.round(-dltTco * 1000 / trucks).toLocaleString() + '<span class="unit">k</span>'.replace(',', '.'));
+    setKPI('kpi-roi-tot', (roiDelta / years).toFixed(1) + '<span class="decimals">%</span>');
+    setKPI('kpi-roi-delta', Math.round(roiDelta) + '<span class="decimals">%</span>');
+    setKPI('kpi-payback', payback.toFixed(1) + '<span class="unit">y</span>');
+
+    // === TITLES ===
+    $('title-fleet').textContent = `Fleet · ${trucks} trucks · ${years} years (€ million)`;
+    $('title-pertruck').textContent = `Per truck (€k, ${years} years)`;
+    $('title-cashflow').textContent = `Annual cashflow vs diesel (€ million)`;
+    $('title-cashflow-sub').textContent = `payback in year ${Math.ceil(payback)} · realistic curves`;
+    $('title-bench').textContent = `Alternative uses of €${eCapex.toFixed(2)}M capital over ${years} years`;
+
+    // === TABLE 1: FLEET ===
+    setCell('c-d-capex', dCapex.toFixed(2));
+    setCell('c-e-capex', eCapex.toFixed(2));
+    setCell('c-dlt-capex', '+' + dltCapex.toFixed(2));
+    setCell('c-pct-capex', '+' + Math.round(pctCapex) + '%');
+    setCell('c-d-trucks', dCapexTrucks.toFixed(2));
+    setCell('c-e-trucks', eCapexTrucks.toFixed(2));
+    setCell('c-dlt-trucks', '+' + dltCapexTrucks.toFixed(2));
+    setCell('c-pct-trucks', '+' + Math.round(pctCapexTrucks) + '%');
+    setCell('c-e-chargers', eChargers.toFixed(2));
+    setCell('c-dlt-chargers', '+' + dltChargers.toFixed(2));
+    setCell('c-d-opex', dOpex.toFixed(2));
+    setCell('c-e-opex', eOpex.toFixed(2));
+    setCell('c-dlt-opex', minusSign(dltOpex));
+    setCell('c-pct-opex', signedPct(pctOpex));
+    setCell('c-d-energy', dEnergy.toFixed(2));
+    setCell('c-e-energy', eEnergy.toFixed(2));
+    setCell('c-dlt-energy', minusSign(dltEnergy));
+    setCell('c-pct-energy', signedPct(pctEnergy));
+    setCell('c-d-other', dOther.toFixed(2));
+    setCell('c-e-other', eOther.toFixed(2));
+    setCell('c-dlt-other', minusSign(dltOther));
+    setCell('c-pct-other', signedPct(pctOther));
+    setCell('c-d-tco', dTco.toFixed(2));
+    setCell('c-e-tco', eTco.toFixed(2));
+    setCell('c-dlt-tco', minusSign(dltTco));
+    setCell('c-pct-tco', signedPct(pctTco));
+    setCell('c-roi-tot-formula', `=${tcoSavings.toFixed(2)} / ${eCapex.toFixed(2)}`);
+    setCell('c-roi-tot', Math.round(roiTotal) + '%');
+    setCell('c-roi-delta-formula', `=${tcoSavings.toFixed(2)} / ${dltCapex.toFixed(2)}`);
+    setCell('c-roi-delta', Math.round(roiDelta) + '%');
+
+    // === TABLE 2: PER TRUCK (in €k) ===
+    setCell('pt-d-capex', Math.round(dCapex * 1000 / trucks));
+    setCell('pt-e-capex', Math.round(eCapex * 1000 / trucks));
+    setCell('pt-dlt-capex', '+' + Math.round(dltCapex * 1000 / trucks));
+    setCell('pt-pct-capex', '+' + Math.round(pctCapex) + '%');
+    setCell('pt-d-trucks', Math.round(dCapexTrucks * 1000 / trucks));
+    setCell('pt-e-trucks', Math.round(eCapexTrucks * 1000 / trucks));
+    setCell('pt-dlt-trucks', '+' + Math.round(dltCapexTrucks * 1000 / trucks));
+    setCell('pt-e-chargers', Math.round(eChargers * 1000 / trucks));
+    setCell('pt-dlt-chargers', '+' + Math.round(dltChargers * 1000 / trucks));
+    setCell('pt-d-opex', Math.round(dOpex * 1000 / trucks));
+    setCell('pt-e-opex', Math.round(eOpex * 1000 / trucks));
+    setCell('pt-dlt-opex', minusSignK(dltOpex * 1000 / trucks));
+    setCell('pt-d-tco', Math.round(dTco * 1000 / trucks));
+    setCell('pt-e-tco', Math.round(eTco * 1000 / trucks));
+    setCell('pt-dlt-tco', minusSignK(dltTco * 1000 / trucks));
+    const tcoSavPerTk = -dltTco * 1000 / trucks;
+    const capexPerTk = eCapex * 1000 / trucks;
+    const dltCapexPerTk = dltCapex * 1000 / trucks;
+    setCell('pt-roi-tot-formula', `=${Math.round(tcoSavPerTk)} / ${Math.round(capexPerTk)}`);
+    setCell('pt-roi-tot', Math.round(roiTotal) + '%');
+    setCell('pt-roi-delta-formula', `=${Math.round(tcoSavPerTk)} / ${Math.round(dltCapexPerTk)}`);
+    setCell('pt-roi-delta', Math.round(roiDelta) + '%');
+
+    // === TABLE 3: CASHFLOW (only if years matches displayed columns) ===
+    updateCashflow(years, dltCapex, -dltOpex, subsidyPct, eChargers);
+
+    // === TABLE 4: BENCHMARK (rebuilt dynamically, sorted by yield) ===
+    updateBenchmark(annualizedYield, tcoSavings, eCapex, years);
+
+    // === EXPLAINER TEXTS (dynamic) ===
+    updateExplainers(trucks, years, dCapex, eCapex, dltCapex, pctCapex, dTco, eTco, dltTco, pctTco, roiTotal, roiDelta, payback, subsidyPct);
+
+    // === MATH BREAKDOWN (full derivation) ===
+    updateMath({
+      trucks, years, truckPriceK, dieselPrice, dieselPriceNet, powerPrice, subsidyPct, kmPerYear,
+      tollFactor: ctry.tollFactor, dieselTaxFactor: ctry.dieselTax,
+      dCapexTrucks, dCapex, dEnergy, dOther, dOpex, dTco,
+      eCapexTrucks, eChargersGross, eChargers, eCapex, eEnergy, eOther, eOpex, eTco,
+      dltCapex, dltOpex, tcoSavings, roiTotal, roiDelta, annualizedYield, payback,
+      avgOpexSaving
+    });
+  }
+
+  function updateExplainers(trucks, years, dCapex, eCapex, dltCapex, pctCapex, dTco, eTco, dltTco, pctTco, roiTotal, roiDelta, payback, subsidyPct) {
+    // CAPEX explainer
+    const subsidyStr = subsidyPct > 0 ? `(after ${subsidyPct}% EU subsidy)` : `(no subsidy applied)`;
+    const compensatesYesNo = dltTco < 0
+      ? `OPEX savings over ${years} years <strong>more than compensate</strong>`
+      : `OPEX savings over ${years} years <strong>are not sufficient to compensate</strong>`;
+    const capexExpl = `The first table compares total cost of ownership between a diesel and electric fleet over <strong>${years} years</strong>. <strong>CAPEX</strong> is split between trucks and charging infrastructure ${subsidyStr}. Electric CAPEX is <strong>${Math.round(pctCapex)}% higher upfront</strong> (€${dCapex.toFixed(2)}M diesel vs €${eCapex.toFixed(2)}M electric → €${dltCapex.toFixed(2)}M extra), but ${compensatesYesNo}.`;
+    setHTML('expl-capex', capexExpl);
+
+    // Per-truck explainer
+    const tcoPerTruck = Math.round(-dltTco * 1000 / trucks);
+    const directionWord = dltTco < 0 ? 'savings' : 'cost increase';
+    const roiTotalStr = roiTotal > 0 ? `<strong>${Math.round(roiTotal)}%</strong>` : `<strong style="color:#b41e1e;">${Math.round(roiTotal)}%</strong>`;
+    const roiDeltaStr = roiDelta > 0 ? `<strong>${Math.round(roiDelta)}%</strong>` : `<strong style="color:#b41e1e;">${Math.round(roiDelta)}%</strong>`;
+    const perTruckExpl = `Same numbers, divided by ${trucks} trucks. <strong>TCO delta per truck = €${tcoPerTruck}k ${directionWord}</strong> — the single most important figure for procurement decisions. <strong>ROI total ${roiTotalStr}</strong> measures return on the full CAPEX outlay over ${years} years. <strong>ROI delta ${roiDeltaStr}</strong> measures return on the incremental investment over diesel — typically much higher because diesel CAPEX is sunk.`;
+    setHTML('expl-pertruck', perTruckExpl);
+
+    // Cashflow explainer
+    const paybackInt = Math.ceil(payback);
+    const paybackTxt = paybackInt <= years
+      ? `Payback is reached around <strong>year ${paybackInt}</strong> (cumulative cashflow turns positive).`
+      : `<strong style="color:#b41e1e;">Payback is not reached within ${years} years</strong> — try increasing the subsidy, extending the contract or raising the diesel price assumption.`;
+    const subsidyTxt = subsidyPct > 0
+      ? `<strong>EU subsidies arrive in years 2-4</strong> as tax-deductible OPEX items (accounting reality).`
+      : `<strong>No EU subsidy applied</strong> in this scenario — the case stands on operational savings alone.`;
+    const cashflowExpl = `The negative CAPEX (€${dltCapex.toFixed(2)}M) hits in year 0. From year 1, operational savings start flowing in. ${subsidyTxt} The infrastructure residual value is captured in year ${years}. ${paybackTxt} Note: this is nominal cashflow. Apply your own discount rate for NPV.`;
+    setHTML('expl-cashflow', cashflowExpl);
+  }
+
+  function setHTML(id, html) {
+    const el = $(id);
+    if (!el) return;
+    el.innerHTML = html;
+    el.classList.remove('updated');
+    void el.offsetWidth;
+    el.classList.add('updated');
+  }
+
+  function updateMath(p) {
+    // Helper: format M (millions, 2 decimals)
+    const fM = v => '= €' + v.toFixed(2) + ' M';
+    // Helper: format L/L (€/L, 2 decimals)
+    const fL = v => '= €' + v.toFixed(2) + ' / L';
+    // Helper: pct rounded
+    const fP = v => '= ' + Math.round(v) + '%';
+    // Helper: years
+    const fY = v => '= ' + v.toFixed(2) + ' years';
+
+    // §1 Inputs
+    setCell('m-N', p.trucks);
+    setCell('m-y', p.years);
+    setCell('m-Pe', p.truckPriceK);
+    setCell('m-Pd', p.dieselPrice.toFixed(2));
+    setCell('m-Pk', p.powerPrice.toFixed(2));
+    setCell('m-s', p.subsidyPct);
+    setCell('m-k', p.kmPerYear.toLocaleString('en-US'));
+    setCell('m-ft', p.tollFactor.toFixed(2));
+    setCell('m-fd', p.dieselTaxFactor.toFixed(2));
+
+    // §3 Diesel TCO
+    setCell('m-d-capex-sub', '= 0.120 × ' + p.trucks);
+    setCell('m-d-capex', fM(p.dCapex));
+    setCell('m-d-pnet-sub', '= max(0, ' + p.dieselPrice.toFixed(2) + ' − 0.1913)');
+    setCell('m-d-pnet', fL(p.dieselPriceNet));
+    setCell('m-d-energy-sub', '= (' + p.kmPerYear.toLocaleString('en-US') + ' × 30 / 100) × ' + p.dieselPriceNet.toFixed(2) + ' × ' + p.dieselTaxFactor.toFixed(2) + ' × ' + p.years + ' × ' + p.trucks + ' / 1,000,000');
+    setCell('m-d-energy', fM(p.dEnergy));
+    setCell('m-d-other-sub', '= 0.151 × (' + p.years + ' / 7) × ' + p.tollFactor.toFixed(2) + ' × ' + p.trucks);
+    setCell('m-d-other', fM(p.dOther));
+    setCell('m-d-opex-sub', '= ' + p.dEnergy.toFixed(2) + ' + ' + p.dOther.toFixed(2));
+    setCell('m-d-opex', fM(p.dOpex));
+    setCell('m-d-tco-sub', '= ' + p.dCapex.toFixed(2) + ' + ' + p.dOpex.toFixed(2));
+    setCell('m-d-tco', fM(p.dTco));
+
+    // §4 Electric TCO
+    setCell('m-e-trucks-sub', '= (' + p.truckPriceK + ' / 1000) × ' + p.trucks);
+    setCell('m-e-trucks', fM(p.eCapexTrucks));
+    setCell('m-e-cgross-sub', '= 0.057 × ' + p.trucks);
+    setCell('m-e-cgross', fM(p.eChargersGross));
+    const subsidyFactor = (1 - p.subsidyPct / 100).toFixed(2);
+    setCell('m-e-cnet-sub', '= ' + p.eChargersGross.toFixed(2) + ' × (1 − ' + p.subsidyPct + '/100) = ' + p.eChargersGross.toFixed(2) + ' × ' + subsidyFactor);
+    setCell('m-e-cnet', fM(p.eChargers));
+    setCell('m-e-capex-sub', '= ' + p.eCapexTrucks.toFixed(2) + ' + ' + p.eChargers.toFixed(2));
+    setCell('m-e-capex', fM(p.eCapex));
+    setCell('m-e-energy-sub', '= (' + p.kmPerYear.toLocaleString('en-US') + ' × 1.1) × ' + p.powerPrice.toFixed(2) + ' × ' + p.years + ' × ' + p.trucks + ' / 1,000,000');
+    setCell('m-e-energy', fM(p.eEnergy));
+    setCell('m-e-other-sub', '= 0.041 × (' + p.years + ' / 7) × ' + p.trucks);
+    setCell('m-e-other', fM(p.eOther));
+    setCell('m-e-opex-sub', '= ' + p.eEnergy.toFixed(2) + ' + ' + p.eOther.toFixed(2));
+    setCell('m-e-opex', fM(p.eOpex));
+    setCell('m-e-tco-sub', '= ' + p.eCapex.toFixed(2) + ' + ' + p.eOther.toFixed(2) + p.eEnergy && '');
+    setCell('m-e-tco-sub', '= ' + p.eCapex.toFixed(2) + ' + ' + p.eOpex.toFixed(2));
+    setCell('m-e-tco', fM(p.eTco));
+
+    // §5 Savings + ROI
+    setCell('m-dCapex-sub', '= ' + p.eCapex.toFixed(2) + ' − ' + p.dCapex.toFixed(2));
+    setCell('m-dCapex', fM(p.dltCapex));
+    setCell('m-dOpex-sub', '= ' + p.dOpex.toFixed(2) + ' − ' + p.eOpex.toFixed(2));
+    setCell('m-dOpex', fM(-p.dltOpex));
+    setCell('m-S-sub', '= ' + p.dTco.toFixed(2) + ' − ' + p.eTco.toFixed(2) + ' = ' + (-p.dltOpex).toFixed(2) + ' − ' + p.dltCapex.toFixed(2));
+    setCell('m-S', fM(p.tcoSavings));
+    setCell('m-roiTot-sub', '= ' + p.tcoSavings.toFixed(2) + ' / ' + p.eCapex.toFixed(2));
+    setCell('m-roiTot', fP(p.roiTotal));
+    setCell('m-roiDelta-sub', '= ' + p.tcoSavings.toFixed(2) + ' / ' + p.dltCapex.toFixed(2));
+    setCell('m-roiDelta', fP(p.roiDelta));
+    setCell('m-rTot-sub', '= ' + Math.round(p.roiTotal) + '% / ' + p.years);
+    setCell('m-rTot', '= ' + p.annualizedYield.toFixed(1) + '% / yr');
+    setCell('m-opexYr-sub', '= ' + (-p.dltOpex).toFixed(2) + ' / ' + p.years);
+    setCell('m-opexYr', '= €' + p.avgOpexSaving.toFixed(2) + ' M / yr');
+    setCell('m-pb-sub', '= ' + p.dltCapex.toFixed(2) + ' / ' + p.avgOpexSaving.toFixed(2));
+    setCell('m-pb', fY(p.payback));
+
+    // §6 Per truck
+    setCell('m-Spt-sub', '= ' + p.tcoSavings.toFixed(2) + ' × 1000 / ' + p.trucks);
+    setCell('m-Spt', '= €' + Math.round(p.tcoSavings * 1000 / p.trucks) + 'k / truck');
+    setCell('m-dCapexpt-sub', '= ' + p.dltCapex.toFixed(2) + ' × 1000 / ' + p.trucks);
+    setCell('m-dCapexpt', '= €' + Math.round(p.dltCapex * 1000 / p.trucks) + 'k / truck');
+
+    // §7 Subsidy total
+    const subsidyTotal = p.eChargersGross * (p.subsidyPct / 100);
+    setCell('m-subtot-sub', '= ' + p.eChargersGross.toFixed(2) + ' × ' + p.subsidyPct + '/100');
+    setCell('m-subtot', fM(subsidyTotal));
+
+    // §8 Benchmark
+    setCell('m-Vfleet-sub', '= ' + p.tcoSavings.toFixed(2));
+    setCell('m-Vfleet', fM(p.tcoSavings));
+    setCell('m-rFleet-sub', '= ' + Math.round(p.roiTotal) + '% / ' + p.years);
+    setCell('m-rFleet', '= ' + p.annualizedYield.toFixed(1) + '% / yr');
+  }
+
+  function updateBenchmark(fleetYield, fleetSavings, fleetCapex, years) {
+    // Safety check: ensure body element exists
+    const body = $('bench-body');
+    if (!body) {
+      console.error('bench-body element not found');
+      return;
+    }
+
+    // Update End-year header
+    const endHeader = $('bench-end-header');
+    if (endHeader) endHeader.textContent = 'End year ' + years;
+
+    // Define all benchmark investments
+    const benchmarks = [
+      { category: 'Cash',         name: 'Savings account EU',        yield: 2.3,  risk: 'None — deposit guarantee',   isFleet: false },
+      { category: 'Bond',         name: 'Government bond ' + years + 'y', yield: 3.2,  risk: 'Very low — AAA',        isFleet: false },
+      { category: 'Corp. bond',   name: 'Corporate bond BBB',        yield: 5.0,  risk: 'Low-Medium — credit',        isFleet: false },
+      { category: 'EU stocks',    name: 'Euro Stoxx 50 (hist.)',     yield: 5.5,  risk: 'High — volatility',          isFleet: false },
+      { category: 'Global stocks',name: 'MSCI World (hist.)',        yield: 7.5,  risk: 'High — volatility',          isFleet: false },
+      { category: 'US stocks',    name: 'S&P 500 (hist.)',           yield: 10.0, risk: 'Very high — concentration',  isFleet: false },
+      { category: 'Fleet',        name: 'Electric truck transition', yield: fleetYield, risk: 'Low — operational',    isFleet: true, savings: fleetSavings }
+    ];
+
+    // Calculate end-of-period value for each (compound interest on the same capital)
+    benchmarks.forEach(b => {
+      if (b.isFleet) {
+        // For the fleet, the savings ARE the value (not compound — actual TCO benefit)
+        b.endValue = b.savings;
+      } else {
+        // Compound interest on the fleet's CAPEX over the chosen years
+        b.endValue = fleetCapex * (Math.pow(1 + b.yield / 100, years) - 1);
+      }
+    });
+
+    // Sort ascending by yield (lower returns first → higher returns last)
+    benchmarks.sort((a, b) => a.yield - b.yield);
+
+    // Build table rows fresh
+    body.innerHTML = '';
+    benchmarks.forEach((b, idx) => {
+      const rowClass = b.isFleet ? 'row-roi' : '';
+      const yieldClass = b.isFleet ? 'val-pos' : '';
+      const endClass = b.isFleet ? 'val-pos' : '';
+      const nameContent = b.isFleet
+        ? '<strong>' + b.name + '</strong>'
+        : b.name;
+      const yieldContent = b.isFleet
+        ? '<strong>' + b.yield.toFixed(1) + '%</strong>'
+        : b.yield.toFixed(1) + '%';
+      const sign = b.endValue >= 0 ? '+' : '−';
+      const endValAbs = Math.abs(b.endValue).toFixed(2);
+      const endContent = b.isFleet
+        ? '<strong>' + sign + '€' + endValAbs + 'M</strong>'
+        : sign + '€' + endValAbs + 'M';
+      const tr = document.createElement('tr');
+      if (rowClass) tr.className = rowClass;
+      tr.innerHTML =
+        '<td class="row-num">' + (idx + 1) + '</td>' +
+        '<td class="row-label">' + b.category + '</td>' +
+        '<td>' + nameContent + '</td>' +
+        '<td' + (yieldClass ? ' class="' + yieldClass + '"' : '') + '>' + yieldContent + '</td>' +
+        '<td>' + b.risk + '</td>' +
+        '<td' + (endClass ? ' class="' + endClass + '"' : '') + '>' + endContent + '</td>';
+      body.appendChild(tr);
+    });
+
+    // Flash all rows briefly so the sort change is visible
+    Array.from(body.querySelectorAll('tr')).forEach(tr => {
+      tr.classList.remove('updated');
+      void tr.offsetWidth;
+      tr.classList.add('updated');
+    });
+
+    // Update explainer text based on where the fleet ranks
+    const fleetRank = benchmarks.findIndex(b => b.isFleet); // 0-indexed position in sorted list
+    const totalCount = benchmarks.length;
+    const beatsCount = fleetRank; // how many are below (worse yield)
+    const losesToCount = totalCount - fleetRank - 1; // how many are above (better yield)
+
+    let beats = [];
+    let losesTo = [];
+    for (let i = 0; i < fleetRank; i++) beats.push(benchmarks[i].name);
+    for (let i = fleetRank + 1; i < totalCount; i++) losesTo.push(benchmarks[i].name);
+
+    let explainer = '';
+    if (beatsCount === 0) {
+      explainer = `<strong>At current parameters, the electric fleet ranks below every passive investment alternative</strong> (${fleetYield.toFixed(1)}%/yr) on annualized return alone. Push the diesel price up, the depot power price down, the EU subsidy higher, or extend the contract length — the case improves quickly. Note also: this comparison ignores strategic value (ESG reporting, customer retention via zero-emission contracts, fuel independence) which is not captured here.`;
+    } else if (losesToCount === 0) {
+      explainer = `<strong>At current parameters, the electric fleet (${fleetYield.toFixed(1)}%/yr) outperforms every passive investment alternative</strong> on annualized return — including stock market historicals. And it does so with operational risk only, no market volatility. Strategic value (ESG reporting, customer retention via zero-emission contracts, fuel independence) is on top of these numbers.`;
+    } else {
+      const beatsList = beats.length > 0 ? beats.join(', ') : 'none';
+      const losesList = losesTo.length > 0 ? losesTo.join(', ') : 'none';
+      explainer = `<strong>At current parameters, the electric fleet (${fleetYield.toFixed(1)}%/yr) outperforms ${beatsList}</strong> while staying below ${losesList} on raw yield. Risk-adjusted the picture often inverts, because the fleet has operational risk only — no market volatility. It also generates strategic value (ESG reporting, customer retention via zero-emission contracts, fuel independence) not captured in this table.`;
+    }
+    const explEl = $('bench-explainer');
+    if (explEl) explEl.innerHTML = explainer;
+  }
+
+  function setKPI(id, html) {
+    const el = $(id);
+    if (!el) return;
+    el.innerHTML = html;
+    el.classList.remove('updated');
+    void el.offsetWidth;
+    el.classList.add('updated');
+  }
+
+  function setCell(id, val) {
+    const el = $(id);
+    if (!el) return;
+    if (el.textContent !== String(val)) {
+      el.textContent = val;
+      el.classList.remove('updated');
+      void el.offsetWidth;
+      el.classList.add('updated');
+    }
+  }
+
+  function minusSign(num) {
+    return (num < 0 ? '−' : '+') + Math.abs(num).toFixed(2);
+  }
+  function minusSignK(num) {
+    return (num < 0 ? '−' : '+') + Math.round(Math.abs(num));
+  }
+  function signedPct(num) {
+    return (num < 0 ? '−' : '+') + Math.round(Math.abs(num)) + '%';
+  }
+  function formatM(num, prefix) {
+    return (prefix ? '€' : '') + num.toFixed(2);
+  }
+
+  function updateCashflow(years, dltCapex, totalOpexSaving, subsidyPct, chargers) {
+    // Rebuild cashflow header for selected years
+    const lettersRow = $('cf-letters');
+    const yearsRow = $('cf-years');
+    lettersRow.innerHTML = '<th></th>';
+    yearsRow.innerHTML = '<th></th>';
+    const cols = ['A','B','C','D','E','F','G','H','I','J','K'];
+    for (let y = 0; y <= years; y++) {
+      lettersRow.innerHTML += `<th>${cols[y]}</th>`;
+      yearsRow.innerHTML += `<th>Y ${y}</th>`;
+    }
+
+    // Rebuild body
+    const body = $('cf-body');
+    body.innerHTML = '';
+    // Generate growing OPEX curve
+    const opexPerYear = [];
+    for (let y = 1; y <= years; y++) {
+      // Growing curve: starts at ~75% of avg, ends at ~115%
+      const t = (y - 1) / (years - 1);
+      const factor = 0.75 + 0.40 * t;
+      opexPerYear.push((totalOpexSaving / years) * factor);
+    }
+    // Normalize to match total
+    const sumOpex = opexPerYear.reduce((a,b) => a+b, 0);
+    const correction = totalOpexSaving / sumOpex;
+    for (let i = 0; i < opexPerYear.length; i++) opexPerYear[i] *= correction;
+
+    // Subsidy distribution (years 2-4)
+    const totalSubsidy = chargers * (subsidyPct / 100) * 1; // = subsidy already in chargers-net
+    // We need total subsidy in absolute terms
+    const subsidyTotal = chargers / (1 - subsidyPct / 100) * (subsidyPct / 100);
+    const subsidyPerYear = [];
+    for (let y = 0; y <= years; y++) subsidyPerYear.push(0);
+    if (years >= 4 && subsidyPct > 0) {
+      subsidyPerYear[2] = subsidyTotal * 0.34;
+      subsidyPerYear[3] = subsidyTotal * 0.33;
+      subsidyPerYear[4] = subsidyTotal * 0.33;
+    }
+
+    // Residual value in last year
+    const residualPerYear = [];
+    for (let y = 0; y <= years; y++) residualPerYear.push(0);
+    residualPerYear[years] = 0.32; // approximate
+
+    // Build rows
+    let cumulative = -dltCapex;
+    let paybackYear = null;
+    const rows = ['Δ CAPEX', 'Δ OPEX', 'Subsidy', 'Residual value', 'Net Δ per year', 'Cumulative'];
+    rows.forEach((label, rIdx) => {
+      let tr = '<tr';
+      if (label === 'Net Δ per year') tr += ' class="row-tco"';
+      if (label === 'Cumulative') tr += ' class="row-roi"';
+      tr += `><td class="row-num">${rIdx + 1}</td><td class="row-label">${label}</td>`;
+      for (let y = 0; y <= years; y++) {
+        let val = '—';
+        let cls = '';
+        if (label === 'Δ CAPEX' && y === 0) {
+          val = '−' + dltCapex.toFixed(2);
+          cls = 'cf-neg';
+        } else if (label === 'Δ OPEX' && y >= 1) {
+          val = '+' + opexPerYear[y-1].toFixed(2);
+          cls = 'cf-pos';
+        } else if (label === 'Subsidy' && y >= 2 && y <= 4 && subsidyPerYear[y] > 0) {
+          val = '+' + subsidyPerYear[y].toFixed(2);
+          cls = 'cf-pos';
+        } else if (label === 'Residual value' && y === years) {
+          val = '+' + residualPerYear[y].toFixed(2);
+          cls = 'cf-pos';
+        } else if (label === 'Net Δ per year') {
+          let net = 0;
+          if (y === 0) net = -dltCapex;
+          else {
+            if (y >= 1) net += opexPerYear[y-1];
+            net += subsidyPerYear[y];
+            net += residualPerYear[y];
+          }
+          val = (net < 0 ? '−' : '+') + Math.abs(net).toFixed(2);
+          cls = net < 0 ? 'cf-neg' : 'cf-pos';
+        } else if (label === 'Cumulative') {
+          if (y === 0) cumulative = -dltCapex;
+          else {
+            let net = 0;
+            if (y >= 1) net += opexPerYear[y-1];
+            net += subsidyPerYear[y];
+            net += residualPerYear[y];
+            cumulative += net;
+          }
+          const wasPositive = cumulative >= 0;
+          if (wasPositive && paybackYear === null && y > 0) {
+            paybackYear = y;
+            val = (cumulative < 0 ? '−' : '+') + Math.abs(cumulative).toFixed(2) + ' ✓';
+            cls = 'cf-pos cf-check';
+          } else {
+            val = (cumulative < 0 ? '−' : '+') + Math.abs(cumulative).toFixed(2);
+            cls = cumulative < 0 ? 'cf-neg' : 'cf-pos';
+          }
+        }
+        tr += `<td class="${cls}">${val}</td>`;
+      }
+      tr += '</tr>';
+      body.innerHTML += tr;
+    });
+  }
+
+  // === EVENT LISTENERS ===
+  [elTrucks, elYears, elTruckModel, elCountry, elKm].forEach(el => {
+    el.addEventListener('change', calculate);
+  });
+  elDiesel.addEventListener('input', () => {
+    const pump = parseFloat(elDiesel.value);
+    const net = Math.max(0, pump - DIESEL_REFUND_PER_L);
+    $('p-diesel-val').textContent = '€' + pump.toFixed(2);
+    const hintEl = $('p-diesel-net');
+    if (hintEl) hintEl.textContent = 'net: €' + net.toFixed(2) + '/L';
+    calculate();
+  });
+  elPower.addEventListener('input', () => {
+    $('p-power-val').textContent = '€' + parseFloat(elPower.value).toFixed(2);
+    calculate();
+  });
+  elSubsidy.addEventListener('input', () => {
+    $('p-subsidy-val').textContent = elSubsidy.value + '%';
+    calculate();
+  });
+
+  // Initial calc + sync hints
+  (function initHints() {
+    const pump = parseFloat(elDiesel.value);
+    const net = Math.max(0, pump - DIESEL_REFUND_PER_L);
+    const hintEl = $('p-diesel-net');
+    if (hintEl) hintEl.textContent = 'net: €' + net.toFixed(2) + '/L';
+  })();
+  calculate();
+})();
+</script>
+
+</body>
+</html>

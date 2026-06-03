@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>eTruckTCO · Electric truck cost &amp; business case for Belgium</title>
+<meta name="description" content="Will an electric truck save you money in Belgium? Pick the quick answer or the full CFO business case.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Barlow:wght@400;500;600;700&display=swap');
+  :root{
+    --ink:#16140f;--paper:#f4efe4;--paper2:#ece4d3;--diesel:#b8772a;--diesel-dark:#8a5418;
+    --volt:#1faa6e;--volt-dark:#137a4d;--volt-light:#d7f2e5;--line:#d8cdb6;--muted:#736b58;
+    --road:#26231c;--navy:#1e2a33;--navy2:#16202a;--sans:'Barlow',-apple-system,sans-serif;--cond:'Barlow Condensed',sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{font-family:var(--sans);color:var(--ink);line-height:1.5;min-height:100vh;
+    background:radial-gradient(110% 70% at 85% -5%, rgba(31,170,110,.12), transparent 55%),radial-gradient(90% 60% at 0% 105%, rgba(184,119,42,.12), transparent 55%),linear-gradient(180deg,var(--paper),var(--paper2));
+    display:flex;flex-direction:column;}
+  .wrap{width:100%;max-width:920px;margin:0 auto;padding:0 20px}
+  .topbar{background:var(--road);color:#f4efe4;padding:11px 0;border-bottom:4px solid var(--diesel)}
+  .topbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .brand{font-family:var(--cond);font-weight:900;font-size:23px;letter-spacing:.02em;text-transform:uppercase;display:flex;align-items:center;gap:8px}
+  .brand .plug{color:var(--volt)}
+  .brand .be{font-size:12px;background:var(--diesel);color:#fff;padding:2px 7px;border-radius:4px;font-weight:700;letter-spacing:.05em}
+  .topbar .dom{font-size:12.5px;color:#cdbf9f;letter-spacing:.03em}
+  .hero{text-align:center;padding:46px 0 8px}
+  .kicker{font-family:var(--cond);font-weight:700;text-transform:uppercase;letter-spacing:.14em;font-size:14px;color:var(--diesel-dark)}
+  .hero h1{font-family:var(--cond);font-weight:900;font-size:clamp(38px,8.5vw,68px);line-height:.96;letter-spacing:-.01em;text-transform:uppercase;margin:8px 0 0;}
+  .hero h1 .hl{color:var(--volt-dark);position:relative;white-space:nowrap}
+  .hero h1 .hl::after{content:"";position:absolute;left:-2px;right:-2px;bottom:5px;height:.30em;background:var(--volt-light);z-index:-1;transform:rotate(-1deg)}
+  .hero p{font-size:17.5px;color:#534c3d;margin:16px auto 0;max-width:56ch}
+  .flag{display:inline-flex;align-items:center;gap:7px;margin-top:16px;font-family:var(--cond);font-weight:700;text-transform:uppercase;letter-spacing:.05em;font-size:13.5px;background:#fff;border:1.5px solid var(--line);padding:6px 13px;border-radius:20px}
+  .choose{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:34px 0 10px}
+  .card{position:relative;display:flex;flex-direction:column;border-radius:20px;padding:28px 26px 26px;text-decoration:none;color:inherit;border:2px solid transparent;overflow:hidden;transition:transform .18s ease, box-shadow .18s ease;min-height:340px;}
+  .card:hover{transform:translateY(-4px)}
+  .card .top{display:flex;align-items:center;gap:12px}
+  .card .ico{width:54px;height:54px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0}
+  .card .who{font-family:var(--cond);font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:13px}
+  .card h2{font-family:var(--cond);font-weight:900;text-transform:uppercase;font-size:30px;line-height:1;margin-top:14px}
+  .card p{font-size:15px;margin-top:10px;line-height:1.55}
+  .card ul{list-style:none;margin:16px 0 0;display:flex;flex-direction:column;gap:7px}
+  .card li{font-size:14px;display:flex;gap:9px;align-items:flex-start}
+  .card li .ck{font-weight:800;flex-shrink:0}
+  .card .go{margin-top:auto;padding-top:20px;font-family:var(--cond);font-weight:800;text-transform:uppercase;letter-spacing:.04em;font-size:17px;display:inline-flex;align-items:center;gap:8px}
+  .card .arrow{transition:transform .18s ease}
+  .card:hover .arrow{transform:translateX(5px)}
+  .card.driver{background:#fff;border-color:#ecc99a;box-shadow:0 16px 38px -20px rgba(184,119,42,.55)}
+  .card.driver .ico{background:#fbeed8;color:var(--diesel-dark)}
+  .card.driver .who{color:var(--diesel-dark)}
+  .card.driver .go{color:var(--diesel-dark)}
+  .card.driver li .ck{color:var(--diesel)}
+  .card.driver:hover{box-shadow:0 22px 46px -18px rgba(184,119,42,.7)}
+  .badge{position:absolute;top:16px;right:16px;font-family:var(--cond);font-weight:800;text-transform:uppercase;letter-spacing:.05em;font-size:11.5px;padding:4px 10px;border-radius:20px}
+  .card.driver .badge{background:var(--diesel);color:#fff}
+  .card.cfo{background:linear-gradient(160deg,var(--navy),var(--navy2));border-color:#2c3a45;color:#eef2f4;box-shadow:0 16px 38px -20px rgba(20,40,55,.7)}
+  .card.cfo .ico{background:rgba(31,170,110,.16);color:var(--volt)}
+  .card.cfo .who{color:#8fd9b6}
+  .card.cfo p{color:#c4ced4}
+  .card.cfo .go{color:var(--volt)}
+  .card.cfo li .ck{color:var(--volt)}
+  .card.cfo .badge{background:rgba(255,255,255,.12);color:#dfe7ea}
+  .card.cfo:hover{box-shadow:0 22px 46px -16px rgba(20,40,55,.85)}
+  .reassure{display:flex;gap:18px;flex-wrap:wrap;justify-content:center;margin:22px 0 0;padding:18px 0 6px}
+  .reassure div{font-size:13.5px;color:var(--muted);display:flex;align-items:center;gap:7px}
+  .reassure b{color:var(--ink)}
+  footer{margin-top:auto;background:var(--road);color:#a99e85;padding:22px 0 28px;font-size:12.5px}
+  footer .wrap{display:flex;flex-direction:column;gap:6px}
+  footer b{color:#e8e0cf}
+  footer a{color:var(--volt);text-decoration:none}
+  @media(max-width:620px){.choose{grid-template-columns:1fr;gap:16px}.card{min-height:0}.hero{padding:34px 0 4px}}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="wrap">
+    <div class="brand">e<span class="plug">⚡</span>TruckTCO <span class="be">BE</span></div>
+    <div class="dom">eTruckTCO.be</div>
+  </div>
+</div>
+<div class="wrap">
+  <div class="hero">
+    <div class="kicker">Electric trucks · Belgium 2026</div>
+    <h1>Should you go<br><span class="hl">electric?</span></h1>
+    <p>The honest cost of switching a Belgian truck from diesel to electric — diesel pump versus the plug, with 2026 prices and tolls. Pick the version that fits you.</p>
+    <div class="flag">🇧🇪 Calibrated for Belgium</div>
+  </div>
+  <div class="choose">
+    <a class="card driver" href="eTruckCost.html">
+      <span class="badge">Start here</span>
+      <div class="top"><div class="ico">🚚</div><div class="who">Drivers &amp; owners</div></div>
+      <h2>The quick answer</h2>
+      <p>Will it save me money? Move three sliders and get a straight yes-or-no, in plain language.</p>
+      <ul>
+        <li><span class="ck">✓</span><span>No jargon, no spreadsheets</span></li>
+        <li><span class="ck">✓</span><span>Savings per month &amp; payback time</span></li>
+        <li><span class="ck">✓</span><span>Diesel pump vs the plug, side by side</span></li>
+        <li><span class="ck">✓</span><span>Takes about 30 seconds</span></li>
+      </ul>
+      <span class="go">Get my answer <span class="arrow">→</span></span>
+    </a>
+    <a class="card cfo" href="eTruckAnalysis.html">
+      <span class="badge">In depth</span>
+      <div class="top"><div class="ico">📊</div><div class="who">CFOs &amp; accountants</div></div>
+      <h2>The full business case</h2>
+      <p>Every assumption spelled out, ready for the bank or the boardroom — investment-grade detail.</p>
+      <ul>
+        <li><span class="ck">✓</span><span>IRR, NPV, payback &amp; cashflow tables</span></li>
+        <li><span class="ck">✓</span><span>Per-country toll split &amp; inflation</span></li>
+        <li><span class="ck">✓</span><span>Charging-infrastructure cost model</span></li>
+        <li><span class="ck">✓</span><span>Benchmarked against index returns</span></li>
+      </ul>
+      <span class="go">Open the analysis <span class="arrow">→</span></span>
+    </a>
+  </div>
+  <div class="reassure">
+    <div>⛽ <b>Real 2026 prices</b></div>
+    <div>🛣️ <b>New kilometre charge</b></div>
+    <div>🔌 <b>Depot charging costs</b></div>
+    <div>🧮 <b>Conservative by design</b></div>
+  </div>
+</div>
+<footer>
+  <div class="wrap">
+    <div><b>eTruckTCO.be</b> — independent electric-truck cost comparison for Belgian fleets.</div>
+    <div>Two views, same engine: the <a href="eTruckCost.html">quick answer</a> and the <a href="eTruckAnalysis.html">full CFO business case</a>.</div>
+    <div style="color:#7d735d;margin-top:4px">Estimates for guidance only, calibrated for Belgium 2026. Not financial advice — your real costs depend on routes, energy contract and truck.</div>
+  </div>
+</footer>
+</body>
+</html>

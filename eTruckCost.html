@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>eTruckCost · Will an electric truck save you money?</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Barlow:wght@400;500;600;700&display=swap');
+
+  :root{
+    --ink:#16140f;
+    --paper:#f4efe4;
+    --paper2:#ece4d3;
+    --diesel:#b8772a;       /* amber / diesel */
+    --diesel-dark:#8a5418;
+    --volt:#1faa6e;         /* electric green */
+    --volt-dark:#137a4d;
+    --volt-light:#d7f2e5;
+    --line:#d8cdb6;
+    --muted:#736b58;
+    --road:#26231c;
+    --sans:'Barlow',-apple-system,sans-serif;
+    --cond:'Barlow Condensed',sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    font-family:var(--sans);
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.5;
+    overflow-x:hidden;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:0 18px}
+
+  /* ---------- TOP BAR ---------- */
+  .topbar{
+    background:var(--road);
+    color:#f4efe4;
+    padding:10px 0;
+    border-bottom:4px solid var(--diesel);
+  }
+  .topbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .brand{font-family:var(--cond);font-weight:900;font-size:22px;letter-spacing:.02em;text-transform:uppercase;display:flex;align-items:center;gap:8px}
+  .brand .plug{color:var(--volt)}
+  .brand .be{font-size:12px;background:var(--diesel);color:#fff;padding:2px 7px;border-radius:4px;font-weight:700;letter-spacing:.05em}
+  .cfo-link{font-size:12.5px;color:#cdbf9f;text-decoration:none;border:1px solid #4a4438;padding:6px 11px;border-radius:20px;white-space:nowrap;transition:.15s}
+  .cfo-link:hover{background:#33302a;color:#fff}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    background:
+      radial-gradient(120% 80% at 80% 0%, rgba(31,170,110,.10), transparent 60%),
+      linear-gradient(180deg,var(--paper),var(--paper2));
+    padding:38px 0 26px;
+    position:relative;
+  }
+  .hero h1{
+    font-family:var(--cond);
+    font-weight:900;
+    font-size:clamp(34px,9vw,58px);
+    line-height:.96;
+    letter-spacing:-.01em;
+    text-transform:uppercase;
+  }
+  .hero h1 .hl{color:var(--volt-dark);position:relative;white-space:nowrap}
+  .hero h1 .hl::after{content:"";position:absolute;left:-2px;right:-2px;bottom:4px;height:.32em;background:var(--volt-light);z-index:-1;transform:rotate(-1deg)}
+  .hero p.lead{font-size:17px;color:#534c3d;margin-top:14px;max-width:54ch}
+  .hero .tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+  .tag{font-family:var(--cond);font-weight:700;text-transform:uppercase;letter-spacing:.04em;font-size:13px;background:#fff;border:1.5px solid var(--line);padding:5px 11px;border-radius:20px}
+  .tag.green{background:var(--volt-light);border-color:#bfe6d3;color:var(--volt-dark)}
+
+  /* ---------- BIG ANSWER CARD ---------- */
+  .answer{
+    margin:22px auto 0;
+    background:var(--road);
+    color:#fff;
+    border-radius:18px;
+    padding:24px 22px 22px;
+    box-shadow:0 18px 40px -18px rgba(0,0,0,.5);
+    position:relative;
+    overflow:hidden;
+  }
+  .answer::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent,transparent 38px,rgba(255,255,255,.025) 38px,rgba(255,255,255,.025) 40px);pointer-events:none}
+  .answer .klabel{font-family:var(--cond);text-transform:uppercase;letter-spacing:.12em;font-size:13px;color:#b9ad92;font-weight:700}
+  .answer .verdict{font-family:var(--cond);font-weight:900;font-size:clamp(40px,12vw,72px);line-height:.95;margin:4px 0 2px}
+  .answer .verdict.win{color:var(--volt)}
+  .answer .verdict.lose{color:var(--diesel)}
+  .answer .sub{font-size:15.5px;color:#e8e0cf;max-width:46ch}
+  .answer .sub b{color:#fff}
+
+  .bigrow{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}
+  .bigcell{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:13px 14px}
+  .bigcell .t{font-family:var(--cond);text-transform:uppercase;letter-spacing:.08em;font-size:11.5px;color:#b9ad92;font-weight:700}
+  .bigcell .v{font-family:var(--cond);font-weight:800;font-size:30px;line-height:1.05;margin-top:2px}
+  .bigcell .v.green{color:var(--volt)}
+  .bigcell .u{font-size:14px;color:#cfc6b2;font-weight:600}
+
+  /* ---------- SLIDERS ---------- */
+  .controls{margin:26px auto 0}
+  .controls h2,.section h2{font-family:var(--cond);font-weight:800;text-transform:uppercase;letter-spacing:.02em;font-size:23px;margin-bottom:3px}
+  .controls .hint{color:var(--muted);font-size:14px;margin-bottom:16px}
+  .ctrl{background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:15px 16px;margin-bottom:12px}
+  .ctrl .top{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:9px}
+  .ctrl .name{font-weight:700;font-size:15.5px}
+  .ctrl .val{font-family:var(--cond);font-weight:800;font-size:22px;color:var(--diesel-dark)}
+  .ctrl .val .un{font-size:13px;color:var(--muted);font-weight:600}
+  input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:8px;border-radius:8px;background:linear-gradient(90deg,var(--diesel) 0%,var(--diesel) var(--p,50%),#e7dcc6 var(--p,50%),#e7dcc6 100%);outline:none}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;height:26px;width:26px;border-radius:50%;background:#fff;border:3px solid var(--diesel-dark);cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.25)}
+  input[type=range]::-moz-range-thumb{height:26px;width:26px;border-radius:50%;background:#fff;border:3px solid var(--diesel-dark);cursor:pointer}
+  .seg{display:flex;gap:7px;flex-wrap:wrap}
+  .seg button{flex:1;min-width:64px;font-family:var(--sans);font-weight:600;font-size:14px;padding:10px 8px;border:1.5px solid var(--line);background:#fff;border-radius:10px;cursor:pointer;transition:.12s;color:var(--ink)}
+  .seg button.on{background:var(--road);color:#fff;border-color:var(--road)}
+  .seg button:active{transform:scale(.97)}
+
+  /* ---------- COMPARE STRIP ---------- */
+  .section{margin:30px auto 0}
+  .vs{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:6px}
+  .pump,.plug{border-radius:16px;padding:18px 17px;border:2px solid}
+  .pump{background:#fbf3e6;border-color:#ecc99a}
+  .plug{background:var(--volt-light);border-color:#bfe6d3}
+  .vs .ico{font-size:30px;line-height:1}
+  .vs .who{font-family:var(--cond);font-weight:800;font-size:20px;text-transform:uppercase;margin:6px 0 10px}
+  .pump .who{color:var(--diesel-dark)}
+  .plug .who{color:var(--volt-dark)}
+  .vs .big{font-family:var(--cond);font-weight:900;font-size:34px;line-height:1}
+  .vs .big .un{font-size:14px;color:var(--muted);font-weight:600}
+  .vs .lab{font-size:13px;color:var(--muted);margin-top:2px}
+  .vs ul{list-style:none;margin-top:12px;font-size:13.5px}
+  .vs li{display:flex;justify-content:space-between;padding:5px 0;border-top:1px dashed rgba(0,0,0,.12)}
+  .vs li span:last-child{font-weight:700}
+
+  /* ---------- WHERE MONEY GOES ---------- */
+  .bars{margin-top:8px}
+  .barrow{margin-bottom:13px}
+  .barrow .lbl{display:flex;justify-content:space-between;font-size:14px;margin-bottom:5px}
+  .barrow .lbl b{font-weight:700}
+  .bartrack{position:relative;height:30px;background:#e9ddc6;border-radius:7px;overflow:hidden;display:flex}
+  .barfill{height:100%;display:flex;align-items:center;padding:0 8px;font-size:12.5px;font-weight:700;color:#fff;white-space:nowrap}
+  .barfill.d{background:var(--diesel)}
+  .barfill.e{background:var(--volt)}
+  .barcap{font-size:12px;color:var(--muted);margin-top:7px}
+
+  /* ---------- PAYBACK ---------- */
+  .payback{margin-top:8px;background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:18px}
+  .payback .headline{font-family:var(--cond);font-weight:800;font-size:21px;text-transform:uppercase}
+  .payyears{font-family:var(--cond);font-weight:900;font-size:52px;color:var(--volt-dark);line-height:1}
+  .paytrack{display:flex;gap:4px;margin-top:14px}
+  .payyear{flex:1;height:34px;border-radius:6px;background:#e9ddc6;display:flex;align-items:center;justify-content:center;font-family:var(--cond);font-weight:700;font-size:13px;color:#9b8e72}
+  .payyear.paid{background:var(--volt);color:#fff}
+  .payyear.partial{background:linear-gradient(90deg,var(--volt) 50%,#e9ddc6 50%);color:#fff}
+
+  /* ---------- PLAIN FAQ ---------- */
+  .faq{margin-top:10px}
+  details.q{background:#fff;border:1.5px solid var(--line);border-radius:12px;margin-bottom:10px;overflow:hidden}
+  details.q summary{cursor:pointer;list-style:none;padding:15px 16px;font-weight:700;font-size:15.5px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+  details.q summary::-webkit-details-marker{display:none}
+  details.q summary::after{content:"+";font-family:var(--cond);font-size:24px;color:var(--diesel);font-weight:800;transition:.2s}
+  details.q[open] summary::after{transform:rotate(45deg)}
+  details.q .a{padding:0 16px 16px;font-size:14.5px;color:#4f4838}
+  details.q .a b{color:var(--ink)}
+
+  /* ---------- CFO CALLOUT ---------- */
+  .cfo-callout{margin:28px auto 0;background:linear-gradient(135deg,#2a2620,#3b362c);color:#f4efe4;border-radius:16px;padding:22px;display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+  .cfo-callout .txt{flex:1;min-width:200px}
+  .cfo-callout h3{font-family:var(--cond);font-weight:800;font-size:22px;text-transform:uppercase}
+  .cfo-callout p{font-size:14px;color:#cdbf9f;margin-top:4px}
+  .cfo-callout a.btn{background:var(--volt);color:#06281a;font-weight:800;font-family:var(--cond);font-size:17px;text-transform:uppercase;letter-spacing:.03em;text-decoration:none;padding:13px 20px;border-radius:10px;white-space:nowrap;transition:.15s}
+  .cfo-callout a.btn:hover{background:#27c082;transform:translateY(-1px)}
+
+  /* ---------- FOOTER ---------- */
+  footer{margin-top:34px;background:var(--road);color:#a99e85;padding:24px 0 30px;font-size:12.5px}
+  footer .wrap{display:flex;flex-direction:column;gap:8px}
+  footer b{color:#e8e0cf}
+  footer a{color:var(--volt);text-decoration:none}
+
+  .disc{font-size:11.5px;color:#9b8e72;margin-top:14px;line-height:1.5}
+
+  @media(max-width:560px){
+    .bigrow{grid-template-columns:1fr 1fr}
+    .vs{grid-template-columns:1fr}
+    .answer .verdict{font-size:46px}
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="wrap">
+    <a href="index.html" style="text-decoration:none;color:inherit"><div class="brand">e<span class="plug">⚡</span>TruckCost <span class="be">BE</span> <span id="ver-badge" style="font-size:10px;background:#1faa6e;color:#fff;padding:2px 6px;border-radius:4px;font-weight:700;letter-spacing:.03em;vertical-align:middle">v3</span></div></a>
+    <a class="cfo-link" href="eTruckAnalysis.html">Need the CFO version? →</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="wrap">
+    <h1>Will an electric truck<br><span class="hl">actually save you money?</span></h1>
+    <p class="lead">No jargon, no spreadsheets. Move three sliders, get a straight answer for a Belgian truck driving real kilometres.</p>
+    <div class="tags">
+      <span class="tag green">⚡ Made for drivers &amp; owners</span>
+      <span class="tag">🇧🇪 Belgian prices 2026</span>
+    </div>
+
+    <!-- BIG ANSWER -->
+    <div class="answer">
+      <div class="klabel">The short answer, per truck</div>
+      <div class="verdict win" id="verdict">You save money</div>
+      <div class="sub" id="verdict-sub">Over <b id="v-years">7 years</b> an electric truck costs you <b id="v-saving">€113 245</b> less than diesel.</div>
+      <div class="bigrow">
+        <div class="bigcell">
+          <div class="t">You save / month</div>
+          <div class="v green" id="v-month">€1 348</div>
+          <div class="u">per truck</div>
+        </div>
+        <div class="bigcell">
+          <div class="t">Pays itself back in</div>
+          <div class="v" id="v-payback">4.1 yrs</div>
+          <div class="u">then it's pure saving</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTROLS -->
+<div class="controls wrap">
+  <h2>Your truck, your numbers</h2>
+  <div class="hint">Set these to match your situation — everything updates instantly.</div>
+
+  <div class="ctrl">
+    <div class="top"><span class="name">How far do you drive a year?</span><span class="val"><span id="km-val">100 000</span> <span class="un">km</span></span></div>
+    <input type="range" id="km" min="40000" max="180000" step="5000" value="100000">
+  </div>
+
+  <div class="ctrl">
+    <div class="top"><span class="name">Diesel price at the pump</span><span class="val">€<span id="diesel-val">1.50</span> <span class="un">/ litre</span></span></div>
+    <input type="range" id="diesel" min="1.20" max="2.20" step="0.05" value="1.50">
+  </div>
+
+  <div class="ctrl">
+    <div class="top"><span class="name">How long will you keep the truck?</span></div>
+    <div class="seg" id="years-seg">
+      <button data-y="5">5 years</button>
+      <button data-y="7" class="on">7 years</button>
+      <button data-y="10">10 years</button>
+    </div>
+  </div>
+
+  <div class="ctrl">
+    <div class="top"><span class="name">Where do you charge?</span></div>
+    <div class="seg" id="charge-seg">
+      <button data-c="depot" class="on">At my depot (cheap)</button>
+      <button data-c="mix">A bit of both</button>
+      <button data-c="public">Mostly public (pricey)</button>
+    </div>
+  </div>
+</div>
+
+<!-- DIESEL VS ELECTRIC -->
+<div class="section wrap">
+  <h2>Diesel pump vs the plug</h2>
+  <div class="hint">What one truck costs to run, all-in, over <span class="yr-inline">7 years</span>.</div>
+  <div class="vs">
+    <div class="pump">
+      <div class="ico">⛽</div>
+      <div class="who">Diesel</div>
+      <div class="big">€<span id="d-tco">792k</span></div>
+      <div class="lab">total cost to own &amp; run</div>
+      <ul>
+        <li><span>Truck</span><span>€<span id="d-buy">120k</span></span></li>
+        <li><span>Fuel</span><span>€<span id="d-fuel">275k</span></span></li>
+        <li><span>Road toll</span><span>€<span id="d-toll">200k</span></span></li>
+        <li><span>Service + rest</span><span>€<span id="d-rest">197k</span></span></li>
+      </ul>
+    </div>
+    <div class="plug">
+      <div class="ico">⚡</div>
+      <div class="who">Electric</div>
+      <div class="big">€<span id="e-tco">550k</span></div>
+      <div class="lab">total cost to own &amp; run</div>
+      <ul>
+        <li><span>Truck + charger</span><span>€<span id="e-buy">224k</span></span></li>
+        <li><span>Electricity</span><span>€<span id="e-fuel">169k</span></span></li>
+        <li><span>Road toll</span><span>€<span id="e-toll">27k</span></span></li>
+        <li><span>Service + rest</span><span>€<span id="e-rest">130k</span></span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="disc" id="vs-note"></div>
+</div>
+
+<!-- WHERE THE SAVING COMES FROM -->
+<div class="section wrap">
+  <h2>Where the saving comes from</h2>
+  <div class="hint">Electric costs more to buy, but far less to run. Here's the yearly running cost, per truck.</div>
+  <div class="bars">
+    <div class="barrow">
+      <div class="lbl"><b>⛽ Diesel — per year</b><span id="bar-d-lab">€98 000</span></div>
+      <div class="bartrack"><div class="barfill d" id="bar-d" style="width:100%">running cost</div></div>
+    </div>
+    <div class="barrow">
+      <div class="lbl"><b>⚡ Electric — per year</b><span id="bar-e-lab">€68 000</span></div>
+      <div class="bartrack"><div class="barfill e" id="bar-e" style="width:58%">running cost</div></div>
+    </div>
+  </div>
+  <div class="barcap" id="bars-note">That's a running-cost gap working in your favour every single year — and it grows as diesel gets pricier.</div>
+</div>
+
+<!-- PAYBACK -->
+<div class="section wrap">
+  <h2>When does it pay off?</h2>
+  <div class="hint">The electric truck costs more upfront. The running savings pay that back, then it's money in your pocket.</div>
+  <div class="payback">
+    <div class="headline">Break-even after</div>
+    <div class="payyears"><span id="pb-years">4.1</span> years</div>
+    <div class="paytrack" id="paytrack"></div>
+    <div class="barcap" id="pb-note">After that point, every kilometre is cheaper than diesel.</div>
+  </div>
+</div>
+
+<!-- FAQ -->
+<div class="section wrap">
+  <h2>Straight answers</h2>
+  <div class="faq">
+    <details class="q"><summary>Isn't an electric truck way more expensive?</summary><div class="a">To buy, yes — roughly <b>€80–100k more</b> than a diesel, plus the charger. But it's so much cheaper to run (electricity, toll, service) that it usually wins back the difference in <b>4–6 years</b> and saves money after that. This tool shows you exactly when.</div></details>
+    <details class="q"><summary>Why is the road toll so much lower?</summary><div class="a">In Belgium a zero-emission truck pays a <b>much lower kilometre charge</b> than diesel from 2026 (€0.038 vs €0.286 per km in Flanders at the 2026 rate). At a typical Belgian-corridor mix this is worth around <b>€15 000 per truck per year</b>. It's the single biggest reason electric wins here — the engine models all six toll zones (VL/BR/WA/NL/DE/FR) year by year, identical to the full analysis.</div></details>
+    <details class="q"><summary>Do I need an expensive charging station?</summary><div class="a">For overnight charging at your own depot you don't need the fastest, most expensive chargers. Trucks sit for hours, so they charge slowly and cheaply — usually <b>one charger shared between a couple of trucks</b>, plus a grid connection. The cost is built into the "Truck + charger" figure above.</div></details>
+    <details class="q"><summary>What about the battery wearing out?</summary><div class="a">Modern truck batteries come with long warranties (often <b>700 000 km or more</b>) and lose only about 2–3% of range a year. We keep the resale value <b>cautious</b> on purpose, so the numbers don't flatter electric.</div></details>
+    <details class="q"><summary>Are these numbers realistic?</summary><div class="a">They use <b>Belgian 2026 prices</b> — real diesel pump prices, the new kilometre charge, depot electricity, and conservative assumptions throughout. If anything they're on the careful side. Change the sliders to match your own situation.</div></details>
+    <details class="q"><summary>I drive a lot outside Belgium — does that change things?</summary><div class="a">Yes. The big toll saving is a <b>Belgian</b> thing. Countries like France don't give electric trucks the same toll discount, so if most of your kilometres are abroad the saving shrinks. The detailed <a href="eTruckAnalysis.html" style="color:var(--volt-dark);font-weight:700">CFO version</a> lets you split your kilometres per country.</div></details>
+  </div>
+</div>
+
+<!-- CFO CALLOUT -->
+<div class="wrap">
+  <div class="cfo-callout">
+    <div class="txt">
+      <h3>Need the full business case?</h3>
+      <p>Taking this to your bank, accountant or boss? The CFO version has IRR, NPV, cashflow tables, per-country tolls and every assumption spelled out.</p>
+    </div>
+    <a class="btn" href="eTruckAnalysis.html">Open the full analysis →</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div><b>eTruckCost.be</b> — the plain-language electric truck calculator for Belgian drivers and owners.</div>
+    <div>For the detailed financial model (IRR, NPV, cashflow), see <a href="eTruckAnalysis.html">eTruckTCO.be</a>.</div>
+    <div style="color:#7d735d;margin-top:4px">Estimates for guidance only, calibrated for Belgium 2026. Not financial advice. Your real costs depend on your routes, energy contract and truck.</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var $=function(id){return document.getElementById(id);};
+
+  // ---- constants (consistent with eTruckTCO.be) ----
+  var DIESEL_REFUND=0.1913;       // €/L professional refund
+  var PUBLIC_PRICE=0.46;          // €/kWh public
+  var DEPOT_PRICE=0.26;           // €/kWh depot
+  var TRUCK_E=198;                // €k Windrose R700
+  var TRUCK_D=120;                // €k diesel
+  var DCONS=30;                   // L/100km
+  var ECONS_WHEEL=1.10;           // kWh/km at the wheel (eTruckAnalysis default)
+  var CHARGE_LOSS=0.08;           // kempower split-DC, grid->battery
+  var TOLLED_SHARE=0.90;          // share of km on the charged network
+  // ---- six-zone toll engine (ported 1:1 from eTruckAnalysis.html) ----
+  var TOLL_BASE_YEAR=2026, TOLL_START_YEAR=2027, DE_ZEV_FREE_UNTIL=2030;
+  var TOLL_REGION={
+    VL:{d:0.286,infra:0.190}, BRmw:{d:0.168,infra:0.155}, BRurb:{d:0.267,infra:0.250},
+    WA:{d:0.205,vat:0.21}, NL:{d:0.201,zevFlat:0.038}, DE:{d:0.348,infra:0.135},
+    FR:{d:0.220,zevFlat:0.220} };
+  var ZONE_SPLIT={VL:45,BR:2,WA:8,NL:18,FR:15,DE:12}; // default Flemish line-haul mix
+  var TOLL_IDX=0.02, BR_MW=1.0, ZEV_SCEN='cliff';
+  function tollPayFactor(cy){ if(cy<=2026)return .20; if(cy<=2029)return [.40,.60,.80][cy-2027]; return 1; } // cliff
+  function tollDieselRate(r,cy){ return TOLL_REGION[r].d*Math.pow(1+TOLL_IDX,cy-TOLL_BASE_YEAR); }
+  function tollZevRate(r,cy){ var R=TOLL_REGION[r],esc=Math.pow(1+TOLL_IDX,cy-TOLL_BASE_YEAR);
+    if(r==='WA')return tollDieselRate('WA',cy);
+    if(r==='NL'||r==='FR')return R.zevFlat*esc;
+    if(r==='DE')return (cy<=DE_ZEV_FREE_UNTIL)?0:0.25*R.infra*esc;
+    return R.infra*esc*tollPayFactor(cy); }
+  function zoneRate(z,kind,cy){
+    var R=function(r){return kind==='d'?tollDieselRate(r,cy):tollZevRate(r,cy);};
+    if(z==='BR')return BR_MW*R('BRmw')+(1-BR_MW)*R('BRurb');
+    if(z==='WA')return R('WA'); // VAT recoverable -> excl. VAT
+    return R(z); }
+  function tollBlend(kind,cy){ var s=0; for(var z in ZONE_SPLIT) s+=(ZONE_SPLIT[z]/100)*zoneRate(z,kind,cy); return s; }
+  var DIESEL_MAINT={5:95,7:151,10:240};   // €k/truck cumulative
+  var EMAINT_F=0.70;              // ICCT
+  var MG_D=1.22, MG_E=1.08;       // maintenance growth shape
+  var DFIX=6.5, EFIX=5.5;         // €k/yr insurance(+AdBlue)
+  var RESID={conservative:{5:8,7:4,10:1}};
+  var VENDOR_MULT=0.94;           // kempower (auto-pick at 80 trucks), mid band
+  var TURN={20:37,50:30,80:28,100:27,150:25,200:23}; // €k/truck turnkey, mid
+  var SIZES=[20,50,80,100,150,200];
+  var iD=0.03, iE=0.02, iG=0.02;  // inflation
+  var FLEET=80;                   // assume a depot-scale fleet for charger cost/truck
+
+  // state
+  var st={km:100000,diesel:1.50,years:7,charge:'depot'};
+
+  function turnkeyPerTruck(t){
+    if(t<=20) return TURN[20];
+    if(t>=200) return TURN[200];
+    for(var i=0;i<SIZES.length-1;i++){var a=SIZES[i],b=SIZES[i+1];if(t>=a&&t<=b){var f=(t-a)/(b-a);return TURN[a]+f*(TURN[b]-TURN[a]);}}
+    return 28;
+  }
+  function maintProfile(cum,years,g){
+    var w=[],s=0,i;
+    for(i=1;i<=years;i++){var x=Math.pow(g,i-1);w.push(x);s+=x;}
+    return w.map(function(x){return cum*x/s;});
+  }
+
+  function calc(){
+    var km=st.km, years=st.years;
+    var dieselNet=Math.max(0,st.diesel-DIESEL_REFUND);
+    var pubShare = st.charge==='depot'?0 : (st.charge==='mix'?0.25:0.7);
+    var ePrice = DEPOT_PRICE*(1-pubShare)+PUBLIC_PRICE*pubShare;
+
+    // per-truck capex (€k)
+    var dBuy=TRUCK_D;
+    var charger=turnkeyPerTruck(FLEET)*VENDOR_MULT;   // €k/truck (kempower, mid)
+    var eBuy=TRUCK_E+charger;
+
+    // maintenance profiles (€k/truck) for the period
+    var mc=DIESEL_MAINT[years], me=Math.round(mc*EMAINT_F);
+    var dM=maintProfile(mc,years,MG_D), eM=maintProfile(me,years,MG_E);
+
+    // per-year running costs (€k/truck), nominal
+    var dFuelT=0,dTollT=0,dMaintT=0,dOthT=0,eFuelT=0,eTollT=0,eMaintT=0,eOthT=0;
+    var dYearly=[],eYearly=[];
+    for(var t=1;t<=years;t++){
+      var fD=Math.pow(1+iD,t-1),fE=Math.pow(1+iE,t-1),fG=Math.pow(1+iG,t-1);
+      var cy=TOLL_START_YEAR+(t-1);
+      var tollKm=km*TOLLED_SHARE;
+      var de=(km*DCONS/100)*dieselNet*fD/1000;   // €k
+      var dt=tollKm*tollBlend('d',cy)/1000;      // zone-blended, year-indexed
+      var dm=dM[t-1]*fG;
+      var dox=DFIX*fG;
+      var ee=(km*(ECONS_WHEEL/(1-CHARGE_LOSS)))*ePrice*fE/1000; // billed on grid energy
+      var et=tollKm*tollBlend('e',cy)/1000;
+      var em=eM[t-1]*fG;
+      var eox=EFIX*fG;
+      dFuelT+=de;dTollT+=dt;dMaintT+=dm;dOthT+=dox;
+      eFuelT+=ee;eTollT+=et;eMaintT+=em;eOthT+=eox;
+      dYearly.push(de+dt+dm+dox);
+      eYearly.push(ee+et+em+eox);
+    }
+    var dRun=dFuelT+dTollT+dMaintT+dOthT;
+    var eRun=eFuelT+eTollT+eMaintT+eOthT;
+    var resid=RESID.conservative[years]; // €k/truck net benefit (reduces electric)
+    var dTco=dBuy+dRun;
+    var eTco=eBuy+eRun-resid;
+    var saving=dTco-eTco;                 // €k/truck
+    var savingMonth=saving*1000/(years*12);
+
+    // payback: extra capex vs yearly saving stream
+    var extra=eBuy-dBuy-resid*0;          // upfront extra (resid comes at end)
+    extra=eBuy-dBuy;
+    var cum=-extra, pb=null;
+    for(var y=1;y<=years;y++){
+      var yrSave=dYearly[y-1]-eYearly[y-1];
+      if(y===years) yrSave+=resid;
+      var prev=cum; cum+=yrSave;
+      if(prev<0&&cum>=0){pb=(y-1)+(-prev)/(cum-prev);break;}
+    }
+    if(pb===null) pb = cum>=0?0:Infinity;
+
+    return {
+      km:km,years:years,
+      dBuy:dBuy,dFuel:dFuelT,dToll:dTollT,dRest:dMaintT+dOthT,dRun:dRun,dTco:dTco,
+      eBuy:eBuy,eFuel:eFuelT,eToll:eTollT,eRest:eMaintT+eOthT,eRun:eRun,eTco:eTco,charger:charger,
+      saving:saving,savingMonth:savingMonth,payback:pb,resid:resid,
+      dYearAvg:dRun/years,eYearAvg:eRun/years,pubShare:pubShare
+    };
+  }
+
+  function euro(k){ // €k value → friendly string
+    if(Math.abs(k)>=1000) return '€'+(k/1000).toFixed(k>=10000?0:1)+'M';
+    return '€'+Math.round(k)+'k';
+  }
+  function euroFull(k){ // €k → full euros
+    return '€'+Math.round(k*1000).toLocaleString('en-US').replace(/,/g, ' ');
+  }
+
+  function render(){
+   try{
+    var r=calc();
+    // verdict
+    var win=r.saving>0;
+    var vEl=$('verdict');
+    if(vEl){vEl.textContent = win?'Yes — you save money':'Diesel is cheaper here'; vEl.className='verdict '+(win?'win':'lose');}
+    if($('v-years'))$('v-years').textContent=r.years+' years';
+    if($('v-saving'))$('v-saving').textContent=euroFull(Math.abs(r.saving));
+    if($('verdict-sub'))$('verdict-sub').innerHTML = win
+      ? 'Over <b>'+r.years+' years</b> an electric truck costs you <b>'+euroFull(r.saving)+'</b> less than diesel.'
+      : 'With these settings, diesel costs <b>'+euroFull(-r.saving)+'</b> less over <b>'+r.years+' years</b>. Try more km or a higher diesel price.';
+    if($('v-month')){$('v-month').textContent = (r.savingMonth>=0?'':'−')+'€'+Math.abs(Math.round(r.savingMonth)).toLocaleString('en-US').replace(/,/g, ' '); $('v-month').className='v '+(r.savingMonth>=0?'green':'');}
+    if($('v-payback'))$('v-payback').textContent = (r.payback===Infinity?'—':r.payback.toFixed(1)+' yrs');
+
+    // vs cards
+    if($('d-tco'))$('d-tco').textContent=fmtCard(r.dTco); if($('e-tco'))$('e-tco').textContent=fmtCard(r.eTco);
+    if($('d-buy'))$('d-buy').textContent=fmtCard(r.dBuy); if($('d-fuel'))$('d-fuel').textContent=fmtCard(r.dFuel);
+    if($('d-toll'))$('d-toll').textContent=fmtCard(r.dToll); if($('d-rest'))$('d-rest').textContent=fmtCard(r.dRest);
+    if($('e-buy'))$('e-buy').textContent=fmtCard(r.eBuy); if($('e-fuel'))$('e-fuel').textContent=fmtCard(r.eFuel);
+    if($('e-toll'))$('e-toll').textContent=fmtCard(r.eToll); if($('e-rest'))$('e-rest').textContent=fmtCard(r.eRest);
+
+    var chargeTxt = r.pubShare===0?'all charging at your own depot':
+                    r.pubShare<0.5?'a mix of depot and public charging':'mostly public charging';
+    if($('vs-note'))$('vs-note').textContent='Figures are per truck, over '+r.years+' years, with '+chargeTxt+
+      '. "Truck + charger" includes your share of the depot charging equipment. Electric total already counts the truck\u2019s resale value at the end.';
+
+    // yearly bars
+    var dY=r.dYearAvg, eY=r.eYearAvg;
+    var maxY=Math.max(dY,eY)||1;
+    if($('bar-d'))$('bar-d').style.width='100%';
+    if($('bar-e'))$('bar-e').style.width=Math.max(8,Math.round(eY/maxY*100))+'%';
+    if($('bar-d-lab'))$('bar-d-lab').textContent=euroFull(dY)+' /yr';
+    if($('bar-e-lab'))$('bar-e-lab').textContent=euroFull(eY)+' /yr';
+
+    // payback strip
+    if($('pb-years'))$('pb-years').textContent = r.payback===Infinity?'—':r.payback.toFixed(1);
+    var track=$('paytrack'); if(track){track.innerHTML='';
+    for(var y=1;y<=r.years;y++){
+      var cell=document.createElement('div');
+      cell.className='payyear';
+      if(r.payback!==Infinity){
+        if(y<=Math.floor(r.payback)) cell.className='payyear paid';
+        else if(y===Math.ceil(r.payback)&&r.payback%1!==0) cell.className='payyear partial';
+      }
+      cell.textContent='Y'+y;
+      track.appendChild(cell);
+    }}
+    if($('pb-note'))$('pb-note').textContent = r.payback===Infinity
+      ? 'With these settings it doesn\u2019t break even within '+r.years+' years — try more km or a higher diesel price.'
+      : 'After year '+r.payback.toFixed(1)+', every kilometre is cheaper than diesel — that\u2019s '+euroFull(r.saving)+' in your pocket by year '+r.years+'.';
+
+    // inline year labels
+    var yi=document.querySelectorAll('.yr-inline');
+    for(var i=0;i<yi.length;i++) yi[i].textContent=r.years+' years';
+    var vb=$('ver-badge'); if(vb){vb.textContent='v3'; vb.style.background='#1faa6e';}
+   }catch(err){
+    var vb=$('ver-badge'); if(vb){vb.textContent='ERR'; vb.style.background='#b41e1e';}
+    if(typeof console!=='undefined'&&console.error)console.error('render() failed:',err);
+   }
+  }
+
+  function fmtCard(k){ // €k → compact card string without leading €
+    if(k>=1000) return (k/1000).toFixed(1)+'M';
+    return Math.round(k)+'k';
+  }
+
+  // ---- wire up (build 2026-06-02b — live hero recalculation) ----
+  function setRangeFill(el){
+    if(!el) return;
+    var min=+el.min,max=+el.max,v=+el.value;
+    el.style.setProperty('--p',((v-min)/(max-min)*100)+'%');
+  }
+  // One handler used everywhere: update state, then ALWAYS re-render every output
+  function onKm(){ st.km=+this.value; $('km-val').textContent=st.km.toLocaleString('en-US').replace(/,/g, ' '); setRangeFill(this); render(); }
+  function onDiesel(){ st.diesel=+this.value; $('diesel-val').textContent=st.diesel.toFixed(2); setRangeFill(this); render(); }
+  $('km').addEventListener('input', onKm);
+  $('km').addEventListener('change', onKm);
+  $('diesel').addEventListener('input', onDiesel);
+  $('diesel').addEventListener('change', onDiesel);
+  document.querySelectorAll('#years-seg button').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('#years-seg button').forEach(function(x){x.classList.remove('on');});this.classList.add('on');st.years=+this.dataset.y;render();});});
+  document.querySelectorAll('#charge-seg button').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('#charge-seg button').forEach(function(x){x.classList.remove('on');});this.classList.add('on');st.charge=this.dataset.c;render();});});
+
+  setRangeFill($('km')); setRangeFill($('diesel'));
+  render();
+  console.log('eTruckCost build 2026-06-02b — hero numbers recalc live');
+})();
+</script>
+</body>
+</html>

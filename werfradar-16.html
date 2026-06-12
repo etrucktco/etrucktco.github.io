@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M14.16 4.56 A2.6 2.6 0 0 1 17.84 4.56 M12.89 3.29 A4.4 4.4 0 0 1 19.11 3.29' fill='none' stroke='%2313202E' stroke-width='1.6' stroke-linecap='round'/%3E%3Ccircle cx='16' cy='6.4' r='1.3' fill='%2313202E'/%3E%3Cline x1='16' y1='7.6' x2='16' y2='19.6' stroke='%2313202E' stroke-width='1.9' stroke-linecap='round'/%3E%3Cpath d='M16 18.8 C13.2 18.8 11.4 20.8 11.4 22.7 C11.4 25.2 16 28.9 16 28.9 C16 28.9 20.6 25.2 20.6 22.7 C20.6 20.8 18.8 18.8 16 18.8 Z' fill='%231A5FB4'/%3E%3Ccircle cx='16' cy='22.6' r='1.7' fill='white'/%3E%3C/svg%3E">
+<title>Werfradar — Elke werf op de radar</title>
+<meta name="description" content="Werfradar vindt bouwwerven via gecontracteerde veldpartners én via werven die zelf offertes aanvragen. Elke lead gaat naar maximaal 3 leveranciers uit de buurt. AVG-conform: geen trackers, externe diensten enkel na jouw klik.">
+<!-- Geen externe fonts, scripts of trackers bij het laden. Enige uitzondering: de demokaart (Google Maps) wordt pas geladen na expliciete klik van de bezoeker. -->
+<style>
+/* ===================== tokens ===================== */
+:root{
+  /* kleur */
+  --nacht:#13202E;
+  --beton:#EDF0F3;
+  --kalk:#F8FAFC;
+  --blauw:#1A5FB4;
+  --blauw-d:#134A8E;
+  --blauw-l:#7FB3F0;
+  --staal:#5E6B79;
+  --inkt:#33414F;
+  --lijn:#D3DAE1;
+  --groen:#1F6B2D;
+  /* type */
+  --mono:ui-monospace,"SF Mono","Cascadia Mono","Consolas","Liberation Mono",monospace;
+  --sans:-apple-system,"Segoe UI",system-ui,"Helvetica Neue",Arial,sans-serif;
+  /* fluïde witruimteschaal (viewport-gebonden, best practice) */
+  --s0:clamp(.5rem,.8vw,.75rem);     /* 8–12  */
+  --s1:clamp(.75rem,1.2vw,1rem);     /* 12–16 */
+  --s2:clamp(1rem,1.8vw,1.5rem);     /* 16–24 */
+  --s3:clamp(1.5rem,2.6vw,2.25rem);  /* 24–36 */
+  --s4:clamp(2.25rem,4vw,3.5rem);    /* 36–56 */
+  --s5:clamp(3.5rem,7vw,6rem);       /* 56–96 → sectieritme */
+  --gut:clamp(1.25rem,4vw,2.5rem);   /* containermarge */
+  --navh:64px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:var(--navh);overflow-x:clip;scrollbar-gutter:stable}
+@supports not (overflow:clip){html,body{overflow-x:hidden}}
+body{font-family:var(--sans);background:var(--beton);color:var(--nacht);line-height:1.55;font-size:clamp(1rem,.95rem + .3vw,1.0625rem);overflow-x:clip;max-width:100%}
+a{color:inherit}
+.wrap{max-width:1160px;margin-inline:auto;padding-inline:var(--gut)}
+img,svg,video,canvas{max-width:100%}
+p{max-width:62ch}
+section{padding-block:var(--s5)}
+.hazard{height:12px;background:repeating-linear-gradient(-45deg,var(--blauw) 0 18px,var(--nacht) 18px 36px)}
+
+/* ===================== typografie ===================== */
+h1,h2,h3{font-family:var(--sans);text-transform:uppercase;letter-spacing:-.01em}
+h1{font-weight:800;font-size:clamp(2.4rem,5.5vw,4.1rem);line-height:1.02}
+h1 .accent{color:var(--blauw)}
+h2{font-weight:800;font-size:clamp(1.8rem,3.4vw,2.7rem);line-height:1.05}
+h3{font-weight:800;font-size:clamp(1.05rem,1.4vw,1.2rem)}
+.eyebrow{font-family:var(--mono);font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:var(--blauw-d)}
+.sec-kop{margin-bottom:var(--s4);max-width:640px}
+.sec-kop .eyebrow{display:block;margin-bottom:var(--s1)}
+.sec-kop p{margin-top:var(--s1);font-size:1.06rem;color:var(--inkt)}
+
+/* ===================== nav ===================== */
+nav{position:sticky;top:0;z-index:50;background:var(--kalk);border-bottom:2px solid var(--nacht)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:var(--navh);gap:var(--s2)}
+.logo{font-weight:800;font-size:1.35rem;letter-spacing:.04em;text-transform:uppercase;display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-merk{width:26px;height:26px;flex:none}
+.logo-merk .arc{fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round}
+.logo-merk .bron{fill:currentColor}
+.logo-merk .steel{stroke:currentColor;stroke-width:1.9;stroke-linecap:round}
+.logo-merk .blad{fill:var(--blauw)}
+.logo-merk .dot{fill:#fff}
+.nav-links{display:flex;gap:var(--s2);align-items:center}
+.nav-links a{text-decoration:none;font-weight:600;font-size:.9rem;color:var(--nacht)}
+.nav-links a:hover{color:var(--blauw)}
+.btn{display:inline-block;font-weight:700;font-size:.85rem;letter-spacing:.05em;text-transform:uppercase;padding:.8em 1.6em;background:var(--blauw);color:#fff;text-decoration:none;border:2px solid var(--nacht);box-shadow:4px 4px 0 var(--nacht);transition:transform .12s,box-shadow .12s}
+.btn:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--nacht)}
+.btn:focus-visible,a:focus-visible{outline:3px solid var(--blauw);outline-offset:3px}
+.btn-ghost{background:var(--kalk);color:var(--nacht)}
+@media(max-width:760px){.nav-links a:not(.btn){display:none}}
+
+/* ===================== hero / intro-animatie ===================== */
+header.hero{background:var(--kalk);border-bottom:2px solid var(--nacht);display:flex;align-items:center;justify-content:center;position:relative;min-height:min(calc(100svh - var(--navh)),860px)}
+.hero-in{display:flex;flex-direction:column;align-items:center;text-align:center;padding-block:var(--s4) calc(var(--s4) + 56px);width:100%}
+.hero .eyebrow{display:block;margin-bottom:var(--s2)}
+.hero p.lead{margin-block:var(--s2) var(--s3);font-size:clamp(1.05rem,1.4vw,1.18rem);max-width:52ch;color:var(--inkt)}
+.hero-ctas{display:flex;gap:var(--s1);flex-wrap:wrap;justify-content:center}
+/* Zonder JS (of vóór JS laadt) is alles zichtbaar in eindstand;
+   html.wr-js verbergt de startposities zodat de WAAPI-choreografie ze opbouwt. */
+.fade-up{opacity:1}
+.wr-js .fade-up{opacity:0;transform:translateY(14px)}
+@keyframes wr-fadeup{to{opacity:1;transform:none}}
+
+/* intro-logo: radar-greep + steel + speldblad */
+#wrIntro{width:min(56vw,260px);height:auto;display:block;margin-bottom:var(--s1);cursor:pointer;outline-offset:6px}
+#wrIntro .i-arc{fill:none;stroke:var(--nacht);stroke-width:14;stroke-linecap:round}
+#wrIntro .i-vonk{fill:var(--blauw);opacity:0}
+#wrIntro .i-sein{opacity:0;fill:var(--blauw)}
+#wrIntro .i-sein-arc{fill:none;stroke:var(--blauw);stroke-width:14;stroke-linecap:round}
+#wrIntro .i-stofje{fill:var(--staal)}
+.wr-js #wrIntro .i-arc,.wr-js #wrIntro .i-steel{stroke-dasharray:var(--len,300);stroke-dashoffset:var(--len,300)}
+.wr-js #wrIntro .i-bron,.wr-js #wrIntro .i-blad,.wr-js #wrIntro .i-dot{opacity:0}
+
+.intro-cap{position:relative;height:1.4em;width:100%;max-width:40ch;margin-bottom:var(--s2);font-family:var(--mono);font-size:.78rem;letter-spacing:.08em;color:var(--blauw-d);text-align:center}
+
+/* scroll-pijl */
+.scroll-pijl{position:absolute;bottom:var(--s2);left:50%;transform:translate(-50%,0);display:flex;flex-direction:column;align-items:center;gap:4px;text-decoration:none;color:var(--nacht);font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase}
+.wr-js .scroll-pijl{opacity:0}
+.scroll-pijl.dein{animation:wr-dein 1.7s ease-in-out infinite}
+.scroll-pijl svg{width:26px;height:16px;stroke:var(--blauw);stroke-width:3.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
+@keyframes wr-dein{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,9px)}}
+@media(prefers-reduced-motion:reduce){
+  .wr-js #wrIntro .i-arc,.wr-js #wrIntro .i-steel{stroke-dashoffset:0}
+  .wr-js #wrIntro .i-bron,.wr-js #wrIntro .i-blad,.wr-js #wrIntro .i-dot,.wr-js .fade-up,.wr-js .scroll-pijl{opacity:1;transform:none}
+  #wrIntro .i-vonk,#wrIntro .i-sein{opacity:0!important}
+  .scroll-pijl.dein{animation:none}
+}
+
+/* ===================== statstrip ===================== */
+.statstrip{background:var(--nacht);color:var(--kalk)}
+.statstrip-in{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s3);padding-block:var(--s3)}
+.stat .n{font-weight:800;font-size:clamp(1.7rem,2.8vw,2.3rem);color:var(--blauw-l)}
+.stat .l{font-size:.88rem;color:#AAB6C2;max-width:28ch;margin-top:var(--s0)}
+@media(max-width:760px){.statstrip-in{grid-template-columns:1fr;gap:var(--s2)}}
+
+/* ===================== stappen ===================== */
+.stappen{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--nacht);border:2px solid var(--nacht)}
+.stap{background:var(--kalk);padding:var(--s3)}
+.stap .num{font-family:var(--mono);font-size:.74rem;letter-spacing:.1em;color:var(--blauw-d);display:block;margin-bottom:var(--s1)}
+.stap h3{margin-bottom:var(--s0)}
+.stap p{font-size:.93rem;color:var(--inkt)}
+@media(max-width:860px){.stappen{grid-template-columns:1fr}}
+
+/* ===================== privacy ===================== */
+#privacy{background:var(--kalk);border-block:2px solid var(--nacht)}
+.privacy-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--s4);align-items:start}
+.privacy-grid h3{margin:var(--s3) 0 var(--s0)}
+.privacy-grid h3:first-child{margin-top:0}
+.privacy-grid p,.privacy-grid li{font-size:.93rem;color:var(--inkt)}
+.privacy-grid p + p{margin-top:var(--s0)}
+.privacy-grid ul{padding-left:1.3em;margin-top:var(--s0)}
+.privacy-grid li{margin-bottom:var(--s0)}
+@media(max-width:860px){.privacy-grid{grid-template-columns:1fr}}
+
+.pijplijn{border:2px solid var(--nacht);background:#fff;margin-top:var(--s1)}
+.pijp-stap{display:flex;gap:var(--s1);padding:var(--s1) var(--s2);border-bottom:1px solid var(--lijn);align-items:flex-start}
+.pijp-stap:last-child{border-bottom:none}
+.pijp-num{flex:none;font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;color:#fff;background:var(--blauw);padding:.25em .7em;margin-top:.15em}
+.pijp-stap b{display:block;font-size:.93rem}
+.pijp-stap p{font-size:.86rem;color:var(--inkt);margin-top:2px}
+
+.kader{border:2px solid var(--nacht);background:#fff;padding:var(--s3)}
+.kader .sub{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--blauw-d);margin:var(--s0) 0 var(--s2)}
+.regel{display:flex;gap:var(--s1);padding:var(--s1) 0;border-bottom:1px solid var(--lijn);font-size:.93rem}
+.regel:last-of-type{border-bottom:none}
+.regel .ic{flex:none;width:26px;height:26px;border:2px solid var(--nacht);font-weight:800;font-size:.8rem;display:flex;align-items:center;justify-content:center}
+.regel .ic.ok{background:#E6F2E6;color:var(--groen);border-color:var(--groen)}
+.regel .ic.nee{background:#FBE9E7;color:#B3261E;border-color:#B3261E}
+.kader .noot{margin-top:var(--s2);font-size:.83rem;color:var(--staal)}
+
+.beleid{border:2px solid var(--nacht);background:var(--nacht);color:var(--kalk);padding:var(--s3);margin-top:var(--s3)}
+.beleid h3{color:var(--blauw-l)}
+.beleid .sub{color:#8E9AA7}
+.beleid .regel{border-bottom:1px solid #2A3A4B;color:#D7DEE5}
+.beleid .regel:last-of-type{border-bottom:none}
+.beleid .regel .ic{border-color:var(--blauw-l);color:var(--blauw-l);background:transparent}
+
+/* ===================== rollen ===================== */
+.rollen{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s3)}
+.rol{border:2px solid var(--nacht);background:#fff;display:flex;flex-direction:column}
+.rol-kop{padding:var(--s3) var(--s3) 0}
+.rol-label{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--staal)}
+.rol h3{font-size:1.35rem;margin-top:var(--s0)}
+.rol-balk{height:8px;background:var(--blauw);margin-top:var(--s2)}
+.rol ul{list-style:none;padding:var(--s2) var(--s3);flex:1}
+.rol li{position:relative;padding:var(--s0) 0 var(--s0) 26px;font-size:.93rem;border-bottom:1px solid var(--lijn)}
+.rol li:last-child{border-bottom:none}
+.rol li::before{content:"";position:absolute;left:0;top:calc(var(--s0) + .3em);width:11px;height:11px;background:var(--blauw);clip-path:polygon(0 0,100% 50%,0 100%)}
+.rol-cta{padding:0 var(--s3) var(--s3)}
+.rol-cta a{display:block;text-align:center}
+@media(max-width:900px){.rollen{grid-template-columns:1fr}}
+
+/* ===================== waarom ===================== */
+.waarom{display:grid;grid-template-columns:1fr 1fr;gap:var(--s4);align-items:start}
+.waarom-blok{border-left:4px solid var(--blauw);padding-left:var(--s2);margin-bottom:var(--s3)}
+.waarom-blok:last-child{margin-bottom:0}
+.waarom-blok h3{margin-bottom:var(--s0)}
+.waarom-blok p{font-size:.93rem;color:var(--inkt)}
+.rekenkaart{background:var(--nacht);color:var(--kalk);padding:var(--s3)}
+.rekenkaart h3{color:var(--blauw-l);margin-bottom:var(--s2)}
+.rekenkaart table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:.82rem}
+.rekenkaart td{padding:var(--s0) 0;border-bottom:1px solid #2A3A4B;vertical-align:top}
+.rekenkaart td:last-child{text-align:right;font-weight:600;white-space:nowrap;padding-left:var(--s1)}
+.rekenkaart tr.totaal td{border-bottom:none;border-top:2px solid var(--blauw);font-weight:600;color:var(--blauw-l);padding-top:var(--s1)}
+.rekenkaart .noot{font-size:.78rem;color:#8E9AA7;margin-top:var(--s1);font-family:var(--sans)}
+@media(max-width:860px){.waarom{grid-template-columns:1fr}}
+
+/* ===================== flow (scroll-animatie) ===================== */
+#flow{background:var(--beton)}
+.flow-grid{display:grid;grid-template-columns:1fr 44px 1fr 44px 1fr;gap:var(--s2);align-items:stretch}
+.scene{border:2px solid var(--nacht);background:#fff;padding:var(--s2);margin:0;display:flex;flex-direction:column}
+.scene svg{width:100%;height:auto;display:block}
+.scene figcaption{margin-top:var(--s1)}
+.scene figcaption b{display:block;font-size:.95rem;text-transform:uppercase;letter-spacing:.02em}
+.scene figcaption p{font-size:.86rem;color:var(--inkt);margin-top:2px}
+.flow-pijl{align-self:center;width:44px}
+.flow-pijl svg{width:100%;height:auto;display:block}
+.flow-pijl .stroom{stroke:var(--blauw);stroke-width:3;stroke-dasharray:6 6;fill:none}
+.flow-pijl .punt{fill:var(--blauw)}
+@media(max-width:900px){
+  .flow-grid{grid-template-columns:1fr}
+  .flow-pijl{justify-self:center;transform:rotate(90deg)}
+}
+/* tekenlijnen */
+.scene .lijn{fill:none;stroke:var(--nacht);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+/* scrub: --p (0..1) wordt door JS gezet op basis van scrollpositie;
+   gepauzeerde animaties met negatieve delay volgen zo snelheid én richting
+   van het scrollen, en spelen achteruit bij omhoog scrollen */
+.scene .draw,.scene .pop,.scene .val,.scene .rit,.scene .rit-r{animation-fill-mode:both;animation-play-state:paused;animation-timing-function:ease;animation-delay:calc(var(--d,0s) - var(--p,0)*1.8s)}
+.scene .draw{stroke-dasharray:620;stroke-dashoffset:620;animation-name:wr-teken;animation-duration:.9s}
+.scene .pop{opacity:0;animation-name:wr-pop;animation-duration:.4s}
+.scene .val{opacity:0;transform:translateY(-22px);animation-name:wr-val;animation-duration:.5s;animation-timing-function:cubic-bezier(.3,1.4,.5,1)}
+.scene .rit{opacity:0;transform:translateX(-26px);animation-name:wr-rit;animation-duration:.5s}
+.scene .rit-r{opacity:0;transform:translateX(26px);animation-name:wr-ritr;animation-duration:.5s}
+.scene .dik{stroke-width:6}
+.scene .w5{stroke-width:5}
+.scene .w7{stroke-width:7}
+.scene .sein{opacity:0}
+.scene.aan .sein{animation:wr-seinpuls 2.4s ease-in-out infinite;animation-delay:var(--sd,0s)}
+.scene .vakman{transform-box:fill-box;transform-origin:62% 100%}
+.scene.aan .vakman{animation:wr-spit 1.9s ease-in-out infinite}
+.scene .graafstof{opacity:0;transform-box:fill-box;transform-origin:center}
+.scene.aan .graafstof{animation:wr-graafstof 1.9s ease-in-out infinite}
+.scene .ring{opacity:0;transform-box:fill-box;transform-origin:center}
+.scene.aan .ring{animation:wr-puls 2.4s ease-out infinite;animation-delay:var(--d,0s)}
+.scene .flits{opacity:0}
+.scene.aan .flits{animation:wr-flits 1.4s ease forwards;animation-delay:var(--d,0s)}
+.scene.aan ~ .flow-pijl .stroom, .flow-grid.aan .stroom{animation:wr-stroom 1.2s linear infinite}
+@keyframes wr-teken{to{stroke-dashoffset:0}}
+@keyframes wr-pop{to{opacity:1}}
+@keyframes wr-val{to{opacity:1;transform:translateY(0)}}
+@keyframes wr-rit{to{opacity:1;transform:translateX(0)}}
+@keyframes wr-ritr{to{opacity:1;transform:translateX(0)}}
+@keyframes wr-seinpuls{0%,8%{opacity:0}20%{opacity:.9}38%,100%{opacity:0}}
+@keyframes wr-spit{0%,100%{transform:rotate(0deg) translateY(0)}32%{transform:rotate(-3deg) translateY(4px)}48%{transform:rotate(-3deg) translateY(4px)}72%{transform:rotate(1.2deg) translateY(-1.5px)}}
+@keyframes wr-graafstof{0%,26%{opacity:0;transform:scale(.6)}38%{opacity:.55;transform:scale(1)}60%,100%{opacity:0;transform:scale(1.15)}}
+@keyframes wr-puls{0%{opacity:.8;transform:scale(.4)}70%{opacity:0;transform:scale(3.2)}100%{opacity:0;transform:scale(3.2)}}
+@keyframes wr-flits{0%,55%{opacity:0}62%,72%{opacity:1}80%{opacity:0}90%,100%{opacity:1}}
+@keyframes wr-stroom{to{stroke-dashoffset:-24}}
+@media(prefers-reduced-motion:reduce){
+  .scene .draw{stroke-dashoffset:0}
+  .scene .pop,.scene .val,.scene .rit,.scene .rit-r,.scene .flits{opacity:1;transform:none}
+  .scene .sein{opacity:0}
+  .scene .ring{opacity:0}
+  #flow *{animation:none!important}
+}
+
+/* ===================== demokaart ===================== */
+#demo{background:var(--kalk);border-bottom:2px solid var(--nacht)}
+.kaart-zoek{display:flex;gap:var(--s1);margin-bottom:var(--s2);flex-wrap:wrap;align-items:center}
+.kaart-zoek input{flex:1;min-width:240px;font:inherit;font-size:.95rem;padding:.75em 1em;border:2px solid var(--nacht);background:#fff;color:var(--nacht)}
+.kaart-zoek input:focus-visible{outline:3px solid var(--blauw);outline-offset:2px}
+.kaart-zoek input:disabled{background:#E4E9EE;color:var(--staal);cursor:not-allowed}
+.kaart-resultaat{font-family:var(--mono);font-size:.8rem;color:var(--blauw-d);min-height:1.2em;margin-bottom:var(--s1)}
+.kaartvak{position:relative;border:2px solid var(--nacht);box-shadow:8px 8px 0 var(--nacht);background:#DDE3E9;height:min(62vh,520px)}
+#kaart{position:absolute;inset:0}
+.kaart-consent{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:var(--s3);background:
+  linear-gradient(rgba(248,250,252,.92),rgba(248,250,252,.92)),
+  repeating-linear-gradient(-45deg,#D6DCE3 0 14px,#CBD3DC 14px 28px)}
+.kaart-consent .binnen{max-width:46ch}
+.kaart-consent h3{margin-bottom:var(--s1)}
+.kaart-consent p{font-size:.9rem;color:var(--inkt);margin-inline:auto;margin-bottom:var(--s2)}
+.kaart-noot{font-family:var(--mono);font-size:.74rem;color:var(--staal);margin-top:var(--s1)}
+.kaart-legende{display:flex;gap:var(--s2);flex-wrap:wrap;margin-top:var(--s2);font-size:.85rem;color:var(--inkt)}
+.kaart-legende span{display:inline-flex;align-items:center;gap:8px}
+.dot{width:12px;height:12px;border:2px solid var(--nacht);display:inline-block}
+.dot.vp{background:var(--blauw)}
+.dot.zelf{background:#E0A800}
+
+
+#meedoen{text-align:center}
+#meedoen h2{margin-bottom:var(--s1)}
+#meedoen p{max-width:56ch;margin-inline:auto;margin-bottom:var(--s3);font-size:1.06rem;color:var(--inkt)}
+#meedoen .privnote{font-size:.8rem;color:var(--staal);max-width:62ch;margin:var(--s2) auto 0}
+footer{background:var(--nacht);color:#AAB6C2;padding-block:var(--s4) var(--s3);font-size:.88rem}
+.foot-in{display:flex;justify-content:space-between;align-items:flex-start;gap:var(--s3);flex-wrap:wrap}
+footer .logo{color:var(--kalk);font-size:1.2rem}
+footer a{color:#AAB6C2;text-decoration:underline;text-underline-offset:2px}
+footer a:hover{color:var(--blauw-l)}
+footer .kolom{max-width:34ch;line-height:1.6}
+footer .kop{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:#7B8794;margin-bottom:var(--s0)}
+.foot-onder{border-top:1px solid #2A3A4B;margin-top:var(--s3);padding-top:var(--s2);font-size:.8rem;color:#7B8794;display:flex;justify-content:space-between;gap:var(--s2);flex-wrap:wrap}
+
+@media(prefers-reduced-motion:reduce){*{transition:none!important}html{scroll-behavior:auto}}
+</style>
+<script>document.documentElement.classList.add("wr-js");</script>
+</head>
+<body>
+
+<nav>
+  <div class="wrap nav-in">
+    <a class="logo" href="#"><svg class="logo-merk" viewBox="0 0 32 32" aria-hidden="true"><path class="arc" d="M14.16 4.56 A2.6 2.6 0 0 1 17.84 4.56 M12.89 3.29 A4.4 4.4 0 0 1 19.11 3.29"/><circle class="bron" cx="16" cy="6.4" r="1.3"/><line class="steel" x1="16" y1="7.6" x2="16" y2="19.6"/><path class="blad" d="M16 18.8 C13.2 18.8 11.4 20.8 11.4 22.7 C11.4 25.2 16 28.9 16 28.9 C16 28.9 20.6 25.2 20.6 22.7 C20.6 20.8 18.8 18.8 16 18.8 Z"/><circle class="dot" cx="16" cy="22.6" r="1.7"/></svg>Werfradar</a>
+    <div class="nav-links">
+      <a href="#demo">Demo</a>
+      <a href="#hoe">Hoe het werkt</a>
+      <a href="#privacy">Privacy</a>
+      <a href="#rollen">Voor wie</a>
+      <a class="btn" href="#meedoen">Word veldpartner</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap hero-in">
+    <svg id="wrIntro" viewBox="0 0 300 300" role="img" tabindex="0"
+         aria-label="Het Werfradar-logo bouwt zich op: de radar-handgreep tast af, de steel wijst de plek aan en het speldvormige schopblad slaat de werf vast. Klik om opnieuw af te spelen.">
+      <g id="iSchop">
+        <path class="i-arc" id="iArc1" d="M133 47 A23.5 23.5 0 0 1 167 47"/>
+        <path class="i-arc" id="iArc2" d="M122 36 A39.6 39.6 0 0 1 178 36"/>
+        <circle class="i-bron" id="iBron" cx="150" cy="64" r="12" fill="#13202E"/>
+        <circle class="i-sein" id="iSein0" cx="150" cy="64" r="12"/>
+        <path class="i-sein i-sein-arc" id="iSein1" d="M133 47 A23.5 23.5 0 0 1 167 47"/>
+        <path class="i-sein i-sein-arc" id="iSein2" d="M122 36 A39.6 39.6 0 0 1 178 36"/>
+        <line class="i-steel" id="iSteel" x1="150" y1="74" x2="150" y2="182" stroke="#13202E" stroke-width="17" stroke-linecap="round"/>
+        <g class="i-blad" id="iBlad">
+          <path d="M150 175 C125 175 109 193 109 210 C109 233 150 266 150 266 C150 266 191 233 191 210 C191 193 175 175 150 175 Z" fill="#1A5FB4"/>
+          <circle class="i-dot" id="iDot" cx="150" cy="209" r="15" fill="#fff"/>
+        </g>
+      </g>
+      <g id="iStof"></g>
+      <circle class="i-vonk" id="iVonk" r="5"/>
+    </svg>
+    <p class="intro-cap"><span id="iCap" aria-live="polite"></span></p>
+    <span class="eyebrow fade-up" style="--d:5.4s">Werven gespot · offertes aangevraagd · Vlaanderen</span>
+    <h1 class="fade-up" style="--d:5.55s">Elke werf op de <span class="accent">radar.</span></h1>
+    <p class="lead fade-up" style="--d:5.7s">Werfradar vindt bouwwerven langs twee kanalen: veldpartners onder contract melden ze met foto en locatie, en werven vragen zelf gratis offertes aan. Elke lead gaat naar maximaal 3 vakmensen uit de buurt.</p>
+    <div class="hero-ctas fade-up" style="--d:5.85s">
+      <a class="btn" href="#meedoen">Word veldpartner</a>
+      <a class="btn btn-ghost" href="#rollen">Ik zoek werven</a>
+    </div>
+    <a class="scroll-pijl" href="#flow" aria-label="Scroll verder naar de uitleg">
+      <span>Scroll</span>
+      <svg viewBox="0 0 26 16" aria-hidden="true"><path d="M3 3 L13 13 L23 3"/></svg>
+    </a>
+  </div>
+</header>
+
+<div class="hazard" aria-hidden="true"></div>
+
+<div class="statstrip">
+  <div class="wrap statstrip-in">
+    <div class="stat"><div class="n">2 bronnen</div><div class="l">werven gespot door opgeleide veldpartners én werven die zelf offertes aanvragen</div></div>
+    <div class="stat"><div class="n">max. 3</div><div class="l">leveranciers per lead — exclusiviteit voor wie afneemt, rust voor de werf</div></div>
+    <div class="stat"><div class="n">0 trackers</div><div class="l">geen cookies bij bezoek; de demokaart (Google Maps) laadt pas na jouw klik</div></div>
+  </div>
+</div>
+
+<section id="flow">
+  <div class="wrap">
+    <div class="sec-kop">
+      <span class="eyebrow">In drie beelden</span>
+      <h2>Van spot tot offerte</h2>
+    </div>
+    <div class="flow-grid" id="flowGrid">
+
+      <figure class="scene">
+        <svg viewBox="0 0 300 260" role="img" aria-label="De radar-handgreep van het logo vangt het signaal van de spotter die met zijn telefoon een werf fotografeert">
+          <rect class="lijn draw" x="28" y="64" width="96" height="158" rx="14" fill="#fff"/>
+          <circle cx="76" cy="73" r="2.2" fill="#13202E"/>
+          <rect class="lijn draw" style="--d:.1s" x="36" y="82" width="80" height="112" rx="5"/>
+          <line class="lijn draw" style="--d:.2s" x1="40" y1="176" x2="112" y2="176"/>
+          <line class="lijn draw" style="--d:.3s" x1="88" y1="98" x2="88" y2="176"/>
+          <line class="lijn draw" style="--d:.35s" x1="60" y1="98" x2="112" y2="98"/>
+          <rect class="lijn draw" style="--d:.4s" x="60" y="91" width="11" height="8"/>
+          <line class="lijn draw" style="--d:.45s" x1="104" y1="98" x2="104" y2="118"/>
+          <rect class="lijn draw" style="--d:.5s" x="92" y="152" width="20" height="24"/>
+          <g class="val" style="--d:.55s">
+            <circle class="lijn" cx="76" cy="207" r="9" fill="#fff"/>
+            <circle cx="76" cy="207" r="5.5" fill="#1A5FB4"/>
+          </g>
+          <path class="lijn draw" style="--d:.9s" d="M112 92 Q168 62 215 128" stroke="#1A5FB4"/>
+          <circle class="pop" style="--d:.65s" cx="225" cy="140" r="8" fill="#13202E"/>
+          <path class="lijn dik draw" style="--d:.7s" d="M213.7 128.7 A16 16 0 0 1 236.3 128.7"/>
+          <path class="lijn dik draw" style="--d:.8s" d="M205.9 120.9 A27 27 0 0 1 244.1 120.9"/>
+          <circle class="sein" style="--sd:0s" cx="225" cy="140" r="8" fill="#1A5FB4"/>
+          <path class="sein" style="--sd:.2s" d="M213.7 128.7 A16 16 0 0 1 236.3 128.7" fill="none" stroke="#1A5FB4" stroke-width="6" stroke-linecap="round"/>
+          <path class="sein" style="--sd:.4s" d="M205.9 120.9 A27 27 0 0 1 244.1 120.9" fill="none" stroke="#1A5FB4" stroke-width="6" stroke-linecap="round"/>
+        </svg>
+        <figcaption><b>1 · De radar vangt elke spot</b><p>De veldpartner trekt een foto vanaf de openbare weg; blur en GPS gebeuren op het toestel, en de melding komt binnen op de radar.</p></figcaption>
+      </figure>
+
+      <div class="flow-pijl" aria-hidden="true">
+        <svg viewBox="0 0 44 60"><path class="stroom" d="M2 30 H30"/><path class="punt" d="M30 21 L42 30 L30 39 Z"/></svg>
+      </div>
+
+      <figure class="scene">
+        <svg viewBox="0 0 300 260" role="img" aria-label="De steel van het logo daalt af en plant het speldvormige blad als locatiespeld op de kaart: het platform verbindt">
+          <circle class="pop" style="--d:.35s" cx="150" cy="16" r="5.5" fill="#13202E"/>
+          <rect class="lijn draw" x="40" y="118" width="220" height="122" rx="10" fill="#fff"/>
+          <g class="pop" style="--d:.25s" stroke="#D3DAE1" stroke-width="6" fill="none">
+            <path d="M40 160 H260 M40 205 H260 M110 118 V240 M195 118 V240"/>
+          </g>
+          <line class="lijn w7 draw" style="--d:.45s" x1="150" y1="20" x2="150" y2="152"/>
+          <g class="val" style="--d:.85s">
+            <path d="M150 146 C133 146 122 158 122 170 C122 187 150 210 150 210 C150 210 178 187 178 170 C178 158 167 146 150 146 Z" fill="#1A5FB4" stroke="#13202E" stroke-width="2.5"/>
+          </g>
+          <circle class="pop" style="--d:1.15s" cx="150" cy="170" r="9" fill="#fff"/>
+        </svg>
+        <figcaption><b>2 · Het platform verbindt</b><p>De steel van signaal naar speld: elke melding wordt gevalideerd en landt als locatiespeld op de kaart, zichtbaar binnen jouw straal.</p></figcaption>
+      </figure>
+
+      <div class="flow-pijl" aria-hidden="true">
+        <svg viewBox="0 0 44 60"><path class="stroom" d="M2 30 H30"/><path class="punt" d="M30 21 L42 30 L30 39 Z"/></svg>
+      </div>
+
+      <figure class="scene">
+        <svg viewBox="0 0 300 260" role="img" aria-label="Een vakwerker met de Werfradar-schop in het midden, links een truweel en rechts een verfborstel">
+          <defs>
+            <linearGradient id="wr3staal" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#F2F5F7"/><stop offset=".45" stop-color="#A8B1BA"/>
+              <stop offset=".62" stop-color="#8C96A0"/><stop offset="1" stop-color="#C9D0D6"/>
+            </linearGradient>
+            <linearGradient id="wr3hout" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#D69A58"/><stop offset=".5" stop-color="#B5763B"/><stop offset="1" stop-color="#8A511F"/>
+            </linearGradient>
+            <linearGradient id="wr3lak" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#C9853F"/><stop offset=".45" stop-color="#9C5E24"/><stop offset="1" stop-color="#6F3F14"/>
+            </linearGradient>
+            <linearGradient id="wr3ferrule" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#E8ECEF"/><stop offset=".35" stop-color="#9AA3AC"/>
+              <stop offset=".6" stop-color="#D5DBE0"/><stop offset="1" stop-color="#848E97"/>
+            </linearGradient>
+            <linearGradient id="wr3borstel" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#E3C290"/><stop offset=".7" stop-color="#B08750"/><stop offset="1" stop-color="#8C6534"/>
+            </linearGradient>
+            <linearGradient id="wr3verf" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#4F94E8"/><stop offset="1" stop-color="#1A5FB4"/>
+            </linearGradient>
+          </defs>
+          <line class="lijn draw" x1="24" y1="206" x2="276" y2="206"/>
+          <g class="rit" style="--d:.3s">
+            <!-- houten heft met nerf en hoogglans -->
+            <rect x="63.5" y="88" width="13" height="30" rx="6.5" fill="url(#wr3hout)" stroke="#5E3A14" stroke-width="1"/>
+            <path d="M67 92 C66 100 67.5 108 67 114 M72.5 91 C73.5 99 72 107 72.8 114" stroke="#7A4A1E" stroke-width=".8" fill="none" opacity=".7"/>
+            <path d="M66 91 C65.5 99 66.5 107 66 113" stroke="#F0C896" stroke-width="1.4" fill="none" opacity=".8" stroke-linecap="round"/>
+            <ellipse cx="70" cy="89.5" rx="6" ry="2.4" fill="#E0A964" stroke="#5E3A14" stroke-width="1"/>
+            <!-- stalen S-hals + montagering -->
+            <rect x="65.5" y="116.5" width="9" height="4" rx="2" fill="url(#wr3ferrule)" stroke="#5C656E" stroke-width=".8"/>
+            <path d="M70 120 C70 126 66.5 128.5 66.5 133 L66.5 137" stroke="#7C868F" stroke-width="3.6" fill="none" stroke-linecap="round"/>
+            <path d="M69.2 121 C69.2 126 66 128 66 132.5" stroke="#E6EAEE" stroke-width="1" fill="none" opacity=".8"/>
+            <!-- gepunt pleisterblad met spiegeling en montageplaat -->
+            <path d="M70 174 C63 164 52 150 52 142.5 C52 137.5 60 134 70 134 C80 134 88 137.5 88 142.5 C88 150 77 164 70 174 Z" fill="url(#wr3staal)" stroke="#5C656E" stroke-width="1.2"/>
+            <path d="M58 139 C63 136.5 77 136.5 82 139" stroke="#5C656E" stroke-width=".9" fill="none" opacity=".6"/>
+            <path d="M60 145 C64 155 67 162 69.5 168" stroke="#FFFFFF" stroke-width="2.4" fill="none" opacity=".55" stroke-linecap="round"/>
+            <path d="M82 144 C79 152 75 159 72.5 164" stroke="#6B747D" stroke-width="1.6" fill="none" opacity=".4" stroke-linecap="round"/>
+            <ellipse cx="70" cy="139" rx="6.5" ry="2.6" fill="#9AA3AC" stroke="#5C656E" stroke-width=".8"/>
+            <circle cx="67" cy="139" r=".9" fill="#4A535B"/><circle cx="73" cy="139" r=".9" fill="#4A535B"/>
+          </g>
+          <g class="rit-r" style="--d:.5s">
+            <!-- gelakt houten handvat met ophanggat en taille -->
+            <path d="M237 98 C237 95 247 95 247 98 L248.6 124 C249.2 130 249.6 133 249.6 135 L234.4 135 C234.4 133 234.8 130 235.4 124 Z" fill="url(#wr3lak)" stroke="#4F2D0E" stroke-width="1"/>
+            <path d="M238.6 100 C238.4 110 238 122 237.6 132" stroke="#F2C68C" stroke-width="1.3" fill="none" opacity=".75" stroke-linecap="round"/>
+            <path d="M246 101 C246.3 111 246.8 122 247.3 131" stroke="#5A3413" stroke-width=".9" fill="none" opacity=".7"/>
+            <circle cx="242" cy="102.5" r="2.1" fill="#F8FAFC" stroke="#4F2D0E" stroke-width="1"/>
+            <!-- gefelste metalen ferrule met klinknagels -->
+            <rect x="232.5" y="135" width="19" height="14" rx="1.5" fill="url(#wr3ferrule)" stroke="#5C656E" stroke-width="1"/>
+            <line x1="232.5" y1="139" x2="251.5" y2="139" stroke="#7C868F" stroke-width=".9" opacity=".8"/>
+            <line x1="232.5" y1="145" x2="251.5" y2="145" stroke="#7C868F" stroke-width=".9" opacity=".8"/>
+            <circle cx="236.5" cy="142" r="1.1" fill="#5C656E"/><circle cx="247.5" cy="142" r="1.1" fill="#5C656E"/>
+            <line x1="234" y1="136.5" x2="234" y2="147.5" stroke="#F2F5F7" stroke-width="1.1" opacity=".8"/>
+            <!-- haren: bundel met losse strengen, uitlopend in natte blauwe verf -->
+            <path d="M233 149 L251 149 C252 157 252.5 163 252 167 C249 171.5 246.5 169.5 244.5 172 C242.5 169.8 240 172.2 238 170 C236 172 233.5 170.5 232 167 C231.5 163 232 157 233 149 Z" fill="url(#wr3borstel)" stroke="#6B4A22" stroke-width=".9"/>
+            <path d="M236 150 C235.6 156 235.4 161 235.6 166 M239.5 150 C239.3 156 239.2 162 239.4 168 M243 150 C243 156 243.1 162 243 168 M246.5 150 C246.8 156 247 161 246.8 167 M249.5 150 C249.8 155 250 160 249.8 165" stroke="#7E5A2C" stroke-width=".7" fill="none" opacity=".75"/>
+            <path d="M234.3 150.5 C234 156 233.8 160 234 164" stroke="#F0D6A8" stroke-width=".9" fill="none" opacity=".8"/>
+            <!-- verfdip met natte glans -->
+            <path d="M232.2 162 C236 164.5 248 164.5 251.9 162 C252.1 164 252.2 165.6 252 167 C249 171.5 246.5 169.5 244.5 172 C242.5 169.8 240 172.2 238 170 C236 172 233.5 170.5 232 167 C231.8 165.6 231.9 164 232.2 162 Z" fill="url(#wr3verf)" stroke="#134A8E" stroke-width=".8"/>
+            <path d="M234.5 165 C237 166.6 241 167.2 244 167" stroke="#8FC0F2" stroke-width="1" fill="none" opacity=".85" stroke-linecap="round"/>
+            <path class="pop" style="--d:1.15s" d="M244.5 172 C244.5 174.5 243.2 175.6 243.4 177.4 C243.6 179 246 179 246.2 177.4 C246.4 175.8 245.2 174.5 245.4 172.2 Z" fill="url(#wr3verf)"/>
+            <circle class="pop" style="--d:1.35s" cx="244.8" cy="185" r="3.2" fill="url(#wr3verf)"/>
+            <ellipse class="pop" style="--d:1.55s" cx="244.8" cy="203" rx="6" ry="1.8" fill="#1A5FB4" opacity=".55"/>
+          </g>
+          <g class="vakman">
+            <g class="pop" style="--d:.55s">
+              <circle class="lijn" cx="150" cy="93" r="10" fill="#fff"/>
+              <path d="M137 84 A13 13 0 0 1 163 84 Z" fill="#1A5FB4" stroke="#13202E" stroke-width="2.5"/>
+              <rect x="132" y="83" width="36" height="5" rx="2.5" fill="#1A5FB4" stroke="#13202E" stroke-width="2"/>
+            </g>
+            <path class="lijn w5 draw" style="--d:.65s" d="M150 103 V152 M150 152 L132 200 M150 152 L170 200 M150 112 L178 147 M150 122 L179 163"/>
+            <circle class="pop" style="--d:.85s" cx="181" cy="140" r="2.2" fill="#13202E"/>
+            <path class="lijn draw" style="--d:.9s" d="M178.15 137.15 A4 4 0 0 1 183.85 137.15"/>
+            <path class="lijn draw" style="--d:.97s" d="M176.2 135.2 A6.75 6.75 0 0 1 185.8 135.2"/>
+            <line class="lijn draw" style="--d:1.05s" x1="181" y1="142" x2="181" y2="185"/>
+            <g class="val" style="--d:1.25s">
+              <path d="M181 183.5 C175.5 183.5 172 187.5 172 191.5 C172 197.5 181 206 181 206 C181 206 190 197.5 190 191.5 C190 187.5 186.5 183.5 181 183.5 Z" fill="#1A5FB4" stroke="#13202E" stroke-width="1.6"/>
+              <circle cx="181" cy="191.5" r="2.8" fill="#fff"/>
+            </g>
+            <circle class="sein" style="--sd:0s" cx="181" cy="140" r="2.2" fill="#1A5FB4"/>
+            <path class="sein" style="--sd:.2s" d="M178.15 137.15 A4 4 0 0 1 183.85 137.15" fill="none" stroke="#1A5FB4" stroke-width="1.6" stroke-linecap="round"/>
+            <path class="sein" style="--sd:.4s" d="M176.2 135.2 A6.75 6.75 0 0 1 185.8 135.2" fill="none" stroke="#1A5FB4" stroke-width="1.6" stroke-linecap="round"/>
+          </g>
+          <ellipse class="graafstof" cx="187" cy="205" rx="9" ry="2.6" fill="#5E6B79"/>
+          </svg>
+        <figcaption><b>3 · Max. 3 vakmensen</b><p>De vakwerker met de Werfradar-schop in het midden, het truweel van de metser links, de verfborstel van de schilder rechts — elk de enige in zijn vak op de lead.</p></figcaption>
+      </figure>
+
+    </div>
+  </div>
+</section>
+
+<section id="demo">
+  <div class="wrap">
+    <div class="sec-kop">
+      <span class="eyebrow">Demo</span>
+      <h2>De radar in actie</h2>
+      <p>Fictieve meldingen rond Boom en de Antwerpse zuidrand. Blauw = gespot door een veldpartner, geel = werf die zelf offertes aanvroeg. Typ je vestigingsadres en zie hoeveel werven binnen 10 km op de radar staan.</p>
+    </div>
+    <div class="kaart-zoek">
+      <input type="text" id="kaartZoek" placeholder="Typ je adres of gemeente… (eerst kaart laden)" autocomplete="off" disabled aria-label="Zoek een adres om werven in de buurt te tonen">
+    </div>
+    <p class="kaart-resultaat" id="kaartResultaat" role="status" aria-live="polite"></p>
+    <div class="kaartvak">
+      <div id="kaart" aria-label="Demokaart met fictieve werfmeldingen"></div>
+      <div class="kaart-consent" id="kaartConsent">
+        <div class="binnen">
+          <h3>Demokaart laden?</h3>
+          <p>De kaart en het adres-zoeken (auto-aanvullen) worden geleverd door Google Maps en Google Places. Pas na jouw klik wordt verbinding gemaakt met Google; daarbij worden je IP-adres en ingetypte zoekopdrachten aan Google doorgegeven en kan Google cookies plaatsen. Tot die klik laadt deze pagina niets van derden.</p>
+          <button class="btn" id="kaartLaden" type="button">Kaart laden (Google Maps)</button>
+          <p class="kaart-noot">Demogegevens — geen echte werven. API in demomodus: het "For development purposes only"-watermerk is normaal.</p>
+        </div>
+      </div>
+    </div>
+    <div class="kaart-legende">
+      <span><span class="dot vp" aria-hidden="true"></span>Gemeld door veldpartner</span>
+      <span><span class="dot zelf" aria-hidden="true"></span>Zelf offertes aangevraagd</span>
+    </div>
+  </div>
+</section>
+
+<section id="hoe">
+  <div class="wrap">
+    <div class="sec-kop">
+      <span class="eyebrow">Werkwijze</span>
+      <h2>Hoe het werkt</h2>
+      <p>Twee kanalen, één radar. Veldpartners — dienstverleners onder contract, met opleiding en vaste instructies — melden werven die ze tegenkomen. Daarnaast vragen werven zelf gratis offertes aan. Beide stromen komen in dezelfde gevalideerde leadlijst terecht.</p>
+    </div>
+    <div class="stappen">
+      <div class="stap">
+        <span class="num">STAP 01 / CONTRACT</span>
+        <h3>Word veldpartner</h3>
+        <p>Je tekent de veldpartnerovereenkomst met privacy-instructies en volgt een korte online opleiding: wat mag op de foto, wat nooit, en hoe je veilig meldt. Pas daarna gaat je account open.</p>
+      </div>
+      <div class="stap">
+        <span class="num">STAP 02 / MELDING</span>
+        <h3>Meld de werf</h3>
+        <p>Foto vanaf de openbare weg. Gezichten en nummerplaten worden automatisch geblurd vóór upload, EXIF-data wordt gewist; alleen de werf-GPS blijft. Kies type en fase, dien in.</p>
+      </div>
+      <div class="stap">
+        <span class="num">STAP 03 / MATCHING</span>
+        <h3>Validatie &amp; matching</h3>
+        <p>Werfradar controleert elke melding op kwaliteit én privacy en biedt ze aan bij maximaal 3 leveranciers uit de buurt. Gevalideerd? Dan staat jouw vergoeding in het maandoverzicht.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="privacy">
+  <div class="wrap">
+    <div class="sec-kop">
+      <span class="eyebrow">AVG / GDPR</span>
+      <h2>Privacy by design</h2>
+      <p>Foto's en locaties zijn de kern van Werfradar. Daarom is de hele keten — van veldpartner tot leverancier — contractueel en technisch dichtgetimmerd.</p>
+    </div>
+    <div class="privacy-grid">
+      <div>
+        <h3>Eén verantwoordelijke, duidelijke instructies</h3>
+        <p>Werfradar is verwerkingsverantwoordelijke voor alle meldingen. Veldpartners zijn dienstverleners van het platform: ze verwerken foto's en locaties uitsluitend op schriftelijke instructie van Werfradar (art. 28–29 AVG), na verplichte opleiding. Geen wildgroei van losse uploaders met elk hun eigen aansprakelijkheid — één keten, één aanspreekpunt.</p>
+
+        <h3>Technische pijplijn</h3>
+        <div class="pijplijn">
+          <div class="pijp-stap"><span class="pijp-num">P1</span><div><b>Blur op het toestel</b><p>Gezichten en nummerplaten worden automatisch onherkenbaar gemaakt vóór upload. Het origineel verlaat de telefoon nooit.</p></div></div>
+          <div class="pijp-stap"><span class="pijp-num">P2</span><div><b>Metadata-stripping</b><p>EXIF-data (toestel, serienummer, tijdstip, route) wordt gewist. Alleen de GPS-locatie van de werf blijft over.</p></div></div>
+          <div class="pijp-stap"><span class="pijp-num">P3</span><div><b>Menselijke validatie</b><p>Een validator controleert elke foto op gemiste persoonsgegevens, inkijk in woningen en de fotoregels. Twijfel = weigering.</p></div></div>
+          <div class="pijp-stap"><span class="pijp-num">P4</span><div><b>Beperkte toegang</b><p>Foto's zijn nooit publiek. Alleen de leverancier die de lead afneemt ziet ze; wissing na maximaal 24 maanden of op verzoek van de bouwheer.</p></div></div>
+        </div>
+
+        <h3>Jouw rechten</h3>
+        <p>Recht op inzage, verbetering, wissing, beperking, overdraagbaarheid en bezwaar (art. 15–21 AVG). Mail <a href="mailto:privacy@werfradar.be">privacy@werfradar.be</a>; antwoord binnen 30 dagen. Klachten kunnen bij de <a href="https://www.gegevensbeschermingsautoriteit.be" rel="noopener">Gegevensbeschermingsautoriteit</a>. Boekhoudkundige gegevens bewaren we 7 jaar (wettelijke plicht); meldingen maximaal 24 maanden.</p>
+
+        <h3>Demokaart (Google Maps &amp; Places)</h3>
+        <p>De demokaart en het adres-zoeken worden pas geladen nadat je daar expliciet op klikt (toestemming, art. 6.1.a AVG). Bij gebruik worden je IP-adres en ingetypte adressen doorgegeven aan Google, dat cookies kan plaatsen volgens zijn eigen privacybeleid. Klik je niet, dan wordt niets van derden geladen.</p>
+      </div>
+      <div>
+        <div class="kader">
+          <h3>Foto-instructies veldpartner</h3>
+          <p class="sub">Contractueel verplicht bij elke melding</p>
+          <div class="regel"><span class="ic ok" aria-hidden="true">✓</span><span>Fotografeer vanaf de openbare weg, gericht op de werf of het werfbord.</span></div>
+          <div class="regel"><span class="ic ok" aria-hidden="true">✓</span><span>Werfbord mag: vergunningsinformatie is publiek en wettelijk verplicht uitgehangen.</span></div>
+          <div class="regel"><span class="ic nee" aria-hidden="true">✕</span><span>Geen personen bewust in beeld. De automatische blur is een vangnet, geen vrijgeleide.</span></div>
+          <div class="regel"><span class="ic nee" aria-hidden="true">✕</span><span>Geen inkijk in woningen, geen privéterrein betreden.</span></div>
+          <div class="regel"><span class="ic nee" aria-hidden="true">✕</span><span>Niet fotograferen vanachter het stuur. Stop op een veilige plaats.</span></div>
+          <p class="noot">Schending van de instructies = geen validatie, geen vergoeding, en bij herhaling einde van de overeenkomst.</p>
+        </div>
+        <div class="beleid">
+          <h3>Meldingsbeleid</h3>
+          <p class="sub">Geen dubbele leads, geen conflicten</p>
+          <div class="regel"><span class="ic" aria-hidden="true">1</span><span><b>Eén werf, één melding.</b> Meldingen binnen 150 m en 30 dagen worden samengevoegd; de eerste geldige veldpartner krijgt de vergoeding.</span></div>
+          <div class="regel"><span class="ic" aria-hidden="true">2</span><span><b>Ingeschreven werven sturen zelf.</b> Een werf die zichzelf registreerde, kiest welke diensten ze zoekt; ingevulde diensten krijgen geen leads.</span></div>
+          <div class="regel"><span class="ic" aria-hidden="true">3</span><span><b>Actieve leveranciers beschermd.</b> Wie al op een werf werkt, kan dat met bevestiging van de werf laten registreren — geen concurrentleads voor die dienst.</span></div>
+          <div class="regel"><span class="ic" aria-hidden="true">4</span><span><b>Geen eigen klanten melden.</b> Veldpartners melden geen werven waar zijzelf of hun werkgever actief zijn. Belangenconflict = schorsing.</span></div>
+          <div class="regel"><span class="ic" aria-hidden="true">5</span><span><b>Niet-benaderen-register.</b> Elke bouwheer kan zijn werf gratis laten afschermen; meldingen worden dan niet aangeboden en na 30 dagen gewist.</span></div>
+          <div class="regel"><span class="ic" aria-hidden="true">6</span><span><b>Maximaal 3 leveranciers per lead.</b> Een werf wordt nooit aan meer dan drie leveranciers per dienst aangeboden — exclusiviteit voor wie betaalt, rust voor de werf.</span></div>
+          <div class="regel"><span class="ic" aria-hidden="true">7</span><span><b>Veldpartner blijft anoniem.</b> Leveranciers en werven zien nooit wie een werf gemeld heeft.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="rollen">
+  <div class="wrap">
+    <div class="sec-kop">
+      <span class="eyebrow">Drie partijen</span>
+      <h2>Voor wie is Werfradar</h2>
+      <p>Wie werven meldt, wie werven zoekt en de werven zelf — op één platform.</p>
+    </div>
+    <div class="rollen">
+      <div class="rol">
+        <div class="rol-kop">
+          <span class="rol-label">Jij meldt werven</span>
+          <h3>Veldpartners</h3>
+          <div class="rol-balk" aria-hidden="true"></div>
+        </div>
+        <ul>
+          <li>Verdien per gevalideerde melding</li>
+          <li>Korte opleiding, duidelijke instructies, app doet de privacy</li>
+          <li>Ideaal voor baanwerkers, chauffeurs en pendelaars</li>
+          <li>Maandelijkse uitbetaling, transparant overzicht</li>
+        </ul>
+        <div class="rol-cta"><a class="btn" href="#meedoen">Word veldpartner</a></div>
+      </div>
+      <div class="rol">
+        <div class="rol-kop">
+          <span class="rol-label">Jij zoekt werven</span>
+          <h3>Leveranciers</h3>
+          <div class="rol-balk" aria-hidden="true"></div>
+        </div>
+        <ul>
+          <li>Verse werven in jouw straal, gefilterd op type en fase</li>
+          <li>Maximaal 3 leveranciers per lead — echte kans, geen prijzenslag met tien</li>
+          <li>Foto en locatie vooraf = scherpere offerte, minder kilometers</li>
+          <li>Betaal per relevante lead; beoordelingen van werven bouwen je reputatie op</li>
+        </ul>
+        <div class="rol-cta"><a class="btn" href="#meedoen">Vind werven</a></div>
+      </div>
+      <div class="rol">
+        <div class="rol-kop">
+          <span class="rol-label">Jij bent de werf</span>
+          <h3>Bouwwerven</h3>
+          <div class="rol-balk" aria-hidden="true"></div>
+        </div>
+        <ul>
+          <li>Vraag zelf gratis offertes aan: kies de diensten die je zoekt (containers, sanitair, bewaking, materieel…)</li>
+          <li>Maximaal 3 leveranciers uit de buurt nemen contact op — jij vergelijkt en kiest</li>
+          <li>Beoordeel leveranciers na de opdracht; jouw score stuurt de matching</li>
+          <li>Liever niet gevonden worden? Laat je werf gratis afschermen</li>
+        </ul>
+        <div class="rol-cta"><a class="btn" href="#meedoen">Schrijf werf in</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="hazard" aria-hidden="true"></div>
+
+<section id="waarom">
+  <div class="wrap waarom">
+    <div>
+      <div class="sec-kop" style="margin-bottom:var(--s3)">
+        <span class="eyebrow">Het rendement</span>
+        <h2>Waarom afstand telt</h2>
+      </div>
+      <div class="waarom-blok">
+        <h3>Minder kilometers</h3>
+        <p>Een leverancier die enkel werven binnen 25 km bedient, rijdt minder, levert sneller en kan dat doorrekenen in zijn prijs.</p>
+      </div>
+      <div class="waarom-blok">
+        <h3>Betere offertes</h3>
+        <p>Foto, fase en exacte locatie vooraf betekent: geen blinde offertes. De leverancier weet wat hij prijst vóór hij vertrekt.</p>
+      </div>
+      <div class="waarom-blok">
+        <h3>Verse, propere data</h3>
+        <p>Werven die deze week gemeld zijn door een veldpartner of door de werf zelf aangevraagd — geen verouderde vergunningslijsten, geen privacyrisico in je leadbestand.</p>
+      </div>
+      <div class="waarom-blok">
+        <h3>Max. 3 = hogere conversie</h3>
+        <p>Een lead die met tien concurrenten gedeeld wordt, is een loterij. Met maximaal drie leveranciers per lead loont elke offerte de moeite — voor jou én voor de werf.</p>
+      </div>
+    </div>
+    <div class="rekenkaart">
+      <h3>Rekenvoorbeeld leverancier</h3>
+      <table>
+        <tr><td>Klassieke prospectie (rondrijden)</td><td>± € 45 / lead</td></tr>
+        <tr><td>Online lijsten zonder locatiecheck</td><td>± € 25 / lead</td></tr>
+        <tr><td>Werfradar-melding met foto + GPS</td><td>± € 15 / lead</td></tr>
+        <tr class="totaal"><td>Besparing per relevante lead</td><td>tot € 30</td></tr>
+      </table>
+      <p class="noot">Indicatief model. Werkelijke leadprijs hangt af van regio, werftype en gevraagde dienst.</p>
+    </div>
+  </div>
+</section>
+
+<section id="meedoen" style="background:var(--kalk);border-top:2px solid var(--nacht)">
+  <div class="wrap">
+    <h2>Doe mee met Werfradar</h2>
+    <p>Werfradar start in Vlaanderen. Laat je gegevens achter als veldpartner of leverancier, of vraag als werf meteen gratis offertes aan — je hoort het eerst wanneer jouw regio live gaat.</p>
+    <a class="btn" href="mailto:info@werfradar.be?subject=Aanmelding%20Werfradar">Meld je aan</a>
+    <p class="privnote">Door te mailen geef je toestemming om je naam en e-mailadres te gebruiken om je over de lancering te informeren (art. 6.1.a AVG). Intrekken kan altijd met één mail. We sturen geen andere reclame.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-in">
+      <div class="kolom">
+        <a class="logo" href="#"><svg class="logo-merk" viewBox="0 0 32 32" aria-hidden="true"><path class="arc" d="M14.16 4.56 A2.6 2.6 0 0 1 17.84 4.56 M12.89 3.29 A4.4 4.4 0 0 1 19.11 3.29"/><circle class="bron" cx="16" cy="6.4" r="1.3"/><line class="steel" x1="16" y1="7.6" x2="16" y2="19.6"/><path class="blad" d="M16 18.8 C13.2 18.8 11.4 20.8 11.4 22.7 C11.4 25.2 16 28.9 16 28.9 C16 28.9 20.6 25.2 20.6 22.7 C20.6 20.8 18.8 18.8 16 18.8 Z"/><circle class="dot" cx="16" cy="22.6" r="1.7"/></svg>Werfradar</a>
+        <p style="margin-top:var(--s0)">Elke werf op de radar.</p>
+      </div>
+      <div class="kolom">
+        <div class="kop">Verwerkingsverantwoordelijke</div>
+        [Vennootschapsnaam] BV<br>
+        [Straat nr], [postcode] [gemeente], België<br>
+        KBO/BTW: BE [0XXX.XXX.XXX]
+      </div>
+      <div class="kolom">
+        <div class="kop">Contact</div>
+        Algemeen: <a href="mailto:info@werfradar.be">info@werfradar.be</a><br>
+        Privacy: <a href="mailto:privacy@werfradar.be">privacy@werfradar.be</a><br>
+        <a href="#privacy">Privacy &amp; AVG</a>
+      </div>
+    </div>
+    <div class="foot-onder">
+      <span>© 2026 Werfradar. Geen cookies of externe diensten bij bezoek; enkel de demokaart (Google Maps) laadt na jouw klik.</span>
+      <span>Toezichthouder: <a href="https://www.gegevensbeschermingsautoriteit.be" rel="noopener">Gegevensbeschermingsautoriteit</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* =====================================================================
+   Intro-choreografie — Web Animations API
+   Verhaal: de radar-handgreep tast af (bron popt, greep-arcs tekenen
+   zich met meereizende vonk, sonar-flitsen) -> de steel groeit naar
+   beneden en wijst de plek aan -> het speldvormige blad valt erop en
+   slaat de werf vast (squash + stofwolk) -> het witte hart markeert,
+   de schop doet een steekbeweging. Klik/Enter op het logo = replay.
+   ===================================================================== */
+(function(){
+  var svg    = document.getElementById("wrIntro");
+  if (!svg || !svg.animate) { document.documentElement.classList.remove("wr-js"); return; }
+  var arcs   = [document.getElementById("iArc1"), document.getElementById("iArc2")];
+  var bron   = document.getElementById("iBron");
+  var steel  = document.getElementById("iSteel");
+  var blad   = document.getElementById("iBlad");
+  var dot    = document.getElementById("iDot");
+  var schop  = document.getElementById("iSchop");
+  var seinen = [document.getElementById("iSein0"), document.getElementById("iSein1"), document.getElementById("iSein2")];
+  var vonk   = document.getElementById("iVonk");
+  var stof   = document.getElementById("iStof");
+  var cap    = document.getElementById("iCap");
+  var teksten= [].slice.call(document.querySelectorAll(".hero .fade-up"));
+  var pijl   = document.querySelector(".scroll-pijl");
+  var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  var STAPPEN = [
+    "1/4 \u00b7 de radar tast de regio af",
+    "2/4 \u00b7 de steel wijst de plek aan",
+    "3/4 \u00b7 de speld slaat de werf vast",
+    "4/4 \u00b7 klaar om te bouwen"
+  ];
+
+  [arcs[0], arcs[1], steel].forEach(function(el){
+    el.style.setProperty("--len", el.getTotalLength());
+  });
+
+  var lopend = [], timers = [], rafs = [];
+  function anim(el, frames, opties){
+    var a = el.animate(frames, Object.assign({fill:"forwards", easing:"ease"}, opties));
+    lopend.push(a); return a;
+  }
+  function later(fn, ms){ timers.push(setTimeout(fn, ms)); }
+
+  function volgPad(padEl, duur, start){
+    later(function(){
+      var len = padEl.getTotalLength(), t0 = null;
+      vonk.style.opacity = 1;
+      function stap(ts){
+        if (t0 === null) t0 = ts;
+        var pr = Math.min((ts - t0)/duur, 1);
+        var e = 1 - (1 - pr) * (1 - pr);
+        var pt = padEl.getPointAtLength(e * len);
+        vonk.setAttribute("cx", pt.x); vonk.setAttribute("cy", pt.y);
+        if (pr < 1) rafs.push(requestAnimationFrame(stap));
+        else vonk.style.opacity = 0;
+      }
+      rafs.push(requestAnimationFrame(stap));
+    }, start);
+  }
+  function teken(el, duur, start){
+    later(function(){
+      anim(el, [{strokeDashoffset: el.getTotalLength()},{strokeDashoffset: 0}],
+           {duration: duur, easing: "cubic-bezier(.33,1,.45,1)"});
+    }, start);
+  }
+  /* seingolf: blauwe puls die van de bron naar buiten door de greep-arcs loopt */
+  function sein(start, beurten){
+    for (var b = 0; b < beurten; b++){
+      seinen.forEach(function(el, i){
+        later(function(){
+          anim(el, [{opacity:0},{opacity:.9},{opacity:0}], {duration:420, easing:"ease-in-out"});
+        }, start + b*900 + i*200);
+      });
+    }
+  }
+  function seinOneindig(start){
+    seinen.forEach(function(el, i){
+      later(function(){
+        var o = i * 0.12;
+        anim(el, [
+          {opacity:0},
+          {opacity:0,  offset:o},
+          {opacity:.9, offset:o + .14},
+          {opacity:0,  offset:o + .32},
+          {opacity:0}
+        ], {duration: 2400, iterations: Infinity, easing:"ease-in-out"});
+      }, start);
+    });
+  }
+  function stofwolk(start){
+    later(function(){
+      for (var i = 0; i < 10; i++){
+        var d = document.createElementNS("http://www.w3.org/2000/svg","circle");
+        d.setAttribute("class","i-stofje");
+        d.setAttribute("cx",150); d.setAttribute("cy",266);
+        d.setAttribute("r", 2.2 + Math.random()*2.6);
+        stof.appendChild(d);
+        var hoek = Math.PI + Math.random()*Math.PI;
+        var afst = 28 + Math.random()*36;
+        var dx = Math.cos(hoek)*afst, dy = Math.sin(hoek)*afst*.55 - 6;
+        anim(d, [
+          {transform:"translate(0,0)", opacity:.9},
+          {transform:"translate("+dx.toFixed(1)+"px,"+dy.toFixed(1)+"px)", opacity:0}
+        ], {duration: 520 + Math.random()*280, easing:"cubic-bezier(.2,.7,.4,1)"});
+      }
+      later(function(){ stof.innerHTML = ""; }, 950);
+    }, start);
+  }
+  function onderschrift(start, tekst){ later(function(){ cap.textContent = tekst; }, start); }
+
+  function eindstand(){
+    [arcs[0], arcs[1], steel].forEach(function(el){ el.style.strokeDashoffset = 0; });
+    bron.style.opacity = 1; blad.style.opacity = 1; blad.style.transform = "none";
+    dot.style.opacity = 1; schop.style.transform = "none";
+    teksten.forEach(function(t){ t.style.opacity = 1; t.style.transform = "none"; });
+    if (pijl) pijl.style.opacity = 1;
+    cap.textContent = STAPPEN[3];
+  }
+
+  function speel(){
+    lopend.forEach(function(a){ a.cancel(); }); lopend = [];
+    timers.forEach(clearTimeout); timers = [];
+    rafs.forEach(cancelAnimationFrame); rafs = [];
+    stof.innerHTML = ""; vonk.style.opacity = 0;
+    seinen.forEach(function(el){ el.style.opacity = 0; });
+    if (pijl) pijl.classList.remove("dein");
+    if (reduce){ eindstand(); return; }
+    [arcs[0], arcs[1], steel].forEach(function(el){
+      el.style.strokeDashoffset = el.getTotalLength(); el.style.opacity = 1;
+    });
+    bron.style.opacity = 0; blad.style.opacity = 0; dot.style.opacity = 0;
+    teksten.forEach(function(t){ t.style.opacity = 0; });
+    if (pijl) pijl.style.opacity = 0;
+
+    /* ------------- tijdlijn ------------- */
+    onderschrift(0, STAPPEN[0]);
+    later(function(){
+      bron.style.transformBox = "fill-box"; bron.style.transformOrigin = "center";
+      anim(bron, [
+        {opacity:0, transform:"scale(.2)"},
+        {opacity:1, transform:"scale(1.3)", offset:.6},
+        {opacity:1, transform:"scale(1)"}
+      ], {duration: 420, easing:"cubic-bezier(.3,1.4,.5,1)"});
+    }, 100);
+    teken(arcs[0], 500,  450); volgPad(arcs[0], 500,  450);
+    teken(arcs[1], 600,  800); volgPad(arcs[1], 600,  800);
+    sein(1550, 2);
+
+    onderschrift(2300, STAPPEN[1]);
+    teken(steel, 450, 2350); volgPad(steel, 450, 2350);
+
+    onderschrift(3000, STAPPEN[2]);
+    later(function(){
+      blad.style.transformBox = "fill-box";
+      blad.style.transformOrigin = "50% 100%";
+      anim(blad, [
+        {opacity:0, transform:"translateY(-120px)"},
+        {opacity:1, transform:"translateY(0)",         offset:.6, easing:"cubic-bezier(.5,0,1,1)"},
+        {transform:"translateY(0) scale(1.05,.9)",     offset:.72},
+        {transform:"translateY(-8px) scale(.98,1.03)", offset:.86},
+        {opacity:1, transform:"translateY(0) scale(1,1)"}
+      ], {duration: 840});
+    }, 3050);
+    stofwolk(3050 + 840*.6);
+
+    onderschrift(4100, STAPPEN[3]);
+    later(function(){
+      dot.style.transformBox = "fill-box"; dot.style.transformOrigin = "center";
+      anim(dot, [
+        {opacity:0, transform:"scale(.2)"},
+        {opacity:1, transform:"scale(1.25)", offset:.6},
+        {opacity:1, transform:"scale(1)"}
+      ], {duration: 460, easing:"cubic-bezier(.3,1.4,.5,1)"});
+    }, 4150);
+    later(function(){
+      schop.style.transformBox = "fill-box";
+      schop.style.transformOrigin = "50% 100%";
+      anim(schop, [
+        {transform:"translateY(0) rotate(0deg)"},
+        {transform:"translateY(9px) rotate(-2deg)", offset:.4, easing:"cubic-bezier(.5,0,.8,1)"},
+        {transform:"translateY(0) rotate(.7deg)",   offset:.75},
+        {transform:"translateY(0) rotate(0deg)"}
+      ], {duration: 700, easing:"ease-out"});
+    }, 4850);
+    stofwolk(4850 + 700*.4);
+    seinOneindig(5400);
+
+    teksten.forEach(function(t, i){
+      later(function(){
+        anim(t, [{opacity:0, transform:"translateY(14px)"},{opacity:1, transform:"translateY(0)"}],
+             {duration: 550});
+      }, 5500 + i*150);
+    });
+    if (pijl) later(function(){
+      anim(pijl, [{opacity:0},{opacity:1}], {duration:500});
+      later(function(){ pijl.classList.add("dein"); }, 600);
+    }, 5500 + teksten.length*150 + 150);
+  }
+
+  svg.addEventListener("click", speel);
+  svg.addEventListener("keydown", function(e){
+    if (e.key === "Enter" || e.key === " "){ e.preventDefault(); speel(); }
+  });
+
+  speel();
+})();
+</script>
+<script>
+/* Flow-sectie: animatie gekoppeld aan scrollpositie.
+   --p loopt 0->1 terwijl een scene het beeld in scrolt; omhoog scrollen
+   draait de animatie terug, en de afspeelsnelheid volgt je scrollsnelheid. */
+(function(){
+  var scenes = [].slice.call(document.querySelectorAll("#flow .scene"));
+  var grid = document.getElementById("flowGrid");
+  if (!scenes.length) return;
+  if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches){
+    scenes.forEach(function(sc){ sc.style.setProperty("--p","1"); sc.classList.add("aan"); });
+    grid.classList.add("aan");
+    return;
+  }
+  var bezig = false;
+  function update(){
+    bezig = false;
+    var vh = window.innerHeight;
+    var start = vh * 0.95, einde = vh * 0.35; /* p: 0 onderaan beeld -> 1 op 35% hoogte */
+    var actief = false;
+    scenes.forEach(function(sc){
+      var r = sc.getBoundingClientRect();
+      var p = (start - r.top) / (start - einde);
+      p = Math.max(0, Math.min(1, p));
+      sc.style.setProperty("--p", p.toFixed(3));
+      sc.classList.toggle("aan", p > 0.85); /* radarpuls + flits enkel bij (bijna) volledige scene */
+      if (p > 0.02) actief = true;
+    });
+    grid.classList.toggle("aan", actief);
+  }
+  function vraag(){ if(!bezig){ bezig = true; requestAnimationFrame(update); } }
+  addEventListener("scroll", vraag, {passive:true});
+  addEventListener("resize", vraag);
+  update();
+})();
+</script>
+<script>
+/* Demokaart — Google Maps JS API in demomodus.
+   Vervang WERFRADAR_GMAPS_KEY door je eigen (eerder gebruikte) API-key.
+   Zonder gekoppelde facturatie toont Google het "For development purposes
+   only"-watermerk: dat is de bedoelde demomodus.
+   Privacy: het script wordt pas geladen NA expliciete klik (art. 6.1.a AVG). */
+var WERFRADAR_GMAPS_KEY = "AIzaSyBTId8sb5L9RQl6E3Sx8D7tyhYUFYNkFOQ";
+
+var DEMO_MELDINGEN = [
+  {lat:51.0876, lng:4.3669, bron:"vp",   titel:"KMO-unit, nieuwbouw",      fase:"Ruwbouw — fundering", plaats:"Boom",        status:"Gevalideerd"},
+  {lat:51.1031, lng:4.3905, bron:"vp",   titel:"Appartementen, 14 units",  fase:"Grondwerken",          plaats:"Aartselaar",  status:"Gevalideerd"},
+  {lat:51.0719, lng:4.4258, bron:"zelf", titel:"Distributiehal 8.000 m²",  fase:"Afwerking",            plaats:"Rumst",       status:"Zoekt: containers, bewaking"},
+  {lat:51.0623, lng:4.3401, bron:"vp",   titel:"Schoolgebouw, renovatie",  fase:"Ruwbouw",              plaats:"Niel",        status:"Gevalideerd"},
+  {lat:51.1158, lng:4.3287, bron:"zelf", titel:"Woonproject, 22 woningen", fase:"Grondwerken",          plaats:"Schelle",     status:"Zoekt: sanitair, materieel"}
+];
+
+function initWerfradarKaart(){
+  var kaart = new google.maps.Map(document.getElementById("kaart"), {
+    center: {lat:51.088, lng:4.375},
+    zoom: 12,
+    mapTypeControl: false,
+    streetViewControl: false,
+    fullscreenControl: false
+  });
+  var info = new google.maps.InfoWindow();
+  DEMO_MELDINGEN.forEach(function(m){
+    var kleur = m.bron === "vp" ? "#1A5FB4" : "#E0A800";
+    var marker = new google.maps.Marker({
+      position: {lat:m.lat, lng:m.lng},
+      map: kaart,
+      title: m.titel,
+      icon: {
+        path: google.maps.SymbolPath.CIRCLE,
+        scale: 9, fillColor: kleur, fillOpacity: 1,
+        strokeColor: "#13202E", strokeWeight: 2
+      }
+    });
+    marker.addListener("click", function(){
+      info.setContent(
+        '<div style="font-family:system-ui;font-size:13px;line-height:1.5;max-width:220px">' +
+        '<strong>' + m.titel + '</strong><br>' +
+        m.fase + ' · ' + m.plaats + '<br>' +
+        '<span style="color:' + kleur + ';font-weight:600">' +
+        (m.bron === "vp" ? "Gemeld door veldpartner" : "Zelf offertes aangevraagd") +
+        '</span><br>' + m.status + '</div>'
+      );
+      info.open(kaart, marker);
+    });
+  });
+
+  /* --- auto-aanvullen (Places Autocomplete) --- */
+  var veld = document.getElementById("kaartZoek");
+  var resultaat = document.getElementById("kaartResultaat");
+  veld.disabled = false;
+  veld.placeholder = "Typ je adres of gemeente…";
+
+  var hierMarker = null, straalCirkel = null;
+  var STRAAL_M = 10000; /* 10 km */
+
+  var autocomplete = new google.maps.places.Autocomplete(veld, {
+    componentRestrictions: { country: "be" },
+    fields: ["geometry", "name", "formatted_address"]
+  });
+  autocomplete.bindTo("bounds", kaart);
+
+  autocomplete.addListener("place_changed", function(){
+    var plek = autocomplete.getPlace();
+    if (!plek.geometry || !plek.geometry.location){
+      resultaat.textContent = "Geen locatie gevonden voor \u201C" + (plek.name || veld.value) + "\u201D — kies een suggestie uit de lijst.";
+      return;
+    }
+    var pos = plek.geometry.location;
+
+    if (hierMarker) hierMarker.setMap(null);
+    if (straalCirkel) straalCirkel.setMap(null);
+
+    hierMarker = new google.maps.Marker({
+      position: pos, map: kaart, title: "Jouw locatie",
+      icon: {
+        path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+        scale: 6, fillColor: "#13202E", fillOpacity: 1,
+        strokeColor: "#F8FAFC", strokeWeight: 2
+      }
+    });
+    straalCirkel = new google.maps.Circle({
+      map: kaart, center: pos, radius: STRAAL_M,
+      fillColor: "#1A5FB4", fillOpacity: .08,
+      strokeColor: "#1A5FB4", strokeOpacity: .6, strokeWeight: 2
+    });
+    kaart.fitBounds(straalCirkel.getBounds());
+
+    var binnen = DEMO_MELDINGEN.filter(function(m){
+      return google.maps.geometry.spherical.computeDistanceBetween(
+        pos, new google.maps.LatLng(m.lat, m.lng)) <= STRAAL_M;
+    });
+    var vp = binnen.filter(function(m){ return m.bron === "vp"; }).length;
+    var zelf = binnen.length - vp;
+    resultaat.textContent = binnen.length === 0
+      ? "0 demowerven binnen 10 km — de demoset dekt enkel de regio Boom."
+      : binnen.length + " demowerven binnen 10 km: " + vp + " gemeld door veldpartners, " + zelf + " met eigen offerteaanvraag.";
+  });
+}
+
+function kaartFout(html){
+  var vak = document.querySelector(".kaartvak");
+  var oud = document.getElementById("kaartConsent");
+  if (oud) oud.remove();
+  var d = document.createElement("div");
+  d.className = "kaart-consent";
+  d.innerHTML = '<div class="binnen">' + html + '</div>';
+  vak.appendChild(d);
+}
+
+/* Google roept dit aan bij een geweigerde key ("Oops! Something went wrong"). */
+window.gm_authFailure = function(){
+  kaartFout(
+    "<h3>Google weigerde de API-key</h3>" +
+    "<p>Controleer in de Google Cloud Console, in deze volgorde:</p>" +
+    "<p style='text-align:left'>1. <strong>Maps JavaScript API</strong> én <strong>Places API</strong> staan aan (APIs &amp; Services → Enable).<br>" +
+    "2. Een <strong>facturatieaccount</strong> is gekoppeld aan het project — zonder facturatie weigert Google de JS API volledig.<br>" +
+    "3. De <strong>HTTP-referrer-restrictie</strong> van de key bevat het domein waarop je test (werfradar.be/* — en localhost als je lokaal test).<br>" +
+    "4. De key in de broncode (WERFRADAR_GMAPS_KEY) is correct geplakt, zonder spaties.</p>" +
+    "<p class='kaart-noot'>Na aanpassing: pagina herladen en opnieuw op de kaartknop klikken.</p>"
+  );
+};
+
+document.getElementById("kaartLaden").addEventListener("click", function(){
+  if (!WERFRADAR_GMAPS_KEY || WERFRADAR_GMAPS_KEY === "VERVANG_DOOR_JE_API_KEY"){
+    kaartFout("<h3>Geen API-key ingevuld</h3><p>Open de broncode en vervang <code>WERFRADAR_GMAPS_KEY = \"VERVANG_DOOR_JE_API_KEY\"</code> door je eigen Google Maps-key. Zet er in de Cloud Console een referrer-restrictie op (werfradar.be/*).</p>");
+    return;
+  }
+  var s = document.createElement("script");
+  s.src = "https://maps.googleapis.com/maps/api/js?key=" + encodeURIComponent(WERFRADAR_GMAPS_KEY) + "&libraries=places,geometry&callback=initWerfradarKaart";
+  s.async = true;
+  s.onerror = function(){
+    kaartFout("<h3>Kaartscript kon niet laden</h3><p>Geen verbinding met maps.googleapis.com — controleer je netwerk, adblocker of firewall.</p>");
+  };
+  document.head.appendChild(s);
+  document.getElementById("kaartConsent").remove();
+});
+</script>
+</body>
+</html>

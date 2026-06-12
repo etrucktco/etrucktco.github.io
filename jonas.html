@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jonas — Spot een werf. Verdien eraan.</title>
+<meta name="description" content="Jonas verbindt werfspotters, dienstverleners en bouwwerven. Meld een werf met foto en locatie, verdien per gevalideerde melding. Verkopers vinden werven in hun regio. Werven schrijven zichzelf in voor gerichte offertes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --asfalt:#211F1B;
+  --beton:#ECE9E2;
+  --kalk:#F7F5F0;
+  --signaal:#F25C05;
+  --signaal-d:#C94A02;
+  --staal:#6E6A61;
+  --lijn:#D6D2C8;
+  --mono:'IBM Plex Mono',monospace;
+  --cond:'Barlow Condensed',sans-serif;
+  --body:'Barlow',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);background:var(--beton);color:var(--asfalt);line-height:1.55;font-size:17px}
+a{color:inherit}
+img{max-width:100%}
+.wrap{max-width:1160px;margin:0 auto;padding:0 24px}
+
+/* ---------- hazard stripe utility ---------- */
+.hazard{height:14px;background:repeating-linear-gradient(-45deg,var(--signaal) 0 18px,var(--asfalt) 18px 36px)}
+
+/* ---------- nav ---------- */
+nav{position:sticky;top:0;z-index:50;background:var(--kalk);border-bottom:2px solid var(--asfalt)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{font-family:var(--cond);font-weight:800;font-size:30px;letter-spacing:.04em;text-transform:uppercase;display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-blok{width:26px;height:26px;background:var(--signaal);clip-path:polygon(0 100%,50% 0,100% 100%)}
+.nav-links{display:flex;gap:28px;align-items:center}
+.nav-links a{text-decoration:none;font-weight:600;font-size:15px;color:var(--asfalt)}
+.nav-links a:hover{color:var(--signaal)}
+.btn{display:inline-block;font-family:var(--cond);font-weight:700;font-size:18px;letter-spacing:.05em;text-transform:uppercase;padding:12px 26px;background:var(--signaal);color:#fff;text-decoration:none;border:2px solid var(--asfalt);box-shadow:4px 4px 0 var(--asfalt);transition:transform .12s,box-shadow .12s}
+.btn:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--asfalt)}
+.btn:focus-visible,a:focus-visible{outline:3px solid var(--signaal);outline-offset:3px}
+.btn-ghost{background:var(--kalk);color:var(--asfalt)}
+@media(max-width:760px){.nav-links a:not(.btn){display:none}}
+
+/* ---------- hero ---------- */
+header.hero{background:var(--kalk);border-bottom:2px solid var(--asfalt)}
+.hero-in{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center;padding:72px 0 80px}
+.eyebrow{font-family:var(--mono);font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--signaal-d);margin-bottom:18px}
+h1{font-family:var(--cond);font-weight:800;font-size:clamp(46px,6.5vw,76px);line-height:.96;text-transform:uppercase;letter-spacing:.01em}
+h1 .accent{color:var(--signaal)}
+.hero p.lead{margin:22px 0 30px;font-size:19px;max-width:46ch;color:#3A382F}
+.hero-ctas{display:flex;gap:16px;flex-wrap:wrap}
+
+/* melding-kaart: het signatuurelement */
+.melding{background:#fff;border:2px solid var(--asfalt);box-shadow:8px 8px 0 var(--asfalt);max-width:420px;justify-self:end;width:100%}
+.melding-top{display:flex;justify-content:space-between;align-items:center;background:var(--asfalt);color:var(--kalk);padding:10px 16px;font-family:var(--mono);font-size:12.5px;letter-spacing:.06em}
+.melding-top .live{color:var(--signaal);font-weight:600}
+.melding-foto{aspect-ratio:16/9;background:
+  linear-gradient(rgba(33,31,27,.18),rgba(33,31,27,.18)),
+  repeating-linear-gradient(-45deg,#d8d4ca 0 14px,#cfcabd 14px 28px);
+  position:relative;display:flex;align-items:flex-end;padding:12px}
+.melding-foto .tag{background:var(--signaal);color:#fff;font-family:var(--cond);font-weight:700;font-size:15px;letter-spacing:.06em;text-transform:uppercase;padding:4px 12px}
+.melding-body{padding:18px 20px}
+.melding-body dl{display:grid;grid-template-columns:auto 1fr;gap:6px 18px;font-size:14.5px}
+.melding-body dt{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--staal);align-self:center}
+.melding-body dd{font-weight:600}
+.melding-body dd.coord{font-family:var(--mono);font-weight:500;font-size:14px}
+.melding-foot{border-top:2px dashed var(--lijn);margin-top:16px;padding-top:14px;display:flex;justify-content:space-between;align-items:center}
+.melding-foot .verg{font-family:var(--cond);font-weight:800;font-size:30px;color:var(--signaal-d)}
+.melding-foot .status{font-family:var(--mono);font-size:12px;background:#E6F2E6;color:#1F6B2D;border:1px solid #1F6B2D;padding:4px 10px}
+@media(max-width:900px){.hero-in{grid-template-columns:1fr;gap:44px}.melding{justify-self:start}}
+
+/* ---------- statstrip ---------- */
+.statstrip{background:var(--asfalt);color:var(--kalk)}
+.statstrip-in{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;padding:34px 0}
+.stat .n{font-family:var(--cond);font-weight:800;font-size:42px;color:var(--signaal)}
+.stat .l{font-size:14.5px;color:#B8B4A9;max-width:26ch}
+@media(max-width:760px){.statstrip-in{grid-template-columns:1fr;gap:18px}}
+
+/* ---------- secties ---------- */
+section{padding:84px 0}
+.sec-kop{margin-bottom:48px;max-width:640px}
+h2{font-family:var(--cond);font-weight:800;font-size:clamp(34px,4.5vw,52px);line-height:1;text-transform:uppercase}
+.sec-kop p{margin-top:14px;font-size:18px;color:#3A382F}
+
+/* hoe het werkt */
+.stappen{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--asfalt);border:2px solid var(--asfalt)}
+.stap{background:var(--kalk);padding:32px 28px}
+.stap .num{font-family:var(--mono);font-size:13px;letter-spacing:.1em;color:var(--signaal-d);display:block;margin-bottom:14px}
+.stap h3{font-family:var(--cond);font-weight:700;font-size:26px;text-transform:uppercase;margin-bottom:10px}
+.stap p{font-size:15.5px;color:#3A382F}
+@media(max-width:860px){.stappen{grid-template-columns:1fr}}
+
+/* drie rollen */
+#rollen{background:var(--kalk);border-top:2px solid var(--asfalt);border-bottom:2px solid var(--asfalt)}
+.rollen{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.rol{border:2px solid var(--asfalt);background:#fff;display:flex;flex-direction:column}
+.rol-kop{padding:22px 24px 0}
+.rol-label{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--staal)}
+.rol h3{font-family:var(--cond);font-weight:800;font-size:30px;text-transform:uppercase;margin-top:6px}
+.rol-balk{height:8px;background:var(--signaal);margin:18px 0 0}
+.rol ul{list-style:none;padding:20px 24px;flex:1}
+.rol li{position:relative;padding:8px 0 8px 26px;font-size:15.5px;border-bottom:1px solid var(--lijn)}
+.rol li:last-child{border-bottom:none}
+.rol li::before{content:"";position:absolute;left:0;top:15px;width:12px;height:12px;background:var(--signaal);clip-path:polygon(0 0,100% 50%,0 100%)}
+.rol-cta{padding:0 24px 24px}
+.rol-cta a{display:block;text-align:center}
+@media(max-width:900px){.rollen{grid-template-columns:1fr}}
+
+/* waarom */
+.waarom{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.waarom-blok{border-left:4px solid var(--signaal);padding-left:22px;margin-bottom:30px}
+.waarom-blok h3{font-family:var(--cond);font-weight:700;font-size:24px;text-transform:uppercase;margin-bottom:6px}
+.waarom-blok p{font-size:15.5px;color:#3A382F}
+.rekenkaart{background:var(--asfalt);color:var(--kalk);border:2px solid var(--asfalt);padding:30px 30px 26px}
+.rekenkaart h3{font-family:var(--cond);font-weight:700;font-size:24px;text-transform:uppercase;color:var(--signaal);margin-bottom:18px}
+.rekenkaart table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:14px}
+.rekenkaart td{padding:9px 0;border-bottom:1px solid #3B392F}
+.rekenkaart td:last-child{text-align:right;font-weight:600}
+.rekenkaart tr.totaal td{border-bottom:none;border-top:2px solid var(--signaal);font-weight:600;color:var(--signaal);padding-top:12px}
+.rekenkaart .noot{font-size:12.5px;color:#9B968A;margin-top:14px;font-family:var(--body)}
+@media(max-width:860px){.waarom{grid-template-columns:1fr}}
+
+/* cta footer */
+#meedoen{background:var(--kalk);border-top:2px solid var(--asfalt);text-align:center}
+#meedoen h2{margin-bottom:14px}
+#meedoen p{max-width:54ch;margin:0 auto 30px;font-size:18px;color:#3A382F}
+footer{background:var(--asfalt);color:#B8B4A9;padding:34px 0;font-size:14px}
+.foot-in{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+footer .logo{color:var(--kalk);font-size:24px}
+footer a{color:#B8B4A9;text-decoration:none}
+footer a:hover{color:var(--signaal)}
+
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap nav-in">
+    <a class="logo" href="#"><span class="logo-blok" aria-hidden="true"></span>Jonas</a>
+    <div class="nav-links">
+      <a href="#hoe">Hoe het werkt</a>
+      <a href="#rollen">Voor wie</a>
+      <a href="#waarom">Waarom</a>
+      <a class="btn" href="#meedoen">Meld een werf</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap hero-in">
+    <div>
+      <p class="eyebrow">Werfmeldingen · Vlaanderen</p>
+      <h1>Jij ziet de werf.<br><span class="accent">Jonas</span> ziet de kans.</h1>
+      <p class="lead">Passeer je een bouwwerf? Trek een foto, deel de locatie en verdien per gevalideerde melding. Dienstverleners en verkopers vinden zo werven in hun regio — minder kilometers, snellere en scherpere offertes.</p>
+      <div class="hero-ctas">
+        <a class="btn" href="#meedoen">Word spotter</a>
+        <a class="btn btn-ghost" href="#rollen">Ik zoek werven</a>
+      </div>
+    </div>
+    <div class="melding" role="img" aria-label="Voorbeeld van een werfmelding met foto, locatie en vergoeding">
+      <div class="melding-top"><span>MELDING&nbsp;#04217</span><span class="live">● NIEUW</span></div>
+      <div class="melding-foto"><span class="tag">Ruwbouw — fase fundering</span></div>
+      <div class="melding-body">
+        <dl>
+          <dt>Locatie</dt><dd class="coord">51.0876 N, 4.3669 E</dd>
+          <dt>Gemeente</dt><dd>Boom (Antwerpen)</dd>
+          <dt>Type</dt><dd>KMO-unit, nieuwbouw</dd>
+          <dt>Gemeld</dt><dd class="coord">vandaag, 07:42</dd>
+        </dl>
+        <div class="melding-foot">
+          <span class="verg">€ 12,50</span>
+          <span class="status">GEVALIDEERD</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="hazard" aria-hidden="true"></div>
+
+<div class="statstrip">
+  <div class="wrap statstrip-in">
+    <div class="stat"><div class="n">30 sec</div><div class="l">van foto tot ingediende melding, GPS automatisch ingevuld</div></div>
+    <div class="stat"><div class="n">−40%</div><div class="l">minder prospectiekilometers voor dienstverleners in hun werkgebied</div></div>
+    <div class="stat"><div class="n">€ 0</div><div class="l">instapkost voor spotters én voor werven die zichzelf inschrijven</div></div>
+  </div>
+</div>
+
+<section id="hoe">
+  <div class="wrap">
+    <div class="sec-kop">
+      <h2>Hoe het werkt</h2>
+      <p>Drie stappen tussen een werf langs de weg en een betaalde melding op je rekening.</p>
+    </div>
+    <div class="stappen">
+      <div class="stap">
+        <span class="num">STAP 01 / FOTO</span>
+        <h3>Spot &amp; fotografeer</h3>
+        <p>Je passeert een werf — als baanwerker, chauffeur of gewoon onderweg. Open Jonas, trek één duidelijke foto van de werf of het werfbord.</p>
+      </div>
+      <div class="stap">
+        <span class="num">STAP 02 / LOCATIE</span>
+        <h3>Deel de locatie</h3>
+        <p>De GPS-locatie wordt automatisch toegevoegd. Kies het werftype en de fase (grondwerken, ruwbouw, afwerking) en dien in.</p>
+      </div>
+      <div class="stap">
+        <span class="num">STAP 03 / VERGOEDING</span>
+        <h3>Verdien per melding</h3>
+        <p>Wij valideren de melding en bieden ze aan bij dienstverleners in de regio. Zodra een melding gevalideerd is, krijg jij je vergoeding.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="rollen">
+  <div class="wrap">
+    <div class="sec-kop">
+      <h2>Drie partijen, één platform</h2>
+      <p>Jonas brengt wie werven ziet, wie werven zoekt en de werven zelf samen.</p>
+    </div>
+    <div class="rollen">
+      <div class="rol">
+        <div class="rol-kop">
+          <span class="rol-label">Jij ziet werven</span>
+          <h3>Spotters</h3>
+          <div class="rol-balk" aria-hidden="true"></div>
+        </div>
+        <ul>
+          <li>Verdien per gevalideerde melding</li>
+          <li>Foto + GPS, klaar in 30 seconden</li>
+          <li>Ideaal voor baanwerkers, chauffeurs en pendelaars</li>
+          <li>Uitbetaling per maand, transparant overzicht</li>
+        </ul>
+        <div class="rol-cta"><a class="btn" href="#meedoen">Word spotter</a></div>
+      </div>
+      <div class="rol">
+        <div class="rol-kop">
+          <span class="rol-label">Jij zoekt werven</span>
+          <h3>Dienstverleners</h3>
+          <div class="rol-balk" aria-hidden="true"></div>
+        </div>
+        <ul>
+          <li>Verse werven in jouw straal, gefilterd op type en fase</li>
+          <li>Minder prospectiekilometers, lagere kost per lead</li>
+          <li>Foto en locatie vooraf = scherpere offerte</li>
+          <li>Betaal per relevante lead, geen abonnementsverplichting</li>
+        </ul>
+        <div class="rol-cta"><a class="btn" href="#meedoen">Vind werven</a></div>
+      </div>
+      <div class="rol">
+        <div class="rol-kop">
+          <span class="rol-label">Jij bent de werf</span>
+          <h3>Bouwwerven</h3>
+          <div class="rol-balk" aria-hidden="true"></div>
+        </div>
+        <ul>
+          <li>Schrijf je werf zelf gratis in</li>
+          <li>Geef aan welke diensten je zoekt (containers, sanitair, bewaking, materieel…)</li>
+          <li>Ontvang gerichte offertes van leveranciers uit de buurt</li>
+          <li>Kortere aanrijtijden, betere prijzen</li>
+        </ul>
+        <div class="rol-cta"><a class="btn" href="#meedoen">Schrijf werf in</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="waarom">
+  <div class="wrap waarom">
+    <div>
+      <div class="sec-kop" style="margin-bottom:34px">
+        <h2>Waarom afstand telt</h2>
+      </div>
+      <div class="waarom-blok">
+        <h3>Minder kilometers</h3>
+        <p>Een dienstverlener die enkel werven binnen 25 km bedient, rijdt minder, levert sneller en kan dat doorrekenen in zijn prijs.</p>
+      </div>
+      <div class="waarom-blok">
+        <h3>Betere offertes</h3>
+        <p>Foto, fase en exacte locatie vooraf betekent: geen blinde offertes. De leverancier weet wat hij prijst vóór hij vertrekt.</p>
+      </div>
+      <div class="waarom-blok">
+        <h3>Verse informatie</h3>
+        <p>Werven die vandaag gemeld zijn, niet adressen uit een verouderde vergunningendatabank. Wie er vandaag staat, is morgen klant.</p>
+      </div>
+    </div>
+    <div class="rekenkaart">
+      <h3>Rekenvoorbeeld dienstverlener</h3>
+      <table>
+        <tr><td>Klassieke prospectie (rondrijden)</td><td>± € 45 / lead</td></tr>
+        <tr><td>Online lijsten zonder locatiecheck</td><td>± € 25 / lead</td></tr>
+        <tr><td>Jonas-melding met foto + GPS</td><td>± € 15 / lead</td></tr>
+        <tr class="totaal"><td>Besparing per relevante lead</td><td>tot € 30</td></tr>
+      </table>
+      <p class="noot">Indicatief model. Werkelijke leadprijs hangt af van regio, werftype en gevraagde dienst.</p>
+    </div>
+  </div>
+</section>
+
+<div class="hazard" aria-hidden="true"></div>
+
+<section id="meedoen">
+  <div class="wrap">
+    <h2>Doe mee met Jonas</h2>
+    <p>Jonas start in Vlaanderen. Laat je gegevens achter als spotter, dienstverlener of werf en je hoort het eerst wanneer jouw regio live gaat.</p>
+    <a class="btn" href="mailto:info@jonas.be?subject=Aanmelding%20Jonas">Meld je aan</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-in">
+    <a class="logo" href="#"><span class="logo-blok" aria-hidden="true"></span>Jonas</a>
+    <div>Werven gezien, werk gevonden. · <a href="mailto:info@jonas.be">info@jonas.be</a></div>
+    <div>© 2026 Jonas</div>
+  </div>
+</footer>
+
+</body>
+</html>

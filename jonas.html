@@ -4,137 +4,168 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Jonas — Spot een werf. Verdien eraan.</title>
-<meta name="description" content="Jonas verbindt werfspotters, dienstverleners en bouwwerven. Meld een werf met foto en locatie, verdien per gevalideerde melding. Verkopers vinden werven in hun regio. Werven schrijven zichzelf in voor gerichte offertes.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<meta name="description" content="Jonas verbindt werfspotters, dienstverleners en bouwwerven. Meld een werf met foto en locatie, verdien per gevalideerde melding. AVG-conform, zonder cookies of trackers.">
+<!-- Geen externe fonts, scripts of trackers: deze pagina doet geen enkele request naar derden (AVG / GDPR by design). -->
 <style>
 :root{
-  --asfalt:#211F1B;
-  --beton:#ECE9E2;
-  --kalk:#F7F5F0;
-  --signaal:#F25C05;
-  --signaal-d:#C94A02;
-  --staal:#6E6A61;
-  --lijn:#D6D2C8;
-  --mono:'IBM Plex Mono',monospace;
-  --cond:'Barlow Condensed',sans-serif;
-  --body:'Barlow',sans-serif;
+  --nacht:#13202E;          /* donker blauwzwart */
+  --beton:#EDF0F3;          /* koel lichtgrijs */
+  --kalk:#F8FAFC;
+  --blauw:#1A5FB4;          /* vertrouwensblauw, accent */
+  --blauw-d:#134A8E;
+  --staal:#5E6B79;
+  --lijn:#D3DAE1;
+  --groen:#1F6B2D;
+  --mono:ui-monospace,"SF Mono","Cascadia Mono","Consolas","Liberation Mono",monospace;
+  --disp:-apple-system,"Segoe UI",system-ui,"Helvetica Neue",Arial,sans-serif;
+  --body:-apple-system,"Segoe UI",system-ui,"Helvetica Neue",Arial,sans-serif;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{font-family:var(--body);background:var(--beton);color:var(--asfalt);line-height:1.55;font-size:17px}
+body{font-family:var(--body);background:var(--beton);color:var(--nacht);line-height:1.55;font-size:17px}
 a{color:inherit}
-img{max-width:100%}
-.wrap{max-width:1160px;margin:0 auto;padding:0 24px}
+.wrap{max-width:1160px;margin:0 auto;padding:0 20px}
+@media(min-width:761px){.wrap{padding:0 32px}}
 
-/* ---------- hazard stripe utility ---------- */
-.hazard{height:14px;background:repeating-linear-gradient(-45deg,var(--signaal) 0 18px,var(--asfalt) 18px 36px)}
+/* ---------- markeringsstrook ---------- */
+.hazard{height:12px;background:repeating-linear-gradient(-45deg,var(--blauw) 0 18px,var(--nacht) 18px 36px)}
+
+/* ---------- display-typografie ---------- */
+.disp{font-family:var(--disp);font-weight:800;text-transform:uppercase;letter-spacing:-.01em;line-height:1}
 
 /* ---------- nav ---------- */
-nav{position:sticky;top:0;z-index:50;background:var(--kalk);border-bottom:2px solid var(--asfalt)}
-.nav-in{display:flex;align-items:center;justify-content:space-between;height:64px}
-.logo{font-family:var(--cond);font-weight:800;font-size:30px;letter-spacing:.04em;text-transform:uppercase;display:flex;align-items:center;gap:10px;text-decoration:none}
-.logo-blok{width:26px;height:26px;background:var(--signaal);clip-path:polygon(0 100%,50% 0,100% 100%)}
-.nav-links{display:flex;gap:28px;align-items:center}
-.nav-links a{text-decoration:none;font-weight:600;font-size:15px;color:var(--asfalt)}
-.nav-links a:hover{color:var(--signaal)}
-.btn{display:inline-block;font-family:var(--cond);font-weight:700;font-size:18px;letter-spacing:.05em;text-transform:uppercase;padding:12px 26px;background:var(--signaal);color:#fff;text-decoration:none;border:2px solid var(--asfalt);box-shadow:4px 4px 0 var(--asfalt);transition:transform .12s,box-shadow .12s}
-.btn:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--asfalt)}
-.btn:focus-visible,a:focus-visible{outline:3px solid var(--signaal);outline-offset:3px}
-.btn-ghost{background:var(--kalk);color:var(--asfalt)}
+nav{position:sticky;top:0;z-index:50;background:var(--kalk);border-bottom:2px solid var(--nacht)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:64px;gap:16px}
+.logo{font-family:var(--disp);font-weight:800;font-size:24px;letter-spacing:.04em;text-transform:uppercase;display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-blok{width:24px;height:24px;background:var(--blauw);clip-path:polygon(0 100%,50% 0,100% 100%);flex:none}
+.nav-links{display:flex;gap:24px;align-items:center}
+.nav-links a{text-decoration:none;font-weight:600;font-size:15px;color:var(--nacht)}
+.nav-links a:hover{color:var(--blauw)}
+.btn{display:inline-block;font-family:var(--disp);font-weight:700;font-size:15px;letter-spacing:.05em;text-transform:uppercase;padding:13px 26px;background:var(--blauw);color:#fff;text-decoration:none;border:2px solid var(--nacht);box-shadow:4px 4px 0 var(--nacht);transition:transform .12s,box-shadow .12s}
+.btn:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--nacht)}
+.btn:focus-visible,a:focus-visible{outline:3px solid var(--blauw);outline-offset:3px}
+.btn-ghost{background:var(--kalk);color:var(--nacht)}
 @media(max-width:760px){.nav-links a:not(.btn){display:none}}
 
 /* ---------- hero ---------- */
-header.hero{background:var(--kalk);border-bottom:2px solid var(--asfalt)}
+header.hero{background:var(--kalk);border-bottom:2px solid var(--nacht)}
 .hero-in{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center;padding:72px 0 80px}
-.eyebrow{font-family:var(--mono);font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--signaal-d);margin-bottom:18px}
-h1{font-family:var(--cond);font-weight:800;font-size:clamp(46px,6.5vw,76px);line-height:.96;text-transform:uppercase;letter-spacing:.01em}
-h1 .accent{color:var(--signaal)}
-.hero p.lead{margin:22px 0 30px;font-size:19px;max-width:46ch;color:#3A382F}
+.eyebrow{font-family:var(--mono);font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--blauw-d);margin-bottom:18px}
+h1{font-family:var(--disp);font-weight:800;font-size:clamp(40px,6vw,68px);line-height:1.02;text-transform:uppercase;letter-spacing:-.015em}
+h1 .accent{color:var(--blauw)}
+.hero p.lead{margin:22px 0 30px;font-size:19px;max-width:46ch;color:#33414F}
 .hero-ctas{display:flex;gap:16px;flex-wrap:wrap}
 
-/* melding-kaart: het signatuurelement */
-.melding{background:#fff;border:2px solid var(--asfalt);box-shadow:8px 8px 0 var(--asfalt);max-width:420px;justify-self:end;width:100%}
-.melding-top{display:flex;justify-content:space-between;align-items:center;background:var(--asfalt);color:var(--kalk);padding:10px 16px;font-family:var(--mono);font-size:12.5px;letter-spacing:.06em}
-.melding-top .live{color:var(--signaal);font-weight:600}
+/* melding-kaart */
+.melding{background:#fff;border:2px solid var(--nacht);box-shadow:8px 8px 0 var(--nacht);max-width:420px;justify-self:end;width:100%}
+.melding-top{display:flex;justify-content:space-between;align-items:center;background:var(--nacht);color:var(--kalk);padding:10px 16px;font-family:var(--mono);font-size:12.5px;letter-spacing:.06em}
+.melding-top .live{color:#7FB3F0;font-weight:600}
 .melding-foto{aspect-ratio:16/9;background:
-  linear-gradient(rgba(33,31,27,.18),rgba(33,31,27,.18)),
-  repeating-linear-gradient(-45deg,#d8d4ca 0 14px,#cfcabd 14px 28px);
-  position:relative;display:flex;align-items:flex-end;padding:12px}
-.melding-foto .tag{background:var(--signaal);color:#fff;font-family:var(--cond);font-weight:700;font-size:15px;letter-spacing:.06em;text-transform:uppercase;padding:4px 12px}
-.melding-body{padding:18px 20px}
+  linear-gradient(rgba(19,32,46,.18),rgba(19,32,46,.18)),
+  repeating-linear-gradient(-45deg,#D6DCE3 0 14px,#CBD3DC 14px 28px);
+  display:flex;align-items:flex-end;padding:12px}
+.melding-foto .tag{background:var(--blauw);color:#fff;font-family:var(--disp);font-weight:700;font-size:13px;letter-spacing:.06em;text-transform:uppercase;padding:5px 12px}
+.melding-body{padding:18px 20px 20px}
 .melding-body dl{display:grid;grid-template-columns:auto 1fr;gap:6px 18px;font-size:14.5px}
-.melding-body dt{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--staal);align-self:center}
+.melding-body dt{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--staal);align-self:center}
 .melding-body dd{font-weight:600}
-.melding-body dd.coord{font-family:var(--mono);font-weight:500;font-size:14px}
-.melding-foot{border-top:2px dashed var(--lijn);margin-top:16px;padding-top:14px;display:flex;justify-content:space-between;align-items:center}
-.melding-foot .verg{font-family:var(--cond);font-weight:800;font-size:30px;color:var(--signaal-d)}
-.melding-foot .status{font-family:var(--mono);font-size:12px;background:#E6F2E6;color:#1F6B2D;border:1px solid #1F6B2D;padding:4px 10px}
-@media(max-width:900px){.hero-in{grid-template-columns:1fr;gap:44px}.melding{justify-self:start}}
+.melding-body dd.coord{font-family:var(--mono);font-weight:500;font-size:13.5px}
+.melding-foot{border-top:2px dashed var(--lijn);margin-top:16px;padding-top:14px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.melding-foot .verg{font-family:var(--disp);font-weight:800;font-size:26px;color:var(--blauw-d)}
+.melding-foot .status{font-family:var(--mono);font-size:11.5px;background:#E6F2E6;color:var(--groen);border:1px solid var(--groen);padding:4px 10px;white-space:nowrap}
+@media(max-width:900px){
+  .hero-in{grid-template-columns:1fr;gap:40px;padding:52px 0 60px}
+  .melding{justify-self:start}
+}
 
 /* ---------- statstrip ---------- */
-.statstrip{background:var(--asfalt);color:var(--kalk)}
-.statstrip-in{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;padding:34px 0}
-.stat .n{font-family:var(--cond);font-weight:800;font-size:42px;color:var(--signaal)}
-.stat .l{font-size:14.5px;color:#B8B4A9;max-width:26ch}
-@media(max-width:760px){.statstrip-in{grid-template-columns:1fr;gap:18px}}
+.statstrip{background:var(--nacht);color:var(--kalk)}
+.statstrip-in{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;padding:36px 0}
+.stat .n{font-family:var(--disp);font-weight:800;font-size:38px;color:#7FB3F0}
+.stat .l{font-size:14.5px;color:#AAB6C2;max-width:28ch;margin-top:4px}
+@media(max-width:760px){.statstrip-in{grid-template-columns:1fr;gap:22px;padding:30px 0}}
 
 /* ---------- secties ---------- */
 section{padding:84px 0}
+@media(max-width:760px){section{padding:56px 0}}
 .sec-kop{margin-bottom:48px;max-width:640px}
-h2{font-family:var(--cond);font-weight:800;font-size:clamp(34px,4.5vw,52px);line-height:1;text-transform:uppercase}
-.sec-kop p{margin-top:14px;font-size:18px;color:#3A382F}
+@media(max-width:760px){.sec-kop{margin-bottom:32px}}
+h2{font-family:var(--disp);font-weight:800;font-size:clamp(30px,4vw,46px);line-height:1.05;text-transform:uppercase;letter-spacing:-.01em}
+.sec-kop p{margin-top:14px;font-size:18px;color:#33414F}
+h3{font-family:var(--disp);text-transform:uppercase}
 
 /* hoe het werkt */
-.stappen{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--asfalt);border:2px solid var(--asfalt)}
-.stap{background:var(--kalk);padding:32px 28px}
-.stap .num{font-family:var(--mono);font-size:13px;letter-spacing:.1em;color:var(--signaal-d);display:block;margin-bottom:14px}
-.stap h3{font-family:var(--cond);font-weight:700;font-size:26px;text-transform:uppercase;margin-bottom:10px}
-.stap p{font-size:15.5px;color:#3A382F}
+.stappen{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--nacht);border:2px solid var(--nacht)}
+.stap{background:var(--kalk);padding:30px 26px 32px}
+.stap .num{font-family:var(--mono);font-size:12.5px;letter-spacing:.1em;color:var(--blauw-d);display:block;margin-bottom:14px}
+.stap h3{font-weight:800;font-size:21px;margin-bottom:10px}
+.stap p{font-size:15.5px;color:#33414F}
 @media(max-width:860px){.stappen{grid-template-columns:1fr}}
 
 /* drie rollen */
-#rollen{background:var(--kalk);border-top:2px solid var(--asfalt);border-bottom:2px solid var(--asfalt)}
+#rollen{background:var(--kalk);border-top:2px solid var(--nacht);border-bottom:2px solid var(--nacht)}
 .rollen{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
-.rol{border:2px solid var(--asfalt);background:#fff;display:flex;flex-direction:column}
-.rol-kop{padding:22px 24px 0}
+.rol{border:2px solid var(--nacht);background:#fff;display:flex;flex-direction:column}
+.rol-kop{padding:24px 24px 0}
 .rol-label{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--staal)}
-.rol h3{font-family:var(--cond);font-weight:800;font-size:30px;text-transform:uppercase;margin-top:6px}
-.rol-balk{height:8px;background:var(--signaal);margin:18px 0 0}
+.rol h3{font-weight:800;font-size:25px;margin-top:6px}
+.rol-balk{height:8px;background:var(--blauw);margin-top:18px}
 .rol ul{list-style:none;padding:20px 24px;flex:1}
-.rol li{position:relative;padding:8px 0 8px 26px;font-size:15.5px;border-bottom:1px solid var(--lijn)}
+.rol li{position:relative;padding:9px 0 9px 26px;font-size:15.5px;border-bottom:1px solid var(--lijn)}
 .rol li:last-child{border-bottom:none}
-.rol li::before{content:"";position:absolute;left:0;top:15px;width:12px;height:12px;background:var(--signaal);clip-path:polygon(0 0,100% 50%,0 100%)}
-.rol-cta{padding:0 24px 24px}
+.rol li::before{content:"";position:absolute;left:0;top:16px;width:12px;height:12px;background:var(--blauw);clip-path:polygon(0 0,100% 50%,0 100%)}
+.rol-cta{padding:4px 24px 26px}
 .rol-cta a{display:block;text-align:center}
-@media(max-width:900px){.rollen{grid-template-columns:1fr}}
+@media(max-width:900px){.rollen{grid-template-columns:1fr;gap:22px}}
 
 /* waarom */
 .waarom{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
-.waarom-blok{border-left:4px solid var(--signaal);padding-left:22px;margin-bottom:30px}
-.waarom-blok h3{font-family:var(--cond);font-weight:700;font-size:24px;text-transform:uppercase;margin-bottom:6px}
-.waarom-blok p{font-size:15.5px;color:#3A382F}
-.rekenkaart{background:var(--asfalt);color:var(--kalk);border:2px solid var(--asfalt);padding:30px 30px 26px}
-.rekenkaart h3{font-family:var(--cond);font-weight:700;font-size:24px;text-transform:uppercase;color:var(--signaal);margin-bottom:18px}
-.rekenkaart table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:14px}
-.rekenkaart td{padding:9px 0;border-bottom:1px solid #3B392F}
-.rekenkaart td:last-child{text-align:right;font-weight:600}
-.rekenkaart tr.totaal td{border-bottom:none;border-top:2px solid var(--signaal);font-weight:600;color:var(--signaal);padding-top:12px}
-.rekenkaart .noot{font-size:12.5px;color:#9B968A;margin-top:14px;font-family:var(--body)}
-@media(max-width:860px){.waarom{grid-template-columns:1fr}}
+.waarom-blok{border-left:4px solid var(--blauw);padding-left:22px;margin-bottom:28px}
+.waarom-blok:last-child{margin-bottom:0}
+.waarom-blok h3{font-weight:800;font-size:19px;margin-bottom:6px}
+.waarom-blok p{font-size:15.5px;color:#33414F}
+.rekenkaart{background:var(--nacht);color:var(--kalk);padding:30px 30px 26px}
+.rekenkaart h3{font-weight:800;font-size:19px;color:#7FB3F0;margin-bottom:18px}
+.rekenkaart table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:13.5px}
+.rekenkaart td{padding:10px 0;border-bottom:1px solid #2A3A4B;vertical-align:top}
+.rekenkaart td:last-child{text-align:right;font-weight:600;white-space:nowrap;padding-left:14px}
+.rekenkaart tr.totaal td{border-bottom:none;border-top:2px solid var(--blauw);font-weight:600;color:#7FB3F0;padding-top:13px}
+.rekenkaart .noot{font-size:12.5px;color:#8E9AA7;margin-top:14px;font-family:var(--body)}
+@media(max-width:860px){.waarom{grid-template-columns:1fr;gap:36px}.rekenkaart{padding:24px 20px 22px}}
 
-/* cta footer */
-#meedoen{background:var(--kalk);border-top:2px solid var(--asfalt);text-align:center}
+/* ---------- privacy / AVG ---------- */
+#privacy{background:var(--kalk);border-top:2px solid var(--nacht)}
+.privacy-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.privacy-grid h3{font-weight:800;font-size:19px;margin:26px 0 8px}
+.privacy-grid h3:first-child{margin-top:0}
+.privacy-grid p,.privacy-grid li{font-size:15px;color:#33414F}
+.privacy-grid ul{padding-left:20px;margin-top:6px}
+.privacy-grid li{margin-bottom:6px}
+.foto-regels{border:2px solid var(--nacht);background:#fff;padding:26px 26px 24px}
+.foto-regels h3{font-weight:800;font-size:19px;margin-bottom:4px}
+.foto-regels .sub{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--blauw-d);margin-bottom:16px}
+.regel{display:flex;gap:14px;padding:12px 0;border-bottom:1px solid var(--lijn);font-size:15px}
+.regel:last-of-type{border-bottom:none}
+.regel .ic{flex:none;width:26px;height:26px;border:2px solid var(--nacht);font-family:var(--disp);font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center}
+.regel .ic.ok{background:#E6F2E6;color:var(--groen);border-color:var(--groen)}
+.regel .ic.nee{background:#FBE9E7;color:#B3261E;border-color:#B3261E}
+@media(max-width:860px){.privacy-grid{grid-template-columns:1fr;gap:36px}}
+
+/* cta + footer */
+#meedoen{background:var(--beton);border-top:2px solid var(--nacht);text-align:center}
 #meedoen h2{margin-bottom:14px}
-#meedoen p{max-width:54ch;margin:0 auto 30px;font-size:18px;color:#3A382F}
-footer{background:var(--asfalt);color:#B8B4A9;padding:34px 0;font-size:14px}
-.foot-in{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
-footer .logo{color:var(--kalk);font-size:24px}
-footer a{color:#B8B4A9;text-decoration:none}
-footer a:hover{color:var(--signaal)}
+#meedoen p{max-width:56ch;margin:0 auto 28px;font-size:18px;color:#33414F}
+#meedoen .privnote{font-size:13px;color:var(--staal);max-width:62ch;margin:18px auto 0}
+footer{background:var(--nacht);color:#AAB6C2;padding:36px 0 32px;font-size:14px}
+.foot-in{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;flex-wrap:wrap}
+footer .logo{color:var(--kalk);font-size:20px}
+footer a{color:#AAB6C2;text-decoration:underline;text-underline-offset:2px}
+footer a:hover{color:#7FB3F0}
+footer .kolom{max-width:34ch;line-height:1.6}
+footer .kop{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:#7B8794;margin-bottom:8px}
+.foot-onder{border-top:1px solid #2A3A4B;margin-top:28px;padding-top:18px;font-size:13px;color:#7B8794;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 
-@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}html{scroll-behavior:auto}}
 </style>
 </head>
 <body>
@@ -145,7 +176,7 @@ footer a:hover{color:var(--signaal)}
     <div class="nav-links">
       <a href="#hoe">Hoe het werkt</a>
       <a href="#rollen">Voor wie</a>
-      <a href="#waarom">Waarom</a>
+      <a href="#privacy">Privacy</a>
       <a class="btn" href="#meedoen">Meld een werf</a>
     </div>
   </div>
@@ -154,7 +185,7 @@ footer a:hover{color:var(--signaal)}
 <header class="hero">
   <div class="wrap hero-in">
     <div>
-      <p class="eyebrow">Werfmeldingen · Vlaanderen</p>
+      <p class="eyebrow">Werfmeldingen · Vlaanderen · AVG-conform</p>
       <h1>Jij ziet de werf.<br><span class="accent">Jonas</span> ziet de kans.</h1>
       <p class="lead">Passeer je een bouwwerf? Trek een foto, deel de locatie en verdien per gevalideerde melding. Dienstverleners en verkopers vinden zo werven in hun regio — minder kilometers, snellere en scherpere offertes.</p>
       <div class="hero-ctas">
@@ -187,7 +218,7 @@ footer a:hover{color:var(--signaal)}
   <div class="wrap statstrip-in">
     <div class="stat"><div class="n">30 sec</div><div class="l">van foto tot ingediende melding, GPS automatisch ingevuld</div></div>
     <div class="stat"><div class="n">−40%</div><div class="l">minder prospectiekilometers voor dienstverleners in hun werkgebied</div></div>
-    <div class="stat"><div class="n">€ 0</div><div class="l">instapkost voor spotters én voor werven die zichzelf inschrijven</div></div>
+    <div class="stat"><div class="n">0 cookies</div><div class="l">deze website plaatst geen cookies en gebruikt geen trackers of externe diensten</div></div>
   </div>
 </div>
 
@@ -201,17 +232,17 @@ footer a:hover{color:var(--signaal)}
       <div class="stap">
         <span class="num">STAP 01 / FOTO</span>
         <h3>Spot &amp; fotografeer</h3>
-        <p>Je passeert een werf — als baanwerker, chauffeur of gewoon onderweg. Open Jonas, trek één duidelijke foto van de werf of het werfbord.</p>
+        <p>Je passeert een werf — als baanwerker, chauffeur of gewoon onderweg. Trek vanaf de openbare weg één duidelijke foto van de werf of het werfbord, zonder herkenbare personen.</p>
       </div>
       <div class="stap">
         <span class="num">STAP 02 / LOCATIE</span>
         <h3>Deel de locatie</h3>
-        <p>De GPS-locatie wordt automatisch toegevoegd. Kies het werftype en de fase (grondwerken, ruwbouw, afwerking) en dien in.</p>
+        <p>De GPS-locatie van de werf wordt toegevoegd — de locatie van de werf, niet jouw verplaatsingsgedrag. Kies werftype en fase (grondwerken, ruwbouw, afwerking) en dien in.</p>
       </div>
       <div class="stap">
         <span class="num">STAP 03 / VERGOEDING</span>
         <h3>Verdien per melding</h3>
-        <p>Wij valideren de melding en bieden ze aan bij dienstverleners in de regio. Zodra een melding gevalideerd is, krijg jij je vergoeding.</p>
+        <p>Wij controleren elke melding op kwaliteit én privacy en bieden ze aan bij dienstverleners in de regio. Na validatie krijg jij je vergoeding.</p>
       </div>
     </div>
   </div>
@@ -234,7 +265,7 @@ footer a:hover{color:var(--signaal)}
           <li>Verdien per gevalideerde melding</li>
           <li>Foto + GPS, klaar in 30 seconden</li>
           <li>Ideaal voor baanwerkers, chauffeurs en pendelaars</li>
-          <li>Uitbetaling per maand, transparant overzicht</li>
+          <li>Maandelijkse uitbetaling, transparant overzicht</li>
         </ul>
         <div class="rol-cta"><a class="btn" href="#meedoen">Word spotter</a></div>
       </div>
@@ -304,19 +335,77 @@ footer a:hover{color:var(--signaal)}
 
 <div class="hazard" aria-hidden="true"></div>
 
+<section id="privacy">
+  <div class="wrap">
+    <div class="sec-kop">
+      <h2>Privacy &amp; AVG</h2>
+      <p>Jonas werkt met foto's en locaties. Dat doen we volgens de Algemene Verordening Gegevensbescherming (AVG/GDPR) — privacy by design, geen woordje meer dan nodig.</p>
+    </div>
+    <div class="privacy-grid">
+      <div>
+        <h3>Wat we verwerken en waarom</h3>
+        <p>Van <strong>spotters</strong>: naam, e-mailadres en rekeningnummer (voor uitbetaling) en de ingediende meldingen. Rechtsgrond: uitvoering van de overeenkomst (art. 6.1.b AVG).</p>
+        <p style="margin-top:8px">Van <strong>meldingen</strong>: foto en GPS-locatie van de werf zelf. Werfgegevens zijn in beginsel bedrijfsgegevens; persoonsgegevens die er toevallig op staan worden bij validatie verwijderd of onleesbaar gemaakt.</p>
+        <p style="margin-top:8px">Van <strong>dienstverleners en werven</strong>: bedrijfs- en contactgegevens die je zelf registreert.</p>
+
+        <h3>Wat we niet doen</h3>
+        <ul>
+          <li>Geen cookies, geen trackers, geen analytics van derden op deze website</li>
+          <li>Geen verkoop van gegevens aan derden buiten het platformdoel</li>
+          <li>Geen opvolging van jouw verplaatsingen: enkel de locatie van de gemelde werf wordt bewaard</li>
+          <li>Geen doorgifte buiten de EER</li>
+        </ul>
+
+        <h3>Bewaartermijn &amp; jouw rechten</h3>
+        <p>Meldingen bewaren we zolang de werf actief relevant is, met een maximum van 24 maanden; boekhoudkundige gegevens 7 jaar (wettelijke verplichting). Je hebt recht op inzage, verbetering, wissing, beperking, overdraagbaarheid en bezwaar (art. 15–21 AVG). Mail <a href="mailto:privacy@jonas.be">privacy@jonas.be</a> — we antwoorden binnen 30 dagen. Niet akkoord met ons antwoord? Je kan klacht indienen bij de <a href="https://www.gegevensbeschermingsautoriteit.be" rel="noopener">Gegevensbeschermingsautoriteit</a>.</p>
+      </div>
+      <div class="foto-regels">
+        <h3>Fotoregels voor spotters</h3>
+        <p class="sub">Verplicht bij elke melding</p>
+        <div class="regel"><span class="ic ok" aria-hidden="true">✓</span><span>Fotografeer vanaf de openbare weg, gericht op de werf of het werfbord.</span></div>
+        <div class="regel"><span class="ic ok" aria-hidden="true">✓</span><span>Werfbord mag: vergunningsinformatie is publiek en wettelijk verplicht uitgehangen.</span></div>
+        <div class="regel"><span class="ic nee" aria-hidden="true">✕</span><span>Geen herkenbare personen in beeld. Staat er toch iemand op? Wij blurren bij validatie of weigeren de foto.</span></div>
+        <div class="regel"><span class="ic nee" aria-hidden="true">✕</span><span>Geen leesbare nummerplaten, geen inkijk in woningen, geen privéterrein betreden.</span></div>
+        <div class="regel"><span class="ic nee" aria-hidden="true">✕</span><span>Niet fotograferen vanachter het stuur. Veiligheid eerst — stop op een veilige plaats.</span></div>
+        <p style="margin-top:16px;font-size:13.5px;color:var(--staal)">Meldingen die deze regels schenden worden niet gevalideerd en niet vergoed.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="meedoen">
   <div class="wrap">
     <h2>Doe mee met Jonas</h2>
     <p>Jonas start in Vlaanderen. Laat je gegevens achter als spotter, dienstverlener of werf en je hoort het eerst wanneer jouw regio live gaat.</p>
     <a class="btn" href="mailto:info@jonas.be?subject=Aanmelding%20Jonas">Meld je aan</a>
+    <p class="privnote">Door te mailen geef je toestemming om je naam en e-mailadres te gebruiken om je over de lancering te informeren (art. 6.1.a AVG). Je kan die toestemming altijd intrekken met één mail. We sturen geen andere reclame.</p>
   </div>
 </section>
 
 <footer>
-  <div class="wrap foot-in">
-    <a class="logo" href="#"><span class="logo-blok" aria-hidden="true"></span>Jonas</a>
-    <div>Werven gezien, werk gevonden. · <a href="mailto:info@jonas.be">info@jonas.be</a></div>
-    <div>© 2026 Jonas</div>
+  <div class="wrap">
+    <div class="foot-in">
+      <div class="kolom">
+        <a class="logo" href="#"><span class="logo-blok" aria-hidden="true"></span>Jonas</a>
+        <p style="margin-top:10px">Werven gezien, werk gevonden.</p>
+      </div>
+      <div class="kolom">
+        <div class="kop">Verwerkingsverantwoordelijke</div>
+        [Vennootschapsnaam] BV<br>
+        [Straat nr], [postcode] [gemeente], België<br>
+        KBO/BTW: BE [0XXX.XXX.XXX]
+      </div>
+      <div class="kolom">
+        <div class="kop">Contact</div>
+        Algemeen: <a href="mailto:info@jonas.be">info@jonas.be</a><br>
+        Privacy: <a href="mailto:privacy@jonas.be">privacy@jonas.be</a><br>
+        <a href="#privacy">Privacy &amp; AVG</a>
+      </div>
+    </div>
+    <div class="foot-onder">
+      <span>© 2026 Jonas. Deze website plaatst geen cookies en laadt geen externe diensten.</span>
+      <span>Toezichthouder: <a href="https://www.gegevensbeschermingsautoriteit.be" rel="noopener">Gegevensbeschermingsautoriteit</a></span>
+    </div>
   </div>
 </footer>
 

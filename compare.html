@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Two trucks, one scenario · eTruckTCO</title>
+<meta name="description" content="MAN's new eTGX against the Windrose R700 — the same business case, run twice, side by side.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Barlow:wght@400;500;600;700&display=swap');
+  :root{
+    --ink:#16140f;--paper:#f4efe4;--paper2:#ece4d3;--diesel:#b8772a;--diesel-dark:#8a5418;
+    --volt:#1faa6e;--volt-dark:#137a4d;--volt-light:#d7f2e5;--line:#d8cdb6;--muted:#736b58;
+    --road:#26231c;--navy:#1e2a33;--navy2:#16202a;--sans:'Barlow',-apple-system,sans-serif;--cond:'Barlow Condensed',sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--sans);color:var(--ink);line-height:1.5;
+    background:radial-gradient(110% 70% at 85% -5%, rgba(31,170,110,.12), transparent 55%),linear-gradient(180deg,var(--paper),var(--paper2));}
+  .wrap{width:100%;max-width:1340px;margin:0 auto;padding:0 20px}
+  .topbar{background:var(--road);color:#f4efe4;padding:11px 0;border-bottom:4px solid var(--diesel)}
+  .topbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .brand{font-family:var(--cond);font-weight:900;font-size:23px;letter-spacing:.02em;text-transform:uppercase;display:flex;align-items:center;gap:8px}
+  .brand .plug{color:var(--volt)}
+  .brand .be{font-size:12px;background:var(--diesel);color:#fff;padding:2px 7px;border-radius:4px;font-weight:700;letter-spacing:.05em}
+  .topbar a{color:#cdbf9f;text-decoration:none;font-size:13px}
+  .topbar a:hover{color:#fff}
+
+  /* ---------- desktop gate ---------- */
+  #toosmall{display:none;padding:60px 24px;text-align:center;max-width:520px;margin:0 auto}
+  #toosmall h2{font-family:var(--cond);font-weight:900;text-transform:uppercase;font-size:30px;line-height:1.05}
+  #toosmall p{margin-top:12px;color:#534c3d}
+  @media(max-width:1199px){#toosmall{display:block}#main{display:none}}
+
+  /* ---------- article ---------- */
+  .hero{padding:38px 0 6px}
+  .kicker{font-family:var(--cond);font-weight:700;text-transform:uppercase;letter-spacing:.14em;font-size:14px;color:var(--diesel-dark)}
+  h1{font-family:var(--cond);font-weight:900;font-size:52px;line-height:.98;text-transform:uppercase;margin:8px 0 0;max-width:20ch}
+  h1 .hl{color:var(--volt-dark)}
+  .lede{font-size:18px;color:#534c3d;margin:14px 0 0;max-width:68ch}
+  .article{display:grid;grid-template-columns:1.15fr .85fr;gap:34px;margin:26px 0 10px;align-items:start}
+  .article h3{font-family:var(--cond);font-weight:800;text-transform:uppercase;font-size:20px;letter-spacing:.03em;margin:22px 0 8px}
+  .article h3:first-child{margin-top:0}
+  .article p{margin:0 0 11px;font-size:15.5px;max-width:70ch}
+  .article ul{margin:0 0 12px;padding-left:0;list-style:none}
+  .article li{font-size:15px;display:flex;gap:9px;margin-bottom:7px}
+  .article li .ck{color:var(--volt-dark);font-weight:800;flex-shrink:0}
+  .spec{width:100%;border-collapse:collapse;background:#fff;border:1.5px solid var(--line);border-radius:12px;overflow:hidden}
+  .spec caption{caption-side:top;text-align:left;font-family:var(--cond);font-weight:800;text-transform:uppercase;font-size:15px;letter-spacing:.05em;color:var(--diesel-dark);padding-bottom:7px}
+  .spec th,.spec td{padding:9px 12px;text-align:left;font-size:14.5px;border-bottom:1px solid #efe8d8;vertical-align:top}
+  .spec thead th{background:var(--road);color:#f4efe4;font-family:var(--cond);text-transform:uppercase;letter-spacing:.05em;font-size:13.5px;border-bottom:none}
+  .spec tbody th{font-weight:600;color:var(--muted);width:30%}
+  .spec tr:last-child td,.spec tr:last-child th{border-bottom:none}
+  .spec .win{font-weight:700}
+  .srcnote{font-size:12.5px;color:var(--muted);margin-top:9px;line-height:1.5}
+  .srcnote a{color:var(--volt-dark)}
+
+  /* ---------- shared scenario bar ---------- */
+  .bar{position:sticky;top:0;z-index:40;background:var(--navy);color:#eef2f4;border-top:3px solid var(--volt);box-shadow:0 8px 24px -12px rgba(0,0,0,.5);margin-top:26px}
+  .bar .wrap{padding-top:13px;padding-bottom:13px}
+  .bar-title{font-family:var(--cond);font-weight:800;text-transform:uppercase;letter-spacing:.06em;font-size:13px;color:#8fd9b6;margin-bottom:9px;display:flex;justify-content:space-between;align-items:center}
+  .bar-title .hint{color:#9fb0bb;font-weight:600;letter-spacing:.02em;text-transform:none;font-family:var(--sans);font-size:12.5px}
+  .ctrls{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+  .ctrl label{display:block;font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;color:#9fb0bb;margin-bottom:4px;font-weight:600}
+  .ctrl select,.ctrl input[type=range]{width:100%}
+  .ctrl select{background:#0f1922;color:#eef2f4;border:1px solid #33454f;border-radius:7px;padding:6px 8px;font:inherit;font-size:14px}
+  .ctrl .rv{font-size:13px;color:#8fd9b6;font-weight:700;margin-left:7px}
+  .ctrl .rowline{display:flex;align-items:center}
+  .ctrl input[type=range]{accent-color:var(--volt)}
+
+  /* ---------- verdict ---------- */
+  .verdict{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;background:#fff;border:1.5px solid var(--line);border-radius:14px;overflow:hidden;margin:20px 0 6px}
+  .vcol{padding:15px 18px}
+  .vcol+.vcol{border-left:1.5px solid var(--line)}
+  .vcol.mid{background:#faf6ec}
+  .vname{font-family:var(--cond);font-weight:900;text-transform:uppercase;font-size:19px;letter-spacing:.02em}
+  .vname .dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:7px}
+  .vrow{display:flex;justify-content:space-between;gap:12px;font-size:14px;padding:5px 0;border-bottom:1px dotted #e5dcc7}
+  .vrow:last-child{border-bottom:none}
+  .vrow span:first-child{color:var(--muted)}
+  .vrow b{font-variant-numeric:tabular-nums}
+  .vcol.mid .vrow b{color:var(--diesel-dark)}
+  .vnote{font-size:13px;color:var(--muted);margin-top:9px;line-height:1.5}
+
+  /* ---------- panes ---------- */
+  .panes{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:14px 0 34px}
+  .pane{border:1.5px solid var(--line);border-radius:14px;overflow:hidden;background:#fff;display:flex;flex-direction:column}
+  .phead{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 14px;background:var(--road);color:#f4efe4}
+  .phead .who{font-family:var(--cond);font-weight:800;text-transform:uppercase;letter-spacing:.04em;font-size:16px;display:flex;align-items:center}
+  .phead .who .dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:8px}
+  .phead .price{font-size:13px;color:#cdbf9f;font-variant-numeric:tabular-nums}
+  .pane iframe{width:100%;height:78vh;min-height:620px;border:0;display:block;background:#fff}
+  .synclbl{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--muted);margin:0 0 8px;justify-content:flex-end}
+  footer{background:var(--road);color:#a99e85;padding:22px 0 30px;font-size:12.5px}
+  footer .wrap{display:flex;flex-direction:column;gap:6px}
+  footer b{color:#e8e0cf}
+  footer a{color:var(--volt);text-decoration:none}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="brand">e<span class="plug">⚡</span>TruckTCO <span class="be">BE</span></div>
+    <div><a href="index.html">← back to the start</a></div>
+  </div>
+</div>
+
+<div id="toosmall">
+  <h2>This one needs a bigger screen</h2>
+  <p>Two full business cases side by side does not fold into a phone. Open this page on a laptop or desktop — at least 1200 pixels wide.</p>
+  <p style="margin-top:18px"><a href="eTruckCost.html" style="color:var(--volt-dark);font-weight:700">Take the quick answer instead →</a></p>
+</div>
+
+<div id="main">
+<div class="wrap">
+
+  <div class="hero">
+    <div class="kicker">Head to head · IAA Hannover 2026</div>
+    <h1>MAN's new eTGX,<br>against the <span class="hl">Windrose R700</span></h1>
+    <p class="lede">MAN rebuilt its electric flagship and put the range at 720 km. That is more than the truck this site has used as its reference all along. It also costs a great deal more. Below, the same business case is run twice — once for each truck — so you can see where that trade lands.</p>
+  </div>
+
+  <div class="article">
+    <div>
+      <h3>What MAN actually changed</h3>
+      <p>The battery is the headline. MAN raised the nickel content in the cells, which yields about 10% more usable energy in exactly the same physical space — no bigger packs, no lost payload. The 4x2 tractor goes from 570 km to roughly 660 km on that change alone.</p>
+      <p>The 720 km figure belongs to the three-axle 6x2. There, a seventh battery pack stands upright behind the cab, bringing the truck to 660 kWh net. MAN's CTO Frederik Zorn put the ambition plainly: there is now barely a 40-tonne job left that cannot be done electrically.</p>
+      <ul>
+        <li><span class="ck">✓</span><span><strong>720 km</strong> on the 6x2 with seven packs · 660 kWh net</span></li>
+        <li><span class="ck">✓</span><span><strong>660 km</strong> on the 4x2, up from 570 km</span></li>
+        <li><span class="ck">✓</span><span>Nose extended by <strong>120 mm</strong> — 3% better energy efficiency on the electric, up to 2% less fuel on the diesel TGX</span></li>
+        <li><span class="ck">✓</span><span>Motor up to <strong>600 hp</strong></span></li>
+        <li><span class="ck">✓</span><span>Dashboard dropped by 40 mm, deeper windscreen, optional extra window in the passenger door — better sight of cyclists and pedestrians</span></li>
+      </ul>
+
+      <h3>Where that leaves the Windrose</h3>
+      <p>The Windrose R700 has been the reference truck in this model because of its price: around €198k against roughly €320k for the eTGX. On range the MAN now wins clearly — 720 km against the R700's ~670 km loaded, which this model treats as 500–550 km in real work.</p>
+      <p>But range is not what decides the business case here. On a Belgian duty of 100 000 km a year, both trucks comfortably do a day's work on one overnight charge at the depot. Neither needs to charge on the road. The extra 50–170 km of the MAN buys headroom and peace of mind — it does not buy a euro of running cost.</p>
+      <p>Price does decide it. That gap of roughly €122k per truck has to be earned back out of fuel and tolls, and on an 80-truck fleet it is €9.8 million of extra capital going in the door. Run the two side by side below and watch what happens to the payback line.</p>
+
+      <h3>What you are looking at</h3>
+      <p>Both panels are the full business case, identical in every assumption except the truck. Change anything in the dark bar and both recalculate together, so you are never comparing two different scenarios by accident. Everything else — tolls, maintenance, residual value, the six-zone kilometre charge — stays as calibrated for Belgium.</p>
+      <p><strong>One caveat, stated plainly.</strong> Inside this model the only thing that differs between two trucks is the purchase price. Consumption, maintenance and residual value are treated the same for every make. That is why the per-truck difference you see below always comes out at exactly the price gap — €122 000 between the MAN and the Windrose. What the comparison genuinely shows is <em>whether that price gap still pays back</em> under your fleet size, mileage and fuel price. It does not claim one truck is cheaper to run than the other; nobody publishes figures solid enough to make that claim honestly.</p>
+    </div>
+
+    <div>
+      <table class="spec">
+        <caption>Side by side</caption>
+        <thead>
+          <tr><th></th><th>MAN eTGX 2026</th><th>Windrose R700</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>Range, best version</th><td class="win">720 km</td><td>~670 km loaded</td></tr>
+          <tr><th>Range, realistic</th><td>—</td><td>500–550 km</td></tr>
+          <tr><th>Battery, net</th><td class="win">660 kWh</td><td>not published</td></tr>
+          <tr><th>Axles for that range</th><td>6x2, 7 packs</td><td>4x2</td></tr>
+          <tr><th>Power</th><td class="win">up to 600 hp</td><td>not published</td></tr>
+          <tr><th>Price, indicative</th><td>~€320 000</td><td class="win">~€198 000</td></tr>
+          <tr><th>Available</th><td>shown at IAA 2026</td><td>in the model as Gen-2</td></tr>
+        </tbody>
+      </table>
+      <p class="srcnote">Range, battery and design figures: MAN Truck &amp; Bus press conference, Munich, reported by <a href="https://www.logistiek.nl/211274/man-rekt-actieradius-vernieuwde-e-truck-op-naar-720-km" target="_blank" rel="noopener">Logistiek.nl</a>, 2 September 2026. Prices are indicative list prices, not quotes — a real offer for a fleet of this size will land lower. The Windrose figures are the ones this model has used throughout.</p>
+    </div>
+  </div>
+
+</div>
+
+<div class="bar">
+  <div class="wrap">
+    <div class="bar-title">
+      <span>One scenario · both trucks</span>
+      <span class="hint">change anything here and both panels recalculate together</span>
+    </div>
+    <div class="ctrls">
+      <div class="ctrl">
+        <label for="c-left">Left truck</label>
+        <select id="c-left">
+          <option value="man" selected>MAN eTGX 2026 (€320k)</option>
+          <option value="windrose">Windrose R700 (€198k)</option>
+          <option value="daimler">Daimler eActros 600 (€300k)</option>
+          <option value="volvo">Volvo FH Electric (€290k)</option>
+          <option value="daf">DAF XD Electric (€260k)</option>
+        </select>
+      </div>
+      <div class="ctrl">
+        <label for="c-right">Right truck</label>
+        <select id="c-right">
+          <option value="windrose" selected>Windrose R700 (€198k)</option>
+          <option value="man">MAN eTGX 2026 (€320k)</option>
+          <option value="daimler">Daimler eActros 600 (€300k)</option>
+          <option value="volvo">Volvo FH Electric (€290k)</option>
+          <option value="daf">DAF XD Electric (€260k)</option>
+        </select>
+      </div>
+      <div class="ctrl">
+        <label for="c-trucks">Fleet size</label>
+        <select id="c-trucks">
+          <option value="20">20 trucks</option><option value="50">50 trucks</option>
+          <option value="80" selected>80 trucks</option><option value="100">100 trucks</option>
+          <option value="150">150 trucks</option><option value="200">200 trucks</option>
+        </select>
+      </div>
+      <div class="ctrl">
+        <label for="c-years">Period of use</label>
+        <select id="c-years"><option value="5">5 years</option><option value="7" selected>7 years</option><option value="10">10 years</option></select>
+      </div>
+      <div class="ctrl">
+        <label for="c-km">Annual km per truck</label>
+        <select id="c-km">
+          <option value="80000">80 000 km</option><option value="100000" selected>100 000 km</option>
+          <option value="117000">117 000 km</option><option value="120000">120 000 km</option><option value="150000">150 000 km</option>
+        </select>
+      </div>
+      <div class="ctrl">
+        <label for="c-diesel">Diesel at pump</label>
+        <div class="rowline"><input type="range" id="c-diesel" min="1.30" max="2.00" step="0.05" value="1.50"><span class="rv" id="c-diesel-v">€1.50</span></div>
+        <label for="c-power" style="margin-top:7px">Depot power</label>
+        <div class="rowline"><input type="range" id="c-power" min="0.15" max="0.30" step="0.01" value="0.26"><span class="rv" id="c-power-v">€0.26</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="verdict">
+    <div class="vcol">
+      <div class="vname"><span class="dot" style="background:var(--volt)"></span><span id="v-lname">MAN eTGX 2026</span></div>
+      <div class="vrow"><span>Saved across the fleet</span><b id="v-ltco">—</b></div>
+      <div class="vrow"><span>Saved per truck</span><b id="v-ltruck">—</b></div>
+      <div class="vrow"><span>Payback</span><b id="v-lpay">—</b></div>
+      <div class="vrow"><span>Return on the extra capital</span><b id="v-lirr">—</b></div>
+    </div>
+    <div class="vcol mid">
+      <div class="vname" style="color:var(--diesel-dark)">The difference</div>
+      <div class="vrow"><span>Across the fleet</span><b id="v-dtco">—</b></div>
+      <div class="vrow"><span>Per truck</span><b id="v-dtruck">—</b></div>
+      <div class="vrow"><span>Payback</span><b id="v-dpay">—</b></div>
+      <div class="vnote" id="v-verdict">Reading both panels…</div>
+    </div>
+    <div class="vcol">
+      <div class="vname"><span class="dot" style="background:var(--diesel)"></span><span id="v-rname">Windrose R700</span></div>
+      <div class="vrow"><span>Saved across the fleet</span><b id="v-rtco">—</b></div>
+      <div class="vrow"><span>Saved per truck</span><b id="v-rtruck">—</b></div>
+      <div class="vrow"><span>Payback</span><b id="v-rpay">—</b></div>
+      <div class="vrow"><span>Return on the extra capital</span><b id="v-rirr">—</b></div>
+    </div>
+  </div>
+
+  <label class="synclbl"><input type="checkbox" id="c-sync" checked> scroll both panels together</label>
+
+  <div class="panes">
+    <div class="pane">
+      <div class="phead">
+        <span class="who"><span class="dot" style="background:var(--volt)"></span><span id="p-lname">MAN eTGX 2026</span></span>
+        <span class="price" id="p-lprice">€320k</span>
+      </div>
+      <iframe id="fL" src="eTruckAnalysis.html" title="Business case, left truck"></iframe>
+    </div>
+    <div class="pane">
+      <div class="phead">
+        <span class="who"><span class="dot" style="background:var(--diesel)"></span><span id="p-rname">Windrose R700</span></span>
+        <span class="price" id="p-rprice">€198k</span>
+      </div>
+      <iframe id="fR" src="eTruckAnalysis.html" title="Business case, right truck"></iframe>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div><b>eTruckTCO.be</b> — the same business case, run twice.</div>
+    <div>Both panels are the full <a href="eTruckAnalysis.html">CFO analysis</a>, identical except for the truck. Prices are indicative list prices, not quotes.</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var PRICES = { windrose:198, daimler:300, volvo:290, daf:260, man:320 };
+  var NAMES  = { windrose:'Windrose R700', daimler:'Daimler eActros 600', volvo:'Volvo FH Electric', daf:'DAF XD Electric', man:'MAN eTGX 2026' };
+  var $ = function(id){ return document.getElementById(id); };
+  var fL = $('fL'), fR = $('fR');
+  var ready = { L:false, R:false };
+
+  function doc(f){ try { return f.contentDocument; } catch(e){ return null; } }
+
+  function setSelect(d, id, val){
+    var el = d.getElementById(id); if (!el || el.value === String(val)) return;
+    el.value = String(val); el.dispatchEvent(new Event('change', {bubbles:true}));
+  }
+  function setRange(d, id, val){
+    var el = d.getElementById(id); if (!el || el.value === String(val)) return;
+    el.value = String(val); el.dispatchEvent(new Event('input', {bubbles:true}));
+  }
+
+  // Push the shared scenario into one panel. `truck` differs per side; everything else is identical.
+  function apply(f, truck){
+    var d = doc(f); if (!d || !d.getElementById('p-truck-model')) return;
+    setSelect(d, 'p-truck-model', truck);
+    setSelect(d, 'p-trucks', $('c-trucks').value);
+    setSelect(d, 'p-years',  $('c-years').value);
+    setSelect(d, 'p-km',     $('c-km').value);
+    setRange (d, 'p-diesel', $('c-diesel').value);
+    setRange (d, 'p-power',  $('c-power').value);
+  }
+
+  function num(s){
+    if (!s) return NaN;
+    var neg = /[-−]/.test(s);
+    var v = parseFloat(String(s).replace(/[^0-9.]/g, ''));
+    if (isNaN(v)) return NaN;
+    return neg ? -v : v;
+  }
+  function txt(d, id){ var el = d && d.getElementById(id); return el ? el.textContent.trim() : ''; }
+
+  function money(v){
+    if (isNaN(v)) return '—';
+    var s = Math.abs(v) >= 1e6 ? (v/1e6).toFixed(2) + ' M' : Math.round(v).toLocaleString('en-GB').replace(/,/g,' ');
+    return (v < 0 ? '−€' : '€') + s.replace('-','');
+  }
+
+  function readSide(f){
+    var d = doc(f); if (!d) return null;
+    var tco = num(txt(d,'kpi-tco-full')), per = num(txt(d,'kpi-truck-full'));
+    if (isNaN(tco)) return null;
+    return { tco:tco, per:per, pay:txt(d,'kpi-pay-full'), irr:txt(d,'kpi-irr-sent') };
+  }
+
+  function refresh(){
+    var L = readSide(fL), R = readSide(fR);
+    if (!L || !R) return;
+    $('v-ltco').textContent = money(L.tco);  $('v-rtco').textContent = money(R.tco);
+    $('v-ltruck').textContent = money(L.per); $('v-rtruck').textContent = money(R.per);
+    $('v-lpay').textContent = L.pay ? L.pay + ' yr' : '—';
+    $('v-rpay').textContent = R.pay ? R.pay + ' yr' : '—';
+    $('v-lirr').textContent = L.irr || '—';   $('v-rirr').textContent = R.irr || '—';
+
+    $('v-dtco').textContent   = money(Math.abs(L.tco - R.tco));
+    $('v-dtruck').textContent = money(Math.abs(L.per - R.per));
+    var pl = num(L.pay), pr = num(R.pay);
+    $('v-dpay').textContent = (isNaN(pl)||isNaN(pr)) ? '—' : (Math.abs(pl-pr).toFixed(0) + ' yr');
+
+    var lname = NAMES[$('c-left').value], rname = NAMES[$('c-right').value];
+    var better = L.per > R.per ? lname : rname;
+    var gap = Math.abs(L.per - R.per);
+    $('v-verdict').textContent = (L.per === R.per)
+      ? 'Both trucks land in the same place in this scenario.'
+      : better + ' saves ' + money(gap) + ' more per truck in this scenario.';
+  }
+
+  function onReady(side, f){
+    ready[side] = true;
+    apply(f, side === 'L' ? $('c-left').value : $('c-right').value);
+    setTimeout(refresh, 400);
+  }
+  fL.addEventListener('load', function(){ onReady('L', fL); });
+  fR.addEventListener('load', function(){ onReady('R', fR); });
+
+  function applyBoth(){
+    if (ready.L) apply(fL, $('c-left').value);
+    if (ready.R) apply(fR, $('c-right').value);
+    setTimeout(refresh, 350);
+  }
+
+  function labels(){
+    var l = $('c-left').value, r = $('c-right').value;
+    $('v-lname').textContent = $('p-lname').textContent = NAMES[l];
+    $('v-rname').textContent = $('p-rname').textContent = NAMES[r];
+    $('p-lprice').textContent = '€' + PRICES[l] + 'k';
+    $('p-rprice').textContent = '€' + PRICES[r] + 'k';
+  }
+
+  ['c-left','c-right','c-trucks','c-years','c-km'].forEach(function(id){
+    $(id).addEventListener('change', function(){ labels(); applyBoth(); });
+  });
+  $('c-diesel').addEventListener('input', function(){ $('c-diesel-v').textContent = '€' + parseFloat(this.value).toFixed(2); applyBoth(); });
+  $('c-power').addEventListener('input',  function(){ $('c-power-v').textContent  = '€' + parseFloat(this.value).toFixed(2); applyBoth(); });
+
+  // Keep both panels at the same scroll position, so the same section is on screen in each.
+  var lock = false;
+  function mirror(from, to){
+    if (!$('c-sync').checked || lock) return;
+    var a = doc(from), b = doc(to); if (!a || !b) return;
+    lock = true;
+    b.documentElement.scrollTop = b.body.scrollTop = a.documentElement.scrollTop || a.body.scrollTop;
+    setTimeout(function(){ lock = false; }, 40);
+  }
+  function wireScroll(){
+    var a = doc(fL), b = doc(fR); if (!a || !b) return;
+    a.addEventListener('scroll', function(){ mirror(fL, fR); }, {passive:true});
+    b.addEventListener('scroll', function(){ mirror(fR, fL); }, {passive:true});
+  }
+  setTimeout(wireScroll, 2500);
+
+  labels();
+  setInterval(refresh, 1500);   // the panels recalculate on their own clock; keep the verdict in step
+})();
+</script>
+</body>
+</html>

@@ -727,6 +727,7 @@
           <option value="daimler">Daimler eActros 600 (€300k)</option>
           <option value="volvo">Volvo FH Electric (€290k)</option>
           <option value="daf">DAF XD Electric (€260k)</option>
+          <option value="man">MAN eTGX 2026 (€320k)</option>
         </select>
       </div>
       <div class="param-group">
@@ -1476,7 +1477,7 @@
     <ul style="margin:0; padding-left:18px; line-height:1.65;">
       <li><strong>Diesel professional refund €0.1913/L</strong> (2026) — Belgium refunds part of the excise on diesel to professional hauliers, so the model always uses the <em>net</em> pump price. This refund is being gradually phased out, which over time strengthens the electric case.</li>
       <li><strong>Belgian diesel toll €0.286/km</strong> in Flanders from 1 July 2026 (Viapass / kilometerheffing, incl. the new CO₂ component, up from €0.204) <strong>vs €0.038/km for a zero-emission truck</strong> at the 2026 80%-discount rate — the largest single driver of the business case. The ZEV rate then follows the post-2029 scenario below.</li>
-      <li><strong>Default profile — 100 000 km/yr, researched 6-zone mix.</strong> There is no official km-by-country split for Belgian trucks, so the default zone mix (VL 45 / WA 8 / BR 2 / NL 18 / FR 15 / DE 12) is a transparent, editable estimate based on the main Flemish freight corridors. A daily duty in this range is covered on a single overnight depot charge (Windrose R700 Gen-2 ~670 km loaded range, ~500–550 km realistic), so <strong>no en-route public charging</strong> is assumed and no public-charging premium is added. Cross-border work (Antwerp–Rotterdam, the Ruhr, Lille/Paris) is modelled with the editable zone split in the toll panel; Germany’s full ZEV exemption (€0/km through 30/6/2031) makes cross-border mileage toll-<em>favourable</em> for electric, not unfavourable.</li>
+      <li><strong>Default profile — 100 000 km/yr, researched 6-zone mix.</strong> There is no official km-by-country split for Belgian trucks, so the default zone mix (VL 45 / WA 8 / BR 2 / NL 18 / FR 15 / DE 12) is a transparent, editable estimate based on the main Flemish freight corridors. A daily duty in this range is covered on a single overnight depot charge (Windrose R700 Gen-2 ~670 km loaded range, ~500–550 km realistic; the 2026 MAN eTGX shown at IAA quotes 660 km on six battery packs and over 700 km on the seven-pack 6x2 with 644 kWh), so <strong>no en-route public charging</strong> is assumed and no public-charging premium is added. Cross-border work (Antwerp–Rotterdam, the Ruhr, Lille/Paris) is modelled with the editable zone split in the toll panel; Germany’s full ZEV exemption (€0/km through 30/6/2031) makes cross-border mileage toll-<em>favourable</em> for electric, not unfavourable.</li>
       <li><strong>Post-2029 Belgian ZEV treatment is legally undefined.</strong> The EU proposal (COM(2025)348, European Parliament-approved 7/10/2025) would extend a full ZEV toll exemption to 30/6/2031, but it is not yet transposed into Belgian regional law. The default uses the conservative <strong>"cliff"</strong> (ZEV pays full infrastructure from 2030); the panel lets you switch to "extend to 2031" or "permanent 25% of infra". This is the single largest toll uncertainty in the model.</li>
       <li><strong>Subsidy ceiling up to 70%</strong> on charging infrastructure — EU AFIF (up to 50%) stacked with the Flemish Ecologiepremie+ / VLIF; above 70% requires individual state-aid notification. Modeled as received in years 2-4, not upfront.</li>
       <li><strong>Foreign mileage</strong> is charged at each zone's own year-indexed rate — set the six-zone split in the parameters, and see the six-zone toll table at the bottom for every figure, its source, and the France/Netherlands/Germany sensitivity note.</li>
@@ -1719,7 +1720,7 @@
   // ~11-12% for high-power all-in-one (Alpitronic, Siemens fast depot DC).
   const CHARGING_LOSS = { huawei: 0.08, kempower: 0.08, alpitronic: 0.115, siemens: 0.12 };
 
-  const TRUCK_PRICES = { windrose: 198, volvo: 290, daimler: 300, daf: 260 };
+  const TRUCK_PRICES = { windrose: 198, volvo: 290, daimler: 300, daf: 260, man: 320 };
   const DIESEL_REFUND_PER_L = 0.1913;
 
   // ===== Six-zone kilometerheffing / toll engine — single source of truth =====
@@ -2898,7 +2899,7 @@
   const CFG_SPEC = {
     trucks:     { kind:'select', el:'p-trucks',      num:true,  enum:['20','50','80','100','150','200'] },
     years:      { kind:'select', el:'p-years',       num:true,  enum:['5','7','10'] },
-    truckModel: { kind:'select', el:'p-truck-model',            enum:['windrose','daimler','volvo','daf'] },
+    truckModel: { kind:'select', el:'p-truck-model',            enum:['windrose','daimler','volvo','daf','man'] },
     km:         { kind:'select', el:'p-km',          num:true,  enum:['80000','100000','117000','120000','150000'] },
     diesel:     { kind:'range',  el:'p-diesel',      min:1.30, max:2.00 },
     power:      { kind:'range',  el:'p-power',       min:0.15, max:0.30 },

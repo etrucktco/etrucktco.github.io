@@ -58,7 +58,7 @@
   .bar .wrap{padding-top:13px;padding-bottom:13px}
   .bar-title{font-family:var(--cond);font-weight:800;text-transform:uppercase;letter-spacing:.06em;font-size:13px;color:#8fd9b6;margin-bottom:9px;display:flex;justify-content:space-between;align-items:center}
   .bar-title .hint{color:#9fb0bb;font-weight:600;letter-spacing:.02em;text-transform:none;font-family:var(--sans);font-size:12.5px}
-  .ctrls{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+  .ctrls{display:grid;grid-template-columns:repeat(4,1fr);gap:13px 14px}
   .ctrl label{display:block;font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;color:#9fb0bb;margin-bottom:4px;font-weight:600}
   .ctrl select,.ctrl input[type=range]{width:100%}
   .ctrl select{background:#0f1922;color:#eef2f4;border:1px solid #33454f;border-radius:7px;padding:6px 8px;font:inherit;font-size:14px}
@@ -88,6 +88,34 @@
   .phead .who .dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:8px}
   .phead .price{font-size:13px;color:#cdbf9f;font-variant-numeric:tabular-nums}
   .pane iframe{width:100%;height:78vh;min-height:620px;border:0;display:block;background:#fff}
+  /* Chart colours: the site's green plus a purple that survives colour-blindness
+     checks (deutan dE 17.9, normal 27.7). The site's own green/orange pair fails
+     that test at dE 5.9, and both markers here are electric trucks anyway, so the
+     diesel-orange carries no meaning on this chart. */
+  .charts{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:18px 0 6px}
+  .chart{background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:16px 18px 12px}
+  .chart h3{font-family:var(--cond);font-weight:900;text-transform:uppercase;font-size:18px;margin:0}
+  .chart .sub{font-size:13px;color:var(--muted);margin:3px 0 8px;line-height:1.45}
+  .chart svg{display:block;width:100%;height:auto;overflow:visible}
+  .chart .lgd{display:flex;gap:16px;flex-wrap:wrap;margin-top:8px;font-size:12.5px;color:var(--muted);align-items:center}
+  .chart .lgd i{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:6px;vertical-align:-1px}
+  .chart details{margin-top:9px}
+  .chart details summary{cursor:pointer;font-size:12.5px;color:var(--volt-dark);font-weight:700;list-style:none}
+  .chart details summary::-webkit-details-marker{display:none}
+  .chart details summary::before{content:"B8 "}
+  .chart details[open] summary::before{content:"BE "}
+  .chart table{width:100%;border-collapse:collapse;margin-top:7px;font-size:12.5px}
+  .chart table th,.chart table td{padding:4px 8px;text-align:right;border-bottom:1px solid #efe8d8;font-variant-numeric:tabular-nums}
+  .chart table th:first-child,.chart table td:first-child{text-align:left}
+  .chart table thead th{color:var(--muted);font-weight:700;text-transform:uppercase;font-size:11px;letter-spacing:.04em}
+  .findings{background:#fff;border:1.5px solid var(--line);border-left:5px solid #7a3fb0;border-radius:14px;padding:15px 18px;margin:6px 0 0}
+  .findings p{margin:0 0 8px;font-size:15px}
+  .findings p:last-child{margin-bottom:0}
+  .findings b{font-variant-numeric:tabular-nums}
+  .tip{position:fixed;pointer-events:none;background:var(--road);color:#f4efe4;border-radius:8px;padding:7px 10px;
+    font-size:12.5px;line-height:1.45;z-index:90;opacity:0;transition:opacity .12s;white-space:nowrap;box-shadow:0 8px 20px -8px rgba(0,0,0,.5)}
+  .tip b{font-variant-numeric:tabular-nums}
+  @media(max-width:1340px){.charts{grid-template-columns:1fr}}
   .synclbl{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--muted);margin:0 0 8px;justify-content:flex-end}
   footer{background:var(--road);color:#a99e85;padding:22px 0 30px;font-size:12.5px}
   footer .wrap{display:flex;flex-direction:column;gap:6px}
@@ -149,16 +177,16 @@
           <tr><th></th><th>MAN eTGX 2026</th><th>Windrose R700</th></tr>
         </thead>
         <tbody>
-          <tr><th>Range, best version</th><td class="win">720 km</td><td>~670 km loaded</td></tr>
-          <tr><th>Range, realistic</th><td>—</td><td>500–550 km</td></tr>
-          <tr><th>Battery, net</th><td class="win">660 kWh</td><td>not published</td></tr>
+          <tr><th>Range, best version</th><td class="win">720 km</td><td>676 km loaded</td></tr>
+          <tr><th>Range, realistic</th><td>500–550 km</td><td>500–550 km</td></tr>
+          <tr><th>Battery</th><td>660 kWh net</td><td class="win">729 kWh</td></tr>
           <tr><th>Axles for that range</th><td>6x2, 7 packs</td><td>4x2</td></tr>
-          <tr><th>Power</th><td class="win">up to 600 hp</td><td>not published</td></tr>
-          <tr><th>Price, indicative</th><td>~€320 000</td><td class="win">~€198 000</td></tr>
-          <tr><th>Available</th><td>shown at IAA 2026</td><td>in the model as Gen-2</td></tr>
+          <tr><th>Power</th><td>up to 598 hp</td><td class="win">1040–1400 hp</td></tr>
+          <tr><th>Price</th><td>~€320 000 <em>est.</em></td><td class="win">€198 000</td></tr>
+          <tr><th>Available</th><td>shown at IAA 2026</td><td>deliveries under way</td></tr>
         </tbody>
       </table>
-      <p class="srcnote">Range, battery and design figures: MAN Truck &amp; Bus press conference, Munich, reported by <a href="https://www.logistiek.nl/211274/man-rekt-actieradius-vernieuwde-e-truck-op-naar-720-km" target="_blank" rel="noopener">Logistiek.nl</a>, 2 September 2026. Prices are indicative list prices, not quotes — a real offer for a fleet of this size will land lower. The Windrose figures are the ones this model has used throughout.</p>
+      <p class="srcnote">Every figure here, with its source and how firm it is, sits on the model pages: <a href="man-etgx.html">MAN eTGX</a> and <a href="windrose-r700.html">Windrose R700</a>. In short: the MAN’s range and battery come from MAN’s own press conference; its price is our estimate. The Windrose price of €198 000 is Windrose’s published European list price — the $250–300k in US coverage is the American price, which carries import tariffs of up to 70%. Windrose’s power and range figures vary between sources, so a spread is shown.</p>
     </div>
   </div>
 
@@ -213,8 +241,18 @@
       <div class="ctrl">
         <label for="c-diesel">Diesel at pump</label>
         <div class="rowline"><input type="range" id="c-diesel" min="1.30" max="2.00" step="0.05" value="1.50"><span class="rv" id="c-diesel-v">€1.50</span></div>
-        <label for="c-power" style="margin-top:7px">Depot power</label>
+      </div>
+      <div class="ctrl">
+        <label for="c-power">Depot power</label>
         <div class="rowline"><input type="range" id="c-power" min="0.15" max="0.30" step="0.01" value="0.26"><span class="rv" id="c-power-v">€0.26</span></div>
+      </div>
+      <div class="ctrl">
+        <label for="c-pl">Left truck price</label>
+        <div class="rowline"><input type="range" id="c-pl" min="150" max="400" step="1" value="320"><span class="rv" id="c-pl-v">€320k</span></div>
+      </div>
+      <div class="ctrl">
+        <label for="c-pr">Right truck price</label>
+        <div class="rowline"><input type="range" id="c-pr" min="150" max="400" step="1" value="198"><span class="rv" id="c-pr-v">€198k</span></div>
       </div>
     </div>
   </div>
@@ -224,7 +262,7 @@
 
   <div class="verdict">
     <div class="vcol">
-      <div class="vname"><span class="dot" style="background:var(--volt)"></span><span id="v-lname">MAN eTGX 2026</span></div>
+      <div class="vname"><span class="dot" style="background:#137a4d"></span><span id="v-lname">MAN eTGX 2026</span></div>
       <div class="vrow"><span>Saved across the fleet</span><b id="v-ltco">—</b></div>
       <div class="vrow"><span>Saved per truck</span><b id="v-ltruck">—</b></div>
       <div class="vrow"><span>Payback</span><b id="v-lpay">—</b></div>
@@ -238,7 +276,7 @@
       <div class="vnote" id="v-verdict">Reading both panels…</div>
     </div>
     <div class="vcol">
-      <div class="vname"><span class="dot" style="background:var(--diesel)"></span><span id="v-rname">Windrose R700</span></div>
+      <div class="vname"><span class="dot" style="background:#7a3fb0"></span><span id="v-rname">Windrose R700</span></div>
       <div class="vrow"><span>Saved across the fleet</span><b id="v-rtco">—</b></div>
       <div class="vrow"><span>Saved per truck</span><b id="v-rtruck">—</b></div>
       <div class="vrow"><span>Payback</span><b id="v-rpay">—</b></div>
@@ -246,19 +284,49 @@
     </div>
   </div>
 
+  <div class="findings" id="findings"><p>Reading the model…</p></div>
+
+  <div class="charts">
+    <div class="chart">
+      <h3>What the price does to the saving</h3>
+      <p class="sub">Saving per truck against diesel, across the whole horizon, as the purchase price changes. Everything else is your scenario above. Hover the line to read any price.</p>
+      <svg id="ch-save" viewBox="0 0 520 260" role="img" aria-label="Saving per truck against purchase price"></svg>
+      <div class="lgd">
+        <span><i style="background:#137a4d"></i><span id="lg-l">Left truck</span></span>
+        <span><i style="background:#7a3fb0"></i><span id="lg-r">Right truck</span></span>
+        <span><i style="background:#8a5418"></i>breaks even with diesel</span>
+      </div>
+      <details><summary>read it as a table</summary><div id="tb-save"></div></details>
+    </div>
+
+    <div class="chart">
+      <h3>What the price does to the payback</h3>
+      <p class="sub">Years before the savings have paid back the extra money you put in. The line stops where payback no longer happens inside your chosen horizon.</p>
+      <svg id="ch-pay" viewBox="0 0 520 260" role="img" aria-label="Payback time against purchase price"></svg>
+      <div class="lgd">
+        <span><i style="background:#137a4d"></i><span id="lg-l2">Left truck</span></span>
+        <span><i style="background:#7a3fb0"></i><span id="lg-r2">Right truck</span></span>
+      </div>
+      <details><summary>read it as a table</summary><div id="tb-pay"></div></details>
+    </div>
+  </div>
+
+  <iframe id="fE" src="eTruckAnalysis.html" title="calculation engine, not shown" style="position:absolute;width:900px;height:700px;left:-99999px;top:0;border:0" aria-hidden="true" tabindex="-1"></iframe>
+  <div class="tip" id="tip"></div>
+
   <label class="synclbl"><input type="checkbox" id="c-sync" checked> scroll both panels together</label>
 
   <div class="panes">
     <div class="pane">
       <div class="phead">
-        <span class="who"><span class="dot" style="background:var(--volt)"></span><span id="p-lname">MAN eTGX 2026</span></span>
+        <span class="who"><span class="dot" style="background:#137a4d"></span><span id="p-lname">MAN eTGX 2026</span></span>
         <span class="price" id="p-lprice">€320k</span>
       </div>
       <iframe id="fL" src="eTruckAnalysis.html" title="Business case, left truck"></iframe>
     </div>
     <div class="pane">
       <div class="phead">
-        <span class="who"><span class="dot" style="background:var(--diesel)"></span><span id="p-rname">Windrose R700</span></span>
+        <span class="who"><span class="dot" style="background:#7a3fb0"></span><span id="p-rname">Windrose R700</span></span>
         <span class="price" id="p-rprice">€198k</span>
       </div>
       <iframe id="fR" src="eTruckAnalysis.html" title="Business case, right truck"></iframe>
@@ -280,8 +348,8 @@
   var PRICES = { windrose:198, daimler:300, volvo:290, daf:260, man:320 };
   var NAMES  = { windrose:'Windrose R700', daimler:'Daimler eActros 600', volvo:'Volvo FH Electric', daf:'DAF XD Electric', man:'MAN eTGX 2026' };
   var $ = function(id){ return document.getElementById(id); };
-  var fL = $('fL'), fR = $('fR');
-  var ready = { L:false, R:false };
+  var fL = $('fL'), fR = $('fR'), fE = $('fE');
+  var ready = { L:false, R:false, E:false };
 
   function doc(f){ try { return f.contentDocument; } catch(e){ return null; } }
 
@@ -293,11 +361,20 @@
     var el = d.getElementById(id); if (!el || el.value === String(val)) return;
     el.value = String(val); el.dispatchEvent(new Event('input', {bubbles:true}));
   }
+  // ma-Pe is the analysis page's own purchase-price override. Writing to it makes
+  // that page recalculate synchronously, which is what lets the charts stay live.
+  function setPrice(d, priceK){
+    var el = d.getElementById('ma-Pe'); if (!el) return;
+    if (el.value === String(priceK)) return;
+    el.value = String(priceK); el.dispatchEvent(new Event('input', {bubbles:true}));
+  }
 
-  // Push the shared scenario into one panel. `truck` differs per side; everything else is identical.
-  function apply(f, truck){
+  // Push the shared scenario into one panel. `truck` and `priceK` differ per side;
+  // everything else is identical, which is the whole point of this page.
+  function apply(f, truck, priceK){
     var d = doc(f); if (!d || !d.getElementById('p-truck-model')) return;
     setSelect(d, 'p-truck-model', truck);
+    if (priceK != null) setPrice(d, priceK);
     setSelect(d, 'p-trucks', $('c-trucks').value);
     setSelect(d, 'p-years',  $('c-years').value);
     setSelect(d, 'p-km',     $('c-km').value);
@@ -351,16 +428,20 @@
 
   function onReady(side, f){
     ready[side] = true;
-    apply(f, side === 'L' ? $('c-left').value : $('c-right').value);
+    if (side === 'E') { applyEngine(); setTimeout(drawAll, 200); return; }
+    apply(f, side === 'L' ? $('c-left').value : $('c-right').value,
+             side === 'L' ? +$('c-pl').value : +$('c-pr').value);
     setTimeout(refresh, 400);
   }
   fL.addEventListener('load', function(){ onReady('L', fL); });
   fR.addEventListener('load', function(){ onReady('R', fR); });
+  fE.addEventListener('load', function(){ onReady('E', fE); });
 
   function applyBoth(){
-    if (ready.L) apply(fL, $('c-left').value);
-    if (ready.R) apply(fR, $('c-right').value);
+    if (ready.L) apply(fL, $('c-left').value, +$('c-pl').value);
+    if (ready.R) apply(fR, $('c-right').value, +$('c-pr').value);
     setTimeout(refresh, 350);
+    drawAll();
   }
 
   function labels(){
@@ -371,9 +452,15 @@
     $('p-rprice').textContent = '€' + PRICES[r] + 'k';
   }
 
-  ['c-left','c-right','c-trucks','c-years','c-km'].forEach(function(id){
+  // Changing the truck resets its price slider to that model's list price.
+  $('c-left').addEventListener('change', function(){ setSlider('c-pl', PRICES[this.value]); labels(); applyBoth(); });
+  $('c-right').addEventListener('change', function(){ setSlider('c-pr', PRICES[this.value]); labels(); applyBoth(); });
+  ['c-trucks','c-years','c-km'].forEach(function(id){
     $(id).addEventListener('change', function(){ labels(); applyBoth(); });
   });
+  function setSlider(id, v){ var el = $(id); el.value = String(v); $(id + '-v').textContent = '€' + v + 'k'; }
+  $('c-pl').addEventListener('input', function(){ $('c-pl-v').textContent = '€' + this.value + 'k'; applyBoth(); });
+  $('c-pr').addEventListener('input', function(){ $('c-pr-v').textContent = '€' + this.value + 'k'; applyBoth(); });
   $('c-diesel').addEventListener('input', function(){ $('c-diesel-v').textContent = '€' + parseFloat(this.value).toFixed(2); applyBoth(); });
   $('c-power').addEventListener('input',  function(){ $('c-power-v').textContent  = '€' + parseFloat(this.value).toFixed(2); applyBoth(); });
 
@@ -392,6 +479,272 @@
     b.addEventListener('scroll', function(){ mirror(fR, fL); }, {passive:true});
   }
   setTimeout(wireScroll, 2500);
+
+
+  /* ================= charts =================
+     The analysis page recalculates synchronously when ma-Pe is written, so a
+     hidden copy of it can be swept across a price range in a few milliseconds
+     and used as the calculation engine. The charts are therefore never an
+     approximation of the model — they are the model, sampled.
+  ================================================================= */
+  var C = { ink:'#4a4436', grid:'#e8e0cd', zero:'#b9ad91', L:'#137a4d', R:'#7a3fb0', mark:'#8a5418', surface:'#ffffff' };
+  var PMIN = 150, PMAX = 400, STEP = 5;
+
+  function applyEngine(){
+    var d = doc(fE); if (!d || !d.getElementById('p-truck-model')) return false;
+    setSelect(d, 'p-trucks', $('c-trucks').value);
+    setSelect(d, 'p-years',  $('c-years').value);
+    setSelect(d, 'p-km',     $('c-km').value);
+    setRange (d, 'p-diesel', $('c-diesel').value);
+    setRange (d, 'p-power',  $('c-power').value);
+    return true;
+  }
+
+  function parseMoney(t){
+    if (!t) return null;
+    var neg = /[-−]/.test(t);
+    var v = parseFloat(String(t).replace(/[^0-9.]/g, ''));
+    if (isNaN(v)) return null;
+    return neg ? -v : v;
+  }
+
+  // Sweep the hidden engine across the price range: one point per price.
+  function sweep(){
+    var d = doc(fE); if (!d || !applyEngine()) return null;
+    var pe = d.getElementById('ma-Pe'); if (!pe) return null;
+    var horizon = parseInt($('c-years').value, 10);
+    var pts = [];
+    for (var pk = PMIN; pk <= PMAX; pk += STEP){
+      pe.value = String(pk);
+      pe.dispatchEvent(new Event('input', {bubbles:true}));
+      var save = parseMoney(d.getElementById('kpi-truck-full').textContent);
+      var payTxt = (d.getElementById('kpi-pay-full').textContent || '').trim();
+      // A leading > or < means the model never pays back inside the horizon.
+      var pay = /^[><]/.test(payTxt) ? null : parseFloat(payTxt);
+      if (pay != null && (isNaN(pay) || pay > horizon)) pay = null;
+      pts.push({ p: pk, save: save, pay: pay });
+    }
+    pe.value = ''; pe.dispatchEvent(new Event('input', {bubbles:true}));
+    return pts;
+  }
+
+  // The price at which saving crosses zero, found by interpolating between samples.
+  function interpZero(pts){
+    for (var i = 1; i < pts.length; i++){
+      var a = pts[i-1], b = pts[i];
+      if (a.save == null || b.save == null) continue;
+      if ((a.save >= 0 && b.save < 0) || (a.save <= 0 && b.save > 0)){
+        var t = a.save / (a.save - b.save);
+        return a.p + t * (b.p - a.p);
+      }
+    }
+    return null;
+  }
+
+  function fmtK(v){ return '€' + Math.round(v) + 'k'; }
+  function fmtEur(v){
+    var t = Math.round(Math.abs(v)).toLocaleString('en-GB').replace(/,/g, ' ');
+    return (v < 0 ? '−€' : '€') + t;
+  }
+
+  // 1 / 2 / 2.5 / 5 x a power of ten - the steps that read as round to a person.
+  function niceStep(raw){
+    if (!(raw > 0)) return 1;
+    var e = Math.pow(10, Math.floor(Math.log(raw) / Math.LN10));
+    var f = raw / e;
+    var m = f <= 1 ? 1 : f <= 2 ? 2 : f <= 2.5 ? 2.5 : f <= 5 ? 5 : 10;
+    return m * e;
+  }
+
+  var PLOT = { x0:56, x1:492, y0:16, y1:214, w:520, h:260 };
+
+  function svgEl(tag, attrs, text){
+    var e = document.createElementNS('http://www.w3.org/2000/svg', tag);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (text != null) e.textContent = text;
+    return e;
+  }
+
+  // One line chart: the curve, hairline gridlines, two truck markers, an optional
+  // vertical threshold rule, and a crosshair tooltip.
+  function drawChart(svgId, pts, key, opt){
+    var svg = $(svgId); if (!svg) return;
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    var vals = pts.map(function(q){ return q[key]; }).filter(function(v){ return v != null; });
+    if (!vals.length) return;
+
+    var lo = Math.min.apply(null, vals), hi = Math.max.apply(null, vals);
+    if (opt.includeZero){ lo = Math.min(lo, 0); hi = Math.max(hi, 0); }
+    if (lo === hi) hi = lo + 1;
+    var pad = (hi - lo) * 0.08; lo -= pad; hi += pad;
+    // Snap the axis to round numbers, so ticks read 0 / 50k / 100k rather than
+    // whatever the data happened to span. Zero then lands on a tick too.
+    var step = niceStep((hi - lo) / 4);
+    lo = Math.floor(lo / step) * step;
+    hi = Math.ceil(hi / step) * step;
+    var tickVals = [], tv;
+    for (tv = lo; tv <= hi + step * 0.001; tv += step) tickVals.push(Math.abs(tv) < step * 1e-9 ? 0 : tv);
+
+    var X = function(p){ return PLOT.x0 + (p - PMIN) / (PMAX - PMIN) * (PLOT.x1 - PLOT.x0); };
+    var Y = function(v){ return PLOT.y1 - (v - lo) / (hi - lo) * (PLOT.y1 - PLOT.y0); };
+
+    var i;
+    for (i = 0; i < tickVals.length; i++){
+      var v = tickVals[i], y = Y(v);
+      svg.appendChild(svgEl('line', { x1:PLOT.x0, x2:PLOT.x1, y1:y, y2:y, stroke:C.grid, 'stroke-width':1 }));
+      svg.appendChild(svgEl('text', { x:PLOT.x0-8, y:y+4, 'text-anchor':'end', 'font-size':11, fill:'#8b8271',
+        'font-family':'Barlow, sans-serif' }, opt.fmtTick(v)));
+    }
+    [150,200,250,300,350,400].forEach(function(p){
+      svg.appendChild(svgEl('text', { x:X(p), y:PLOT.y1+18, 'text-anchor':'middle', 'font-size':11, fill:'#8b8271',
+        'font-family':'Barlow, sans-serif' }, '€' + p + 'k'));
+    });
+    svg.appendChild(svgEl('text', { x:(PLOT.x0+PLOT.x1)/2, y:PLOT.h-14, 'text-anchor':'middle', 'font-size':11.5,
+      fill:'#736b58', 'font-family':'Barlow, sans-serif' }, 'purchase price per truck'));
+
+    if (opt.includeZero && lo < 0 && hi > 0){
+      svg.appendChild(svgEl('line', { x1:PLOT.x0, x2:PLOT.x1, y1:Y(0), y2:Y(0), stroke:C.zero, 'stroke-width':1.5 }));
+    }
+
+    var dstr = '', open = false;
+    pts.forEach(function(q){
+      if (q[key] == null) { open = false; return; }
+      dstr += (open ? 'L' : 'M') + X(q.p).toFixed(1) + ' ' + Y(q[key]).toFixed(1) + ' ';
+      open = true;
+    });
+    svg.appendChild(svgEl('path', { d:dstr, fill:'none', stroke:C.ink, 'stroke-width':2,
+      'stroke-linejoin':'round', 'stroke-linecap':'round' }));
+
+    if (opt.rule != null && opt.rule >= PMIN && opt.rule <= PMAX){
+      var lx = X(opt.rule);
+      svg.appendChild(svgEl('line', { x1:lx, x2:lx, y1:PLOT.y0, y2:PLOT.y1, stroke:C.mark, 'stroke-width':1 }));
+      // Measure the label rather than guessing: flip it left when it would run off
+      // the plot, and fall back to the bare price if neither side has room.
+      var lab = svgEl('text', { x:lx + 6, y:PLOT.y0+11, 'text-anchor':'start',
+        'font-size':11.5, fill:C.mark, 'font-family':'Barlow, sans-serif', 'font-weight':700 }, opt.ruleLabel);
+      svg.appendChild(lab);
+      var lw = lab.getComputedTextLength ? lab.getComputedTextLength() : 0;
+      if (lx + 6 + lw > PLOT.x1){
+        if (lx - 6 - lw >= PLOT.x0){ lab.setAttribute('text-anchor','end'); lab.setAttribute('x', lx - 6); }
+        else { lab.textContent = opt.ruleShort || opt.ruleLabel; lab.setAttribute('text-anchor','end'); lab.setAttribute('x', lx - 6); }
+      }
+    }
+
+    (opt.marks || []).forEach(function(mk){
+      if (mk.v == null || mk.p < PMIN || mk.p > PMAX) return;
+      var cx = X(mk.p), cy = Y(mk.v);
+      svg.appendChild(svgEl('circle', { cx:cx, cy:cy, r:6.5, fill:C.surface }));
+      svg.appendChild(svgEl('circle', { cx:cx, cy:cy, r:4.5, fill:mk.color }));
+      var right = cx < PLOT.x1 - 130;
+      var tx = cx + (right ? 11 : -11), ta = right ? 'start' : 'end';
+      svg.appendChild(svgEl('text', { x:tx, y:cy - 9, 'text-anchor':ta, 'font-size':11.5, 'font-weight':700,
+        fill:'#4a4436', 'font-family':'Barlow, sans-serif' }, mk.name));
+      svg.appendChild(svgEl('text', { x:tx, y:cy + 5, 'text-anchor':ta, 'font-size':11.5,
+        fill:'#736b58', 'font-family':'Barlow, sans-serif' }, opt.fmtMark(mk.v)));
+    });
+
+    var hit = svgEl('rect', { x:PLOT.x0, y:PLOT.y0, width:PLOT.x1-PLOT.x0, height:PLOT.y1-PLOT.y0,
+      fill:'transparent', style:'cursor:crosshair' });
+    var cross = svgEl('line', { x1:0, x2:0, y1:PLOT.y0, y2:PLOT.y1, stroke:C.ink, 'stroke-width':1, opacity:0 });
+    var hdot  = svgEl('circle', { r:4, fill:C.ink, opacity:0 });
+    svg.appendChild(cross); svg.appendChild(hdot); svg.appendChild(hit);
+
+    hit.addEventListener('mousemove', function(ev){
+      var r = svg.getBoundingClientRect();
+      var sx = (ev.clientX - r.left) / r.width * PLOT.w;
+      var p = PMIN + (sx - PLOT.x0) / (PLOT.x1 - PLOT.x0) * (PMAX - PMIN);
+      p = Math.max(PMIN, Math.min(PMAX, Math.round(p / STEP) * STEP));
+      var q = pts.filter(function(z){ return z.p === p; })[0]; if (!q) return;
+      cross.setAttribute('x1', X(p)); cross.setAttribute('x2', X(p)); cross.setAttribute('opacity', 0.25);
+      if (q[key] != null){ hdot.setAttribute('cx', X(p)); hdot.setAttribute('cy', Y(q[key])); hdot.setAttribute('opacity', 1); }
+      else hdot.setAttribute('opacity', 0);
+      var tip = $('tip');
+      tip.innerHTML = '<b>' + fmtK(p) + '</b> per truck<br>' + opt.tipLabel + ': <b>' +
+        (q[key] == null ? opt.tipNull : opt.fmtTip(q[key])) + '</b>';
+      tip.style.left = (ev.clientX + 14) + 'px';
+      tip.style.top  = (ev.clientY - 10) + 'px';
+      tip.style.opacity = 1;
+    });
+    hit.addEventListener('mouseleave', function(){
+      cross.setAttribute('opacity', 0); hdot.setAttribute('opacity', 0); $('tip').style.opacity = 0;
+    });
+  }
+
+  function tableFor(id, pts, key, fmt, nullTxt){
+    var el = $(id); if (!el) return;
+    var rows = pts.filter(function(q){ return q.p % 25 === 0; });
+    el.innerHTML = '<table><thead><tr><th>Price</th><th>' +
+      (key === 'save' ? 'Saving per truck' : 'Payback') + '</th></tr></thead><tbody>' +
+      rows.map(function(q){
+        return '<tr><td>' + fmtK(q.p) + '</td><td>' + (q[key] == null ? nullTxt : fmt(q[key])) + '</td></tr>';
+      }).join('') + '</tbody></table>';
+  }
+
+  function nearest(pts, p){
+    var best = null, bd = 1e9;
+    pts.forEach(function(q){ var d = Math.abs(q.p - p); if (d < bd){ bd = d; best = q; } });
+    return best;
+  }
+
+  function esc2(t){ return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  var drawTimer = null;
+  function drawAll(){
+    clearTimeout(drawTimer);
+    drawTimer = setTimeout(function(){
+      if (!ready.E) return;
+      var pts = sweep(); if (!pts) return;
+      var pl = +$('c-pl').value, pr = +$('c-pr').value;
+      var ql = nearest(pts, pl), qr = nearest(pts, pr);
+      var nameL = NAMES[$('c-left').value], nameR = NAMES[$('c-right').value];
+      var zero = interpZero(pts);
+      var horizon = parseInt($('c-years').value, 10);
+
+      $('lg-l').textContent = nameL;  $('lg-r').textContent = nameR;
+      $('lg-l2').textContent = nameL; $('lg-r2').textContent = nameR;
+
+      drawChart('ch-save', pts, 'save', {
+        includeZero: true,
+        rule: zero,
+        ruleLabel: zero == null ? '' : 'no better than diesel above ' + fmtK(zero),
+        ruleShort: zero == null ? '' : fmtK(zero),
+        fmtTick: function(v){ if (Math.round(v) === 0) return '€0'; return (v < 0 ? '−' : '') + '€' + Math.round(Math.abs(v)/1000) + 'k'; },
+        fmtMark: fmtEur, fmtTip: fmtEur, tipLabel: 'saving per truck', tipNull: '—',
+        marks: [ {p:pl, v:ql && ql.save, name:nameL, color:C.L},
+                 {p:pr, v:qr && qr.save, name:nameR, color:C.R} ]
+      });
+
+      drawChart('ch-pay', pts, 'pay', {
+        includeZero: false,
+        fmtTick: function(v){ return (v % 1 === 0 ? v.toFixed(0) : v.toFixed(1)) + ' yr'; },
+        fmtMark: function(v){ return v.toFixed(1) + ' yr'; },
+        fmtTip:  function(v){ return v.toFixed(1) + ' years'; },
+        tipLabel: 'payback', tipNull: 'not within ' + horizon + ' years',
+        marks: [ {p:pl, v:ql && ql.pay, name:nameL, color:C.L},
+                 {p:pr, v:qr && qr.pay, name:nameR, color:C.R} ]
+      });
+
+      tableFor('tb-save', pts, 'save', fmtEur, '—');
+      tableFor('tb-pay', pts, 'pay', function(v){ return v.toFixed(1) + ' yr'; }, 'not within ' + horizon + ' yr');
+
+      var gap = pl - pr, html = '';
+      html += '<p><strong>Where they cross: ' + fmtK(pr) + '.</strong> In this model two trucks differ in one thing only — what they cost. ' +
+        'Both therefore sit on the same curve, and the ' + esc2(nameL) + ' matches the ' + esc2(nameR) +
+        ' exactly when it costs the same. Every €1 000 above that is €1 000 less saved per truck. The gap right now is <b>' +
+        fmtK(Math.abs(gap)) + '</b> per truck' +
+        (gap > 0 ? ', in the ' + esc2(nameR) + '’s favour.' : (gap < 0 ? ', in the ' + esc2(nameL) + '’s favour.' : '.')) + '</p>';
+      if (zero != null){
+        html += '<p><strong>The threshold that actually moves: ' + fmtK(zero) + '.</strong> ' +
+          'Above that price, electric stops beating diesel at all in this scenario — whichever badge is on the grille. ' +
+          'That line shifts every time you change the fleet, the mileage or the diesel price, which is what makes it worth watching. ' +
+          esc2(nameL) + ' at ' + fmtK(pl) + ' is <b>' + (pl <= zero ? 'still on the right side of it' : 'past it') + '</b>.</p>';
+      } else {
+        html += '<p><strong>No break-even in this price range.</strong> Between ' + fmtK(PMIN) + ' and ' + fmtK(PMAX) +
+          ', electric ' + (pts[0].save > 0 ? 'always beats' : 'never beats') + ' diesel in this scenario.</p>';
+      }
+      $('findings').innerHTML = html;
+    }, 90);
+  }
 
   labels();
   setInterval(refresh, 1500);   // the panels recalculate on their own clock; keep the verdict in step

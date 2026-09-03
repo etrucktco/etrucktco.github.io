@@ -114,6 +114,7 @@ the page — planners rely on these numbers being cautious.
 | `man-etgx.html`, `windrose-r700.html` | Generated model pages. Never edit. |
 | `models.html` | Generated comparison table + range calculator. Never edit. |
 | `ADDING-A-TRUCK.md` | This file. |
+| `compare.html` | Hand-written. Its intro table repeats a few figures — keep it in step by hand. |
 
 `data/trucks.json` is published on the live site, so anyone can read the data
 programmatically. Keep it clean — it is part of the product, not a working

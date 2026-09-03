@@ -432,6 +432,7 @@
     apply(f, side === 'L' ? $('c-left').value : $('c-right').value,
              side === 'L' ? +$('c-pl').value : +$('c-pr').value);
     setTimeout(refresh, 400);
+    setTimeout(wireScroll, 300);
   }
   fL.addEventListener('load', function(){ onReady('L', fL); });
   fR.addEventListener('load', function(){ onReady('R', fR); });
@@ -441,6 +442,7 @@
     if (ready.L) apply(fL, $('c-left').value, +$('c-pl').value);
     if (ready.R) apply(fR, $('c-right').value, +$('c-pr').value);
     setTimeout(refresh, 350);
+    refreshAnchors(700);
     drawAll();
   }
 
@@ -464,21 +466,124 @@
   $('c-diesel').addEventListener('input', function(){ $('c-diesel-v').textContent = '€' + parseFloat(this.value).toFixed(2); applyBoth(); });
   $('c-power').addEventListener('input',  function(){ $('c-power-v').textContent  = '€' + parseFloat(this.value).toFixed(2); applyBoth(); });
 
-  // Keep both panels at the same scroll position, so the same section is on screen in each.
-  var lock = false;
-  function mirror(from, to){
-    if (!$('c-sync').checked || lock) return;
-    var a = doc(from), b = doc(to); if (!a || !b) return;
-    lock = true;
-    b.documentElement.scrollTop = b.body.scrollTop = a.documentElement.scrollTop || a.body.scrollTop;
-    setTimeout(function(){ lock = false; }, 40);
+  /* ---------- synchronised scrolling ----------
+     Both panels are the same document, so element N on the left is element N on
+     the right. Their pixel heights are NOT the same, though: "−€700 413" wraps
+     differently from "€9 059 587", a payback of ">7" prints shorter than "4.1",
+     and those few pixels accumulate down a 16 000-pixel page. Mirroring scrollTop
+     directly therefore drifts — by §8 on the left you are still at §6 on the right.
+     Instead we map position piecewise between matching elements, so the same
+     paragraph is level in both panels no matter how the text reflowed. */
+  var ANCHOR_SEL = 'h3,h4,table,details,.math-section,.math-formula,.math-row,p';
+  var anchors = null;
+
+  function scrollerOf(d){ return d.scrollingElement || d.documentElement || d.body; }
+
+  function offsetTopIn(el){
+    var t = 0;
+    while (el){ t += el.offsetTop; el = el.offsetParent; }
+    return t;
   }
+
+  function buildAnchors(){
+    var a = doc(fL), b = doc(fR);
+    anchors = null;
+    if (!a || !b) return;
+    var ea = a.querySelectorAll(ANCHOR_SEL), eb = b.querySelectorAll(ANCHOR_SEL);
+    // Different lengths would mean the documents are not the same after all;
+    // rather than guess, fall back to plain mirroring.
+    if (!ea.length || ea.length !== eb.length) return;
+    var L = [], R = [], i, ta, tb, last = -1;
+    for (i = 0; i < ea.length; i++){
+      ta = offsetTopIn(ea[i]);
+      tb = offsetTopIn(eb[i]);
+      if (ta <= last) continue;              // keep strictly increasing for the search
+      L.push(ta); R.push(tb); last = ta;
+    }
+    if (L.length > 1) anchors = { L:L, R:R };
+  }
+
+  // Translate a scroll position in one document into the equivalent position in
+  // the other, interpolating within whichever pair of anchors surrounds it.
+  function mapPos(fromKey, toKey, y){
+    if (!anchors) return y;
+    var A = anchors[fromKey], B = anchors[toKey];
+    if (y <= A[0]) return B[0] + (y - A[0]);
+    var lo = 0, hi = A.length - 1, mid;
+    while (lo < hi){ mid = (lo + hi + 1) >> 1; if (A[mid] <= y) lo = mid; else hi = mid - 1; }
+    if (lo >= A.length - 1) return B[B.length - 1] + (y - A[A.length - 1]);
+    var span = A[lo + 1] - A[lo];
+    var f = span > 0 ? (y - A[lo]) / span : 0;
+    return B[lo] + f * (B[lo + 1] - B[lo]);
+  }
+
+  // Follow the panels by watching their scroll position each frame, rather than by
+  // listening for scroll events. Iframe scroll events are not reliably delivered in
+  // every embedding — in some they never fire at all — and a missed event means the
+  // panels quietly walk apart. Reading two numbers per frame costs nothing and
+  // cannot be missed.
+  var lastL = 0, lastR = 0, primed = false;
+
+  function tops(){
+    var a = doc(fL), b = doc(fR);
+    if (!a || !b) return null;
+    return { a:a, b:b, sa:scrollerOf(a), sb:scrollerOf(b) };
+  }
+
+  function pushTo(t, fromKey){
+    var sFrom = fromKey === 'L' ? t.sa : t.sb;
+    var sTo   = fromKey === 'L' ? t.sb : t.sa;
+    var dTo   = fromKey === 'L' ? t.b  : t.a;
+    if (!anchors) buildAnchors();
+    var y = mapPos(fromKey, fromKey === 'L' ? 'R' : 'L', sFrom.scrollTop);
+    var max = Math.max(0, sTo.scrollHeight - dTo.documentElement.clientHeight);
+    sTo.scrollTop = Math.max(0, Math.min(max, Math.round(y)));
+  }
+
+  // The check itself. Cheap and idempotent, so it is safe to run it from two
+  // schedulers at once.
+  function syncTick(){
+    var t = tops();
+    if (t){
+      var cl = t.sa.scrollTop, cr = t.sb.scrollTop;
+      if (!primed){ lastL = cl; lastR = cr; primed = true; }
+      else if ($('c-sync').checked){
+        var dL = Math.abs(cl - lastL), dR = Math.abs(cr - lastR);
+        // Whichever panel the reader actually moved is the one that leads.
+        if (dL > 1 && dL >= dR)  pushTo(t, 'L');
+        else if (dR > 1)         pushTo(t, 'R');
+      }
+      lastL = t.sa.scrollTop; lastR = t.sb.scrollTop;
+    }
+  }
+
+  // Two schedulers on purpose. requestAnimationFrame follows the reader smoothly
+  // while the page is on screen, but a browser stops issuing frames entirely when
+  // the page is hidden or not being composited — and then the panels would silently
+  // stop tracking each other. The interval is the floor that always runs; the extra
+  // calls it makes cost two property reads.
+  function startSync(){
+    (function raf(){ syncTick(); requestAnimationFrame(raf); })();
+    setInterval(syncTick, 60);
+  }
+
+  var wired = false;
   function wireScroll(){
-    var a = doc(fL), b = doc(fR); if (!a || !b) return;
-    a.addEventListener('scroll', function(){ mirror(fL, fR); }, {passive:true});
-    b.addEventListener('scroll', function(){ mirror(fR, fL); }, {passive:true});
+    // Called from each panel's load event: binding on a timer would attach to the
+    // blank document the iframe starts with.
+    if (wired || !ready.L || !ready.R) return;
+    if (!doc(fL) || !doc(fR)) return;
+    wired = true;
+    buildAnchors();
+    window.addEventListener('resize', function(){ refreshAnchors(250); });
+    // Ticking the box lines the panels up straight away, not on the next nudge.
+    $('c-sync').addEventListener('change', function(){
+      if (this.checked){ buildAnchors(); var t = tops(); if (t) pushTo(t, 'L'); }
+    });
+    startSync();
   }
-  setTimeout(wireScroll, 2500);
+
+
 
 
   /* ================= charts =================

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>MAN eTGX (Gen-2, IAA 2026) — specs, real range and cost | eTruckTCO</title>
+<meta name="description" content="720 km claimed, 660 kWh net, 750 kW megawatt charging — and what that costs.">
+<link rel="canonical" href="https://etrucktco.be/man-etgx.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="eTruckTCO.be">
+<meta property="og:title" content="MAN eTGX (Gen-2, IAA 2026) — specs, real range and cost | eTruckTCO">
+<meta property="og:description" content="720 km claimed, 660 kWh net, 750 kW megawatt charging — and what that costs.">
+<meta property="og:url" content="https://etrucktco.be/man-etgx.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MAN eTGX (Gen-2, IAA 2026) — specs, real range and cost | eTruckTCO">
+<meta name="twitter:description" content="720 km claimed, 660 kWh net, 750 kW megawatt charging — and what that costs.">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"MAN eTGX (Gen-2, IAA 2026)","brand":{"@type":"Brand","name":"MAN"},"category":"Heavy long-haul","description":"720 km claimed, 660 kWh net, 750 kW megawatt charging — and what that costs.","url":"https://etrucktco.be/man-etgx.html"}</script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Barlow:wght@400;500;600;700&display=swap');
+  :root{--ink:#16140f;--paper:#f4efe4;--paper2:#ece4d3;--diesel:#b8772a;--diesel-dark:#8a5418;
+    --volt:#1faa6e;--volt-dark:#137a4d;--volt-light:#d7f2e5;--line:#d8cdb6;--muted:#736b58;
+    --road:#26231c;--navy:#1e2a33;--sans:'Barlow',-apple-system,sans-serif;--cond:'Barlow Condensed',sans-serif;}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{font-family:var(--sans);color:var(--ink);line-height:1.55;min-height:100vh;display:flex;flex-direction:column;
+    background:radial-gradient(110% 70% at 85% -5%, rgba(31,170,110,.12), transparent 55%),linear-gradient(180deg,var(--paper),var(--paper2));}
+  .wrap{width:100%;max-width:1000px;margin:0 auto;padding:0 20px}
+  .topbar{background:var(--road);color:#f4efe4;padding:11px 0;border-bottom:4px solid var(--diesel)}
+  .topbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+  .brand{font-family:var(--cond);font-weight:900;font-size:23px;letter-spacing:.02em;text-transform:uppercase;display:flex;align-items:center;gap:8px}
+  .brand .plug{color:var(--volt)}
+  .brand .be{font-size:12px;background:var(--diesel);color:#fff;padding:2px 7px;border-radius:4px;font-weight:700;letter-spacing:.05em}
+  .nav{display:flex;gap:16px;flex-wrap:wrap}
+  .nav a{color:#cdbf9f;text-decoration:none;font-size:13.5px}
+  .nav a:hover,.nav a[aria-current]{color:#fff}
+  main{flex:1}
+  .hero{padding:34px 0 4px}
+  .kicker{font-family:var(--cond);font-weight:700;text-transform:uppercase;letter-spacing:.14em;font-size:13.5px;color:var(--diesel-dark)}
+  h1{font-family:var(--cond);font-weight:900;font-size:clamp(34px,6vw,54px);line-height:.98;text-transform:uppercase;margin:8px 0 0}
+  .lede{font-size:17.5px;color:#534c3d;margin:14px 0 0;max-width:66ch}
+  h2{font-family:var(--cond);font-weight:900;text-transform:uppercase;font-size:27px;line-height:1.05;margin:34px 0 4px}
+  h2 .n{color:var(--volt-dark);margin-right:9px}
+  h3{font-family:var(--cond);font-weight:800;text-transform:uppercase;font-size:18px;letter-spacing:.03em;margin:20px 0 6px}
+  p{margin:0 0 12px;max-width:70ch;font-size:15.5px}
+  .card{background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:18px 20px;margin:14px 0}
+  .card.warn{background:#fdf6ea;border-color:#e3c690}
+  .card.warn strong{color:var(--diesel-dark)}
+  .tblwrap{overflow-x:auto;margin:12px 0 4px;border:1.5px solid var(--line);border-radius:14px;background:#fff}
+  table{width:100%;border-collapse:collapse;min-width:560px}
+  caption{caption-side:top;text-align:left;padding:14px 16px 0;font-family:var(--cond);font-weight:800;
+    text-transform:uppercase;letter-spacing:.05em;font-size:15px;color:var(--diesel-dark)}
+  th,td{padding:10px 14px;text-align:left;font-size:14.5px;border-bottom:1px solid #efe8d8;vertical-align:top}
+  thead th{background:var(--road);color:#f4efe4;font-family:var(--cond);text-transform:uppercase;letter-spacing:.05em;font-size:13.5px;border-bottom:none;white-space:nowrap}
+  tbody th{font-weight:600;color:var(--muted);width:26%}
+  tr:last-child th,tr:last-child td{border-bottom:none}
+  td.na{color:#9a917c;font-style:italic}
+  .val{font-weight:700;font-variant-numeric:tabular-nums}
+  .val .unit{font-weight:500;color:var(--muted);font-size:13px}
+  .badge{display:inline-block;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;
+    padding:2px 7px;border-radius:20px;vertical-align:2px;white-space:nowrap}
+  details.fn{display:block;margin-top:5px}
+  details.fn summary{cursor:pointer;font-size:12px;color:var(--volt-dark);font-weight:600;list-style:none}
+  details.fn summary::-webkit-details-marker{display:none}
+  details.fn summary::before{content:"▸ ";}
+  details.fn[open] summary::before{content:"▾ ";}
+  details.fn p{font-size:13px;color:var(--muted);margin:5px 0 0;max-width:52ch;line-height:1.5}
+  .legend{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 0;font-size:12.5px;color:var(--muted);align-items:center}
+  ul.plain{list-style:none;margin:0 0 12px}
+  ul.plain li{display:flex;gap:9px;margin-bottom:6px;font-size:15px}
+  ul.plain .ck{color:var(--volt-dark);font-weight:800;flex-shrink:0}
+  .srclist{list-style:none;margin:8px 0 0}
+  .srclist li{padding:9px 0;border-bottom:1px dotted #ded4bd;font-size:14.5px}
+  .srclist li:last-child{border-bottom:none}
+  .srclist a{color:var(--volt-dark);font-weight:600}
+  .srclist .meta{color:var(--muted);font-size:13px}
+  .srclist .why{color:var(--muted);font-size:13px;display:block;margin-top:3px}
+  footer{margin-top:38px;background:var(--road);color:#a99e85;padding:22px 0 30px;font-size:12.5px}
+  footer .wrap{display:flex;flex-direction:column;gap:6px}
+  footer b{color:#e8e0cf}
+  footer a{color:var(--volt);text-decoration:none}
+  .field{margin-bottom:13px}
+  .field label{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:700;margin-bottom:4px}
+  .field select,.field input[type=range]{width:100%}
+  .field select{padding:8px 10px;border:1.5px solid var(--line);border-radius:8px;background:#fff;font:inherit;font-size:14.5px;color:var(--ink)}
+  .field .rowline{display:flex;align-items:center;gap:10px}
+  .field .rv{font-weight:700;color:var(--volt-dark);font-variant-numeric:tabular-nums;min-width:58px;text-align:right}
+  input[type=range]{accent-color:var(--volt)}
+  .out{background:linear-gradient(160deg,var(--navy),#16202a);color:#eef2f4;border-radius:14px;padding:20px 22px}
+  .out .big{font-family:var(--cond);font-weight:900;font-size:46px;line-height:1;color:#8fd9b6}
+  .out .big .u{font-size:20px;color:#c4ced4;margin-left:5px}
+  .out .sub{font-size:14px;color:#c4ced4;margin-top:7px}
+  .out .rows{margin-top:15px;border-top:1px solid #33454f;padding-top:12px}
+  .out .r{display:flex;justify-content:space-between;gap:14px;font-size:14px;padding:4px 0}
+  .out .r span:first-child{color:#9fb0bb}
+  .out .r b{font-variant-numeric:tabular-nums}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:start}
+  @media(max-width:760px){.grid2{grid-template-columns:1fr}h2{font-size:23px}}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="wrap">
+  <div class="brand">e<span class="plug">⚡</span>TruckTCO <span class="be">BE</span></div>
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="eTruckCost.html">Quick answer</a>
+    <a href="eTruckAnalysis.html">Full analysis</a>
+    <a href="models.html">Trucks</a>
+    <a href="compare.html">Head to head</a>
+  </nav>
+</div></div>
+<main>
+<div class="wrap">
+  <div class="hero">
+    <div class="kicker">Heavy long-haul · MAN · introduced 2026</div>
+    <h1>MAN eTGX (Gen-2, IAA 2026)</h1>
+    <p class="lede">MAN's electric flagship, rebuilt for the 2026 IAA with nickel-rich cells that add roughly 10% more energy in the same physical space. It is aimed squarely at 40-tonne long-haul work that used to be considered out of reach for a battery truck, and it is the range leader of the two trucks on this site. It is also the more expensive one by a wide margin.</p>
+  </div>
+
+  
+
+  <h2><span class="n">1</span>Key specifications</h2>
+  
+  <div class="tblwrap"><table>
+    <caption>Key specifications</caption>
+    <thead><tr><th>Specification</th><th>6×2 tractor, seven packs</th><th>4×2 tractor, six packs</th></tr></thead>
+    <tbody>
+      <tr><th>Axle configuration</th><td><span class="val">6x2</span></td><td><span class="val">4x2</span></td></tr>
+      <tr><th>Battery packs</th><td><span class="val">7</span> <span class="badge" style="color:#137a4d;background:#d7f2e5">official</span></td><td><span class="val">6</span> <span class="badge" style="color:#137a4d;background:#d7f2e5">official</span></td></tr>
+      <tr><th>Battery capacity</th><td><span class="val">660<span class="unit"> kWh</span></span> <span class="badge" style="color:#137a4d;background:#d7f2e5">official</span><details class="fn"><summary>why</summary><p>Net capacity, stated by MAN at the Munich press conference. The pre-Gen-2 seven-pack figure was 623 kWh; the nickel-rich cells add about 10%.</p></details></td><td><span class="val">587<span class="unit"> kWh</span></span> <span class="badge" style="color:#8a5418;background:#f7e6cf">derived</span><details class="fn"><summary>why</summary><p>Derived: MAN's pre-Gen-2 six-pack figure of 534 kWh usable, plus the roughly 10% the new cells add. MAN has not published the Gen-2 six-pack capacity.</p></details></td></tr>
+      <tr><th>Range — claimed</th><td><span class="val">720<span class="unit"> km</span></span> <span class="badge" style="color:#137a4d;background:#d7f2e5">official</span><details class="fn"><summary>why</summary><p>MAN's headline figure for the Gen-2 6×2.</p></details></td><td><span class="val">660<span class="unit"> km</span></span> <span class="badge" style="color:#137a4d;background:#d7f2e5">official</span><details class="fn"><summary>why</summary><p>Up from 570 km on the previous generation.</p></details></td></tr>
+      <tr><th>Range — loaded</th><td><span class="val">640<span class="unit"> km</span></span> <span class="badge" style="color:#7a4a4a;background:#f3e0e0">estimate</span><details class="fn"><summary>why</summary><p>Our estimate: claimed range less roughly 11%, the usual gap between a headline figure and full legal payload on a motorway.</p></details></td><td><span class="val">590<span class="unit"> km</span></span> <span class="badge" style="color:#7a4a4a;background:#f3e0e0">estimate</span><details class="fn"><summary>why</summary><p>Our estimate, same 11% haircut as the 6×2.</p></details></td></tr>
+      <tr><th>Range — realistic band</th><td><span class="val">500–550<span class="unit"> km</span></span> <span class="badge" style="color:#7a4a4a;background:#f3e0e0">estimate</span><details class="fn"><summary>why</summary><p>What we would schedule against year-round. Winter, traffic and an arrival reserve included.</p></details></td><td><span class="val">450–500<span class="unit"> km</span></span> <span class="badge" style="color:#7a4a4a;background:#f3e0e0">estimate</span></td></tr>
+      <tr><th>Power</th><td><span class="val">333–598<span class="unit"> hp</span></span> <span class="badge" style="color:#1c4f73;background:#dbeaf5">reported</span><details class="fn"><summary>why</summary><p>MAN raised the top output to around 600 hp for the Gen-2. The lower figure is the entry drive.</p></details></td><td><span class="val">333–598<span class="unit"> hp</span></span> <span class="badge" style="color:#1c4f73;background:#dbeaf5">reported</span></td></tr>
+      <tr><th>Charging power, max</th><td><span class="val">750<span class="unit"> kW</span></span> <span class="badge" style="color:#137a4d;background:#d7f2e5">official</span><details class="fn"><summary>why</summary><p>Megawatt Charging System, up to 1000 A at 750 V.</p></details></td><td><span class="val">750<span class="unit"> kW</span></span> <span class="badge" style="color:#137a4d;background:#d7f2e5">official</span></td></tr>
+      <tr><th>Charge 20–80%</th><td><span class="val">40<span class="unit"> min</span></span> <span class="badge" style="color:#137a4d;background:#d7f2e5">official</span><details class="fn"><summary>why</summary><p>MAN quotes under 40 minutes for the seven-pack chassis at 623 kWh. The Gen-2 pack is larger, so treat 40 minutes as the floor, not the ceiling.</p></details></td><td><span class="val">30<span class="unit"> min</span></span> <span class="badge" style="color:#137a4d;background:#d7f2e5">official</span><details class="fn"><summary>why</summary><p>Under 30 minutes for the six-pack at 534 kWh.</p></details></td></tr>
+      <tr><th>Price, indicative</th><td><span class="val">€260 000–€320 000</span> <span class="badge" style="color:#7a4a4a;background:#f3e0e0">estimate</span><details class="fn"><summary>why</summary><p>Indicative list price for a long-haul specification. Not a quote. Fleet pricing lands lower.</p></details></td><td><span class="val">€220 000–€280 000</span> <span class="badge" style="color:#7a4a4a;background:#f3e0e0">estimate</span><details class="fn"><summary>why</summary><p>Indicative. Shorter wheelbase, one pack fewer.</p></details></td></tr>
+    </tbody>
+  </table></div>
+  <div class="legend"><span>How firm is each number?</span>
+  <span class="badge" style="color:#137a4d;background:#d7f2e5">official</span><span>manufacturer</span>
+  <span class="badge" style="color:#1c4f73;background:#dbeaf5">reported</span><span>named trade press</span>
+  <span class="badge" style="color:#8a5418;background:#f7e6cf">derived</span><span>our arithmetic</span>
+  <span class="badge" style="color:#7a4a4a;background:#f3e0e0">estimate</span><span>our estimate</span></div>
+
+  <h2><span class="n">2</span>What "range" means here</h2>
+  <p>MAN's 720 km is a real number under favourable conditions, but it is not a scheduling number. The gap between the headline and a January motorway run at 40 tonnes is large — that is what the realistic band is for. On a Belgian duty of around 400 km a day, every version here does the job on one overnight charge at the depot, which is the case that matters for cost.</p>
+  <div class="card">
+    <h3>Three different numbers</h3>
+    <ul class="plain">
+      <li><span class="ck">1</span><span><strong>Claimed.</strong> The manufacturer's headline figure. Best case: favourable load, temperature and speed. Do not schedule on this.</span></li>
+      <li><span class="ck">2</span><span><strong>Loaded.</strong> At full legal payload on a typical motorway duty in mild weather. The honest starting point.</span></li>
+      <li><span class="ck">3</span><span><strong>Realistic.</strong> What a planner should actually schedule against, year-round, including winter, traffic and a safety reserve.</span></li>
+    </ul>
+    <p style="margin:0"><a href="models.html#calculator" style="color:var(--volt-dark);font-weight:700">Work out the range for your own duty →</a></p>
+  </div>
+
+  <h2><span class="n">3</span>Charging</h2>
+  <p>The eTGX is MCS-ready from the factory since July 2026, charging at up to 750 kW. That is enough to add most of a battery over a driver's 45-minute rest. It does not mean you need it: for a depot-based fleet doing under 500 km a day, overnight DC charging at far lower power is cheaper per kWh and cheaper to install. Megawatt charging is what makes the long days possible, not what makes the business case.</p>
+
+  <h2><span class="n">4</span>Price and running cost</h2>
+  <p>The purchase price is the whole argument. At an indicative €260k–320k the eTGX costs roughly €60k–120k more than the Windrose R700, and in Belgium that gap has to come back out of fuel and toll savings. Whether it does depends on your fleet size, annual mileage and diesel price — which is exactly what the calculators on this site are for.</p>
+  <div class="card warn"><p style="margin:0"><strong>The prices on this page are estimates.</strong> No European list price is published for a fleet specification of this truck. Use them to frame the question, then put the real quote into <a href="eTruckAnalysis.html" style="color:var(--diesel-dark);font-weight:700">the full business case</a>, which lets you type your own purchase price.</p></div>
+
+  <h2><span class="n">5</span>Availability and markets</h2>
+  <div class="tblwrap"><table>
+    <tbody>
+      <tr><th>Markets</th><td><span class="val">EU · UK · CH · NO</span> <span class="badge" style="color:#1c4f73;background:#dbeaf5">reported</span><details class="fn"><summary>why</summary><p>Sold through MAN's European dealer network. Right-hand-drive shown for the UK.</p></details></td></tr>
+      <tr><th>First shown</th><td><span class="val">IAA Transportation 2026, Hannover</span></td></tr>
+      <tr><th>Production</th><td>Series production of the MCS-ready eTGX started at MAN's Munich plant in July 2026; the Gen-2 battery follows the IAA presentation. <span class="badge" style="color:#137a4d;background:#d7f2e5">official</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2><span class="n">6</span>Sources</h2>
+  <p>Everything above traces back to one of these. Where a figure is ours rather than theirs, the badge says so and the "why" note explains the arithmetic.</p>
+  <ul class="srclist"><li><a href="https://www.logistiek.nl/211274/man-rekt-actieradius-vernieuwde-e-truck-op-naar-720-km" target="_blank" rel="noopener">MAN rekt actieradius vernieuwde e-truck op naar 720 kilometer</a>
+      <span class="meta">— Logistiek.nl, 2026-09-02</span>
+      <span class="why">Report from MAN's press conference in Munich ahead of the IAA. Source for 720 km, 660 kWh net, the 120 mm nose and the 600 hp figure.</span></li>
+<li><a href="https://press.mantruckandbus.com/corporate/man-starts-series-production-of-mcs-ready-etrucks/" target="_blank" rel="noopener">MAN starts series production of MCS-ready eTrucks</a>
+      <span class="meta">— MAN Truck &amp; Bus, 2026-07-30</span>
+      <span class="why">Source for 750 kW megawatt charging, the 534 and 623 kWh pack capacities, and the 30 and 40 minute charge times.</span></li>
+<li><a href="https://www.man.eu/global/en/truck/all-models/the-man-tgx/the-man-etgx/overview.html" target="_blank" rel="noopener">MAN eTGX — model overview</a>
+      <span class="meta">— MAN Truck &amp; Bus</span>
+      <span class="why">Manufacturer's own specification page.</span></li>
+<li><a href="https://www.sustainabletruckvan.com/man-to-unveil-new-electric-tgx-iaa-2026/" target="_blank" rel="noopener">MAN to unveil new electric TGX at IAA 2026</a>
+      <span class="meta">— Sustainable Truck &amp; Van, 2026</span>
+      <span class="why">Earlier reporting on the Gen-2, quoting 644 kWh before MAN confirmed 660 kWh net.</span></li></ul>
+  <p style="margin-top:14px;font-size:13.5px;color:var(--muted)">Data last reviewed 2026-09-03. The machine-readable version of this page lives in <a href="data/trucks.json" style="color:var(--volt-dark)">data/trucks.json</a>.</p>
+</div>
+</main>
+<footer><div class="wrap">
+  <div><b>eTruckTCO.be</b> — independent electric-truck cost comparison for Belgian fleets.</div>
+  <div>Specifications come from manufacturers and named trade press; every figure on these pages carries a label saying how firm it is. <a href="data/trucks.json">The underlying data is published as JSON</a>.</div>
+  <div>Estimates for guidance only. Not financial advice — your real costs depend on routes, energy contract and truck.</div>
+</div></footer>
+</body>
+</html>

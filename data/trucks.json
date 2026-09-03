@@ -1,0 +1,404 @@
+{
+  "schema_version": 1,
+  "updated": "2026-09-03",
+  "readme": "Single source of truth for every truck model page on eTruckTCO.be. Edit this file, then run: node tools/build-models.js — that regenerates the model pages and the comparison page. Every number carries a confidence label; see confidence_levels below. Never state an estimate as if it were official.",
+  "confidence_levels": {
+    "official": "Published by the manufacturer (press release, spec sheet, press conference).",
+    "reported": "Reported by a named trade publication citing the manufacturer.",
+    "derived": "Calculated by us from official figures — the arithmetic is stated in the note.",
+    "estimate": "Our own planning estimate. Not published by anyone. Treat as indicative."
+  },
+  "range_definitions": {
+    "claimed": "The manufacturer's headline figure. Best case: favourable load, temperature and speed. Do not schedule on this.",
+    "loaded": "At full legal payload on a typical motorway duty in mild weather. The honest starting point.",
+    "realistic": "What a planner should actually schedule against, year-round, including winter, traffic and a safety reserve."
+  },
+  "planning_factors": {
+    "note": "Multipliers used by the range calculator, applied to the loaded range. These are our planning heuristics, not manufacturer data. They are deliberately conservative. Edit here to change the calculator everywhere.",
+    "payload": {
+      "label": "Payload",
+      "note": "An empty truck goes further. Interpolated linearly between empty and full.",
+      "empty_bonus": 0.12
+    },
+    "speed": {
+      "label": "Average speed",
+      "options": [
+        {
+          "key": "70",
+          "label": "70 km/h — regional, traffic",
+          "factor": 1.06,
+          "default": false
+        },
+        {
+          "key": "80",
+          "label": "80 km/h — normal motorway",
+          "factor": 1.0,
+          "default": true
+        },
+        {
+          "key": "85",
+          "label": "85 km/h — pushing on",
+          "factor": 0.95,
+          "default": false
+        },
+        {
+          "key": "90",
+          "label": "90 km/h — flat out",
+          "factor": 0.9,
+          "default": false
+        }
+      ]
+    },
+    "temperature": {
+      "label": "Temperature",
+      "options": [
+        {
+          "key": "mild",
+          "label": "10 to 25 °C — mild",
+          "factor": 1.0,
+          "default": true
+        },
+        {
+          "key": "cool",
+          "label": "0 to 10 °C — cool",
+          "factor": 0.92,
+          "default": false
+        },
+        {
+          "key": "cold",
+          "label": "−10 to 0 °C — winter",
+          "factor": 0.82,
+          "default": false
+        },
+        {
+          "key": "hot",
+          "label": "Above 30 °C — heat",
+          "factor": 0.94,
+          "default": false
+        }
+      ]
+    },
+    "route": {
+      "label": "Route type",
+      "options": [
+        {
+          "key": "motorway",
+          "label": "Motorway, steady",
+          "factor": 1.0,
+          "default": true
+        },
+        {
+          "key": "mixed",
+          "label": "Mixed, some regional",
+          "factor": 1.04,
+          "default": false
+        },
+        {
+          "key": "regional",
+          "label": "Regional, lots of braking",
+          "factor": 1.1,
+          "default": false
+        }
+      ]
+    },
+    "reserve": {
+      "label": "Arrival reserve",
+      "note": "Never plan to arrive empty. We assume you keep 20% in the battery, so only 80% of a full charge is usable on the road.",
+      "usable_from_full": 0.8
+    },
+    "en_route_charge": {
+      "note": "An en-route stop is assumed to be a 20-to-80% top-up, which restores 60% of the battery.",
+      "fraction_restored": 0.6
+    }
+  },
+  "models": [
+    {
+      "slug": "man-etgx",
+      "brand": "MAN",
+      "name": "eTGX",
+      "generation": "Gen-2",
+      "full_name": "MAN eTGX (Gen-2, IAA 2026)",
+      "year_introduced": 2026,
+      "positioning": "Heavy long-haul",
+      "intro": "MAN's electric flagship, rebuilt for the 2026 IAA with nickel-rich cells that add roughly 10% more energy in the same physical space. It is aimed squarely at 40-tonne long-haul work that used to be considered out of reach for a battery truck, and it is the range leader of the two trucks on this site. It is also the more expensive one by a wide margin.",
+      "og_summary": "720 km claimed, 660 kWh net, 750 kW megawatt charging — and what that costs.",
+      "markets": {
+        "value": [
+          "EU",
+          "UK",
+          "CH",
+          "NO"
+        ],
+        "confidence": "reported",
+        "note": "Sold through MAN's European dealer network. Right-hand-drive shown for the UK."
+      },
+      "availability": {
+        "shown": "IAA Transportation 2026, Hannover",
+        "production": "Series production of the MCS-ready eTGX started at MAN's Munich plant in July 2026; the Gen-2 battery follows the IAA presentation.",
+        "confidence": "official"
+      },
+      "variants": [
+        {
+          "key": "6x2",
+          "label": "6×2 tractor, seven packs",
+          "headline": true,
+          "axle_config": "6x2",
+          "battery_packs": {
+            "value": 7,
+            "confidence": "official"
+          },
+          "battery_kwh": {
+            "value": 660,
+            "confidence": "official",
+            "note": "Net capacity, stated by MAN at the Munich press conference. The pre-Gen-2 seven-pack figure was 623 kWh; the nickel-rich cells add about 10%."
+          },
+          "range_claimed_km": {
+            "value": 720,
+            "confidence": "official",
+            "note": "MAN's headline figure for the Gen-2 6×2."
+          },
+          "range_loaded_km": {
+            "value": 640,
+            "confidence": "estimate",
+            "note": "Our estimate: claimed range less roughly 11%, the usual gap between a headline figure and full legal payload on a motorway."
+          },
+          "range_realistic_km": {
+            "min": 500,
+            "max": 550,
+            "confidence": "estimate",
+            "note": "What we would schedule against year-round. Winter, traffic and an arrival reserve included."
+          },
+          "power_hp": {
+            "min": 333,
+            "max": 598,
+            "confidence": "reported",
+            "note": "MAN raised the top output to around 600 hp for the Gen-2. The lower figure is the entry drive."
+          },
+          "charging_mcs_kw_max": {
+            "value": 750,
+            "confidence": "official",
+            "note": "Megawatt Charging System, up to 1000 A at 750 V."
+          },
+          "charge_20_80_min": {
+            "value": 40,
+            "confidence": "official",
+            "note": "MAN quotes under 40 minutes for the seven-pack chassis at 623 kWh. The Gen-2 pack is larger, so treat 40 minutes as the floor, not the ceiling."
+          },
+          "price_eur": {
+            "min": 260000,
+            "max": 320000,
+            "confidence": "estimate",
+            "note": "Indicative list price for a long-haul specification. Not a quote. Fleet pricing lands lower."
+          }
+        },
+        {
+          "key": "4x2",
+          "label": "4×2 tractor, six packs",
+          "headline": false,
+          "axle_config": "4x2",
+          "battery_packs": {
+            "value": 6,
+            "confidence": "official"
+          },
+          "battery_kwh": {
+            "value": 587,
+            "confidence": "derived",
+            "note": "Derived: MAN's pre-Gen-2 six-pack figure of 534 kWh usable, plus the roughly 10% the new cells add. MAN has not published the Gen-2 six-pack capacity."
+          },
+          "range_claimed_km": {
+            "value": 660,
+            "confidence": "official",
+            "note": "Up from 570 km on the previous generation."
+          },
+          "range_loaded_km": {
+            "value": 590,
+            "confidence": "estimate",
+            "note": "Our estimate, same 11% haircut as the 6×2."
+          },
+          "range_realistic_km": {
+            "min": 450,
+            "max": 500,
+            "confidence": "estimate"
+          },
+          "power_hp": {
+            "min": 333,
+            "max": 598,
+            "confidence": "reported"
+          },
+          "charging_mcs_kw_max": {
+            "value": 750,
+            "confidence": "official"
+          },
+          "charge_20_80_min": {
+            "value": 30,
+            "confidence": "official",
+            "note": "Under 30 minutes for the six-pack at 534 kWh."
+          },
+          "price_eur": {
+            "min": 220000,
+            "max": 280000,
+            "confidence": "estimate",
+            "note": "Indicative. Shorter wheelbase, one pack fewer."
+          }
+        }
+      ],
+      "range_note": "MAN's 720 km is a real number under favourable conditions, but it is not a scheduling number. The gap between the headline and a January motorway run at 40 tonnes is large — that is what the realistic band is for. On a Belgian duty of around 400 km a day, every version here does the job on one overnight charge at the depot, which is the case that matters for cost.",
+      "charging_note": "The eTGX is MCS-ready from the factory since July 2026, charging at up to 750 kW. That is enough to add most of a battery over a driver's 45-minute rest. It does not mean you need it: for a depot-based fleet doing under 500 km a day, overnight DC charging at far lower power is cheaper per kWh and cheaper to install. Megawatt charging is what makes the long days possible, not what makes the business case.",
+      "tco_note": "The purchase price is the whole argument. At an indicative €260k–320k the eTGX costs roughly €60k–120k more than the Windrose R700, and in Belgium that gap has to come back out of fuel and toll savings. Whether it does depends on your fleet size, annual mileage and diesel price — which is exactly what the calculators on this site are for.",
+      "sources": [
+        {
+          "title": "MAN rekt actieradius vernieuwde e-truck op naar 720 kilometer",
+          "publisher": "Logistiek.nl",
+          "date": "2026-09-02",
+          "url": "https://www.logistiek.nl/211274/man-rekt-actieradius-vernieuwde-e-truck-op-naar-720-km",
+          "note": "Report from MAN's press conference in Munich ahead of the IAA. Source for 720 km, 660 kWh net, the 120 mm nose and the 600 hp figure."
+        },
+        {
+          "title": "MAN starts series production of MCS-ready eTrucks",
+          "publisher": "MAN Truck & Bus",
+          "date": "2026-07-30",
+          "url": "https://press.mantruckandbus.com/corporate/man-starts-series-production-of-mcs-ready-etrucks/",
+          "note": "Source for 750 kW megawatt charging, the 534 and 623 kWh pack capacities, and the 30 and 40 minute charge times."
+        },
+        {
+          "title": "MAN eTGX — model overview",
+          "publisher": "MAN Truck & Bus",
+          "date": "",
+          "url": "https://www.man.eu/global/en/truck/all-models/the-man-tgx/the-man-etgx/overview.html",
+          "note": "Manufacturer's own specification page."
+        },
+        {
+          "title": "MAN to unveil new electric TGX at IAA 2026",
+          "publisher": "Sustainable Truck & Van",
+          "date": "2026",
+          "url": "https://www.sustainabletruckvan.com/man-to-unveil-new-electric-tgx-iaa-2026/",
+          "note": "Earlier reporting on the Gen-2, quoting 644 kWh before MAN confirmed 660 kWh net."
+        }
+      ]
+    },
+    {
+      "slug": "windrose-r700",
+      "brand": "Windrose",
+      "name": "R700",
+      "generation": "",
+      "full_name": "Windrose R700",
+      "year_introduced": 2025,
+      "positioning": "Long-haul, Class 8",
+      "intro": "A Class 8 electric tractor from the Belgian-Chinese manufacturer Windrose, homologated for the US, the EU and China — an unusually broad approval for a young company. It is the price reference on this site: markedly cheaper than the established European makes, with a large battery and high output, but without the dealer and service network that a European fleet takes for granted.",
+      "og_summary": "729 kWh, around 670 km loaded, roughly $250k — the price reference for electric long-haul.",
+      "markets": {
+        "value": [
+          "US",
+          "EU",
+          "CN"
+        ],
+        "confidence": "official",
+        "note": "Homologation achieved in all three. Deliveries began in California, expanding along the I-10 corridor."
+      },
+      "availability": {
+        "shown": "Deliveries under way",
+        "production": "Ordered directly from Windrose against a $15 000 fully refundable reservation. Early delivery from Q3 2026 against 60% advance payment; standard delivery Q4 2026 against a 5% deposit with the balance due on delivery.",
+        "confidence": "official"
+      },
+      "variants": [
+        {
+          "key": "std",
+          "label": "R700 tractor",
+          "headline": true,
+          "axle_config": "4x2 / 6x4 depending on market",
+          "battery_packs": {
+            "value": null,
+            "confidence": "estimate",
+            "note": "Windrose does not publish a pack count."
+          },
+          "battery_kwh": {
+            "value": 729,
+            "confidence": "reported",
+            "note": "Reported pack capacity on an 800 V architecture with dual-inlet megawatt charging. Windrose has not published a separate net figure."
+          },
+          "range_claimed_km": {
+            "value": 700,
+            "confidence": "reported",
+            "note": "Some sources quote up to 960 km under ideal conditions. We do not use that figure — it is not a duty a Belgian fleet will ever see."
+          },
+          "range_loaded_km": {
+            "value": 676,
+            "confidence": "reported",
+            "note": "420 miles fully loaded at 98 000 lb gross, converted. Other US coverage quotes about 640 km without stating the load. We use the figure that names its conditions."
+          },
+          "range_realistic_km": {
+            "min": 500,
+            "max": 550,
+            "confidence": "estimate",
+            "note": "The figure this site's business case has used throughout."
+          },
+          "power_hp": {
+            "min": 1040,
+            "max": 1400,
+            "confidence": "reported",
+            "note": "Sources disagree. An EV specification database reports 1040 hp; Forbes and other US coverage report 1400 hp. Windrose does not publish a continuous rating, so we show the full reported spread rather than pick one."
+          },
+          "charging_mcs_kw_max": {
+            "value": null,
+            "confidence": "estimate",
+            "note": "Megawatt-class dual-inlet charging is confirmed; the exact ceiling in kW is not published."
+          },
+          "charge_20_80_min": {
+            "value": null,
+            "confidence": "estimate",
+            "note": "Not published."
+          },
+          "price_eur": {
+            "value": 198000,
+            "confidence": "official",
+            "note": "European list price on Windrose's own order page, excluding local taxes. US reporting quotes $250 000 to $300 000, but that is the American price and carries import tariffs of up to 70% — it does not apply here. This confirms the EUR 198 000 the business case on this site has used all along."
+          }
+        }
+      ],
+      "range_note": "Windrose states its range against a stated load — 420 miles at 98 000 lb — which is more honest than most headline figures and lands at about 676 km. The 960 km number that circulates is an ideal-conditions figure and is not useful for planning. Our realistic band is the same 500–550 km the rest of this site has always used.",
+      "charging_note": "The R700 runs an 800 V architecture with dual-inlet megawatt charging, so it is built for fast top-ups. Windrose has not published a maximum charging power or a 20-to-80% time, so we do not quote one. For a depot-based Belgian duty this matters less than it sounds: the truck charges overnight.",
+      "tco_note": "This is the cheap truck, and now firmly so: Windrose lists EUR 198 000 for Europe on its own order page, excluding local taxes. Do not be misled by the $250 000 to $300 000 that US coverage quotes — that is the American price with import tariffs of up to 70% baked in, and it does not apply to a Belgian buyer. Against an indicative EUR 260 000 to 320 000 for the MAN eTGX, the gap is real and large, and it is what the business case on this site turns on.",
+      "sources": [
+        {
+          "title": "How to buy — European pricing",
+          "publisher": "Windrose",
+          "date": "2026-09-03",
+          "url": "https://www.windrose.ai/how-to-buy.html",
+          "note": "Manufacturer's own order page. Source for the EUR 198 000 European list price, the $15 000 refundable reservation and the Q3/Q4 2026 delivery terms."
+        },
+        {
+          "title": "Windrose R700 semi gets US, EU, and China approval",
+          "publisher": "Clean Trucking",
+          "date": "2026",
+          "url": "https://www.cleantrucking.com/battery-electric/article/15775110/windrose-r700-semi-gets-us-eu-and-china-approval",
+          "note": "Source for homologation in all three markets."
+        },
+        {
+          "title": "Windrose electric Class 8 truck achieves homologation in US, EU and China",
+          "publisher": "Charged EVs",
+          "date": "2026",
+          "url": "https://chargedevs.com/newswire/windrose-electric-class-8-truck-achieves-homologation-in-us-eu-and-china/",
+          "note": "Corroborates homologation and delivery status."
+        },
+        {
+          "title": "Windrose R700 EV — database entry",
+          "publisher": "EV Database (motorwatt)",
+          "date": "",
+          "url": "https://ev.motorwatt.com/ev-database/database-electric-trucks/windrose-r700-ev",
+          "note": "Source for 729 kWh, 1040 hp and the loaded-range figure."
+        },
+        {
+          "title": "Windrose Electric",
+          "publisher": "Windrose",
+          "date": "",
+          "url": "https://www.windrose.ai/",
+          "note": "Manufacturer's own site."
+        }
+      ],
+      "data_quality": {
+        "level": "mixed",
+        "note": "The price is solid — Windrose publishes a European list price itself. The technical figures are not. Windrose publishes little, and the trade press contradicts itself on power (1040 against 1400 hp) and on range (676 against 640 km). Where sources disagree we show the spread rather than pick a winner."
+      }
+    }
+  ]
+}

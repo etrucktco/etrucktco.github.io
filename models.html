@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Electric truck specifications compared — MAN eTGX and Windrose R700 | eTruckTCO</title>
+<meta name="description" content="Battery, range, charging and indicative price for long-haul electric trucks, with every figure labelled by how firm it is. Plus a range calculator for your own duty.">
+<link rel="canonical" href="https://etrucktco.be/models.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="eTruckTCO.be">
+<meta property="og:title" content="Electric truck specifications compared — MAN eTGX and Windrose R700 | eTruckTCO">
+<meta property="og:description" content="Battery, range, charging and indicative price for long-haul electric trucks, with every figure labelled by how firm it is. Plus a range calculator for your own duty.">
+<meta property="og:url" content="https://etrucktco.be/models.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Electric truck specifications compared — MAN eTGX and Windrose R700 | eTruckTCO">
+<meta name="twitter:description" content="Battery, range, charging and indicative price for long-haul electric trucks, with every figure labelled by how firm it is. Plus a range calculator for your own duty.">
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Barlow:wght@400;500;600;700&display=swap');
+  :root{--ink:#16140f;--paper:#f4efe4;--paper2:#ece4d3;--diesel:#b8772a;--diesel-dark:#8a5418;
+    --volt:#1faa6e;--volt-dark:#137a4d;--volt-light:#d7f2e5;--line:#d8cdb6;--muted:#736b58;
+    --road:#26231c;--navy:#1e2a33;--sans:'Barlow',-apple-system,sans-serif;--cond:'Barlow Condensed',sans-serif;}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{font-family:var(--sans);color:var(--ink);line-height:1.55;min-height:100vh;display:flex;flex-direction:column;
+    background:radial-gradient(110% 70% at 85% -5%, rgba(31,170,110,.12), transparent 55%),linear-gradient(180deg,var(--paper),var(--paper2));}
+  .wrap{width:100%;max-width:1000px;margin:0 auto;padding:0 20px}
+  .topbar{background:var(--road);color:#f4efe4;padding:11px 0;border-bottom:4px solid var(--diesel)}
+  .topbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+  .brand{font-family:var(--cond);font-weight:900;font-size:23px;letter-spacing:.02em;text-transform:uppercase;display:flex;align-items:center;gap:8px}
+  .brand .plug{color:var(--volt)}
+  .brand .be{font-size:12px;background:var(--diesel);color:#fff;padding:2px 7px;border-radius:4px;font-weight:700;letter-spacing:.05em}
+  .nav{display:flex;gap:16px;flex-wrap:wrap}
+  .nav a{color:#cdbf9f;text-decoration:none;font-size:13.5px}
+  .nav a:hover,.nav a[aria-current]{color:#fff}
+  main{flex:1}
+  .hero{padding:34px 0 4px}
+  .kicker{font-family:var(--cond);font-weight:700;text-transform:uppercase;letter-spacing:.14em;font-size:13.5px;color:var(--diesel-dark)}
+  h1{font-family:var(--cond);font-weight:900;font-size:clamp(34px,6vw,54px);line-height:.98;text-transform:uppercase;margin:8px 0 0}
+  .lede{font-size:17.5px;color:#534c3d;margin:14px 0 0;max-width:66ch}
+  h2{font-family:var(--cond);font-weight:900;text-transform:uppercase;font-size:27px;line-height:1.05;margin:34px 0 4px}
+  h2 .n{color:var(--volt-dark);margin-right:9px}
+  h3{font-family:var(--cond);font-weight:800;text-transform:uppercase;font-size:18px;letter-spacing:.03em;margin:20px 0 6px}
+  p{margin:0 0 12px;max-width:70ch;font-size:15.5px}
+  .card{background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:18px 20px;margin:14px 0}
+  .card.warn{background:#fdf6ea;border-color:#e3c690}
+  .card.warn strong{color:var(--diesel-dark)}
+  .tblwrap{overflow-x:auto;margin:12px 0 4px;border:1.5px solid var(--line);border-radius:14px;background:#fff}
+  table{width:100%;border-collapse:collapse;min-width:560px}
+  caption{caption-side:top;text-align:left;padding:14px 16px 0;font-family:var(--cond);font-weight:800;
+    text-transform:uppercase;letter-spacing:.05em;font-size:15px;color:var(--diesel-dark)}
+  th,td{padding:10px 14px;text-align:left;font-size:14.5px;border-bottom:1px solid #efe8d8;vertical-align:top}
+  thead th{background:var(--road);color:#f4efe4;font-family:var(--cond);text-transform:uppercase;letter-spacing:.05em;font-size:13.5px;border-bottom:none;white-space:nowrap}
+  tbody th{font-weight:600;color:var(--muted);width:26%}
+  tr:last-child th,tr:last-child td{border-bottom:none}
+  td.na{color:#9a917c;font-style:italic}
+  .val{font-weight:700;font-variant-numeric:tabular-nums}
+  .val .unit{font-weight:500;color:var(--muted);font-size:13px}
+  .badge{display:inline-block;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;
+    padding:2px 7px;border-radius:20px;vertical-align:2px;white-space:nowrap}
+  details.fn{display:block;margin-top:5px}
+  details.fn summary{cursor:pointer;font-size:12px;color:var(--volt-dark);font-weight:600;list-style:none}
+  details.fn summary::-webkit-details-marker{display:none}
+  details.fn summary::before{content:"▸ ";}
+  details.fn[open] summary::before{content:"▾ ";}
+  details.fn p{font-size:13px;color:var(--muted);margin:5px 0 0;max-width:52ch;line-height:1.5}
+  .legend{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 0;font-size:12.5px;color:var(--muted);align-items:center}
+  ul.plain{list-style:none;margin:0 0 12px}
+  ul.plain li{display:flex;gap:9px;margin-bottom:6px;font-size:15px}
+  ul.plain .ck{color:var(--volt-dark);font-weight:800;flex-shrink:0}
+  .srclist{list-style:none;margin:8px 0 0}
+  .srclist li{padding:9px 0;border-bottom:1px dotted #ded4bd;font-size:14.5px}
+  .srclist li:last-child{border-bottom:none}
+  .srclist a{color:var(--volt-dark);font-weight:600}
+  .srclist .meta{color:var(--muted);font-size:13px}
+  .srclist .why{color:var(--muted);font-size:13px;display:block;margin-top:3px}
+  footer{margin-top:38px;background:var(--road);color:#a99e85;padding:22px 0 30px;font-size:12.5px}
+  footer .wrap{display:flex;flex-direction:column;gap:6px}
+  footer b{color:#e8e0cf}
+  footer a{color:var(--volt);text-decoration:none}
+  .field{margin-bottom:13px}
+  .field label{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:700;margin-bottom:4px}
+  .field select,.field input[type=range]{width:100%}
+  .field select{padding:8px 10px;border:1.5px solid var(--line);border-radius:8px;background:#fff;font:inherit;font-size:14.5px;color:var(--ink)}
+  .field .rowline{display:flex;align-items:center;gap:10px}
+  .field .rv{font-weight:700;color:var(--volt-dark);font-variant-numeric:tabular-nums;min-width:58px;text-align:right}
+  input[type=range]{accent-color:var(--volt)}
+  .out{background:linear-gradient(160deg,var(--navy),#16202a);color:#eef2f4;border-radius:14px;padding:20px 22px}
+  .out .big{font-family:var(--cond);font-weight:900;font-size:46px;line-height:1;color:#8fd9b6}
+  .out .big .u{font-size:20px;color:#c4ced4;margin-left:5px}
+  .out .sub{font-size:14px;color:#c4ced4;margin-top:7px}
+  .out .rows{margin-top:15px;border-top:1px solid #33454f;padding-top:12px}
+  .out .r{display:flex;justify-content:space-between;gap:14px;font-size:14px;padding:4px 0}
+  .out .r span:first-child{color:#9fb0bb}
+  .out .r b{font-variant-numeric:tabular-nums}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:start}
+  @media(max-width:760px){.grid2{grid-template-columns:1fr}h2{font-size:23px}}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="wrap">
+  <div class="brand">e<span class="plug">⚡</span>TruckTCO <span class="be">BE</span></div>
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="eTruckCost.html">Quick answer</a>
+    <a href="eTruckAnalysis.html">Full analysis</a>
+    <a href="models.html" aria-current="page">Trucks</a>
+    <a href="compare.html">Head to head</a>
+  </nav>
+</div></div>
+<main>
+<div class="wrap">
+  <div class="hero">
+    <div class="kicker">Truck data · reviewed 2026-09-03</div>
+    <h1>The trucks,<br>specification by specification</h1>
+    <p class="lede">Battery, range, charging and price for the long-haul electric trucks this site models — with every number labelled by where it came from. Manufacturers' claims are marked as claims; our estimates are marked as estimates.</p>
+  </div>
+
+  <div class="grid2" style="margin-top:22px"><a class="card" href="man-etgx.html" style="text-decoration:none;color:inherit;display:block">
+      <div class="kicker">Heavy long-haul</div>
+      <h3 style="margin:4px 0 6px;font-size:24px">MAN eTGX (Gen-2, IAA 2026)</h3>
+      <p style="margin:0 0 10px;font-size:14.5px;color:#534c3d">720 km claimed, 660 kWh net, 750 kW megawatt charging — and what that costs.</p>
+      <span style="font-family:var(--cond);font-weight:800;text-transform:uppercase;color:var(--volt-dark)">Full specifications →</span>
+    </a>
+<a class="card" href="windrose-r700.html" style="text-decoration:none;color:inherit;display:block">
+      <div class="kicker">Long-haul, Class 8</div>
+      <h3 style="margin:4px 0 6px;font-size:24px">Windrose R700</h3>
+      <p style="margin:0 0 10px;font-size:14.5px;color:#534c3d">729 kWh, around 670 km loaded, roughly $250k — the price reference for electric long-haul.</p>
+      <span style="font-family:var(--cond);font-weight:800;text-transform:uppercase;color:var(--volt-dark)">Full specifications →</span>
+    </a></div>
+
+  <h2><span class="n">1</span>Compare them side by side</h2>
+  <p>Tick up to three. The table redraws as you choose.</p>
+  <div class="card" id="picker"></div>
+  <div class="tblwrap"><table id="cmp"><caption>Specification comparison</caption></table></div>
+  <div class="legend"><span>How firm is each number?</span>
+  <span class="badge" style="color:#137a4d;background:#d7f2e5">official</span><span>manufacturer</span>
+  <span class="badge" style="color:#1c4f73;background:#dbeaf5">reported</span><span>named trade press</span>
+  <span class="badge" style="color:#8a5418;background:#f7e6cf">derived</span><span>our arithmetic</span>
+  <span class="badge" style="color:#7a4a4a;background:#f3e0e0">estimate</span><span>our estimate</span></div>
+
+  <h2 id="calculator"><span class="n">2</span>Range calculator</h2>
+  <p>Manufacturers quote range under conditions you will not have. This works the other way round: start from the loaded range, then apply what your duty actually looks like. The result is a planning number, not a promise.</p>
+  <div class="grid2">
+    <div>
+      <div class="field">
+        <label for="k-truck">Truck</label>
+        <select id="k-truck"></select>
+      </div>
+      <div class="field">
+        <label for="k-payload">Payload — how full is it?</label>
+        <div class="rowline"><input type="range" id="k-payload" min="0" max="100" step="5" value="100"><span class="rv" id="k-payload-v">100%</span></div>
+      </div>
+      <div class="field">
+        <label for="k-speed">Average speed</label>
+        <select id="k-speed"><option value="70">70 km/h — regional, traffic</option><option value="80" selected>80 km/h — normal motorway</option><option value="85">85 km/h — pushing on</option><option value="90">90 km/h — flat out</option></select>
+      </div>
+      <div class="field">
+        <label for="k-temp">Temperature</label>
+        <select id="k-temp"><option value="mild" selected>10 to 25 °C — mild</option><option value="cool">0 to 10 °C — cool</option><option value="cold">−10 to 0 °C — winter</option><option value="hot">Above 30 °C — heat</option></select>
+      </div>
+      <div class="field">
+        <label for="k-route">Route type</label>
+        <select id="k-route"><option value="motorway" selected>Motorway, steady</option><option value="mixed">Mixed, some regional</option><option value="regional">Regional, lots of braking</option></select>
+      </div>
+      <div class="field">
+        <label for="k-daily">Distance to cover in a day</label>
+        <div class="rowline"><input type="range" id="k-daily" min="150" max="900" step="10" value="450"><span class="rv" id="k-daily-v">450 km</span></div>
+      </div>
+    </div>
+    <div>
+      <div class="out">
+        <div style="font-family:var(--cond);font-weight:800;text-transform:uppercase;letter-spacing:.06em;font-size:12.5px;color:#8fd9b6">Range you can plan on</div>
+        <div class="big"><span id="k-range">—</span><span class="u">km</span></div>
+        <div class="sub" id="k-verdict">Choose a truck to begin.</div>
+        <div class="rows">
+          <div class="r"><span>Loaded range, starting point</span><b id="k-base">—</b></div>
+          <div class="r"><span>Usable before your reserve</span><b id="k-usable">—</b></div>
+          <div class="r"><span>Charging stops needed</span><b id="k-stops">—</b></div>
+          <div class="r"><span>Time spent charging en route</span><b id="k-time">—</b></div>
+        </div>
+      </div>
+      <div class="card" style="margin-top:14px">
+        <h3 style="margin-top:0">What this does, exactly</h3>
+        <p style="font-size:14px;margin-bottom:8px">It takes the loaded range and multiplies it by four factors: how full the truck is, how fast you drive, how cold it is, and what kind of road. Then it holds back 20% as an arrival reserve, because nobody plans to arrive empty.</p>
+        <p style="font-size:14px;margin-bottom:0">Every one of those multipliers is <strong>our estimate</strong>, not manufacturer data, and they are deliberately cautious. They live in <a href="data/trucks.json" style="color:var(--volt-dark)">data/trucks.json</a> under <code>planning_factors</code> if you disagree with them.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script id="truckdata" type="application/json">{"items":[{"id":"man-etgx:6x2","model":"man-etgx","label":"MAN eTGX · 6×2 tractor, seven packs","headline":true,"href":"man-etgx.html","v":{"key":"6x2","label":"6×2 tractor, seven packs","headline":true,"axle_config":"6x2","battery_packs":{"value":7,"confidence":"official"},"battery_kwh":{"value":660,"confidence":"official","note":"Net capacity, stated by MAN at the Munich press conference. The pre-Gen-2 seven-pack figure was 623 kWh; the nickel-rich cells add about 10%."},"range_claimed_km":{"value":720,"confidence":"official","note":"MAN's headline figure for the Gen-2 6×2."},"range_loaded_km":{"value":640,"confidence":"estimate","note":"Our estimate: claimed range less roughly 11%, the usual gap between a headline figure and full legal payload on a motorway."},"range_realistic_km":{"min":500,"max":550,"confidence":"estimate","note":"What we would schedule against year-round. Winter, traffic and an arrival reserve included."},"power_hp":{"min":333,"max":598,"confidence":"reported","note":"MAN raised the top output to around 600 hp for the Gen-2. The lower figure is the entry drive."},"charging_mcs_kw_max":{"value":750,"confidence":"official","note":"Megawatt Charging System, up to 1000 A at 750 V."},"charge_20_80_min":{"value":40,"confidence":"official","note":"MAN quotes under 40 minutes for the seven-pack chassis at 623 kWh. The Gen-2 pack is larger, so treat 40 minutes as the floor, not the ceiling."},"price_eur":{"min":260000,"max":320000,"confidence":"estimate","note":"Indicative list price for a long-haul specification. Not a quote. Fleet pricing lands lower."}}},{"id":"man-etgx:4x2","model":"man-etgx","label":"MAN eTGX · 4×2 tractor, six packs","headline":false,"href":"man-etgx.html","v":{"key":"4x2","label":"4×2 tractor, six packs","headline":false,"axle_config":"4x2","battery_packs":{"value":6,"confidence":"official"},"battery_kwh":{"value":587,"confidence":"derived","note":"Derived: MAN's pre-Gen-2 six-pack figure of 534 kWh usable, plus the roughly 10% the new cells add. MAN has not published the Gen-2 six-pack capacity."},"range_claimed_km":{"value":660,"confidence":"official","note":"Up from 570 km on the previous generation."},"range_loaded_km":{"value":590,"confidence":"estimate","note":"Our estimate, same 11% haircut as the 6×2."},"range_realistic_km":{"min":450,"max":500,"confidence":"estimate"},"power_hp":{"min":333,"max":598,"confidence":"reported"},"charging_mcs_kw_max":{"value":750,"confidence":"official"},"charge_20_80_min":{"value":30,"confidence":"official","note":"Under 30 minutes for the six-pack at 534 kWh."},"price_eur":{"min":220000,"max":280000,"confidence":"estimate","note":"Indicative. Shorter wheelbase, one pack fewer."}}},{"id":"windrose-r700:std","model":"windrose-r700","label":"Windrose R700","headline":true,"href":"windrose-r700.html","v":{"key":"std","label":"R700 tractor","headline":true,"axle_config":"4x2 / 6x4 depending on market","battery_packs":{"value":null,"confidence":"estimate","note":"Windrose does not publish a pack count."},"battery_kwh":{"value":729,"confidence":"reported","note":"Reported pack capacity on an 800 V architecture with dual-inlet megawatt charging. Windrose has not published a separate net figure."},"range_claimed_km":{"value":700,"confidence":"reported","note":"Some sources quote up to 960 km under ideal conditions. We do not use that figure — it is not a duty a Belgian fleet will ever see."},"range_loaded_km":{"value":676,"confidence":"reported","note":"420 miles fully loaded at 98 000 lb gross, converted. Other US coverage quotes about 640 km without stating the load. We use the figure that names its conditions."},"range_realistic_km":{"min":500,"max":550,"confidence":"estimate","note":"The figure this site's business case has used throughout."},"power_hp":{"min":1040,"max":1400,"confidence":"reported","note":"Sources disagree. An EV specification database reports 1040 hp; Forbes and other US coverage report 1400 hp. Windrose does not publish a continuous rating, so we show the full reported spread rather than pick one."},"charging_mcs_kw_max":{"value":null,"confidence":"estimate","note":"Megawatt-class dual-inlet charging is confirmed; the exact ceiling in kW is not published."},"charge_20_80_min":{"value":null,"confidence":"estimate","note":"Not published."},"price_eur":{"value":198000,"confidence":"official","note":"European list price on Windrose's own order page, excluding local taxes. US reporting quotes $250 000 to $300 000, but that is the American price and carries import tariffs of up to 70% — it does not apply here. This confirms the EUR 198 000 the business case on this site has used all along."}}}],"factors":{"note":"Multipliers used by the range calculator, applied to the loaded range. These are our planning heuristics, not manufacturer data. They are deliberately conservative. Edit here to change the calculator everywhere.","payload":{"label":"Payload","note":"An empty truck goes further. Interpolated linearly between empty and full.","empty_bonus":0.12},"speed":{"label":"Average speed","options":[{"key":"70","label":"70 km/h — regional, traffic","factor":1.06,"default":false},{"key":"80","label":"80 km/h — normal motorway","factor":1,"default":true},{"key":"85","label":"85 km/h — pushing on","factor":0.95,"default":false},{"key":"90","label":"90 km/h — flat out","factor":0.9,"default":false}]},"temperature":{"label":"Temperature","options":[{"key":"mild","label":"10 to 25 °C — mild","factor":1,"default":true},{"key":"cool","label":"0 to 10 °C — cool","factor":0.92,"default":false},{"key":"cold","label":"−10 to 0 °C — winter","factor":0.82,"default":false},{"key":"hot","label":"Above 30 °C — heat","factor":0.94,"default":false}]},"route":{"label":"Route type","options":[{"key":"motorway","label":"Motorway, steady","factor":1,"default":true},{"key":"mixed","label":"Mixed, some regional","factor":1.04,"default":false},{"key":"regional","label":"Regional, lots of braking","factor":1.1,"default":false}]},"reserve":{"label":"Arrival reserve","note":"Never plan to arrive empty. We assume you keep 20% in the battery, so only 80% of a full charge is usable on the road.","usable_from_full":0.8},"en_route_charge":{"note":"An en-route stop is assumed to be a 20-to-80% top-up, which restores 60% of the battery.","fraction_restored":0.6}}}</script>
+<script>
+(function(){
+  var D = JSON.parse(document.getElementById('truckdata').textContent);
+  var $ = function(id){ return document.getElementById(id); };
+  var F = D.factors;
+
+  function num(f){ if(!f) return null; return (f.value !== undefined) ? f.value : null; }
+  function band(f){ if(!f) return null; return (f.min==null&&f.max==null)?null:[f.min,f.max]; }
+  // Toont een veld of het nu een enkele waarde of een marge is. money=true zet er euro's voor.
+  function show(f, money){
+    if (!f) return null;
+    if (f.value !== undefined) return f.value == null ? null : (money ? '€'+sp(f.value) : sp(f.value));
+    var b = band(f); if (!b) return null;
+    if (b[0] == null) return (money ? 'up to €'+sp(b[1]) : 'up to '+sp(b[1]));
+    if (b[1] == null) return (money ? 'from €'+sp(b[0]) : 'from '+sp(b[0]));
+    return money ? ('€'+sp(b[0])+'–€'+sp(b[1])) : (sp(b[0])+'–'+sp(b[1]));
+  }
+
+  /* ---------- comparison table ---------- */
+  // Begin met de kopvariant van elk model — MAN tegen Windrose, niet twee MAN-varianten.
+  var picked = D.items.filter(function(i){ return i.headline; }).slice(0,3).map(function(i){ return i.id; });
+  if (!picked.length) picked = D.items.slice(0,2).map(function(i){ return i.id; });
+
+  function drawPicker(){
+    $('picker').innerHTML = D.items.map(function(i){
+      var on = picked.indexOf(i.id) >= 0;
+      return '<label style="display:inline-flex;align-items:center;gap:7px;margin:0 16px 8px 0;font-size:14.5px">' +
+        '<input type="checkbox" data-id="' + i.id + '"' + (on?' checked':'') + '> ' + i.label + '</label>';
+    }).join('');
+    Array.prototype.forEach.call($('picker').querySelectorAll('input'), function(cb){
+      cb.addEventListener('change', function(){
+        var id = cb.getAttribute('data-id');
+        if (cb.checked) { if (picked.length >= 3) { cb.checked = false; return; } picked.push(id); }
+        else picked = picked.filter(function(x){ return x !== id; });
+        drawPicker(); drawTable();
+      });
+    });
+  }
+
+  var ROWS = [
+    ['Battery capacity',      function(v){ return fmt(num(v.battery_kwh), 'kWh', v.battery_kwh); }],
+    ['Range — claimed',       function(v){ return fmt(num(v.range_claimed_km), 'km', v.range_claimed_km); }],
+    ['Range — loaded',        function(v){ return fmt(num(v.range_loaded_km), 'km', v.range_loaded_km); }],
+    ['Range — realistic',     function(v){ return fmt(show(v.range_realistic_km), 'km', v.range_realistic_km); }],
+    ['Power',                 function(v){ return fmt(show(v.power_hp), 'hp', v.power_hp); }],
+    ['Charging power, max',   function(v){ return fmt(num(v.charging_mcs_kw_max), 'kW', v.charging_mcs_kw_max); }],
+    ['Charge 20–80%',         function(v){ return fmt(num(v.charge_20_80_min), 'min', v.charge_20_80_min); }],
+    ['Price',                 function(v){ return fmt(show(v.price_eur, true), '', v.price_eur); }]
+  ];
+  var BADGES = {"official":["official","#137a4d","#d7f2e5"],"reported":["reported","#1c4f73","#dbeaf5"],"derived":["derived","#8a5418","#f7e6cf"],"estimate":["estimate","#7a4a4a","#f3e0e0"]};
+  function sp(n){ return n==null?'—':Number(n).toLocaleString('en-GB').replace(/,/g,' '); }
+  function na(){ return '<td class="na">not published</td>'; }
+  function fmt(val, unit, f){
+    if (val == null) return na();
+    var b = BADGES[f && f.confidence];
+    var badge = b ? '<span class="badge" style="color:'+b[1]+';background:'+b[2]+'">'+b[0]+'</span>' : '';
+    var shown = (typeof val === 'number') ? sp(val) : val;
+    return '<td><span class="val">'+shown+(unit?'<span class="unit"> '+unit+'</span>':'')+'</span> '+badge+'</td>';
+  }
+
+  function drawTable(){
+    var sel = picked.map(function(id){ return D.items.filter(function(i){ return i.id===id; })[0]; }).filter(Boolean);
+    if (!sel.length) { $('cmp').innerHTML = '<caption>Specification comparison</caption><tbody><tr><td class="na">Tick at least one truck above.</td></tr></tbody>'; return; }
+    var html = '<caption>Specification comparison</caption><thead><tr><th>Specification</th>' +
+      sel.map(function(i){ return '<th><a href="'+i.href+'" style="color:#f4efe4">'+i.label+'</a></th>'; }).join('') + '</tr></thead><tbody>';
+    ROWS.forEach(function(r){
+      html += '<tr><th>'+r[0]+'</th>' + sel.map(function(i){ return r[1](i.v); }).join('') + '</tr>';
+    });
+    $('cmp').innerHTML = html + '</tbody>';
+  }
+
+  /* ---------- range calculator ---------- */
+  $('k-truck').innerHTML = D.items.map(function(i){ return '<option value="'+i.id+'">'+i.label+'</option>'; }).join('');
+
+  function factorOf(group, key){
+    var o = F[group].options.filter(function(x){ return x.key === key; })[0];
+    return o ? o.factor : 1;
+  }
+
+  function calc(){
+    var item = D.items.filter(function(i){ return i.id === $('k-truck').value; })[0];
+    if (!item) return;
+    var base = num(item.v.range_loaded_km);
+    if (base == null) {
+      var b = band(item.v.range_realistic_km);
+      base = b ? (b[0]+b[1])/2 : null;
+    }
+    if (base == null) { $('k-range').textContent='—'; $('k-verdict').textContent='No loaded range published for this truck.'; return; }
+
+    var payload = parseInt($('k-payload').value,10)/100;
+    var fPay = 1 + F.payload.empty_bonus * (1 - payload);
+    var fSpd = factorOf('speed', $('k-speed').value);
+    var fTmp = factorOf('temperature', $('k-temp').value);
+    var fRte = factorOf('route', $('k-route').value);
+
+    var R = base * fPay * fSpd * fTmp * fRte;
+    var usable = R * F.reserve.usable_from_full;
+    var perStop = R * F.en_route_charge.fraction_restored;
+    var daily = parseInt($('k-daily').value,10);
+    var stops = daily <= usable ? 0 : Math.ceil((daily - usable) / perStop);
+    var mins = num(item.v.charge_20_80_min);
+
+    $('k-range').textContent = Math.round(R);
+    $('k-base').textContent = Math.round(base) + ' km';
+    $('k-usable').textContent = Math.round(usable) + ' km';
+    $('k-stops').textContent = stops === 0 ? 'none — one overnight charge' : stops + (stops===1?' stop':' stops');
+    $('k-time').textContent = stops === 0 ? '—' : (mins ? (stops*mins) + ' min (' + stops + ' × ' + mins + ')' : 'not published for this truck');
+    $('k-verdict').textContent = stops === 0
+      ? 'This duty fits on a single overnight charge at your own depot.'
+      : 'This duty needs ' + stops + (stops===1?' top-up':' top-ups') + ' on the road.';
+  }
+
+  ['k-truck','k-speed','k-temp','k-route'].forEach(function(id){ $(id).addEventListener('change', calc); });
+  $('k-payload').addEventListener('input', function(){ $('k-payload-v').textContent = this.value + '%'; calc(); });
+  $('k-daily').addEventListener('input', function(){ $('k-daily-v').textContent = this.value + ' km'; calc(); });
+
+  drawPicker(); drawTable(); calc();
+})();
+</script>
+</main>
+<footer><div class="wrap">
+  <div><b>eTruckTCO.be</b> — independent electric-truck cost comparison for Belgian fleets.</div>
+  <div>Specifications come from manufacturers and named trade press; every figure on these pages carries a label saying how firm it is. <a href="data/trucks.json">The underlying data is published as JSON</a>.</div>
+  <div>Estimates for guidance only. Not financial advice — your real costs depend on routes, energy contract and truck.</div>
+</div></footer>
+</body>
+</html>

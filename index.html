@@ -77,6 +77,16 @@
   .third .tx p{font-size:14.5px;color:#d9c9b2;margin:6px 0 0}
   .third .tag{margin-left:auto;flex-shrink:0;font-family:var(--cond);font-weight:800;text-transform:uppercase;
     letter-spacing:.05em;font-size:12px;background:var(--diesel);color:#fff;padding:4px 11px;border-radius:20px}
+  .fourth{display:flex;align-items:center;gap:18px;margin:14px 0 0;padding:20px 24px;border-radius:18px;
+    text-decoration:none;color:inherit;background:#fff;border:2px solid var(--line);
+    transition:transform .18s ease,box-shadow .18s ease}
+  .fourth:hover{transform:translateY(-3px);box-shadow:0 18px 36px -22px rgba(90,70,30,.6);border-color:#c2b393}
+  .fourth .ico{font-size:30px;flex-shrink:0}
+  .fourth .tx h3{font-family:var(--cond);font-weight:900;text-transform:uppercase;font-size:23px;line-height:1;margin:0}
+  .fourth .tx p{font-size:14.5px;color:#534c3d;margin:6px 0 0}
+  .fourth .tag{margin-left:auto;flex-shrink:0;font-family:var(--cond);font-weight:800;text-transform:uppercase;
+    letter-spacing:.05em;font-size:12px;background:var(--volt-light);color:var(--volt-dark);padding:4px 11px;border-radius:20px}
+  @media(max-width:620px){.fourth{flex-wrap:wrap;gap:12px}.fourth .tag{margin-left:0}}
   @media(max-width:1199px){.third{display:none}}
   @media(max-width:620px){.choose{grid-template-columns:1fr;gap:16px}.card{min-height:0}.hero{padding:34px 0 4px}}
 </style>
@@ -131,6 +141,14 @@
     </span>
     <span class="tag">Desktop</span>
   </a>
+  <a class="fourth" href="models.html">
+    <span class="ico">🔋</span>
+    <span class="tx">
+      <h3>The trucks themselves</h3>
+      <p>Battery, range, charging and price for the MAN eTGX and the Windrose R700 — every figure labelled by where it came from. With a range calculator for your own duty.</p>
+    </span>
+    <span class="tag">Specs</span>
+  </a>
   <div class="reassure">
     <div>⛽ <b>Real 2026 prices</b></div>
     <div>🛣️ <b>New kilometre charge</b></div>
@@ -141,7 +159,7 @@
 <footer>
   <div class="wrap">
     <div><b>eTruckTCO.be</b> — independent electric-truck cost comparison for Belgian fleets.</div>
-    <div>Three views, same engine: the <a href="eTruckCost.html">quick answer</a>, the <a href="eTruckAnalysis.html">full CFO business case</a>, and a <a href="compare.html">head-to-head between two trucks</a>.</div>
+    <div>Four ways in, same engine: the <a href="eTruckCost.html">quick answer</a>, the <a href="eTruckAnalysis.html">full CFO business case</a>, a <a href="compare.html">head-to-head between two trucks</a>, and the <a href="models.html">truck specifications</a> behind it all.</div>
     <div style="color:#7d735d;margin-top:4px">Estimates for guidance only, calibrated for Belgium 2026. Not financial advice — your real costs depend on routes, energy contract and truck.</div>
   </div>
 </footer>

@@ -986,11 +986,14 @@ footer .kop{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-tra
 </script>
 <script>
 /* Demokaart — Google Maps JS API in demomodus.
-   Vervang WERFRADAR_GMAPS_KEY door je eigen (eerder gebruikte) API-key.
+   Vul hieronder je eigen API-key in. Zet er in de Google Cloud Console altijd
+   een verwijzerbeperking op (werfradar.be/*), want een key in een webpagina is
+   voor iedereen leesbaar: deze pagina is publiek, dus wie ze opent, ziet hem.
+   Zonder die beperking kan een vreemde er op jouw rekening mee doorrijden.
    Zonder gekoppelde facturatie toont Google het "For development purposes
    only"-watermerk: dat is de bedoelde demomodus.
    Privacy: het script wordt pas geladen NA expliciete klik (art. 6.1.a AVG). */
-var WERFRADAR_GMAPS_KEY = "AIzaSyBTId8sb5L9RQl6E3Sx8D7tyhYUFYNkFOQ";
+var WERFRADAR_GMAPS_KEY = "VERVANG_DOOR_JE_API_KEY";
 
 var DEMO_MELDINGEN = [
   {lat:51.0876, lng:4.3669, bron:"vp",   titel:"KMO-unit, nieuwbouw",      fase:"Ruwbouw — fundering", plaats:"Boom",        status:"Gevalideerd"},

@@ -180,6 +180,25 @@
     .bigrow{grid-template-columns:1fr 1fr}
     .vs{grid-template-columns:1fr}
     .answer .verdict{font-size:46px}
+    /* the brand + the nowrap CFO pill together exceeded a 375px viewport and
+       pushed the whole page sideways; shorten the pill instead of wrapping it */
+    .topbar .wrap{gap:8px}
+    .brand{font-size:19px}
+    .cfo-link{font-size:11.5px;padding:5px 9px}
+    .cfo-link .cfo-long{display:none}
+  }
+  @media(max-width:430px){
+    /* the highlighted headline is white-space:nowrap, so at 34px it was 358px wide and
+       pushed past a phone viewport; scale it down rather than break the highlight bar */
+    .hero h1{font-size:clamp(25px,7.6vw,34px)}
+  }
+  @media(max-width:400px){
+    /* smallest phones: brand (238px) + pill (93px) still exceeded the bar */
+    .wrap{padding:0 12px}
+    .brand{font-size:17px;gap:5px}
+    .brand .be{font-size:10px;padding:1px 5px}
+    #ver-badge{display:none}
+    .cfo-link{font-size:11px;padding:5px 8px}
   }
 </style>
 </head>
@@ -189,7 +208,7 @@
 <div class="topbar">
   <div class="wrap">
     <a href="index.html" style="text-decoration:none;color:inherit"><div class="brand">e<span class="plug">⚡</span>TruckCost <span class="be">BE</span> <span id="ver-badge" style="font-size:10px;background:#1faa6e;color:#fff;padding:2px 6px;border-radius:4px;font-weight:700;letter-spacing:.03em;vertical-align:middle">v3</span></div></a>
-    <a class="cfo-link" href="eTruckAnalysis.html">Need the CFO version? →</a>
+    <a class="cfo-link" href="eTruckAnalysis.html"><span class="cfo-long">Need the </span>CFO version →</a>
   </div>
 </div>
 
@@ -325,12 +344,14 @@
   <h2>Straight answers</h2>
   <div class="faq">
     <details class="q"><summary>Isn't an electric truck way more expensive?</summary><div class="a">To buy, yes — roughly <b>€80–100k more</b> than a diesel, plus the charger. But it's so much cheaper to run (electricity, toll, service) that it usually wins back the difference in <b>4–6 years</b> and saves money after that. This tool shows you exactly when.</div></details>
-    <details class="q"><summary>Why is the road toll so much lower?</summary><div class="a">In Belgium a zero-emission truck pays a <b>much lower kilometre charge</b> than diesel from 2026 (€0.038 vs €0.286 per km in Flanders at the 2026 rate). At a typical Belgian-corridor mix this is worth around <b>€15 000 per truck per year</b>. It's the single biggest reason electric wins here — the engine models all six toll zones (VL/BR/WA/NL/DE/FR) year by year, identical to the full analysis.</div></details>
+    <details class="q"><summary>Why is the road toll so much lower?</summary><div class="a">In Belgium a zero-emission truck pays a <b>much lower kilometre charge</b> than diesel (€0.038 vs €0.286 per km in Flanders at the 2026 rate). On 1 July 2026 the Belgian rates went up by roughly <b>27% on average</b> and Flanders added a CO₂ surcharge, which made that gap wider still — and older trucks, registered before mid-2019, sit in the most expensive bracket. At a typical Belgian-corridor mix the saving is around <b>€15 000 per truck in the first year</b>. It shrinks a little each year after that — to roughly <b>€12 000–13 000 a year averaged over five years</b> — because the Belgian discount for electric trucks is being phased down on a fixed schedule (80% off the infrastructure charge in 2026, then 60%, 40% and 20%). Even so it stays the single biggest reason electric wins here. The engine models all six toll zones (VL/BR/WA/NL/DE/FR) year by year, identical to the full analysis.</div></details>
+    <details class="q"><summary>The Netherlands started charging per kilometre too — does that help or hurt?</summary><div class="a">It helps, if you go electric. Since <b>1 July 2026</b> every truck over 3 500 kg pays per kilometre in the Netherlands, Dutch or foreign, on the motorways and part of the roads beneath them. The rate depends on weight and how clean the truck is, and the difference is large: for 2027 the tariffs are already published at <b>€0.206 per km for a heavy diesel and €0.040 for an electric one</b>. Over 10 000 Dutch kilometres that is <b>€2 060 against €400</b>. There is a temporary discount of 22,3% on all Dutch rates until the end of 2026, but it applies to diesel and electric alike, so it does not change which one wins.</div></details>
     <details class="q"><summary>Will it get far enough on one charge?</summary><div class="a">In real work today’s long-haul electric trucks do about <b>500–550 km</b> on a charge, and they charge overnight at your own depot. The newest ones go further: the <b>MAN eTGX</b> shown in 2026 is quoted at <b>660 km</b>, and <b>720 km</b> with the seventh battery pack. For a normal Belgian day — including a run to Rotterdam or the Ruhr — that means plugging in at night and never having to charge along the road.</div></details>
     <details class="q"><summary>Do I need an expensive charging station?</summary><div class="a">For overnight charging at your own depot you don't need the fastest, most expensive chargers. Trucks sit for hours, so they charge slowly and cheaply — usually <b>one charger shared between a couple of trucks</b>, plus a grid connection. The cost is built into the "Truck + charger" figure above.</div></details>
+    <details class="q"><summary>Can I even get enough power at my depot?</summary><div class="a">This is the question that catches most people out, and it is worth asking your grid operator <b>before</b> you order trucks. In parts of the network there is simply no spare capacity left: in the Netherlands, 45% of supply areas had a shortage with a <b>waiting list</b> in August 2026, and for a heavier connection in logistics the wait can be <b>three to seven years</b>. Belgium is in better shape and publishes no comparable figures, but the lesson travels: apply early. The good news is that charging overnight needs far less power than people expect — about <b>65 kW per truck</b> spread across the night, not the 400 kW a truck can take at full speed. That is roughly six times smaller, and it is the version most likely to fit within the power you already have. If your connection is capped below what you need, a battery on site or a contract that lets the operator cut you back at busy hours can bridge the gap.</div></details>
     <details class="q"><summary>What about the battery wearing out?</summary><div class="a">Modern truck batteries come with long warranties (often <b>700 000 km or more</b>) and lose only about 2–3% of range a year. We keep the resale value <b>cautious</b> on purpose, so the numbers don't flatter electric.</div></details>
-    <details class="q"><summary>Are these numbers realistic?</summary><div class="a">They use <b>Belgian 2026 prices</b> — real diesel pump prices, the new kilometre charge, depot electricity, and conservative assumptions throughout. If anything they're on the careful side. Change the sliders to match your own situation.</div></details>
-    <details class="q"><summary>I drive a lot outside Belgium — does that change things?</summary><div class="a">Yes. The big toll saving is a <b>Belgian</b> thing. Countries like France don't give electric trucks the same toll discount, so if most of your kilometres are abroad the saving shrinks. The detailed <a href="eTruckAnalysis.html" style="color:var(--volt-dark);font-weight:700">CFO version</a> lets you split your kilometres per country.</div></details>
+    <details class="q"><summary>Are these numbers realistic?</summary><div class="a">They use <b>Belgian 2026 prices</b> — real diesel pump prices, the kilometre charge as it stands after the 1 July 2026 increase, depot electricity, and conservative assumptions throughout. Where a later year is already officially published, the tool uses that exact figure rather than a guess: the Dutch 2027 rates are confirmed and built in. If anything they're on the careful side. Change the sliders to match your own situation.</div></details>
+    <details class="q"><summary>I drive a lot outside Belgium — does that change things?</summary><div class="a">Yes, but usually in your favour. It depends which border you cross. <b>Germany</b> is the best case: an electric truck pays <b>nothing</b> there until mid-2031, against €0.348 per km for diesel. The <b>Netherlands</b> is next: €0.040 against €0.206 per km at the published 2027 rates. <b>France</b> is the flat one — its motorway tolls make no distinction yet, so electric pays the same as diesel, and so does <b>Wallonia</b>. Luxembourg still works on a time-based vignette rather than per kilometre. So a run to Rotterdam or the Ruhr strengthens the case; a lot of French motorway weakens it. The detailed <a href="eTruckAnalysis.html" style="color:var(--volt-dark);font-weight:700">CFO version</a> lets you split your kilometres per country.</div></details>
   </div>
 </div>
 
@@ -375,13 +396,23 @@
     VL:{d:0.286,infra:0.190}, BRmw:{d:0.168,infra:0.155}, BRurb:{d:0.267,infra:0.250},
     WA:{d:0.205,vat:0.21}, NL:{d:0.201,zevFlat:0.038}, DE:{d:0.348,infra:0.135},
     FR:{d:0.220,zevFlat:0.220} };
+  // Officially published later-year rates override the generic indexation and become the new
+  // anchor. NL 2027 = +2.6% (confirmed): diesel EUR 0.206/km, zero-emission EUR 0.040/km.
+  // The NL 22.3% rebate (1/9-31/12/2026) expires before the first modelled year (2027).
+  var TOLL_PUBLISHED={ NL:{ 2027:{d:0.206,zev:0.040} } };
   var ZONE_SPLIT={VL:45,BR:2,WA:8,NL:18,FR:15,DE:12}; // default Flemish line-haul mix
   var TOLL_IDX=0.02, BR_MW=1.0, ZEV_SCEN='cliff';
   function tollPayFactor(cy){ if(cy<=2026)return .20; if(cy<=2029)return [.40,.60,.80][cy-2027]; return 1; } // cliff
-  function tollDieselRate(r,cy){ return TOLL_REGION[r].d*Math.pow(1+TOLL_IDX,cy-TOLL_BASE_YEAR); }
+  function tollAnchor(r,cy,kind){ var P=TOLL_PUBLISHED[r]; if(!P)return null; var best=null;
+    for(var y in P){ var yy=+y; if(yy<=cy&&P[y][kind]!=null&&(best===null||yy>best))best=yy; }
+    return best===null?null:{year:best,rate:P[best][kind]}; }
+  function tollDieselRate(r,cy){ var a=tollAnchor(r,cy,'d');
+    if(a)return a.rate*Math.pow(1+TOLL_IDX,cy-a.year);
+    return TOLL_REGION[r].d*Math.pow(1+TOLL_IDX,cy-TOLL_BASE_YEAR); }
   function tollZevRate(r,cy){ var R=TOLL_REGION[r],esc=Math.pow(1+TOLL_IDX,cy-TOLL_BASE_YEAR);
     if(r==='WA')return tollDieselRate('WA',cy);
-    if(r==='NL'||r==='FR')return R.zevFlat*esc;
+    if(r==='NL'){ var a=tollAnchor('NL',cy,'zev'); return a?a.rate*Math.pow(1+TOLL_IDX,cy-a.year):R.zevFlat*esc; }
+    if(r==='FR')return R.zevFlat*esc;
     if(r==='DE')return (cy<=DE_ZEV_FREE_UNTIL)?0:0.25*R.infra*esc;
     return R.infra*esc*tollPayFactor(cy); }
   function zoneRate(z,kind,cy){

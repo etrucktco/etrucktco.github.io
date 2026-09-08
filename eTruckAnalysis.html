@@ -690,7 +690,7 @@
       <span style="font-weight:400;text-transform:none;letter-spacing:0;"><a href="index.html" style="color:var(--accent-dark);text-decoration:none;font-weight:700;">← All versions</a> · <a href="eTruckCost.html" style="color:var(--accent-dark);text-decoration:none;font-weight:700;">Quick answer version</a></span>
     </div>
     <h1>Belgian Fleet Electrification Business Case</h1>
-    <p>A live example of what <strong>eTruck TCO</strong> generates for a Belgian operator. All assumptions are calibrated for an operator <strong>based in Belgium</strong> — professional diesel refund, 2026 Viapass / kilometerheffing toll rates, and Belgian subsidy ceilings; foreign mileage uses each neighbouring country's own 2026 rate. Adjust the parameters and the per-country mileage split below and the entire business case recalculates. In production our AI engine pulls these inputs automatically from your ERP, the grid operator's capacity database, and the EU subsidy registers. <strong>Not valid for operators based outside Belgium.</strong></p>
+    <p>A live example of what <strong>eTruck TCO</strong> generates for a Belgian operator. All assumptions are calibrated for an operator <strong>based in Belgium</strong> — professional diesel refund, the Viapass / kilometerheffing rates as increased on 1 July 2026 (incl. the Flemish CO₂ component), and Belgian subsidy ceilings; foreign mileage uses each neighbouring country's own rate, with the Dutch vrachtwagenheffing pinned to its published 2027 tariffs. Adjust the parameters and the per-country mileage split below and the entire business case recalculates. In production our AI engine pulls these inputs automatically from your ERP, the grid operator's capacity database, and the EU subsidy registers. <strong>Not valid for operators based outside Belgium.</strong></p>
   </div>
   <div id="sc-mini" aria-hidden="true" style="height:1px;margin:0;padding:0;"></div>
 
@@ -836,7 +836,7 @@
           <div class="param-hint"><span id="p-loss-hint">set by charger: low-power split DC ≈ 8%, high-power ≈ 11–12%</span></div>
         </div>
         <div class="param-group">
-          <label for="p-charger">Charging system <a href="#explain-charging" class="info-btn" title="How depot charging is sized & costed — jump to details">i</a></label>
+          <label for="p-charger">Charging system <a href="#explain-charging" class="info-btn" title="How depot charging is sized & costed — jump to details">i</a> <a href="#explain-grid" class="info-btn" title="Grid capacity &amp; congestion — can you even get the connection? Jump to details" style="width:auto;padding:0 6px;border-radius:9px;font-size:10px;letter-spacing:.02em;">grid</a></label>
           <select id="p-charger">
             <option value="auto" selected>Auto · low-loss split DC (recommended)</option>
             <option value="huawei">Huawei FusionCharge · split DC · 8% loss</option>
@@ -1414,7 +1414,8 @@
       <div class="math-formula">
         <div class="math-fhead"><div class="math-label">Step 1 — zone rate, year-indexed</div></div>
         <div class="math-expr">rate<sub>z</sub>(y) = base<sub>z,2026</sub> × (1 + i<sub>t</sub>)^(y − 2026)</div>
-        <div class="math-words">each zone's 2026 base rate grows with the toll indexation (<span id="tf-idx">2.0</span>%/yr). ZEV per zone: VL/BR = infrastructure base × the declining pay-factor schedule (and the post-2029 scenario); WA = diesel rate (no discount); NL = flat 80%-discount rate; DE = €0 through 2030, then 25% of infra; FR = diesel rate (no ZEV discount yet).</div>
+        <div class="math-words">each zone's 2026 base rate grows with the toll indexation (<span id="tf-idx">2.0</span>%/yr), <em>except</em> where a later year is already officially published — then the engine uses that exact figure and indexes forward from it. Today that applies to the <strong>Netherlands 2027</strong> (+2.6%: diesel €0.206, ZEV €0.040), so the confirmed Dutch tariff is never overwritten by the slider. ZEV per zone: VL/BR = infrastructure base × the declining reduction schedule below (and the post-2029 scenario), with the external-cost component at zero; WA = diesel rate (no discount); NL = flat 80%-discount rate; DE = €0 through 2030, then 25% of infra; FR = diesel rate (no ZEV discount yet).</div>
+        <div class="math-note" style="margin-top:6px;"><strong>Belgian ZEV infrastructure reduction (confirmed, &gt;4,25 t):</strong> 80% in 2026 → 60% in 2027 → 40% in 2028 → 20% in 2029. The truck therefore pays 20% / 40% / 60% / 80% of the infrastructure component in those years, which is exactly the pay-factor the engine applies. From 2030 the treatment is legally undefined — see the post-2029 scenario switch.</div>
         <div class="math-note" id="tf-zones">—</div>
       </div>
       <div class="math-formula">
@@ -1445,13 +1446,13 @@
       <thead><tr><th>Zone</th><th class="num">Diesel €/km</th><th class="num">ZEV €/km</th></tr></thead>
       <tbody>
         <tr class="zr"><td>Flanders (VL)</td><td class="num">0.286</td><td class="num">0.038→</td></tr>
-        <tr class="zn"><td colspan="3"><em>Confirmed</em> diesel incl. CO₂ component (Viapass ed. 01/01/2026). ZEV starts at the 80%-discount rate then follows the post-2029 scenario. VL infrastructure base €0.190 is <strong>derived</strong> (ZEV €0.038 ÷ 20%), not separately published — re-verify vs the post-1/7/2026 Viapass table. Tax, no VAT.</td></tr>
+        <tr class="zn"><td colspan="3"><em>Confirmed</em> diesel incl. the CO₂ component that took effect <strong>1 July 2026</strong> (Viapass ed. 01/01/2026). Belgian per-km tariffs for vehicles over 3,5 t rose roughly <strong>27% on average</strong> on that date, varying by vehicle class and emission standard; trucks first registered before mid-2019 usually land in the most expensive CO₂ bracket. For a zero-emission truck over 4,25 t the <strong>external-cost component (air and noise) is set to zero</strong> and only the infrastructure component is charged, at the declining reduction below. VL infrastructure base €0.190 is <strong>derived</strong> (ZEV €0.038 ÷ 20%), not separately published — re-verify vs the post-1/7/2026 Viapass table. Tax, no VAT.</td></tr>
         <tr class="zr"><td>Brussels (BR)</td><td class="num">0.168/0.267</td><td class="num">infra×pf</td></tr>
         <tr class="zn"><td colspan="3"><em>Confirmed</em> motorway €0.168 / inner-urban €0.267 diesel; ZEV = infra base × pay-factor (same engine as VL). Sub-split between motorway and inner-urban set in the panel. Tax, no VAT.</td></tr>
         <tr class="zr"><td>Wallonia (WA)</td><td class="num">0.205</td><td class="num">= diesel</td></tr>
         <tr class="zn"><td colspan="3"><em>Confirmed</em> retributie, +5.7% (SOFICO 28/11/2025, approved 2/4/2026). ZEV gets <strong>no discount</strong> (= diesel) and carries 21% VAT (recoverable → excl. VAT on the P&amp;L).</td></tr>
-        <tr class="zr"><td>Netherlands (NL)</td><td class="num">0.201</td><td class="num">0.038</td></tr>
-        <tr class="zn"><td colspan="3"><em>Confirmed</em> new vrachtwagenheffing from 1/7/2026; ZEV gets an 80% discount → flat €0.038 (indexed).</td></tr>
+        <tr class="zr"><td>Netherlands (NL)</td><td class="num">0.201 → <strong>0.206</strong></td><td class="num">0.038 → <strong>0.040</strong></td></tr>
+        <tr class="zn"><td colspan="3"><em>Confirmed.</em> The vrachtwagenheffing started <strong>1 July 2026</strong> and replaced the Eurovignet: every truck over 3 500 kg (N2/N3), Dutch or foreign, pays per kilometre on all motorways and parts of the underlying network. The rate depends on maximum permitted mass, the VECTO CO₂ class and — in CO₂ class 1 — the EURO class. The <strong>2026 average is €0.191/km</strong>; a &gt;32t Euro 6 CO₂-class-1 diesel pays <strong>€0.201/km</strong> and a CO₂-class-5 zero-emission truck <strong>€0.038/km</strong> (an 80% discount). <strong>Temporary rebate:</strong> from 1/9/2026 to 31/12/2026 all tariffs drop <strong>22.3%</strong> (average €0.148/km; diesel €0.156, ZEV €0.0295) — it expires before this model's first cashflow year, so it is context only and is deliberately left out of the P&amp;L. <strong>2027 is published:</strong> +2.6% indexation → diesel <strong>€0.206/km</strong>, ZEV <strong>€0.040/km</strong>. The engine pins those exact figures and indexes forward from 2027, so the confirmed tariff is never overwritten by the indexation slider.</td></tr>
         <tr class="zr"><td>Germany (DE)</td><td class="num">0.348</td><td class="num">0.000</td></tr>
         <tr class="zn"><td colspan="3"><em>Confirmed</em> national Maut incl. €200/t CO₂ (5-axle 40t Euro 6, CO₂ class 1). ZEV <strong>fully exempt through 30/6/2031</strong> (Viertes Gesetz, in force 1/12/2025), then ~25% of infra (~€0.034/km) from 2031.</td></tr>
         <tr class="zr"><td>France (FR)</td><td class="num">0.220</td><td class="num">= diesel</td></tr>
@@ -1462,11 +1463,13 @@
     <h4 style="margin-top:14px;">Sensitivity — the two flat foreign rates</h4>
     <ul style="margin:0; padding-left:18px; line-height:1.6;">
       <li><strong>France (€0.220, flat + indexation):</strong> péages are concession-based with no national rate and no ZEV differentiation yet — CO₂-based tolling is only entering <em>new</em> concession contracts, so an electric truck currently pays the same as diesel here. If France applies the Eurovignette CO₂ differentiation more broadly, the FR ZEV rate would drop below diesel and strengthen the case. The €0.220 average also masks wide route-level variation (~€0.20–0.31/km for a class-4 truck); operators with mostly French km should replace it with their own route data.</li>
-      <li><strong>Netherlands (ZEV €0.038, flat):</strong> the new 1/7/2026 vrachtwagenheffing with an 80% ZEV discount, set in legislation and modelled flat here. If the Dutch discount is reduced the NL ZEV rate rises toward diesel (weaker case); if extended or deepened, it strengthens.</li>
+      <li><strong>Netherlands (ZEV €0.038 in 2026 → €0.040 published for 2027):</strong> the vrachtwagenheffing that started 1/7/2026 with an 80% ZEV discount, set in legislation and modelled flat here. Both 2026 and 2027 are now confirmed figures rather than estimates, which removes most of the near-term uncertainty in this zone; the 22.3% rebate running to 31/12/2026 lowers diesel and ZEV by the same percentage, so it does not change the <em>gap</em> between them. The remaining sensitivity is directional: if the Dutch discount is later reduced the NL ZEV rate rises toward diesel (weaker case); if extended or deepened, it strengthens. At the published 2027 rates the zone is worth €2 060 versus €400 per 10 000 tolled kilometres — a €1 660 saving per 10 000 km.</li>
       <li><strong>Germany (ZEV €0, fixed):</strong> the most favourable rate, fixed in law through 30/6/2031; the only sensitivity is the post-2031 ~25%-infra step (~€0.034/km).</li>
     </ul>
     <p style="margin-top:8px;"><strong>Net effect</strong> — for a cross-border Flemish profile the foreign zones are, on balance, toll-favourable to electric (Germany €0, Netherlands −80%), with France the only neutral zone. The realistic risks (France staying undifferentiated, a Dutch discount cut) are modest relative to the Belgian post-2029 cliff, which remains the single largest toll uncertainty in the model.</p>
-    <p style="margin-top:10px;font-size:11px;">Sources: Viapass ed. 01/01/2026 / SOFICO 28/11/2025 (BE VL/BR/WA), Rijksoverheid / vrachtwagenheffing (NL), Toll Collect / Viertes BFStrMG (DE), concession péage averages (FR). All figures EUR, 2026 base, indexed annually — re-verify each January and after any SOFICO/Viapass decision.</p>
+    <h4 style="margin-top:14px;">What changed on 1 July 2026 — and what the neighbours charge</h4>
+    <p style="margin:0 0 6px;">Both of the model's two biggest zones changed on the same day. In <strong>Belgium</strong> the per-kilometre tariffs for vehicles over 3,5 t went up by roughly 27% on average and Flanders added a CO₂ component; Brussels indexed and Wallonia applied its own SOFICO adjustment, so the same trip can now cost noticeably more or less depending on which region it crosses. In the <strong>Netherlands</strong> the distance charge replaced the time-based Eurovignet outright: the Netherlands left the Eurovignet system on 1/7/2026, while <strong>Luxembourg still uses it</strong>. <strong>Germany</strong> charges the distance-based LKW-Maut through Toll Collect, and <strong>France</strong> keeps concession-based péages with no national rate. The practical consequence for a Belgian operator is that four of the six zones are now distance-charged and CO₂-differentiated, which is what makes the zone split below worth getting right.</p>
+    <p style="margin-top:10px;font-size:11px;">Sources: Viapass ed. 01/01/2026 / SOFICO 28/11/2025 and the 1/7/2026 tariff increase + Flemish CO₂ component (BE VL/BR/WA), Rijksoverheid / vrachtwagenheffing.nl incl. the 22,3% rebate 1/9–31/12/2026 and the published 2027 tariffs (NL), Toll Collect / Viertes BFStrMG (DE), concession péage averages (FR). All figures EUR excl. VAT, 2026 base except where a later year is published, indexed annually — re-verify each January and after any SOFICO/Viapass decision.</p>
     </details>
   </div>
 
@@ -1476,7 +1479,8 @@
     <p style="margin:0 0 8px;">Every default below is set for a transport operator <strong>based in Belgium</strong>. If the operator is based elsewhere, the diesel refund, home toll rate and subsidy ceilings change and the case must be recalibrated.</p>
     <ul style="margin:0; padding-left:18px; line-height:1.65;">
       <li><strong>Diesel professional refund €0.1913/L</strong> (2026) — Belgium refunds part of the excise on diesel to professional hauliers, so the model always uses the <em>net</em> pump price. This refund is being gradually phased out, which over time strengthens the electric case.</li>
-      <li><strong>Belgian diesel toll €0.286/km</strong> in Flanders from 1 July 2026 (Viapass / kilometerheffing, incl. the new CO₂ component, up from €0.204) <strong>vs €0.038/km for a zero-emission truck</strong> at the 2026 80%-discount rate — the largest single driver of the business case. The ZEV rate then follows the post-2029 scenario below.</li>
+      <li><strong>Belgian diesel toll €0.286/km</strong> in Flanders from 1 July 2026 (Viapass / kilometerheffing, incl. the new CO₂ component, up from €0.204) <strong>vs €0.038/km for a zero-emission truck</strong> at the 2026 80%-discount rate — the largest single driver of the business case. That 1 July 2026 change raised Belgian per-km tariffs by roughly <strong>27% on average</strong> across vehicle classes and emission standards, and trucks first registered before mid-2019 typically fall into the most expensive CO₂ bracket — so an older diesel fleet is hit hardest. For a zero-emission truck over <strong>4,25 t</strong> the external-cost component (air and noise) is set to <strong>zero</strong> and only the infrastructure component is charged, with a confirmed declining reduction: <strong>80% in 2026, 60% in 2027, 40% in 2028, 20% in 2029</strong>. The ZEV rate then follows the post-2029 scenario below.</li>
+      <li><strong>The Dutch charge now matters as much as the Belgian one.</strong> Since 1 July 2026 every truck over 3 500 kg pays per kilometre in the Netherlands too, and at the published 2027 rates that is <strong>€0.206/km diesel vs €0.040/km electric</strong>. With the default 18% Dutch share of tolled kilometres this is the second-largest toll contribution in the model. A 22,3% rebate on all Dutch tariffs runs to 31/12/2026; it lowers diesel and electric equally, so it does not change the comparison, and it expires before the first modelled year.</li>
       <li><strong>Default profile — 100 000 km/yr, researched 6-zone mix.</strong> There is no official km-by-country split for Belgian trucks, so the default zone mix (VL 45 / WA 8 / BR 2 / NL 18 / FR 15 / DE 12) is a transparent, editable estimate based on the main Flemish freight corridors. A daily duty in this range is covered on a single overnight depot charge (Windrose R700 Gen-2 ~670 km loaded range, ~500–550 km realistic; the 2026 MAN eTGX shown at IAA quotes 660 km on the 4x2 and 720 km on the seven-pack 6x2 with 660 kWh net), so <strong>no en-route public charging</strong> is assumed and no public-charging premium is added. Cross-border work (Antwerp–Rotterdam, the Ruhr, Lille/Paris) is modelled with the editable zone split in the toll panel; Germany’s full ZEV exemption (€0/km through 30/6/2031) makes cross-border mileage toll-<em>favourable</em> for electric, not unfavourable.</li>
       <li><strong>Post-2029 Belgian ZEV treatment is legally undefined.</strong> The EU proposal (COM(2025)348, European Parliament-approved 7/10/2025) would extend a full ZEV toll exemption to 30/6/2031, but it is not yet transposed into Belgian regional law. The default uses the conservative <strong>"cliff"</strong> (ZEV pays full infrastructure from 2030); the panel lets you switch to "extend to 2031" or "permanent 25% of infra". This is the single largest toll uncertainty in the model.</li>
       <li><strong>Subsidy ceiling up to 70%</strong> on charging infrastructure — EU AFIF (up to 50%) stacked with the Flemish Ecologiepremie+ / VLIF; above 70% requires individual state-aid notification. Modeled as received in years 2-4, not upfront.</li>
@@ -1633,6 +1637,46 @@
     <p style="margin:0 0 8px;"><strong>And the Belgian peak-demand charge (capaciteitstarief)?</strong> Belgium bills businesses partly on their <strong>monthly peak power</strong> (maandpiek, €/kW). For naïve simultaneous charging this would be brutal — but because overnight software keeps the peak at ~65 kW/truck instead of 400 kW, the billable peak (and the charge) drops by roughly <strong>4–6×</strong>. It becomes a normal, manageable operating cost rather than a deal-breaker — which is exactly why no battery buffer is needed to control it.</p>
 
     <p style="margin:0; font-size:11px;">Turnkey ranges are planning-grade (±30%), triangulated from Alpitronic retail pricing (~€255/kW anchor), Smart Freight Centre, McKinsey, ICCT and 2025–2026 vendor data; high-power split systems (Huawei, Kempower, Siemens) are quote-only. These per-truck figures (≈€37k at 20 trucks falling to ~€23k at 200) sit in line with — and deliberately at the cautious end of — independent benchmarks: NACFE/RMI field data reports €14–19k per truck at scale, and the Fraunhofer/Transport &amp; Environment depot-charging study (2025) puts infrastructure + grid connection at roughly €0.06/km for overnight (50 kW) charging. If anything this model is conservative, not optimistic. Get site-specific quotes before committing. Belgian grid context: Fluvius/VREG 2026 capacity tariffs, MV connection &gt;250 kVA.</p>
+
+    <div class="warn" style="margin-top:10px;"><strong>One thing this CAPEX figure cannot buy: a place in the queue.</strong> The turnkey price assumes the grid operator can give you the connection. On congested parts of the network that is now the binding constraint — waits of several years are normal for heavier connections, and 45% of Dutch feeding areas had an offtake shortage with a waiting list in August 2026. The overnight design here (~65 kW/truck instead of 400 kW) is deliberately the version most likely to fit inside existing capacity. <a href="#explain-grid" style="color:var(--accent);font-weight:700;">Grid capacity — full note</a></div>
+  </div>
+
+  <!-- GRID CAPACITY / CONGESTION EXPLANATION (info-button target) -->
+  <div class="footer-note explain-target" id="explain-grid">
+    <h4>Grid capacity — the constraint that decides <em>when</em> you can start</h4>
+    <p style="margin:0 0 8px;">Everything above prices the trucks and the chargers. This section is about the one thing money cannot buy quickly: <strong>a big enough electricity connection at the depot</strong>. The toll and fuel savings are real from the first kilometre, but you only collect them once the depot can actually charge. On congested parts of the network the connection, not the truck order, sets the start date — so it belongs in the business case as a <strong>schedule risk</strong>, not a line of cost.</p>
+
+    <h4 style="margin-top:12px;">How full is the network, in numbers</h4>
+    <p style="margin:0 0 8px;">The Dutch figures are the ones that are published in detail, and they matter directly here: the default profile sends 18% of tolled kilometres to the Netherlands, and any operator with a Dutch depot or distribution centre is inside this problem.</p>
+    <div class="inv-scrollx">
+    <table>
+      <thead><tr><th>Indicator (Netherlands)</th><th class="num">Figure</th></tr></thead>
+      <tbody>
+        <tr class="zr"><td>Feeding areas with an offtake shortage <em>and</em> a waiting list (Aug 2026)</td><td class="num">45% of 952</td></tr>
+        <tr class="zr"><td>Same, for feed-in back to the grid</td><td class="num">9%</td></tr>
+        <tr class="zr"><td>Offtake capacity queued nationally</td><td class="num">31 351 MW</td></tr>
+        <tr class="zr"><td>Feed-in capacity queued nationally</td><td class="num">28 312 MW</td></tr>
+        <tr class="zr"><td>Applications waiting at regional grid operators (end 2025)</td><td class="num">15 014 offtake · 8 687 feed-in</td></tr>
+        <tr class="zr"><td>Worst regions, share of feeding areas short with a queue</td><td class="num">Noord-Holland 75,2% · Friesland 55,2% · Gelderland 52,9%</td></tr>
+        <tr class="zr"><td>Typical wait for a heavier connection in logistics</td><td class="num">3–7 years</td></tr>
+        <tr class="zn"><td colspan="2">Plus a few hundred applications at the national transmission operator. Since <strong>1 July 2026</strong> small consumers in congested areas join the waiting list too, with social priority for housing, schools and hospitals — so a depot upgrade is no longer competing only with other industry. Estimates of the wider economic cost of congestion vary widely; a commonly cited order of magnitude is <strong>€10–35 billion per year</strong>.</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <div class="warn" style="margin-top:10px;"><strong>Read this as a timing risk, not a reason to stay diesel.</strong> Congestion does not make electric more expensive per kilometre — the toll and energy savings in this model are unaffected. It changes <em>when the first truck can plug in</em>, and therefore when the savings start. A case that clears the hurdle comfortably on paper can still disappoint if the connection lands three years late, which is why the connection application should start before the truck order, not after it.</div>
+
+    <h4 style="margin-top:12px;">What actually gets you around it</h4>
+    <p style="margin:0 0 8px;">The good news is that the charging design in this model is already the low-congestion one. Overnight smart charging holds the depot at roughly <strong>65 kW per truck</strong> instead of the truck's 400 kW maximum — a 6× smaller connection for the same energy — so the request you put in front of the grid operator is far more likely to fit inside existing capacity. Beyond that, the standard "behind-the-meter" toolkit applies:</p>
+    <ul style="margin:0; padding-left:18px; line-height:1.65;">
+      <li><strong>Smart charging and an energy management system</strong> — spread the load across the whole night window and cap the site peak. This is already assumed in the model and is the single cheapest measure.</li>
+      <li><strong>Rooftop solar</strong> — most depot roofs are large and empty. It reduces what you draw at the meter, though it produces little during the overnight window when trucks actually charge.</li>
+      <li><strong>Battery storage (BESS)</strong> — deliberately excluded from the base case because a flat overnight load does not need it. It becomes worthwhile precisely when the grid connection is <strong>hard-capped below your managed peak</strong>, which is what congestion does. If the grid operator offers less power than you need, price a battery back in.</li>
+      <li><strong>A flexible or time-bound connection contract</strong> — accepting curtailment at peak hours can move you up the queue considerably, and overnight charging is unusually well suited to it, because the hours you need are the hours the network is quietest.</li>
+      <li><strong>Phasing the fleet</strong> — size the first connection for the trucks you can actually charge, and treat later expansion as a separate application started early.</li>
+    </ul>
+    <p style="margin:8px 0 0;"><strong>Belgium is not immune, but it is not the same picture.</strong> The detailed figures above are Dutch; Belgium publishes nothing directly comparable, and the Flemish network is generally less saturated than the worst Dutch regions. The Belgian constraint shows up differently — in the capacity tariff (maandpiek) that bills you on monthly peak power, which the overnight smart-charging design already keeps low. Treat the Dutch numbers as the evidence for <em>why</em> to apply early and design for a modest connection, not as a forecast of your own Belgian lead time. Ask your grid operator for the capacity at your specific address before committing to a delivery date.</p>
+    <p style="margin:8px 0 0;font-size:11px;">Sources: national congestion statistics per August 2026 and the end-2025 application backlog; the 1/7/2026 rule extending waiting lists to small consumers; sector reporting on logistics connection lead times and behind-the-meter mitigation. Re-check before fixing any deployment date — these figures move every quarter.</p>
   </div>
 
   <!-- DEPRECIATION EXPLANATION (info-button target) -->
@@ -1688,7 +1732,8 @@
   <div class="footer-note">
     <h4>Why these numbers are realistic</h4>
     <ul>
-      <li><strong>Tolls dominate the Belgian case:</strong> from 1 July 2026 a &gt;32t diesel truck pays €0.286/km in Flanders vs €0.038/km for a zero-emission truck (2026 rate) — at 117,000 km/yr that is a ~€29k/truck/yr toll saving alone, before the post-2029 scenario.</li>
+      <li><strong>Tolls dominate the Belgian case:</strong> from 1 July 2026 a &gt;32t diesel truck pays €0.286/km in Flanders vs €0.038/km for a zero-emission truck (2026 rate) — at 117,000 km/yr that is a ~€29k/truck/yr toll saving alone, before the post-2029 scenario. Dutch kilometres now pull the same way: at the published 2027 rates the vrachtwagenheffing is €0.206/km for diesel and €0.040/km for electric.</li>
+      <li><strong>The grid, not the truck, is the schedule risk.</strong> Tolls decide whether electric pays; the electricity connection decides <em>when</em> you can start. Waiting times for a heavier connection run to several years in the worst Dutch regions, which is why the model treats the depot connection as a project milestone rather than a purchase — see the grid-capacity note.</li>
       <li><strong>Maintenance is period-specific:</strong> diesel €95k/€151k/€240k cumulative over 5/7/10 yr (non-linear escalation); electric is a research-based fraction of that (ICCT ~70%, TNO ~50%), selectable above.</li>
       <li><strong>Diesel price (pump vs net):</strong> the slider shows the pump price; Belgium refunds €0.1913/L excise to professional fleets in 2026 (down from €0.1924 in 2025) — calculations use the net price.</li>
       <li><strong>Subsidy range:</strong> AFIF caps at 50% of eligible infra (70% in special cases); stacked with Flemish Ecologiepremie+ / VLIF you reach 50-70%.</li>
@@ -1697,7 +1742,8 @@
     <h4>Sensitivities you can test</h4>
     <ul>
       <li>Shift mileage to <strong>Germany</strong>: diesel tolls jump to €0.348/km, widening the gap further (electric stays low).</li>
-      <li>Shift mileage to <strong>France/Luxembourg</strong>: electric and diesel pay the same toll there, so the toll advantage shrinks and the case leans on fuel + maintenance.</li>
+      <li>Shift mileage to <strong>France</strong>: electric and diesel pay the same péage there, so the toll advantage shrinks and the case leans on fuel + maintenance. <strong>Luxembourg</strong> is not a per-kilometre zone at all — it still runs on the time-based Eurovignet, which the Netherlands left on 1/7/2026 — so Luxembourg kilometres are simply outside this engine.</li>
+      <li>Shift mileage to the <strong>Netherlands</strong>: at the published 2027 rates that is €0.206/km diesel against €0.040/km electric, so Dutch kilometres now <em>strengthen</em> the case rather than dilute it.</li>
       <li>Raise the <strong>diesel price</strong> or extend the <strong>contract length</strong>: both improve the electric case.</li>
       <li>Switch the <strong>maintenance scenario</strong>: from conservative (80% of diesel) to best case (30%) — see how sensitive the case is to the electric-maintenance assumption.</li>
     </ul>
@@ -1739,6 +1785,20 @@
     DE:    { d: 0.348, infra: 0.135,  vat: 0   },   // Germany national Maut incl. €200/t CO₂; ZEV €0 thru 2030, then 25% infra
     FR:    { d: 0.220, zevFlat: 0.220, vat: 0  }    // France péage concession AVG (class 4); no ZEV differentiation → ZEV = diesel
   };
+  // Officially PUBLISHED per-year rates. Where a year is published, the engine uses that exact
+  // figure and indexes FORWARD FROM IT — never from the 2026 base — so a confirmed tariff is
+  // never overwritten by the generic indexation slider.
+  // NL 2027: vrachtwagenheffing tariffs confirmed at +2.6% indexation (vrachtwagenheffing.nl);
+  // >32t diesel €0.206/km, zero-emission €0.040/km. Cross-check: at 10 000 km on the charged
+  // network that is €2 060 diesel vs €400 electric.
+  const TOLL_PUBLISHED = {
+    NL: { 2027: { d: 0.206, zev: 0.040 } }
+  };
+  // Netherlands only — temporary across-the-board rebate of 22.3% on ALL vrachtwagenheffing
+  // tariffs from 1/9/2026 to 31/12/2026 (average rate €0.191 → €0.148/km; >32t diesel
+  // €0.201 → €0.156, ZEV €0.038 → €0.0295). It expires before the model's first cashflow
+  // year (2027), so it is shown as context only and deliberately does NOT touch the P&L.
+  const NL_REBATE_2026 = 0.223, NL_REBATE_FROM = '1 Sep 2026', NL_REBATE_TO = '31 Dec 2026';
   // Display order + metadata for the unified zone-split UI (BR = motorway/inner-urban sub-split)
   const ZONES = [
     { key:'VL', cfg:'splitVL', name:'Flanders',    color:'#1e4d6b' },
@@ -1765,13 +1825,27 @@
     if (scen === 'extend_2031') return (cy <= 2030) ? 0 : 1.0; // EU proposal: full exempt thru 2030, then cliff
     return 1.0;                                          // cliff (default): ZEV pays 100% of infrastructure
   }
+  // Most recent PUBLISHED rate at or before calendar year cy, or null if none.
+  function tollAnchor(region, cy, kind) {
+    const P = TOLL_PUBLISHED[region];
+    if (!P) return null;
+    let best = null;
+    for (const y in P) { const yy = +y; if (yy <= cy && P[y][kind] != null && (best === null || yy > best)) best = yy; }
+    return best === null ? null : { year: best, rate: P[best][kind] };
+  }
   function tollDieselRate(region, cy, idx) {
+    const a = tollAnchor(region, cy, 'd');
+    if (a) return a.rate * Math.pow(1 + idx, cy - a.year);                  // index forward from the published year
     return TOLL_REGION[region].d * Math.pow(1 + idx, cy - TOLL_BASE_YEAR);
   }
   function tollZevRate(region, cy, idx, scen) {
     const R = TOLL_REGION[region], esc = Math.pow(1 + idx, cy - TOLL_BASE_YEAR);
     if (region === 'WA') return tollDieselRate('WA', cy, idx);              // Wallonia: no green discount
-    if (region === 'NL' || region === 'FR') return R.zevFlat * esc;         // NL 80%-discount flat; FR = diesel (no ZEV yet)
+    if (region === 'NL') {                                                  // NL 80%-discount flat, published years pinned
+      const a = tollAnchor('NL', cy, 'zev');
+      return a ? a.rate * Math.pow(1 + idx, cy - a.year) : R.zevFlat * esc;
+    }
+    if (region === 'FR') return R.zevFlat * esc;                            // FR = diesel (no ZEV differentiation yet)
     if (region === 'DE') return (cy <= DE_ZEV_FREE_UNTIL) ? 0 : 0.25 * R.infra * esc; // €0 thru 2030, then ~25% infra (German law)
     return R.infra * esc * tollPayFactor(cy, scen);                         // Belgian VL/BR: infra × pay-factor schedule
   }

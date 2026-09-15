@@ -1244,30 +1244,30 @@
           </div>
           <div class="math-formula">
             <div class="math-fhead"><div class="math-label">ROI on total CAPEX</div><div class="math-result" id="m-roiTot">= 101%</div></div>
-            <div class="math-expr">ROI<sub>tot</sub> = B ÷ CAPEX<sub>e</sub></div>
-            <div class="math-words">return on total CAPEX = net benefit ÷ total electric CAPEX</div>
-            <div class="math-note">B = the net benefit (nominal): all operating savings + subsidy + residual, minus the extra upfront investment. Divided by the full electric CAPEX. Undiscounted multiple, not an annual rate — see MIRR below for that.</div>
+            <div class="math-expr">ROI<sub>tot</sub> = (TCO<sub>d</sub> − TCO<sub>e</sub>) ÷ CAPEX<sub>e</sub></div>
+            <div class="math-words">return on total CAPEX = TCO saving ÷ what the electric fleet costs to buy</div>
+            <div class="math-note">The TCO saving is row 3 of the TCO table: all the diesel fleet costs over the contract minus all the electric fleet costs. Subsidy and resale value are not in it; they only appear in the cashflow. A plain ratio over the whole contract, not a yearly return (for that, see MIRR below).</div>
             <div class="math-sub" id="m-roiTot-sub"></div>
           </div>
           <div class="math-formula">
             <div class="math-fhead"><div class="math-label">ROI on incremental investment</div><div class="math-result" id="m-roiDelta">= 205%</div></div>
-            <div class="math-expr">ROI<sub>Δ</sub> = B ÷ ΔCAPEX</div>
-            <div class="math-words">return on extra CAPEX = net benefit ÷ the extra investment</div>
-            <div class="math-note">Same net benefit B divided by only the extra money over diesel — higher, because the diesel cost would have been spent anyway. Still a multiple, not annualized.</div>
+            <div class="math-expr">ROI<sub>Δ</sub> = (TCO<sub>d</sub> − TCO<sub>e</sub>) ÷ ΔCAPEX</div>
+            <div class="math-words">return on the extra investment = TCO saving ÷ the extra money over diesel</div>
+            <div class="math-note">The same TCO saving, divided only by the extra money over diesel, because the diesel trucks would have been bought anyway. Also a plain ratio, not a yearly return.</div>
             <div class="math-sub" id="m-roiDelta-sub"></div>
           </div>
           <div class="math-formula">
             <div class="math-fhead"><div class="math-label">Avg annual OPEX saving</div><div class="math-result" id="m-opexYr">= €4.10 M / yr</div></div>
             <div class="math-expr">ΔOPEX<sub>/yr</sub> = ΔOPEX ÷ y</div>
             <div class="math-words">average yearly saving = running-cost saving ÷ years</div>
-            <div class="math-note">Spread the total operating savings evenly across the contract years.</div>
+            <div class="math-note">The running-cost saving of the whole contract, divided by the number of years. Only an average to show the size; the cashflow (§7) uses each year's own saving.</div>
             <div class="math-sub" id="m-opexYr-sub"></div>
           </div>
           <div class="math-formula highlight green">
             <div class="math-fhead"><div class="math-label">Payback period</div><div class="math-result" id="m-pb">= 2.30 years</div></div>
-            <div class="math-expr">T<sub>p</sub> = ΔCAPEX ÷ ΔOPEX<sub>/yr</sub></div>
-            <div class="math-words">payback time = extra investment ÷ average yearly saving</div>
-            <div class="math-note">Divide the extra upfront investment by the average yearly saving — how long until the savings repay the extra cost.</div>
+            <div class="math-expr">T<sub>p</sub> = (k − 1) + |Cum<sub>k−1</sub>| ÷ CF<sub>k</sub></div>
+            <div class="math-words">payback time = the full years the running total is still below zero + the part of the next year it needs to reach zero</div>
+            <div class="math-note">k is the first year the running total from §7 is above zero (the ✓ in the cashflow table). Within that year the money is taken to come in evenly.</div>
             <div class="math-sub" id="m-pb-sub"></div>
           </div>
           <div class="math-formula highlight green">
@@ -1295,17 +1295,17 @@
         <h4>Per truck</h4>
         <div class="math-derive">
           <div class="math-formula">
-            <div class="math-fhead"><div class="math-label">TCO savings per truck</div><div class="math-result" id="m-Spt">= €241k / truck</div></div>
-            <div class="math-expr">S<sub>/truck</sub> = S ÷ N</div>
-            <div class="math-words">net benefit per truck = total net benefit (€M) × 1,000 ÷ number of trucks (→ €k)</div>
-            <div class="math-note">Take the fleet savings S (in €M), multiply by 1000 to convert €M → €k, then divide by the number of trucks N to get the saving for one truck.</div>
+            <div class="math-fhead"><div class="math-label">TCO saving per truck</div><div class="math-result" id="m-Spt">= €241k / truck</div></div>
+            <div class="math-expr">ΔTCO<sub>/truck</sub> = (TCO<sub>d</sub> − TCO<sub>e</sub>) ÷ N</div>
+            <div class="math-words">TCO saving per truck = TCO saving of the fleet ÷ number of trucks</div>
+            <div class="math-note">The TCO table shows this number in its per-truck view. Subsidy and resale value are not in it. “Saving/truck” at the top of the page does count them, so that figure is a little higher.</div>
             <div class="math-sub" id="m-Spt-sub"></div>
           </div>
           <div class="math-formula">
             <div class="math-fhead"><div class="math-label">Incremental CAPEX per truck</div><div class="math-result" id="m-dCapexpt">= €118k / truck</div></div>
             <div class="math-expr">ΔCAPEX<sub>/truck</sub> = ΔCAPEX ÷ N</div>
-            <div class="math-words">extra investment per truck = total extra investment (€M) × 1,000 ÷ number of trucks (→ €k)</div>
-            <div class="math-note">Take the extra fleet investment ΔCAPEX, ÷ N for the extra cost of one electric truck over a diesel one.</div>
+            <div class="math-words">extra investment per truck = extra investment of the fleet ÷ number of trucks</div>
+            <div class="math-note">How much more one electric truck, with its share of the chargers, costs to buy than one diesel truck.</div>
             <div class="math-sub" id="m-dCapexpt-sub"></div>
           </div>
         </div>
@@ -1316,34 +1316,36 @@
     <div class="math-section">
       <div class="math-section-num">§7</div>
       <div class="math-section-body">
-        <h4>Cashflow distribution over years</h4>
-        <p>The annual cashflow uses a realistic growing OPEX-saving curve (savings increase over time as diesel maintenance escalates), not a flat line. Subsidies land in years 2-4; residual value lands in the final year.</p>
+        <h4>Cashflow year by year</h4>
+        <p>How the cashflow table is filled in. Year 0 is the extra money the electric fleet costs to buy. After that, every year counts on its own: that year's saving, a subsidy in years 2 to 4, and the resale value in the last year.</p>
         <div class="math-derive">
           <div class="math-formula">
-            <div class="math-fhead"><div class="math-label">Year-t OPEX saving</div><div class="math-result"></div></div>
-            <div class="math-expr">ΔOPEX<sub>t</sub> = (ΔOPEX ÷ y) × [0.75 + 0.40 × (t−1)/(y−1)]</div>
-            <div class="math-words">saving in year t = the average yearly saving, ramped from 75% in year 1 up to ~115% in the final year (diesel costs climb faster with inflation)</div>
-            <div class="math-note">The average yearly saving is tilted: 75% of average in year 1 rising to 115% in the final year, then rescaled so the years still add up exactly to ΔOPEX.</div>
+            <div class="math-fhead"><div class="math-label">Saving in year t</div><div class="math-result" id="m-cfSave">= €1.89 M → €3.52 M</div></div>
+            <div class="math-expr">ΔOPEX<sub>t</sub> = OPEX<sub>d,t</sub> − OPEX<sub>e,t</sub></div>
+            <div class="math-words">saving in year t = what the diesel fleet costs to run that year − what the electric fleet costs to run that year</div>
+            <div class="math-note">Worked out for each year with that year's prices: fuel and power go up with inflation, maintenance goes up as the trucks get older, and tolls follow each calendar year's rates.</div>
+            <div class="math-sub" id="m-cfSave-sub"></div>
           </div>
           <div class="math-formula">
-            <div class="math-fhead"><div class="math-label">Subsidy total</div><div class="math-result" id="m-subtot">= €1.37 M</div></div>
+            <div class="math-fhead"><div class="math-label">Subsidy</div><div class="math-result" id="m-subtot">= €0.00 M</div></div>
             <div class="math-expr">Subsidy = CAPEX<sub>e,c,gross</sub> × s/100</div>
-            <div class="math-words">subsidy = gross charging-infrastructure cost × subsidy percentage</div>
-            <div class="math-note">The subsidy amount equals the gross charger cost times the subsidy percentage. It is paid out across years 2, 3 and 4 (34% / 33% / 33%).</div>
+            <div class="math-words">subsidy = cost of the chargers × subsidy %</div>
+            <div class="math-note">Paid after the chargers are in: 34% in year 2, 33% in year 3 and 33% in year 4. In the table it lowers the electric cost of those years.</div>
             <div class="math-sub" id="m-subtot-sub"></div>
           </div>
           <div class="math-formula">
-            <div class="math-fhead"><div class="math-label">Residual value (final year)</div><div class="math-result" id="m-resid">= €0.96 M</div></div>
+            <div class="math-fhead"><div class="math-label">Resale value (last year)</div><div class="math-result" id="m-resid">= €0.32 M</div></div>
             <div class="math-expr">Residual = V<sub>r</sub> × N</div>
-            <div class="math-words">residual value = resale value per truck × number of trucks</div>
-            <div class="math-note">Net residual benefit per truck for the chosen period (€18k/€12k/€5k for 5/7/10 yr — lower for longer contracts because the truck is older) × N.</div>
+            <div class="math-words">resale value = extra resale per truck × number of trucks</div>
+            <div class="math-note">What an electric truck still sells for at the end, minus what a diesel would have sold for. It depends on the contract length and on the choice under “Depreciation / residual value”. Counted once, in the last year, where it lowers the electric cost in the table.</div>
             <div class="math-sub" id="m-resid-sub"></div>
           </div>
-          <div class="math-formula">
-            <div class="math-fhead"><div class="math-label">Cumulative cashflow</div><div class="math-result"></div></div>
-            <div class="math-expr">Cum<sub>t</sub> = Cum<sub>t-1</sub> + ΔOPEX<sub>t</sub> + Subsidy<sub>t</sub> + Residual<sub>t</sub></div>
-            <div class="math-words">running total this year = last year's total + this year's saving + any subsidy + (final year) the residual value</div>
-            <div class="math-note">Start at −ΔCAPEX in year 0, then each year add that year's operating saving, any subsidy, and (final year) the residual. The ✓ marks the first year the running total turns positive.</div>
+          <div class="math-formula highlight green">
+            <div class="math-fhead"><div class="math-label">Cumulative</div><div class="math-result" id="m-cum">= €9.04 M</div></div>
+            <div class="math-expr">Cum<sub>0</sub> = −ΔCAPEX &nbsp;·&nbsp; Cum<sub>t</sub> = Cum<sub>t−1</sub> + ΔOPEX<sub>t</sub> + Subsidy<sub>t</sub> + Residual<sub>t</sub></div>
+            <div class="math-words">total so far = last year's total + this year's saving + any subsidy + any resale value</div>
+            <div class="math-note">It starts below zero by the extra investment and each year adds to it. The ✓ marks the first year above zero; the last number is the total saving from §5.</div>
+            <div class="math-sub" id="m-cum-sub"></div>
           </div>
         </div>
       </div>
@@ -1686,8 +1688,8 @@
     <table>
       <thead><tr><th>Scenario</th><th class="num">5 yr</th><th class="num">7 yr</th><th class="num">10 yr</th><th>Rationale</th></tr></thead>
       <tbody>
-        <tr><td>Conservative</td><td class="num">€8k</td><td class="num">€4k</td><td class="num">€1k</td><td>Unproven brand, thin second-hand market, fast EV tech obsolescence.</td></tr>
-        <tr><td>Central (default)</td><td class="num">€18k</td><td class="num">€12k</td><td class="num">€5k</td><td>Realistic resale for an established e-truck with battery warranty.</td></tr>
+        <tr><td>Conservative (default)</td><td class="num">€8k</td><td class="num">€4k</td><td class="num">€1k</td><td>Unproven brand, thin second-hand market, fast EV tech obsolescence.</td></tr>
+        <tr><td>Central</td><td class="num">€18k</td><td class="num">€12k</td><td class="num">€5k</td><td>Realistic resale for an established e-truck with battery warranty.</td></tr>
         <tr><td>Optimistic</td><td class="num">€30k</td><td class="num">€20k</td><td class="num">€10k</td><td>Strong resale / warranty-backed, healthy used-EV demand.</td></tr>
       </tbody>
     </table>
@@ -2574,6 +2576,7 @@
       eCapexTrucks, eChargersGross, eCapex, eEnergy, eTolls, eMaint, eOther, eOpex, eTco,
       dltCapex, dltOpex, tcoSavings, roiTotal, roiDelta, payback, avgOpexSaving,
       residualTotal, subsidyTotal, irrPct, npv, totalCashBenefit,
+      dOpexY, eOpexY, cfs, deprMode,
       dCons, eCons, gridEcons, chargingLoss, eLoss, eEnergyWheel, FD, FE, dTruckK, RD,
       ownershipSaving, netBenefitNom, pvInflows, dltTco,
       vendorName: (VENDORS[vendorKey] || VENDORS.huawei).name, costBand,
@@ -2591,11 +2594,11 @@
   function signedPct(n){ return (n<0?'−':'+')+Math.round(Math.abs(n))+'%'; }
 
   function updateMath(p) {
-    const eK = k => '€' + Math.round(k * 1000).toLocaleString('en-US').replace(/,/g, ' ');   // €k → full euros
-    const eM6 = m => '€' + Math.round(m * 1e6).toLocaleString('en-US').replace(/,/g, ' ');   // €M → full euros
-    const fM = v => '= €' + v.toFixed(2) + ' M';
+    const eK = k => (k < 0 ? '−' : '') + '€' + Math.round(Math.abs(k) * 1000).toLocaleString('en-US').replace(/,/g, ' ');   // €k → full euros
+    const eM6 = m => (m < 0 ? '−' : '') + '€' + Math.round(Math.abs(m) * 1e6).toLocaleString('en-US').replace(/,/g, ' ');   // €M → full euros
+    const fM = v => '= ' + (v < 0 ? '−' : '') + '€' + Math.abs(v).toFixed(2) + ' M';
     const fL = v => '= €' + v.toFixed(2) + ' / L';
-    const fP = v => '= ' + Math.round(v) + '%';
+    const fP = v => '= ' + (Math.round(v) < 0 ? '−' : '') + Math.abs(Math.round(v)) + '%';
     const km = p.kmPerYear.toLocaleString('en-US').replace(/,/g, ' ');
     // §1
     setCell('m-N', p.trucks); setCell('m-y', p.years); setCell('m-Pe', p.truckPriceK);
@@ -2651,18 +2654,44 @@
     setCell('m-dCapex-sub', '= ' + p.eCapex.toFixed(2) + ' − ' + p.dCapex.toFixed(2)); setCell('m-dCapex', fM(p.dltCapex));
     setCell('m-dOpex-sub', '= ' + p.dOpex.toFixed(2) + ' − ' + p.eOpex.toFixed(2)); setCell('m-dOpex', fM(-p.dltOpex));
     setCell('m-S-sub', '= ' + p.totalCashBenefit.toFixed(2) + ' − ' + p.dltCapex.toFixed(2)); setCell('m-S', fM(p.netBenefitNom));
-    setCell('m-roiTot-sub', '= ' + p.ownershipSaving.toFixed(2) + ' ÷ ' + p.eCapex.toFixed(2)); setCell('m-roiTot', fP(p.roiTotal));
-    setCell('m-roiDelta-sub', '= ' + p.ownershipSaving.toFixed(2) + ' ÷ ' + p.dltCapex.toFixed(2)); setCell('m-roiDelta', fP(p.roiDelta));
+    const tcoSave = (p.ownershipSaving < 0 ? '−' : '') + Math.abs(p.ownershipSaving).toFixed(2);
+    setCell('m-roiTot-sub', '= ' + tcoSave + ' ÷ ' + p.eCapex.toFixed(2)); setCell('m-roiTot', fP(p.roiTotal));
+    setCell('m-roiDelta-sub', '= ' + tcoSave + ' ÷ ' + p.dltCapex.toFixed(2)); setCell('m-roiDelta', fP(p.roiDelta));
     setCell('m-opexYr-sub', '= ' + (-p.dltOpex).toFixed(2) + ' ÷ ' + p.years); setCell('m-opexYr', '= €' + p.avgOpexSaving.toFixed(2) + ' M / yr');
-    setCell('m-pb-sub', '= solve cumulative cashflow = 0'); setCell('m-pb', '= ' + (p.payback === Infinity ? '>' + p.years : p.payback.toFixed(2)) + ' years');
+    setCell('m-pb-sub', (() => {
+      if (p.payback === 0) return '= no extra investment to pay back';
+      if (p.payback === Infinity) return '= the running total stays below zero for all ' + p.years + ' years';
+      let cum = p.cfs[0], k = 1;
+      while (k < p.cfs.length && cum + p.cfs[k] < 0) { cum += p.cfs[k]; k++; }
+      return '= ' + (k - 1) + ' + ' + Math.abs(cum).toFixed(2) + ' ÷ ' + p.cfs[k].toFixed(2);
+    })()); setCell('m-pb', p.payback === Infinity ? '= more than ' + p.years + ' years' : '= ' + p.payback.toFixed(2) + ' years');
     setCell('m-irr-sub', '= ' + p.years + ' yearly flows, valued at ' + (p.disc*100).toFixed(1) + '%'); setCell('m-irr', '= ' + (p.irrPct === null ? 'n/a' : p.irrPct.toFixed(1) + '% / yr'));
-    setCell('m-npv-sub', '= −' + p.dltCapex.toFixed(2) + ' + Σ CFₜ ÷ (1+' + (p.disc*100).toFixed(1) + '%)ᵗ'); setCell('m-npv', '= €' + p.npv.toFixed(2) + ' M');
+    setCell('m-npv-sub', '= −' + p.dltCapex.toFixed(2) + ' + Σ CFₜ ÷ (1+' + (p.disc*100).toFixed(1) + '%)ᵗ'); setCell('m-npv', fM(p.npv));
     // §6
-    setCell('m-Spt-sub', '= ' + eM6(p.ownershipSaving) + ' ÷ ' + p.trucks); setCell('m-Spt', '= €' + Math.round(p.ownershipSaving * 1000 / p.trucks) + 'k / truck');
+    setCell('m-Spt-sub', '= ' + eM6(p.ownershipSaving) + ' ÷ ' + p.trucks); const sptK = Math.round(p.ownershipSaving * 1000 / p.trucks); setCell('m-Spt', '= ' + (sptK < 0 ? '−' : '') + '€' + Math.abs(sptK) + 'k / truck');
     setCell('m-dCapexpt-sub', '= ' + eM6(p.dltCapex) + ' ÷ ' + p.trucks); setCell('m-dCapexpt', '= €' + Math.round(p.dltCapex * 1000 / p.trucks) + 'k / truck');
     // §7
-    setCell('m-subtot-sub', '= ' + p.eChargersGross.toFixed(2) + ' × ' + p.subsidyPct + '/100'); setCell('m-subtot', fM(p.subsidyTotal));
-    setCell('m-resid-sub', '= ' + eK(p.residualPerTruck) + ' × ' + p.trucks); setCell('m-resid', fM(p.residualTotal));
+    const y1 = 0, yN = p.years - 1, f2 = v => v.toFixed(2), sM = v => (v < 0 ? '−' : '') + '€' + Math.abs(v).toFixed(2) + ' M';
+    // subtract the rounded costs, so the line shown adds up for a reader checking it
+    const r2 = v => Math.round(v * 100) / 100, saveShown = i => r2(p.dOpexY[i]) - r2(p.eOpexY[i]);
+    setCell('m-cfSave', '= ' + sM(saveShown(y1)) + ' → ' + sM(saveShown(yN)));
+    setCell('m-cfSave-sub', '= year 1: ' + f2(p.dOpexY[y1]) + ' − ' + f2(p.eOpexY[y1]) + ' = ' + f2(saveShown(y1))
+      + '  ·  year ' + p.years + ': ' + f2(p.dOpexY[yN]) + ' − ' + f2(p.eOpexY[yN]) + ' = ' + f2(saveShown(yN)));
+    setCell('m-subtot', fM(p.subsidyTotal));
+    setCell('m-subtot-sub', p.subsidyPct > 0
+      ? '= ' + f2(p.eChargersGross) + ' × ' + p.subsidyPct + '%'
+      : '= ' + f2(p.eChargersGross) + ' × 0% · no subsidy set');
+    setCell('m-resid', fM(p.residualTotal));
+    setCell('m-resid-sub', '= ' + eK(p.residualPerTruck) + ' × ' + p.trucks + ' · ' + p.deprMode + ' resale, after ' + p.years + ' years');
+    let cumRun = 0, crossed = false;
+    const cumSteps = p.cfs.map((cf, t) => {
+      cumRun += cf;
+      const mark = (t > 0 && cumRun >= 0 && !crossed) ? ' ✓' : '';
+      if (mark) crossed = true;
+      return (cumRun < 0 ? '−' : '+') + f2(Math.abs(cumRun)) + mark;
+    });
+    setCell('m-cum', '= ' + sM(cumRun));
+    setCell('m-cum-sub', '= ' + cumSteps.join(' → '));
     // §8
     setCell('m-Vfleet-sub', '= ' + p.totalCashBenefit.toFixed(2)); setCell('m-Vfleet', fM(p.totalCashBenefit));
     setCell('m-rFleet-sub', '= MIRR from yearly cashflows'); setCell('m-rFleet', '= ' + (p.irrPct === null ? 'n/a' : p.irrPct.toFixed(1) + '% / yr'));

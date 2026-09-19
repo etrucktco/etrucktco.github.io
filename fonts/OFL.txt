@@ -1,0 +1,3 @@
+Barlow and Barlow Condensed are (c) The Barlow Project Authors
+(https://github.com/jpt/barlow), licensed under the SIL Open Font
+License, Version 1.1: https://scripts.sil.org/OFL

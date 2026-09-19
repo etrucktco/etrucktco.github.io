@@ -4,8 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>eTruckCost · Will an electric truck save you money?</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2326231c'/%3E%3Cpath d='M18.2 3 9 18h5.6l-1.6 11L23 13.6h-6.1z' fill='%231faa6e'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="/fonts/fonts.css">
+<!-- Barlow staat op deze site zelf. Het @import naar Google hield het
+     tekenen van de pagina een halve seconde tegen (DNS, TLS en dan pas de
+     letters), en stuurde het adres van elke bezoeker naar Google. -->
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Barlow:wght@400;500;600;700&display=swap');
 
   :root{
     --ink:#16140f;
@@ -43,7 +47,7 @@
   .topbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:10px}
   .brand{font-family:var(--cond);font-weight:900;font-size:22px;letter-spacing:.02em;text-transform:uppercase;display:flex;align-items:center;gap:8px}
   .brand .plug{color:var(--volt)}
-  .brand .be{font-size:12px;background:var(--diesel);color:#fff;padding:2px 7px;border-radius:4px;font-weight:700;letter-spacing:.05em}
+  .brand .be{font-size:12px;background:var(--diesel-dark);color:#fff;padding:2px 7px;border-radius:4px;font-weight:700;letter-spacing:.05em}
   .cfo-link{font-size:12.5px;color:#cdbf9f;text-decoration:none;border:1px solid #4a4438;padding:6px 11px;border-radius:20px;white-space:nowrap;transition:.15s}
   .cfo-link:hover{background:#33302a;color:#fff}
 
@@ -172,7 +176,7 @@
   footer{margin-top:34px;background:var(--road);color:#a99e85;padding:24px 0 30px;font-size:12.5px}
   footer .wrap{display:flex;flex-direction:column;gap:8px}
   footer b{color:#e8e0cf}
-  footer a{color:var(--volt);text-decoration:none}
+  footer a{color:var(--volt);text-decoration:underline}
 
   .disc{font-size:11.5px;color:#9b8e72;margin-top:14px;line-height:1.5}
 
@@ -207,7 +211,7 @@
 <!-- TOP BAR -->
 <div class="topbar">
   <div class="wrap">
-    <a href="index.html" style="text-decoration:none;color:inherit"><div class="brand">e<span class="plug">⚡</span>TruckCost <span class="be">BE</span> <span id="ver-badge" style="font-size:10px;background:#1faa6e;color:#fff;padding:2px 6px;border-radius:4px;font-weight:700;letter-spacing:.03em;vertical-align:middle">v3</span></div></a>
+    <a href="index.html" style="text-decoration:none;color:inherit"><div class="brand">e<span class="plug">⚡</span>TruckCost <span class="be">BE</span> <span id="ver-badge" style="font-size:10px;background:#137a4d;color:#fff;padding:2px 6px;border-radius:4px;font-weight:700;letter-spacing:.03em;vertical-align:middle">v3</span></div></a>
     <a class="cfo-link" href="eTruckAnalysis.html"><span class="cfo-long">Need the </span>CFO version →</a>
   </div>
 </div>
@@ -371,7 +375,7 @@
   <div class="wrap">
     <div><b>eTruckCost.be</b> — the plain-language electric truck calculator for Belgian drivers and owners.</div>
     <div>For the detailed financial model (IRR, NPV, cashflow), see <a href="eTruckAnalysis.html">eTruckTCO.be</a>.</div>
-    <div style="color:#7d735d;margin-top:4px">Estimates for guidance only, calibrated for Belgium 2026. Not financial advice. Your real costs depend on your routes, energy contract and truck.</div>
+    <div style="color:#9a8f77;margin-top:4px">Estimates for guidance only, calibrated for Belgium 2026. Not financial advice. Your real costs depend on your routes, energy contract and truck.</div>
   </div>
 </footer>
 
@@ -574,7 +578,7 @@
     // inline year labels
     var yi=document.querySelectorAll('.yr-inline');
     for(var i=0;i<yi.length;i++) yi[i].textContent=r.years+' years';
-    var vb=$('ver-badge'); if(vb){vb.textContent='v3'; vb.style.background='#1faa6e';}
+    var vb=$('ver-badge'); if(vb){vb.textContent='v3'; vb.style.background='#137a4d';}
    }catch(err){
     var vb=$('ver-badge'); if(vb){vb.textContent='ERR'; vb.style.background='#b41e1e';}
     if(typeof console!=='undefined'&&console.error)console.error('render() failed:',err);

@@ -5,8 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>eTruckTCO · Electric truck cost &amp; business case for Belgium</title>
 <meta name="description" content="Will an electric truck save you money in Belgium? Pick the quick answer or the full CFO business case.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2326231c'/%3E%3Cpath d='M18.2 3 9 18h5.6l-1.6 11L23 13.6h-6.1z' fill='%231faa6e'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="/fonts/fonts.css">
+<!-- Barlow staat op deze site zelf. Het @import naar Google hield het
+     tekenen van de pagina een halve seconde tegen (DNS, TLS en dan pas de
+     letters), en stuurde het adres van elke bezoeker naar Google. -->
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Barlow:wght@400;500;600;700&display=swap');
   :root{
     --ink:#16140f;--paper:#f4efe4;--paper2:#ece4d3;--diesel:#b8772a;--diesel-dark:#8a5418;
     --volt:#1faa6e;--volt-dark:#137a4d;--volt-light:#d7f2e5;--line:#d8cdb6;--muted:#736b58;
@@ -22,7 +26,7 @@
   .topbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:10px}
   .brand{font-family:var(--cond);font-weight:900;font-size:23px;letter-spacing:.02em;text-transform:uppercase;display:flex;align-items:center;gap:8px}
   .brand .plug{color:var(--volt)}
-  .brand .be{font-size:12px;background:var(--diesel);color:#fff;padding:2px 7px;border-radius:4px;font-weight:700;letter-spacing:.05em}
+  .brand .be{font-size:12px;background:var(--diesel-dark);color:#fff;padding:2px 7px;border-radius:4px;font-weight:700;letter-spacing:.05em}
   .topbar .dom{font-size:12.5px;color:#cdbf9f;letter-spacing:.03em}
   .hero{text-align:center;padding:46px 0 8px}
   .kicker{font-family:var(--cond);font-weight:700;text-transform:uppercase;letter-spacing:.14em;font-size:14px;color:var(--diesel-dark)}
@@ -52,7 +56,7 @@
   .card.driver li .ck{color:var(--diesel)}
   .card.driver:hover{box-shadow:0 22px 46px -18px rgba(184,119,42,.7)}
   .badge{position:absolute;top:16px;right:16px;font-family:var(--cond);font-weight:800;text-transform:uppercase;letter-spacing:.05em;font-size:11.5px;padding:4px 10px;border-radius:20px}
-  .card.driver .badge{background:var(--diesel);color:#fff}
+  .card.driver .badge{background:var(--diesel-dark);color:#fff}
   .card.cfo{background:linear-gradient(160deg,var(--navy),var(--navy2));border-color:#2c3a45;color:#eef2f4;box-shadow:0 16px 38px -20px rgba(20,40,55,.7)}
   .card.cfo .ico{background:rgba(31,170,110,.16);color:var(--volt)}
   .card.cfo .who{color:#8fd9b6}
@@ -67,7 +71,7 @@
   footer{margin-top:auto;background:var(--road);color:#a99e85;padding:22px 0 28px;font-size:12.5px}
   footer .wrap{display:flex;flex-direction:column;gap:6px}
   footer b{color:#e8e0cf}
-  footer a{color:var(--volt);text-decoration:none}
+  footer a{color:var(--volt);text-decoration:underline}
   .third{display:block;margin:20px 0 0;padding:20px 24px;border-radius:18px;text-decoration:none;color:#eef2f4;
     background:linear-gradient(120deg,#2c1d10,#3d2714);border:2px solid #6b4520;
     display:flex;align-items:center;gap:18px;transition:transform .18s ease,box-shadow .18s ease}
@@ -160,7 +164,7 @@
   <div class="wrap">
     <div><b>eTruckTCO.be</b> — independent electric-truck cost comparison for Belgian fleets.</div>
     <div>Four ways in, same engine: the <a href="eTruckCost.html">quick answer</a>, the <a href="eTruckAnalysis.html">full CFO business case</a>, a <a href="compare.html">head-to-head between two trucks</a>, and the <a href="models.html">truck specifications</a> behind it all.</div>
-    <div style="color:#7d735d;margin-top:4px">Estimates for guidance only, calibrated for Belgium 2026. Not financial advice — your real costs depend on routes, energy contract and truck.</div>
+    <div style="color:#9a8f77;margin-top:4px">Estimates for guidance only, calibrated for Belgium 2026. Not financial advice — your real costs depend on routes, energy contract and truck.</div>
   </div>
 </footer>
 </body>

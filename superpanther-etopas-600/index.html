@@ -60,6 +60,11 @@ tbody td.src a{color:var(--volt-dark);text-decoration:none}
 .srcs li{padding:5px 0;border-bottom:1px solid var(--line)}
 .srcs li:last-child{border-bottom:0}
 .srcs a{color:var(--volt-dark)}
+.ours .intro{font-size:16px;max-width:72ch;margin-bottom:10px}
+.ours p{max-width:72ch;margin-top:10px}
+.ours .legend{font-size:12.5px;color:var(--muted);margin-top:8px}
+.conf{display:inline-block;font-family:var(--cond);font-weight:700;text-transform:uppercase;letter-spacing:.04em;
+  font-size:11.5px;padding:2px 7px;border-radius:5px;white-space:nowrap}
 .correct{background:var(--volt-light);border:1.5px solid #a9dec5;border-radius:14px;padding:16px 18px;margin:16px 0}
 .correct a{display:inline-block;margin-top:8px;background:var(--volt-dark);color:#fff;text-decoration:none;font-weight:700;
   padding:11px 18px;border-radius:999px}
@@ -105,6 +110,27 @@ footer a{color:#cdbf9f}
     </div>
   </div>
 
+<section class="block ours">
+  <h2>What we make of it</h2>
+  <p class="intro">A Chinese-designed long-haul tractor built in Austria: SuperPanther has its eTopas 600 assembled by Steyr Automotive in Steyr, on a 621 kWh LFP pack from CATL. It is the truck this site opens on, because it is the one a Belgian fleet can be quoted on today at a price under the European flagships.</p>
+  <div class="tblwrap"><table><tbody>
+<tr><th scope="row">Battery capacity<small>LFP cells from CATL. SuperPanther publishes this as the capacity; no separate net figure is given.</small></th><td>621 <span class="u">kWh</span></td><td class="src"><span class="conf" style="color:#137a4d;background:#d7f2e5">official</span></td></tr>
+<tr><th scope="row">Range, claimed<small>SuperPanther’s figure for one charge.</small></th><td>500 <span class="u">km</span></td><td class="src"><span class="conf" style="color:#137a4d;background:#d7f2e5">official</span></td></tr>
+<tr><th scope="row">Range, loaded<small>Driven, not claimed: up to about 600 km was reported in real-world testing without fully emptying the battery, which is the higher figure of the two and the one with conditions attached.</small></th><td>560 <span class="u">km</span></td><td class="src"><span class="conf" style="color:#8a5418;background:#fdf0dc">reported</span></td></tr>
+<tr><th scope="row">Range we would plan against<small>What we would schedule against year-round: winter, traffic and an arrival reserve included.</small></th><td>420–470 <span class="u">km</span></td><td class="src"><span class="conf" style="color:#5a4a8a;background:#eae6f7">our estimate</span></td></tr>
+<tr><th scope="row">Power<small>394 kW continuous, 692 kW peak, converted to horsepower.</small></th><td>536–941 <span class="u">hp</span></td><td class="src"><span class="conf" style="color:#137a4d;background:#d7f2e5">official</span></td></tr>
+<tr><th scope="row">Charging power, most<small>Not megawatt charging: two CCS2 plugs in parallel, 660 kW together. One CCS2 plug alone takes up to 400 kW. An MCS version has been announced but is not what is delivered today.</small></th><td>660 <span class="u">kW</span></td><td class="src"><span class="conf" style="color:#137a4d;background:#d7f2e5">official</span></td></tr>
+<tr><th scope="row">Charge 20 to 80 %<small>20 to 80 % on two CCS2 chargers at once. On one charger it takes about twice as long.</small></th><td>38 <span class="u">min</span></td><td class="src"><span class="conf" style="color:#137a4d;background:#d7f2e5">official</span></td></tr>
+<tr><th scope="row">Price, indicative<small>Our working assumption for a truck assembled in Austria without a published European price. SuperPanther publishes none; a quote is the only firm figure.</small></th><td>€220 000</td><td class="src"><span class="conf" style="color:#5a4a8a;background:#eae6f7">our estimate</span></td></tr>
+  </tbody></table></div>
+  <p class="legend"><span class="conf" style="color:#137a4d;background:#d7f2e5">official</span> published by the maker ·
+    <span class="conf" style="color:#8a5418;background:#fdf0dc">reported</span> named trade press ·
+    <span class="conf" style="color:#5a4a8a;background:#eae6f7">our estimate</span> ours, and said so</p>
+<p><b>The range.</b> Two figures, and they point the same way: 500 km is what SuperPanther claims on one charge, and about 600 km is what was driven in testing without emptying the pack. We plan against 420 to 470 km in Belgian conditions, which is the number the business case on this site uses.</p>
+<p><b>The charging.</b> The eTopas charges on ordinary CCS2, not on megawatt hardware: two plugs at once give 660 kW and 20 to 80 % in under 40 minutes. That matters for a depot — it is the charger you can already buy.</p>
+<p><b>The cost.</b> The price is the argument. At an assumed €220k the eTopas undercuts the European flagships by €80k to €100k, which is what the calculators on this site let you test against your own kilometres, your own electricity price and your own tolls.</p>
+</section>
+
   <div class="correct">
     <b>48 of 71 values are filled in.</b>
     Know one we are missing, or one that is wrong? This sheet is open for anyone to correct — type into it on eTRUCKTCO.eu, press Review &amp; send, and confirm the e-mail. It is on all three sites the moment we have checked it.
@@ -112,15 +138,12 @@ footer a{color:#cdbf9f}
   </div>
 
 <section class="block film">
-  <h2>On film</h2>
+  <h2>2 films</h2>
   <a class="filmlink" href="https://www.youtube.com/watch?v=RZ2J0_Fkpt4" rel="noopener" target="_blank">
     <img src="https://etrucktco.eu/assets/pic/superpanther-etopas-600-film-1.e46c0f763b.jpg" alt="The SuperPanther eTopas 600 on the test track at IAA Transportation 2026" loading="lazy" decoding="async">
     <span class="play" aria-hidden="true"></span>
   </a>
   <p class="cap">A test ride in the SuperPanther eTopas 600 at IAA Transportation 2026 — watch it on YouTube · Test ride · eTrucksAndChargers.com · 20 September 2026</p>
-</section>
-<section class="block film">
-  <h2>On film</h2>
   <a class="filmlink" href="https://www.youtube.com/watch?v=fdZTim_p4C4" rel="noopener" target="_blank">
     <img src="https://etrucktco.eu/assets/pic/superpanther-etopas-600-film-2.e52edc4112.jpg" alt="The cab of the SuperPanther eTopas 600 during the test ride at IAA Transportation 2026" loading="lazy" decoding="async">
     <span class="play" aria-hidden="true"></span>

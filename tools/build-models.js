@@ -36,30 +36,6 @@ function badge(conf) {
   return `<span class="badge" style="color:${b[1]};background:${b[2]}">${b[0]}</span>`;
 }
 
-// Render one spec field (single value or min/max band) into a table cell.
-function specCell(f, unit, opts) {
-  opts = opts || {};
-  if (!f) return '<td class="na">not published</td>';
-  let txt;
-  if (f.value !== undefined) {
-    txt = f.value == null ? null : (opts.money ? '€' + nf(f.value) : nf(f.value));
-  } else {
-    const lo = f.min, hi = f.max;
-    if (lo == null && hi == null) txt = null;
-    else if (lo == null) txt = (opts.money ? 'up to €' + nf(hi) : 'up to ' + nf(hi));
-    else if (hi == null) txt = (opts.money ? 'from €' + nf(lo) : 'from ' + nf(lo));
-    else txt = (opts.money ? '€' + nf(lo) + '–€' + nf(hi) : nf(lo) + '–' + nf(hi));
-  }
-  if (txt == null) return `<td class="na">not published${f.note ? footnote(f.note) : ''}</td>`;
-  return `<td><span class="val">${txt}${unit ? '<span class="unit"> ' + unit + '</span>' : ''}</span> ${badge(f.confidence)}${f.note ? footnote(f.note) : ''}</td>`;
-}
-
-let noteSeq = 0;
-function footnote(text) {
-  noteSeq++;
-  return `<details class="fn"><summary>why</summary><p>${esc(text)}</p></details>`;
-}
-
 /* ------------------------------------------------------------------- css */
 const CSS = `
   @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Barlow:wght@400;500;600;700&display=swap');
@@ -143,6 +119,15 @@ const CSS = `
   @media(max-width:760px){.grid2{grid-template-columns:1fr}h2{font-size:23px}}
 `;
 
+/* Where a truck's page is (20 September 2026). This generator used to write one
+   page per truck of its own; that page is now folded into the specification
+   sheet of the same truck, which scripts/build-be.mjs in the etrucktco-eu
+   repository writes at /<slug>/. Two pages about one truck on one site is one
+   too many. What is left here is the overview, the range calculator, and a
+   redirect where the old page stood. */
+const SHEET_SLUG = { 'windrose-r700': 'windrose-e700' };
+const sheetPath = (m) => '/' + (SHEET_SLUG[m.slug] || m.slug) + '/';
+
 /* ---------------------------------------------------------------- chrome */
 function head(o) {
   return `<!DOCTYPE html>
@@ -187,119 +172,12 @@ const FOOT = `</main>
 </body>
 </html>`;
 
+
 const LEGEND = `<div class="legend"><span>How firm is each number?</span>
   ${badge('official')}<span>manufacturer</span>
   ${badge('reported')}<span>named trade press</span>
   ${badge('derived')}<span>our arithmetic</span>
   ${badge('estimate')}<span>our estimate</span></div>`;
-
-
-// The price caveat only appears when a price on the page actually is an estimate.
-function priceWarn(m) {
-  const conf = m.variants.map(v => v.price_eur && v.price_eur.confidence);
-  const anyEstimate = conf.some(c => c === 'estimate' || c === 'derived');
-  const allOfficial = conf.every(c => c === 'official');
-  if (allOfficial) {
-    return `<div class="card"><p style="margin:0"><strong>This price comes from the manufacturer.</strong> It is a list price excluding local taxes, not a quote for your fleet. Put the figure you are actually offered into <a href="eTruckAnalysis.html" style="color:var(--volt-dark);font-weight:700">the full business case</a>, which lets you type your own purchase price.</p></div>`;
-  }
-  if (anyEstimate) {
-    return `<div class="card warn"><p style="margin:0"><strong>The prices on this page are estimates.</strong> No European list price is published for a fleet specification of this truck. Use them to frame the question, then put the real quote into <a href="eTruckAnalysis.html" style="color:var(--diesel-dark);font-weight:700">the full business case</a>, which lets you type your own purchase price.</p></div>`;
-  }
-  return '';
-}
-
-/* ----------------------------------------------------------- model page */
-function modelPage(m) {
-  const v0 = m.variants.find(v => v.headline) || m.variants[0];
-  const cols = m.variants;
-
-  const row = (label, key, unit, opts) =>
-    `<tr><th>${label}</th>${cols.map(v => specCell(v[key], unit, opts)).join('')}</tr>`;
-
-  const specTable = `
-  <div class="tblwrap"><table>
-    <caption>Key specifications</caption>
-    <thead><tr><th>Specification</th>${cols.map(v => `<th>${esc(v.label)}</th>`).join('')}</tr></thead>
-    <tbody>
-      <tr><th>Axle configuration</th>${cols.map(v => `<td><span class="val">${esc(v.axle_config)}</span></td>`).join('')}</tr>
-      ${row('Battery packs', 'battery_packs', '')}
-      ${row('Battery capacity', 'battery_kwh', 'kWh')}
-      ${row('Range — claimed', 'range_claimed_km', 'km')}
-      ${row('Range — loaded', 'range_loaded_km', 'km')}
-      ${row('Range — realistic band', 'range_realistic_km', 'km')}
-      ${row('Power', 'power_hp', 'hp')}
-      ${row('Charging power, max', 'charging_mcs_kw_max', 'kW')}
-      ${row('Charge 20–80%', 'charge_20_80_min', 'min')}
-      ${row('Price, indicative', 'price_eur', '', { money: true })}
-    </tbody>
-  </table></div>
-  ${LEGEND}`;
-
-  const rd = DATA.range_definitions;
-  const sources = m.sources.map(s => `<li><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a>
-      <span class="meta">— ${esc(s.publisher)}${s.date ? ', ' + esc(s.date) : ''}</span>
-      ${s.note ? `<span class="why">${esc(s.note)}</span>` : ''}</li>`).join('\n');
-
-  const jsonld = {
-    '@context': 'https://schema.org', '@type': 'Product',
-    name: m.full_name, brand: { '@type': 'Brand', name: m.brand },
-    category: m.positioning, description: m.og_summary,
-    url: `${SITE}/${m.slug}.html`
-  };
-
-  return head({
-    slug: m.slug,
-    title: `${m.full_name} — specs, real range and cost | eTruckTCO`,
-    desc: m.og_summary,
-    jsonld
-  }) + `
-<div class="wrap">
-  <div class="hero">
-    <div class="kicker">${esc(m.positioning)} · ${esc(m.brand)} · introduced ${m.year_introduced}</div>
-    <h1>${esc(m.full_name)}</h1>
-    <p class="lede">${esc(m.intro)}</p>
-  </div>
-
-  ${m.data_quality ? `<div class="card warn"><p style="margin:0"><strong>How solid is this page?</strong> ${esc(m.data_quality.note)}</p></div>` : ''}
-
-  <h2><span class="n">1</span>Key specifications</h2>
-  ${specTable}
-
-  <h2><span class="n">2</span>What "range" means here</h2>
-  <p>${esc(m.range_note)}</p>
-  <div class="card">
-    <h3>Three different numbers</h3>
-    <ul class="plain">
-      <li><span class="ck">1</span><span><strong>Claimed.</strong> ${esc(rd.claimed)}</span></li>
-      <li><span class="ck">2</span><span><strong>Loaded.</strong> ${esc(rd.loaded)}</span></li>
-      <li><span class="ck">3</span><span><strong>Realistic.</strong> ${esc(rd.realistic)}</span></li>
-    </ul>
-    <p style="margin:0"><a href="models.html#calculator" style="color:var(--volt-dark);font-weight:700">Work out the range for your own duty →</a></p>
-  </div>
-
-  <h2><span class="n">3</span>Charging</h2>
-  <p>${esc(m.charging_note)}</p>
-
-  <h2><span class="n">4</span>Price and running cost</h2>
-  <p>${esc(m.tco_note)}</p>
-  ${priceWarn(m)}
-
-  <h2><span class="n">5</span>Availability and markets</h2>
-  <div class="tblwrap"><table>
-    <tbody>
-      <tr><th>Markets</th><td><span class="val">${(m.markets.value || []).join(' · ')}</span> ${badge(m.markets.confidence)}${m.markets.note ? footnote(m.markets.note) : ''}</td></tr>
-      <tr><th>First shown</th><td><span class="val">${esc(m.availability.shown)}</span></td></tr>
-      <tr><th>Production</th><td>${esc(m.availability.production)} ${badge(m.availability.confidence)}</td></tr>
-    </tbody>
-  </table></div>
-
-  <h2><span class="n">6</span>Sources</h2>
-  <p>Everything above traces back to one of these. Where a figure is ours rather than theirs, the badge says so and the "why" note explains the arithmetic.</p>
-  <ul class="srclist">${sources}</ul>
-  <p style="margin-top:14px;font-size:13.5px;color:var(--muted)">Data last reviewed ${esc(DATA.updated)}. The machine-readable version of this page lives in <a href="data/trucks.json" style="color:var(--volt-dark)">data/trucks.json</a>.</p>
-</div>
-` + FOOT;
-}
 
 /* ------------------------------------------------- comparison + calculator */
 function modelsPage() {
@@ -317,7 +195,7 @@ function modelsPage() {
 
   const cards = models.map(m => {
     const v = m.variants.find(x => x.headline) || m.variants[0];
-    return `<a class="card" href="${m.slug}.html" style="text-decoration:none;color:inherit;display:block">
+    return `<a class="card" href="${sheetPath(m)}" style="text-decoration:none;color:inherit;display:block">
       <div class="kicker">${esc(m.positioning)}</div>
       <h3 style="margin:4px 0 6px;font-size:24px">${esc(m.full_name)}</h3>
       <p style="margin:0 0 10px;font-size:14.5px;color:#534c3d">${esc(m.og_summary)}</p>
@@ -523,12 +401,38 @@ function modelsPage() {
 ` + FOOT;
 }
 
+/* The page this generator used to write lives at the truck's own address now.
+   GitHub Pages cannot send a 301, so the old address says where it went in the
+   three ways that count: the canonical, a refresh, and a sentence. */
+function redirectPage(m) {
+  const to = sheetPath(m);
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>${esc(m.full_name)} — eTruckTCO.be</title>
+<link rel="canonical" href="${SITE}${to}">
+<meta http-equiv="refresh" content="0; url=${to}">
+<meta name="robots" content="noindex, follow">
+<style>body{font-family:-apple-system,'Barlow',sans-serif;background:#f4efe4;color:#16140f;display:flex;min-height:100vh;
+  align-items:center;justify-content:center;margin:0;padding:24px;text-align:center}
+a{color:#137a4d;font-weight:700}</style>
+</head>
+<body>
+<main><p>${esc(m.full_name)} has one page now, with everything on it:<br>
+<a href="${to}">etrucktco.be${to}</a></p></main>
+</body>
+</html>
+`;
+}
+
 /* -------------------------------------------------------------- run it */
 let written = 0;
 DATA.models.forEach(m => {
   const file = path.join(ROOT, m.slug + '.html');
-  fs.writeFileSync(file, modelPage(m), 'utf8');
-  console.log('  wrote ' + m.slug + '.html');
+  fs.writeFileSync(file, redirectPage(m), 'utf8');
+  console.log('  wrote ' + m.slug + '.html (redirect to ' + sheetPath(m) + ')');
   written++;
 });
 fs.writeFileSync(path.join(ROOT, 'models.html'), modelsPage(), 'utf8');

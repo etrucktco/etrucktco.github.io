@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Mercedes-Benz eActros 600 — specifications, battery, range and charging | eTruckTCO.be</title>
+<meta name="description" content="The eActros 600: 621 kWh of LFP, up to 560 km, 400 kW on a CCS2 charger with megawatt charging still to come, and the report's three-tonne payload question.">
+<link rel="canonical" href="https://etrucksandchargers.com/mercedes-benz-eactros-600/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="eTruckTCO.be">
+<meta property="og:title" content="Mercedes-Benz eActros 600 — specifications, battery, range and charging | eTruckTCO.be">
+<meta property="og:description" content="The eActros 600: 621 kWh of LFP, up to 560 km, 400 kW on a CCS2 charger with megawatt charging still to come, and the report's three-tonne payload question.">
+<meta property="og:url" content="https://etrucksandchargers.com/mercedes-benz-eactros-600/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2326231c'/%3E%3Cpath d='M18.2 3 9 18h5.6l-1.6 11L23 13.6h-6.1z' fill='%231faa6e'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="/fonts/fonts.css">
+<style>
+:root{--ink:#16140f;--paper:#f4efe4;--paper2:#ece4d3;--diesel:#b8772a;--diesel-dark:#8a5418;
+  --volt:#1faa6e;--volt-dark:#137a4d;--volt-light:#d7f2e5;--line:#d8cdb6;--muted:#736b58;
+  --road:#26231c;--navy:#1e2a33;--sans:'Barlow',-apple-system,sans-serif;--cond:'Barlow Condensed',sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:var(--sans);color:var(--ink);line-height:1.55;min-height:100vh;display:flex;flex-direction:column;
+  background:radial-gradient(110% 70% at 85% -5%, rgba(31,170,110,.12), transparent 55%),linear-gradient(180deg,var(--paper),var(--paper2))}
+.wrap{width:100%;max-width:1000px;margin:0 auto;padding:0 20px}
+.topbar{background:var(--road);color:#f4efe4;padding:11px 0;border-bottom:4px solid var(--diesel)}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.brand{font-family:var(--cond);font-weight:900;font-size:23px;letter-spacing:.02em;text-transform:uppercase;display:flex;align-items:center;gap:8px}
+.brand .plug{color:var(--volt)}
+.brand .be{font-size:12px;background:var(--diesel-dark);color:#fff;padding:2px 7px;border-radius:4px;font-weight:700;letter-spacing:.05em}
+.nav{display:flex;gap:16px;flex-wrap:wrap}
+.nav a{color:#cdbf9f;text-decoration:none;font-size:13.5px}
+.nav a:hover,.nav a[aria-current]{color:#fff}
+main{flex:1}
+.hero{padding:26px 0 6px}
+.crumbs{font-size:13px;color:var(--muted);margin-bottom:10px}
+.crumbs a{color:var(--volt-dark)}
+.kind{font-family:var(--cond);text-transform:uppercase;letter-spacing:.08em;font-weight:700;color:var(--diesel-dark);font-size:13.5px}
+h1{font-family:var(--cond);font-weight:900;font-size:clamp(30px,5vw,44px);line-height:1.06;margin:4px 0 8px}
+.lead{max-width:70ch;font-size:16.5px}
+.mast{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,380px);gap:22px;align-items:start;margin-top:14px}
+.mast img{width:100%;border-radius:14px;border:1.5px solid var(--line);background:#fff;display:block}
+.mast .credit{display:block;margin-top:4px;font-size:12px;color:var(--muted);text-align:right}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:18px 0 6px}
+.facts div{background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:10px 13px}
+.facts b{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700}
+.facts span{display:block;font-family:var(--cond);font-size:21px;font-weight:800;margin-top:2px}
+.block{background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:16px 18px;margin:16px 0}
+.block h2{font-family:var(--cond);text-transform:uppercase;letter-spacing:.04em;font-size:19px;font-weight:900;margin-bottom:8px}
+.block h2 .count{font-size:12px;color:var(--muted);font-weight:700;letter-spacing:.02em}
+.tblwrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+tbody th{text-align:left;font-weight:600;font-size:14.5px;padding:7px 10px 7px 0;border-bottom:1px solid var(--line);vertical-align:top;width:44%}
+tbody th small{display:block;font-weight:400;font-size:12.5px;color:var(--muted);margin-top:2px}
+tbody td{padding:7px 8px;border-bottom:1px solid var(--line);font-size:15px;vertical-align:top}
+tbody td.src{width:32px;text-align:right}
+tbody td.src a{color:var(--volt-dark);text-decoration:none}
+.u{color:var(--muted);font-size:13px}
+.none{color:#a49a83}
+.srcs{list-style:none;font-size:14px}
+.srcs li{padding:5px 0;border-bottom:1px solid var(--line)}
+.srcs li:last-child{border-bottom:0}
+.srcs a{color:var(--volt-dark)}
+.correct{background:var(--volt-light);border:1.5px solid #a9dec5;border-radius:14px;padding:16px 18px;margin:16px 0}
+.correct a{display:inline-block;margin-top:8px;background:var(--volt-dark);color:#fff;text-decoration:none;font-weight:700;
+  padding:11px 18px;border-radius:999px}
+.film .filmlink{position:relative;display:block;border-radius:12px;overflow:hidden;background:var(--road);aspect-ratio:16/9}
+.film .filmlink img{width:100%;height:100%;object-fit:cover;display:block}
+.film .play{position:absolute;left:50%;top:50%;width:70px;height:70px;margin:-35px 0 0 -35px;border-radius:999px;background:rgba(38,35,28,.72);
+  display:flex;align-items:center;justify-content:center}
+.film .play::after{content:"";border-style:solid;border-width:14px 0 14px 23px;border-color:transparent transparent transparent #fff;margin-left:6px}
+.film .cap{margin-top:8px;font-size:13.5px;color:var(--muted)}
+.others{display:flex;flex-wrap:wrap;gap:7px;margin:16px 0}
+.others a{background:#fff;border:1.5px solid var(--line);border-radius:999px;padding:6px 12px;font-size:13px;text-decoration:none;color:var(--ink)}
+.others a:hover{border-color:var(--volt)}
+footer{margin-top:38px;background:var(--road);color:#a99e85;padding:22px 0 30px;font-size:12.5px}
+footer .wrap>div{margin-bottom:6px}
+footer a{color:#cdbf9f}
+@media(max-width:760px){.mast{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="wrap">
+  <div class="brand">e<span class="plug">⚡</span>TruckTCO <span class="be">BE</span></div>
+  <nav class="nav">
+    <a href="/index.html">Home</a>
+    <a href="/eTruckCost.html">Quick answer</a>
+    <a href="/eTruckAnalysis.html">Full analysis</a>
+    <a href="/models.html">Trucks</a>
+    <a href="/compare.html">Head to head</a>
+    <a href="/sheets/">Specifications</a>
+  </nav>
+</div></div>
+<main>
+<div class="wrap">
+  <div class="hero">
+    <p class="crumbs"><a href="/index.html">Home</a> › <a href="/sheets/">Specifications</a> › Mercedes-Benz eActros 600</p>
+    <p class="kind">Daimler Truck · Truck sheets (T&amp;E comparison)</p>
+    <h1>Mercedes-Benz eActros 600</h1>
+    <div class="mast">
+      <div>
+        <p class="lead">The eActros 600: 621 kWh of LFP, up to 560 km, 400 kW on a CCS2 charger with megawatt charging still to come, and the report's three-tonne payload question.</p>
+        <div class="facts"><div><b>Battery</b><span>621 <span class="u">kWh</span></span></div><div><b>Range</b><span>up to 560 in the most … <span class="u">km</span></span></div><div><b>DC charging</b><span>400 on CCS2 (500 A); 1… <span class="u">kW</span></span></div><div><b>Payload</b><span>about 22 <span class="u">t</span></span></div></div>
+      </div>
+      <figure><img src="https://etrucktco.eu/assets/pic/mercedes-benz-eactros-600.64fffa47a4.jpg" alt="Mercedes-Benz eActros 600" loading="lazy" decoding="async"><span class="credit">Photo: Daimler Truck</span></figure>
+    </div>
+  </div>
+
+  <div class="correct">
+    <b>44 of 71 values are filled in.</b>
+    Know one we are missing, or one that is wrong? This sheet is open for anyone to correct — type into it on eTRUCKTCO.eu, press Review &amp; send, and confirm the e-mail. It is on all three sites the moment we have checked it.
+    <a href="https://etrucktco.eu/mercedes-benz-eactros-600/">Correct or complete this sheet</a>
+  </div>
+
+
+<section class="block">
+  <h2>General <span class="count">10 / 15</span></h2>
+  <div class="tblwrap"><table>
+    <tbody>
+<tr><th scope="row">Model<small>Model name as sold</small></th><td>eActros 600</td><td class="src"><a href="https://www.mercedes-benz-trucks.com/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Vehicle type<small>e.g. tractor, rigid</small></th><td>Battery-electric tractor unit, long-haul</td><td class="src"><a href="https://www.mercedes-benz-trucks.com/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Axle configuration<small>4x2, 6x2, 6x4 …</small></th><td>4x2</td><td class="src"><a href="https://www.transportenvironment.org/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Gross combination weight<small>Technically permissible, 4x2 tractor, per Mercedes-Benz. Technical gross vehicle weight 22 t</small></th><td>44 <span class="u">t</span></td><td class="src"><a href="https://www.mercedes-benz-trucks.com/int/en/trucks/eactros.html" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.daimlertruck.com/en/newsroom/pressrelease/mercedes-benz-trucks-celebrates-world-premiere-of-the-battery-electric-long-haul-truck-eactros-600-52428265" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Kerb weight, tractor<small>About 11.7 t unladen, as Mercedes-Benz gives it for the 4x2 ProCabin tractor. The report derived the same from 42 t minus a 5,940 kg semi-trailer and its 24,360 kg nominal payload</small></th><td>11700 <span class="u">kg</span></td><td class="src"><a href="https://www.mercedes-benz-trucks.com/int/en/trucks/eactros.html" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Payload, with a standard trailer<small>With a standard semi-trailer in the EU, per Mercedes-Benz (eActros 400: about 25 t; eActros 600 Lowliner: about 21 t). The report: 24,360 kg nominal, but 21,341 kg when a load filling a 13.6 m semi-trailer is centred, to keep the drive axle under 11,500 kg (a 3 t penalty)</small></th><td>about 22 <span class="u">t</span></td><td class="src"><a href="https://www.mercedes-benz-trucks.com/int/en/trucks/eactros.html" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.transportenvironment.org/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Payload if the Council position on 96/53/EC is adopted<small>42 t for 5 axles, 44 t for 6 axles</small></th><td>24,360: a 5-axle combination stays at 42 t under the Council position <span class="u">kg</span></td><td class="src"><a href="https://www.transportenvironment.org/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Drive-axle load at maximum payload<small>Mercedes-Benz: technical gross vehicle weight 22 t, with 9 t on the front axle and 13 t on the rear axle, full air suspension. The legal single drive axle limit is 11,500 kg (4x2)</small></th><td>825 kg over the 11,500 kg limit with the nominal maximum payload centred on a 13.6 m semi-trailer, per the report's modelling <span class="u">kg</span></td><td class="src"><a href="https://www.transportenvironment.org/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Overall length, tractor</th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Overall width</th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Overall height</th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Wheelbase<small>4x2 tractor (ProCabin and Lowliner); chassis versions from 4,000 to 5,800 mm</small></th><td>4000 <span class="u">mm</span></td><td class="src"><a href="https://www.mercedes-benz-trucks.com/int/en/trucks/eactros.html" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Turning circle with a 13.6 m semi-trailer<small>96/53/EC: 360° between 12.5 m outer and 5.3 m inner radius</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Top speed<small>EU limiter is 90</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Clean-sheet design or converted diesel platform<small>ProCabin front 80 mm longer than the diesel Actros cab (Daimler, 2023)</small></th><td>Adapted Actros platform with a new frame, e-axle and the ProCabin</td><td class="src"><a href="https://www.mercedes-benz-trucks.com/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+    </tbody>
+  </table></div>
+</section>
+<section class="block">
+  <h2>Battery <span class="count">8 / 9</span></h2>
+  <div class="tblwrap"><table>
+    <tbody>
+<tr><th scope="row">Battery capacity, installed (gross)<small>Three packs of 207 kWh, as Mercedes-Benz gives it (nominal capacity of a new battery). eActros 400: two packs, 414 kWh</small></th><td>621 <span class="u">kWh</span></td><td class="src"><a href="https://www.mercedes-benz-trucks.com/int/en/trucks/eactros.html" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.mercedes-benz-trucks.com/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Battery capacity, usable<small>Mercedes-Benz gives the share, not a kWh figure; electrive reported 600 kWh net (20 November 2025)</small></th><td>about 95 % of the 621 kWh installed <span class="u">kWh</span></td><td class="src"><a href="https://www.daimlertruck.com/en/newsroom/pressrelease/mercedes-benz-trucks-celebrates-world-premiere-of-the-battery-electric-long-haul-truck-eactros-600-52428265" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Cell chemistry<small>LFP, NMC …</small></th><td>LFP (lithium iron phosphate), without nickel or cobalt</td><td class="src"><a href="https://www.mercedes-benz-trucks.com/int/en/trucks/eactros.html" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.transportenvironment.org/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Cell supplier<small>As electrive reports it; Mercedes-Benz's own pages do not name the cell maker</small></th><td>CATL</td><td class="src"><a href="https://www.electrive.com/2025/11/20/world-premiere-renault-trucks-unveils-e-tech-t-780-with-a-range-of-600-km/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">System voltage<small>800-volt e-axle and electrical architecture, per Daimler</small></th><td>800 <span class="u">V</span></td><td class="src"><a href="https://www.mercedes-benz-trucks.com/" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.daimlertruck.com/en/newsroom/pressrelease/iaa-transportation-2026-daimler-truck-celebrates-130-years-of-trucks-and-drives-transportation-forward-53589108" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.daimlertruck.com/en/newsroom/pressrelease/mercedes-benz-trucks-celebrates-world-premiere-of-the-battery-electric-long-haul-truck-eactros-600-52428265" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Pack architecture<small>On the eActros Lowliner (IAA 2026) the packs sit lower, for a diesel-like fifth-wheel height</small></th><td>Three large packs of 207 kWh</td><td class="src"><a href="https://www.mercedes-benz-trucks.com/int/en/trucks/eactros.html" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.daimlertruck.com/en/newsroom/pressrelease/iaa-transportation-2026-daimler-truck-celebrates-130-years-of-trucks-and-drives-transportation-forward-53589108" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Battery life, rated<small>cycles / km / years</small></th><td>Designed for up to 1.2 million km over 10 years, with the battery's state of health still over 80 % after that</td><td class="src"><a href="https://www.daimlertruck.com/en/newsroom/pressrelease/mercedes-benz-trucks-celebrates-world-premiere-of-the-battery-electric-long-haul-truck-eactros-600-52428265" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.mercedes-benz-trucks.com/int/en/trucks/eactros.html" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Operating temperature, battery and thermal system</th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Battery warranty<small>Counted from the day the truck leaves the plant; Mercedes-Benz also calls it a 'six-year warranty'</small></th><td>72 months or 720,000 km or 1,800 charge cycles, whichever comes first; a claim applies if state of health falls below 80 %</td><td class="src"><a href="https://www.mercedes-benz-trucks.com/int/en/trucks/eactros.html" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+    </tbody>
+  </table></div>
+</section>
+<section class="block">
+  <h2>Range and energy <span class="count">4 / 8</span></h2>
+  <div class="tblwrap"><table>
+    <tbody>
+<tr><th scope="row">Range, conservatively rated<small>One charge. Daimler raised the figure to 560 km in its IAA release of 13 September 2026; the product page still says 500</small></th><td>up to 560 in the most energy-efficient configuration at 40 t; 500 in the launch figures <span class="u">km</span></td><td class="src"><a href="https://www.daimlertruck.com/en/newsroom/pressrelease/iaa-transportation-2026-daimler-truck-celebrates-130-years-of-trucks-and-drives-transportation-forward-53589108" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.mercedes-benz-trucks.com/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Range, favourable conditions</th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Range, real-world European use</th><td>Over 1,000 km a day with intermediate charging during the driver's breaks, per Daimler</td><td class="src"><a href="https://www.mercedes-benz-trucks.com/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Range test condition<small>Internal tests and simulations; may differ from the official EU figures (Regulation 2017/2400), per Daimler</small></th><td>4x2 tractor, 40 t gross combination weight, 20 °C, after preconditioning, long-haul driving; the 560 km is for the most energy-efficient configuration</td><td class="src"><a href="https://www.daimlertruck.com/en/newsroom/pressrelease/iaa-transportation-2026-daimler-truck-celebrates-130-years-of-trucks-and-drives-transportation-forward-53589108" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.mercedes-benz-trucks.com/int/en/trucks/eactros.html" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Energy consumption, field tests<small>Varied routes and payloads; ≈ 1.51 kWh/mile</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Test fleet mileage<small>From TruckLive data: half of all daily mileages are over 400 km, about a fifth over 600 km (Daimler, 13 September 2026)</small></th><td>over 160 million km in customer operations since the market launch at the end of 2024 <span class="u">km</span></td><td class="src"><a href="https://www.daimlertruck.com/en/newsroom/pressrelease/iaa-transportation-2026-daimler-truck-celebrates-130-years-of-trucks-and-drives-transportation-forward-53589108" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Drag coefficient (Cd)<small>No figure published; the ProCabin has 9 % less drag than the diesel Actros cab of 2023 (Daimler, 10 October 2023)</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Regenerative braking, peak</th><td><span class="none">not published</span></td><td class="src"></td></tr>
+    </tbody>
+  </table></div>
+</section>
+<section class="block">
+  <h2>Charging <span class="count">4 / 6</span></h2>
+  <div class="tblwrap"><table>
+    <tbody>
+<tr><th scope="row">DC charge ports<small>An MCS pre-installation could be ordered from the start of sales and retrofitted later (Daimler, 2023). For the eActros Lowliner, Daimler dates MCS to the second half of 2027</small></th><td>CCS2 on the left-hand side as standard; MCS to follow</td><td class="src"><a href="https://www.daimlertruck.com/en/newsroom/pressrelease/iaa-transportation-2026-daimler-truck-celebrates-130-years-of-trucks-and-drives-transportation-forward-53589108" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.mercedes-benz-trucks.com/int/en/trucks/eactros.html" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Max DC charge power<small>Mercedes-Benz's technical data table. Earlier: '400 (CCS2); megawatt charging at around 1,000'</small></th><td>400 on CCS2 (500 A); 1,000 on MCS <span class="u">kW</span></td><td class="src"><a href="https://www.mercedes-benz-trucks.com/int/en/trucks/eactros.html" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Charge time 20–80 %<small>CCS2 time per ISO/SAE 12906 at a 500 A charger. The MCS time is Mercedes-Benz's simulation. Earlier: 'under 30 with megawatt charging, from the second half of 2027' (IAA release; that date is given for the eActros Lowliner)</small></th><td>about 70 (10–80 %, CCS2 at 400 kW); about 30 (20–80 %, MCS, once available) <span class="u">min</span></td><td class="src"><a href="https://www.mercedes-benz-trucks.com/int/en/trucks/eactros.html" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.daimlertruck.com/en/newsroom/pressrelease/iaa-transportation-2026-daimler-truck-celebrates-130-years-of-trucks-and-drives-transportation-forward-53589108" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Megawatt Charging System (MCS)<small>MCS pre-installation orderable since 2023 and retrofittable; for the Lowliner, the second half of 2027. The report counts the eActros 600 among the trucks with megawatt charging. Earlier: 'Yes: MCS'</small></th><td>Coming: Mercedes-Benz lists 1,000 kW MCS charging but calls it 'future'</td><td class="src"><a href="https://www.mercedes-benz-trucks.com/int/en/trucks/eactros.html" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.daimlertruck.com/en/newsroom/pressrelease/mercedes-benz-trucks-celebrates-world-premiere-of-the-battery-electric-long-haul-truck-eactros-600-52428265" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.transportenvironment.org/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">AC charging</th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Vehicle-to-grid / bidirectional<small>yes / no</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+    </tbody>
+  </table></div>
+</section>
+<section class="block">
+  <h2>Powertrain <span class="count">4 / 7</span></h2>
+  <div class="tblwrap"><table>
+    <tbody>
+<tr><th scope="row">Motor layout</th><td>e-axle with two motors and a four-speed gearbox, 800 V</td><td class="src"><a href="https://www.daimlertruck.com/en/newsroom/pressrelease/mercedes-benz-trucks-celebrates-world-premiere-of-the-battery-electric-long-haul-truck-eactros-600-52428265" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.daimlertruck.com/en/newsroom/pressrelease/iaa-transportation-2026-daimler-truck-celebrates-130-years-of-trucks-and-drives-transportation-forward-53589108" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.mercedes-benz-trucks.com/int/en/trucks/eactros.html" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Continuous power<small>About 536 hp; Mercedes-Benz gives it in kW</small></th><td>400 <span class="u">kW</span></td><td class="src"><a href="https://www.mercedes-benz-trucks.com/int/en/trucks/eactros.html" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.daimlertruck.com/en/newsroom/pressrelease/iaa-transportation-2026-daimler-truck-celebrates-130-years-of-trucks-and-drives-transportation-forward-53589108" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Peak power<small>About 805 hp; Mercedes-Benz gives it in kW</small></th><td>600 <span class="u">kW</span></td><td class="src"><a href="https://www.mercedes-benz-trucks.com/int/en/trucks/eactros.html" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.daimlertruck.com/en/newsroom/pressrelease/iaa-transportation-2026-daimler-truck-celebrates-130-years-of-trucks-and-drives-transportation-forward-53589108" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Peak torque<small>At the motor or at the wheel, say which</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Transmission<small>direct drive, 2-speed, 4-speed …</small></th><td>4-speed, inside the e-axle</td><td class="src"><a href="https://www.mercedes-benz-trucks.com/int/en/trucks/eactros.html" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.daimlertruck.com/en/newsroom/pressrelease/iaa-transportation-2026-daimler-truck-celebrates-130-years-of-trucks-and-drives-transportation-forward-53589108" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Gradeability at GCW</th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Acceleration 0–80 km/h at GCW</th><td><span class="none">not published</span></td><td class="src"></td></tr>
+    </tbody>
+  </table></div>
+</section>
+<section class="block">
+  <h2>Cab and equipment <span class="count">5 / 7</span></h2>
+  <div class="tblwrap"><table>
+    <tbody>
+<tr><th scope="row">Cab type</th><td>ProCabin (Stream, Big or Giga), 2.5 m wide with a flat floor; also with the 2.3 m ClassicSpace or StreamSpace cab</td><td class="src"><a href="https://www.mercedes-benz-trucks.com/int/en/trucks/eactros.html" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Standard equipment<small>Sound warning for pedestrians (AVAS) as required by law (Daimler, 2023)</small></th><td>Multimedia Cockpit Interactive 2 as standard (touchscreen, voice control, eNavigation, tachograph app); MirrorCam; options include Matrix LED headlamps, a 230 V socket, a second fridge and heated seats</td><td class="src"><a href="https://www.mercedes-benz-trucks.com/int/en/trucks/eactros.html" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Power take-off (ePTO)<small>Daimler's 2023 launch release gave 22 to 90 kW for the electric PTOs</small></th><td>Electric PTO: DC up to 90 kW or AC 400 V up to 22 kW; mechanical PTO up to 70 kW</td><td class="src"><a href="https://www.mercedes-benz-trucks.com/int/en/trucks/eactros.html" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Driver position<small>left, right, centre</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Driver assistance (ADAS)<small>Active Cross Traffic Assist and Active Sideguard Assist 3 are new at IAA 2026. Active Brake Assist already meets the rules that apply from September 2028</small></th><td>Active Brake Assist 6 Plus, Active Drive Assist 3 (level 2), Active Sideguard Assist 3, Frontguard Assist, Active Cross Traffic Assist, Attention Assist 2; radar and camera cover 270° around the truck</td><td class="src"><a href="https://www.mercedes-benz-trucks.com/int/en/trucks/eactros.html" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.daimlertruck.com/en/newsroom/pressrelease/iaa-transportation-2026-daimler-truck-celebrates-130-years-of-trucks-and-drives-transportation-forward-53589108" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Euro NCAP rating<small>Stars, or not tested</small></th><td>Not tested as an electric truck; the report notes diesel equivalents of established makes are rated 2 to 5 stars</td><td class="src"><a href="https://www.transportenvironment.org/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Tyres<small>Michelin, Continental and Goodyear are named as suppliers</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+    </tbody>
+  </table></div>
+</section>
+<section class="block">
+  <h2>Service and warranty <span class="count">5 / 5</span></h2>
+  <div class="tblwrap"><table>
+    <tbody>
+<tr><th scope="row">Service interval</th><td>No fixed figure: TruckLive forecasts each truck's service dates <span class="u">km</span></td><td class="src"><a href="https://www.mercedes-benz-trucks.com/int/en/trucks/eactros.html" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Vehicle warranty<small>From the day the truck leaves the plant; for the drive, whichever comes first</small></th><td>Whole truck 12 months with unlimited mileage; electric drive 36 months or 360,000 km</td><td class="src"><a href="https://www.mercedes-benz-trucks.com/int/en/trucks/eactros.html" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Service network in Europe<small>Own workshops, partners, mobile service</small></th><td>Mercedes-Benz Trucks dealers and workshops; Mercedes-Benz Complete service contract for up to 96 months or 1 million km, with Uptime remote diagnosis</td><td class="src"><a href="https://www.mercedes-benz-trucks.com/int/en/trucks/eactros.html" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Over-the-air updates<small>yes / no</small></th><td>Yes: over-the-air updates, including the navigation</td><td class="src"><a href="https://www.mercedes-benz-trucks.com/int/en/trucks/eactros.html" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Telematics / fleet portal</th><td>Fleetboard (charge management, logbook, live map), TruckLive via My TruckPoint (free for 36 months), Mercedes-Benz Trucks Uptime remote diagnosis, Remote Truck App 3.0</td><td class="src"><a href="https://www.mercedes-benz-trucks.com/int/en/trucks/eactros.html" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.daimlertruck.com/en/newsroom/pressrelease/iaa-transportation-2026-daimler-truck-celebrates-130-years-of-trucks-and-drives-transportation-forward-53589108" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.daimlertruck.com/en/newsroom/pressrelease/mercedes-benz-trucks-celebrates-world-premiere-of-the-battery-electric-long-haul-truck-eactros-600-52428265" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+    </tbody>
+  </table></div>
+</section>
+<section class="block">
+  <h2>Production and market <span class="count">2 / 11</span></h2>
+  <div class="tblwrap"><table>
+    <tbody>
+<tr><th scope="row">Production / assembly</th><td>Wörth am Rhein, Germany, with electric drive parts from Mannheim, Gaggenau and Kassel; series production since the end of 2024</td><td class="src"><a href="https://www.daimlertruck.com/en/newsroom/pressrelease/mercedes-benz-trucks-celebrates-world-premiere-of-the-battery-electric-long-haul-truck-eactros-600-52428265" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.daimlertruck.com/en/newsroom/pressrelease/iaa-transportation-2026-daimler-truck-celebrates-130-years-of-trucks-and-drives-transportation-forward-53589108" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.mercedes-benz-trucks.com/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Key suppliers</th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">First European customer</th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Homologation<small>EU WVTA, national, …</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Availability in Europe<small>Charging that starts and bills itself, without card or app, is being developed with Milence (Daimler, 13 September 2026)</small></th><td>On sale and delivered since the market launch at the end of 2024. New at IAA 2026: a '130 Years Trucks Edition' of the eActros 600 or Actros L, limited to 400 trucks. At IAA 2026: Hall 19/20, Stand A41</td><td class="src"><a href="https://www.daimlertruck.com/en/newsroom/pressrelease/iaa-transportation-2026-daimler-truck-celebrates-130-years-of-trucks-and-drives-transportation-forward-53589108" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.iaa-transportation.com/dam/jcr:1ce302c3-ecda-4258-9964-2d115a14693c/iaa-2026-press-conference-lineup.pdf" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Trucks delivered to date<small>Not published for the eActros 600. Mercedes-Benz Trucks had about 38 % of Europe's heavy and medium zero-emission truck market in the first half of 2026 (Daimler, 13 September 2026)</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">List price, Europe<small>Not published. At launch Daimler put the price at about two to two and a half times that of a diesel truck (10 October 2023)</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Lease rate<small>No rate published. About 200 eActros can be rented through Mercedes-Benz CharterWay, now also in Italy and Spain (Daimler, 13 September 2026)</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Maintenance cost<small>Contract or estimate</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Residual value after 5 years<small>Of list price</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Toll and CO₂ class<small>EU CO₂ class 5 = zero-emission</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+    </tbody>
+  </table></div>
+</section>
+<section class="block">
+  <h2>Company <span class="count">2 / 3</span></h2>
+  <div class="tblwrap"><table>
+    <tbody>
+<tr><th scope="row">Manufacturer</th><td>Mercedes-Benz Trucks, Daimler Truck AG</td><td class="src"><a href="https://www.mercedes-benz-trucks.com/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Website</th><td>mercedes-benz-trucks.com</td><td class="src"><a href="https://www.mercedes-benz-trucks.com/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Sales contact</th><td><span class="none">not published</span></td><td class="src"></td></tr>
+    </tbody>
+  </table></div>
+</section>
+<section class="block">
+  <h2>Where these figures come from</h2>
+  <ul class="srcs">
+    <li><a href="https://www.transportenvironment.org/" rel="noopener nofollow" target="_blank">Apollo Vehicle Safety for Transport &amp; Environment: Comparison of electric truck models from European incumbents and new entrants (AVS377, August 2026)</a></li>
+    <li><a href="https://www.mercedes-benz-trucks.com/" rel="noopener nofollow" target="_blank">mercedes-benz-trucks.com</a></li>
+    <li><a href="https://www.daimlertruck.com/en/newsroom/pressrelease/iaa-transportation-2026-daimler-truck-celebrates-130-years-of-trucks-and-drives-transportation-forward-53589108" rel="noopener nofollow" target="_blank">Daimler Truck, 13 September 2026: IAA Transportation 2026 – Daimler Truck celebrates 130 years of trucks and drives transportation forward</a></li>
+    <li><a href="https://www.mercedes-benz-trucks.com/int/en/trucks/eactros.html" rel="noopener nofollow" target="_blank">Mercedes-Benz Trucks, September 2026: eActros (product page with technical data, warranty and service)</a></li>
+    <li><a href="https://www.daimlertruck.com/en/newsroom/pressrelease/mercedes-benz-trucks-celebrates-world-premiere-of-the-battery-electric-long-haul-truck-eactros-600-52428265" rel="noopener nofollow" target="_blank">Daimler Truck, 10 October 2023: Mercedes-Benz Trucks celebrates world premiere of the battery electric long-haul truck eActros 600</a></li>
+    <li><a href="https://www.electrive.com/2025/11/20/world-premiere-renault-trucks-unveils-e-tech-t-780-with-a-range-of-600-km/" rel="noopener nofollow" target="_blank">electrive, 20 November 2025: World premiere: Renault Trucks unveils E-Tech T 780 with a range of 600 km (compares the eActros 600)</a></li>
+    <li><a href="https://www.iaa-transportation.com/dam/jcr:1ce302c3-ecda-4258-9964-2d115a14693c/iaa-2026-press-conference-lineup.pdf" rel="noopener nofollow" target="_blank">IAA Transportation, 2026: Press conference line-up, 14–15 September (PDF)</a></li>
+  </ul>
+</section>
+
+  <p class="kind">Other truck sheets (t&amp;e comparison)</p>
+  <div class="others">
+    <a href="/superpanther-etopas-600/">SuperPanther eTopas 600</a>
+    <a href="/sany-etruck-e263/">SANY eTruck e263</a>
+    <a href="/farizon-homtruck/">Farizon Homtruck</a>
+    <a href="/tesla-semi/">Tesla Semi</a>
+    <a href="/windrose-e700/">Windrose E700</a>
+    <a href="/daf-xg-electric/">DAF XG Electric</a>
+    <a href="/iveco-s-eway-artic/">IVECO S-eWay Artic</a>
+    <a href="/man-etgx/">MAN eTGX</a>
+    <a href="/scania-r-series-electric/">Scania R-series electric</a>
+    <a href="/renault-trucks-e-tech-t-585/">Renault Trucks E-Tech T 585</a>
+    <a href="/renault-trucks-e-tech-t-780/">Renault Trucks E-Tech T 780</a>
+    <a href="/volvo-fh-aero-electric-extended-range/">Volvo FH Aero Electric, extended range</a>
+    <a href="/sheets/">All 94 sheets</a>
+  </div>
+</div>
+</main>
+<footer><div class="wrap">
+  <div><b>eTruckTCO.be</b> — independent electric-truck cost comparison for Belgian fleets.</div>
+  <div>These specification sheets are kept on <a href="https://etrucktco.eu/sheets/">eTRUCKTCO.eu</a> and listed on <a href="https://etrucksandchargers.com/">eTrucksAndChargers.com</a>; what you read here is what they said when this page was built. Every figure carries the page it was read from.</div>
+  <div>Estimates for guidance only. Not financial advice — your real costs depend on routes, energy contract and truck.</div>
+</div></footer>
+</body>
+</html>

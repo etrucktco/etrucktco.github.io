@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>SANY eTruck e263 — specifications, battery, range and charging | eTruckTCO.be</title>
+<meta name="description" content="SANY's e263 4x2 tractor, type-approved in the EU and on the road in Germany since spring 2026: 636 kWh LFP battery (623 usable), 420 kW rated and 730 kW peak, 400 kW CCS charging, 10.9 t empty, 42 t combination. Also the one new entrant in the report with enough data to model its drive-axle load.">
+<link rel="canonical" href="https://etrucksandchargers.com/sany-etruck-e263/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="eTruckTCO.be">
+<meta property="og:title" content="SANY eTruck e263 — specifications, battery, range and charging | eTruckTCO.be">
+<meta property="og:description" content="SANY's e263 4x2 tractor, type-approved in the EU and on the road in Germany since spring 2026: 636 kWh LFP battery (623 usable), 420 kW rated and 730 kW peak, 400 kW CCS charging, 10.9 t empty, 42 t combination. Also the one new entrant in the report with enough data to model its drive-axle load.">
+<meta property="og:url" content="https://etrucksandchargers.com/sany-etruck-e263/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2326231c'/%3E%3Cpath d='M18.2 3 9 18h5.6l-1.6 11L23 13.6h-6.1z' fill='%231faa6e'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="/fonts/fonts.css">
+<style>
+:root{--ink:#16140f;--paper:#f4efe4;--paper2:#ece4d3;--diesel:#b8772a;--diesel-dark:#8a5418;
+  --volt:#1faa6e;--volt-dark:#137a4d;--volt-light:#d7f2e5;--line:#d8cdb6;--muted:#736b58;
+  --road:#26231c;--navy:#1e2a33;--sans:'Barlow',-apple-system,sans-serif;--cond:'Barlow Condensed',sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:var(--sans);color:var(--ink);line-height:1.55;min-height:100vh;display:flex;flex-direction:column;
+  background:radial-gradient(110% 70% at 85% -5%, rgba(31,170,110,.12), transparent 55%),linear-gradient(180deg,var(--paper),var(--paper2))}
+.wrap{width:100%;max-width:1000px;margin:0 auto;padding:0 20px}
+.topbar{background:var(--road);color:#f4efe4;padding:11px 0;border-bottom:4px solid var(--diesel)}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.brand{font-family:var(--cond);font-weight:900;font-size:23px;letter-spacing:.02em;text-transform:uppercase;display:flex;align-items:center;gap:8px}
+.brand .plug{color:var(--volt)}
+.brand .be{font-size:12px;background:var(--diesel-dark);color:#fff;padding:2px 7px;border-radius:4px;font-weight:700;letter-spacing:.05em}
+.nav{display:flex;gap:16px;flex-wrap:wrap}
+.nav a{color:#cdbf9f;text-decoration:none;font-size:13.5px}
+.nav a:hover,.nav a[aria-current]{color:#fff}
+main{flex:1}
+.hero{padding:26px 0 6px}
+.crumbs{font-size:13px;color:var(--muted);margin-bottom:10px}
+.crumbs a{color:var(--volt-dark)}
+.kind{font-family:var(--cond);text-transform:uppercase;letter-spacing:.08em;font-weight:700;color:var(--diesel-dark);font-size:13.5px}
+h1{font-family:var(--cond);font-weight:900;font-size:clamp(30px,5vw,44px);line-height:1.06;margin:4px 0 8px}
+.lead{max-width:70ch;font-size:16.5px}
+.mast{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,380px);gap:22px;align-items:start;margin-top:14px}
+.mast img{width:100%;border-radius:14px;border:1.5px solid var(--line);background:#fff;display:block}
+.mast .credit{display:block;margin-top:4px;font-size:12px;color:var(--muted);text-align:right}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:18px 0 6px}
+.facts div{background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:10px 13px}
+.facts b{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700}
+.facts span{display:block;font-family:var(--cond);font-size:21px;font-weight:800;margin-top:2px}
+.block{background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:16px 18px;margin:16px 0}
+.block h2{font-family:var(--cond);text-transform:uppercase;letter-spacing:.04em;font-size:19px;font-weight:900;margin-bottom:8px}
+.block h2 .count{font-size:12px;color:var(--muted);font-weight:700;letter-spacing:.02em}
+.tblwrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+tbody th{text-align:left;font-weight:600;font-size:14.5px;padding:7px 10px 7px 0;border-bottom:1px solid var(--line);vertical-align:top;width:44%}
+tbody th small{display:block;font-weight:400;font-size:12.5px;color:var(--muted);margin-top:2px}
+tbody td{padding:7px 8px;border-bottom:1px solid var(--line);font-size:15px;vertical-align:top}
+tbody td.src{width:32px;text-align:right}
+tbody td.src a{color:var(--volt-dark);text-decoration:none}
+.u{color:var(--muted);font-size:13px}
+.none{color:#a49a83}
+.srcs{list-style:none;font-size:14px}
+.srcs li{padding:5px 0;border-bottom:1px solid var(--line)}
+.srcs li:last-child{border-bottom:0}
+.srcs a{color:var(--volt-dark)}
+.correct{background:var(--volt-light);border:1.5px solid #a9dec5;border-radius:14px;padding:16px 18px;margin:16px 0}
+.correct a{display:inline-block;margin-top:8px;background:var(--volt-dark);color:#fff;text-decoration:none;font-weight:700;
+  padding:11px 18px;border-radius:999px}
+.film .filmlink{position:relative;display:block;border-radius:12px;overflow:hidden;background:var(--road);aspect-ratio:16/9}
+.film .filmlink img{width:100%;height:100%;object-fit:cover;display:block}
+.film .play{position:absolute;left:50%;top:50%;width:70px;height:70px;margin:-35px 0 0 -35px;border-radius:999px;background:rgba(38,35,28,.72);
+  display:flex;align-items:center;justify-content:center}
+.film .play::after{content:"";border-style:solid;border-width:14px 0 14px 23px;border-color:transparent transparent transparent #fff;margin-left:6px}
+.film .cap{margin-top:8px;font-size:13.5px;color:var(--muted)}
+.others{display:flex;flex-wrap:wrap;gap:7px;margin:16px 0}
+.others a{background:#fff;border:1.5px solid var(--line);border-radius:999px;padding:6px 12px;font-size:13px;text-decoration:none;color:var(--ink)}
+.others a:hover{border-color:var(--volt)}
+footer{margin-top:38px;background:var(--road);color:#a99e85;padding:22px 0 30px;font-size:12.5px}
+footer .wrap>div{margin-bottom:6px}
+footer a{color:#cdbf9f}
+@media(max-width:760px){.mast{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="wrap">
+  <div class="brand">e<span class="plug">⚡</span>TruckTCO <span class="be">BE</span></div>
+  <nav class="nav">
+    <a href="/index.html">Home</a>
+    <a href="/eTruckCost.html">Quick answer</a>
+    <a href="/eTruckAnalysis.html">Full analysis</a>
+    <a href="/models.html">Trucks</a>
+    <a href="/compare.html">Head to head</a>
+    <a href="/sheets/">Specifications</a>
+  </nav>
+</div></div>
+<main>
+<div class="wrap">
+  <div class="hero">
+    <p class="crumbs"><a href="/index.html">Home</a> › <a href="/sheets/">Specifications</a> › SANY eTruck e263</p>
+    <p class="kind">SANY · Truck sheets (T&amp;E comparison)</p>
+    <h1>SANY eTruck e263</h1>
+    <div class="mast">
+      <div>
+        <p class="lead">SANY's e263 4x2 tractor, type-approved in the EU and on the road in Germany since spring 2026: 636 kWh LFP battery (623 usable), 420 kW rated and 730 kW peak, 400 kW CCS charging, 10.9 t empty, 42 t combination. Also the one new entrant in the report with enough data to model its drive-axle load.</p>
+        <div class="facts"><div><b>Battery</b><span>636 <span class="u">kWh</span></span></div><div><b>Range</b><span>more than 500 <span class="u">km</span></span></div><div><b>DC charging</b><span>400 <span class="u">kW</span></span></div><div><b>Payload</b><span>25,160 nominal; 23,140… <span class="u">t</span></span></div></div>
+      </div>
+      <figure><img src="https://etrucktco.eu/assets/pic/sany-etruck-e263.0847da7248.jpg" alt="SANY eTruck e263" loading="lazy" decoding="async"><span class="credit">Photo: SANY eTrucks</span></figure>
+    </div>
+  </div>
+
+  <div class="correct">
+    <b>46 of 71 values are filled in.</b>
+    Know one we are missing, or one that is wrong? This sheet is open for anyone to correct — type into it on eTRUCKTCO.eu, press Review &amp; send, and confirm the e-mail. It is on all three sites the moment we have checked it.
+    <a href="https://etrucktco.eu/sany-etruck-e263/">Correct or complete this sheet</a>
+  </div>
+
+
+<section class="block">
+  <h2>General <span class="count">13 / 15</span></h2>
+  <div class="tblwrap"><table>
+    <tbody>
+<tr><th scope="row">Model<small>SANY Heavy Truck's own IAA release calls the same 636 kWh, 10.9 t, type-approved 4x2 the SE636. A rigid version, the e263R, follows from the third quarter of 2027</small></th><td>e263S 4x2 (type SYGM636C)</td><td class="src"><a href="https://www.sany-trucks.com/web/sany-trucks/news-article-detail/-/asset_publisher/sany-e263s-4x2-electric-semi-trailer-truck-at-iaa-transportation-2026" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.sany-trucks.com/documents/20127/31635541/SANY_e-Truck_e263_SY0179_EN.pdf/c976df85-75ff-eab1-fc85-430b95f92a15?t=1756791737053" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Vehicle type<small>e.g. tractor, rigid</small></th><td>Battery-electric tractor unit, long-haul</td><td class="src"><a href="https://www.transportenvironment.org/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Axle configuration<small>4x2, 6x2, 6x4 …</small></th><td>4x2</td><td class="src"><a href="https://www.transportenvironment.org/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Gross combination weight<small>Gross combination weight rating on SANY's data sheet; the tractor alone is rated 20 t. Earlier: 42 t as modelled in the report (avs). The e263R rigid is rated 38 t</small></th><td>42 <span class="u">t</span></td><td class="src"><a href="https://www.sany-trucks.com/documents/20127/31635541/SANY_e-Truck_e263_SY0179_EN.pdf/c976df85-75ff-eab1-fc85-430b95f92a15?t=1756791737053" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.sany-trucks.com/web/sany-trucks/news-article-detail/-/asset_publisher/sany-e263s-4x2-electric-semi-trailer-truck-at-iaa-transportation-2026" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Kerb weight, tractor<small>Standard version; depends on equipment. Empty axle loads 6,400 kg front and 4,500 kg rear. Earlier: about 10,900, derived in the report (avs)</small></th><td>10900 <span class="u">kg</span></td><td class="src"><a href="https://www.sany-trucks.com/documents/20127/31635541/SANY_e-Truck_e263_SY0179_EN.pdf/c976df85-75ff-eab1-fc85-430b95f92a15?t=1756791737053" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.sany-trucks.com/web/sany-trucks/news-article-detail/-/asset_publisher/sany-e263s-4x2-electric-semi-trailer-truck-at-iaa-transportation-2026" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.prnewswire.com/news-releases/sany-heavy-truck-debuts-production-ready-electric-truck-portfolio-at-iaa-transportation-2026-302879468.html" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Payload, with a standard trailer<small>SANY's own example (electrive, 4 June 2026): up to 25.2 t with a Kögel Light Plus curtainsider at 42 t</small></th><td>25,160 nominal; 23,140 when a load filling a 13.6 m semi-trailer is centred, to keep the drive axle under 11,500 kg (a 2 t penalty) <span class="u">t</span></td><td class="src"><a href="https://www.transportenvironment.org/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Payload if the Council position on 96/53/EC is adopted<small>42 t for 5 axles, 44 t for 6 axles</small></th><td>25,160: a 5-axle combination stays at 42 t under the Council position <span class="u">kg</span></td><td class="src"><a href="https://www.transportenvironment.org/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Drive-axle load at maximum payload<small>Single drive axle limit 11,500 kg (4x2). SANY rates the axles at 9,000 kg front and 13,000 kg rear (technical), and gives 4,500 kg on the rear axle for the empty tractor (data sheet)</small></th><td>About 500 kg over the 11,500 kg limit with the nominal maximum payload centred on a 13.6 m semi-trailer; combination then limited to 39,980 kg <span class="u">kg</span></td><td class="src"><a href="https://www.transportenvironment.org/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Overall length, tractor<small>Standard version; rear overhang 830 to 1,100 mm, fifth-wheel height 1,160 to 1,250 mm, ground clearance 280 mm</small></th><td>6640 <span class="u">mm</span></td><td class="src"><a href="https://www.sany-trucks.com/documents/20127/31635541/SANY_e-Truck_e263_SY0179_EN.pdf/c976df85-75ff-eab1-fc85-430b95f92a15?t=1756791737053" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Overall width</th><td>2540 <span class="u">mm</span></td><td class="src"><a href="https://www.sany-trucks.com/documents/20127/31635541/SANY_e-Truck_e263_SY0179_EN.pdf/c976df85-75ff-eab1-fc85-430b95f92a15?t=1756791737053" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Overall height<small>High-roof cab</small></th><td>3870 <span class="u">mm</span></td><td class="src"><a href="https://www.sany-trucks.com/documents/20127/31635541/SANY_e-Truck_e263_SY0179_EN.pdf/c976df85-75ff-eab1-fc85-430b95f92a15?t=1756791737053" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Wheelbase<small>The e263R rigid has 5,300 mm</small></th><td>4000 <span class="u">mm</span></td><td class="src"><a href="https://www.sany-trucks.com/documents/20127/31635541/SANY_e-Truck_e263_SY0179_EN.pdf/c976df85-75ff-eab1-fc85-430b95f92a15?t=1756791737053" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.sany-trucks.com/web/sany-trucks/news-article-detail/-/asset_publisher/sany-e263s-4x2-electric-semi-trailer-truck-at-iaa-transportation-2026" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Turning circle with a 13.6 m semi-trailer<small>96/53/EC: 360° between 12.5 m outer and 5.3 m inner radius</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Top speed<small>EU limiter is 90</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Clean-sheet design or converted diesel platform<small>clean sheet / adapted platform</small></th><td>Clean-sheet design</td><td class="src"><a href="https://www.transportenvironment.org/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+    </tbody>
+  </table></div>
+</section>
+<section class="block">
+  <h2>Battery <span class="count">6 / 9</span></h2>
+  <div class="tblwrap"><table>
+    <tbody>
+<tr><th scope="row">Battery capacity, installed (gross)</th><td>636 <span class="u">kWh</span></td><td class="src"><a href="https://www.sany-trucks.com/documents/20127/31635541/SANY_e-Truck_e263_SY0179_EN.pdf/c976df85-75ff-eab1-fc85-430b95f92a15?t=1756791737053" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.sany-trucks.com/web/sany-trucks/news-article-detail/-/asset_publisher/sany-e263s-4x2-electric-semi-trailer-truck-at-iaa-transportation-2026" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.prnewswire.com/news-releases/sany-heavy-truck-debuts-production-ready-electric-truck-portfolio-at-iaa-transportation-2026-302879468.html" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.electrive.com/2026/06/04/sany-delivers-long-haul-electric-trucks-in-europe/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Battery capacity, usable<small>98 % of the gross capacity, per SANY</small></th><td>623 <span class="u">kWh</span></td><td class="src"><a href="https://www.sany-trucks.com/web/sany-trucks/news-article-detail/-/asset_publisher/sany-e263s-4x2-electric-semi-trailer-truck-at-iaa-transportation-2026" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.electrive.com/2026/06/04/sany-delivers-long-haul-electric-trucks-in-europe/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Cell chemistry<small>LFP, NMC …</small></th><td>LFP (lithium iron phosphate)</td><td class="src"><a href="https://www.sany-trucks.com/documents/20127/31635541/SANY_e-Truck_e263_SY0179_EN.pdf/c976df85-75ff-eab1-fc85-430b95f92a15?t=1756791737053" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.sany-trucks.com/web/sany-trucks/news-article-detail/-/asset_publisher/sany-e263s-4x2-electric-semi-trailer-truck-at-iaa-transportation-2026" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Cell supplier</th><td>EVE Energy</td><td class="src"><a href="https://www.sany-trucks.com/web/sany-trucks/news-article-detail/-/asset_publisher/sany-e263s-4x2-electric-semi-trailer-truck-at-iaa-transportation-2026" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.electrive.com/2026/06/04/sany-delivers-long-haul-electric-trucks-in-europe/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">System voltage<small>Rated voltage, as SANY gives it</small></th><td>800 <span class="u">V</span></td><td class="src"><a href="https://www.sany-trucks.com/documents/20127/31635541/SANY_e-Truck_e263_SY0179_EN.pdf/c976df85-75ff-eab1-fc85-430b95f92a15?t=1756791737053" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.sany-trucks.com/web/sany-trucks/news-article-detail/-/asset_publisher/sany-e263s-4x2-electric-semi-trailer-truck-at-iaa-transportation-2026" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Pack architecture<small>cell-to-pack, modules …</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Battery life, rated<small>cycles / km / years</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Operating temperature, battery and thermal system</th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Battery warranty<small>As reported by electrive from SANY's European launch; not on SANY's data sheet</small></th><td>8 years or 1,200,000 km, with at least 70 % of the capacity left</td><td class="src"><a href="https://www.electrive.com/2026/06/04/sany-delivers-long-haul-electric-trucks-in-europe/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+    </tbody>
+  </table></div>
+</section>
+<section class="block">
+  <h2>Range and energy <span class="count">2 / 8</span></h2>
+  <div class="tblwrap"><table>
+    <tbody>
+<tr><th scope="row">Range, conservatively rated<small>At 42 t, per SANY; test conditions not published. SANY Heavy Truck's release says up to 500 km</small></th><td>more than 500 <span class="u">km</span></td><td class="src"><a href="https://www.sany-trucks.com/news-article-detail/-/asset_publisher/sany-etrucks-supported-by-putzmeister-expands-its-european-electric-truck-portfolio" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.sany-trucks.com/web/sany-trucks/news-article-detail/-/asset_publisher/sany-e263s-4x2-electric-semi-trailer-truck-at-iaa-transportation-2026" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.prnewswire.com/news-releases/sany-heavy-truck-debuts-production-ready-electric-truck-portfolio-at-iaa-transportation-2026-302879468.html" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.electrive.com/2026/06/04/sany-delivers-long-haul-electric-trucks-in-europe/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Range, favourable conditions</th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Range, real-world European use</th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Range test condition<small>GCW, speed, temperature, route — not published</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Energy consumption, field tests<small>At 40 t, depending on the route's hills and the temperature, per SANY as reported by electrive</small></th><td>0.9–1.2 <span class="u">kWh/km</span></td><td class="src"><a href="https://www.electrive.com/2026/06/04/sany-delivers-long-haul-electric-trucks-in-europe/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Test fleet mileage<small>Germany and Austria, customer operations, mid-2026</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Drag coefficient (Cd)<small>Tractor with trailer</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Regenerative braking, peak</th><td><span class="none">not published</span></td><td class="src"></td></tr>
+    </tbody>
+  </table></div>
+</section>
+<section class="block">
+  <h2>Charging <span class="count">3 / 6</span></h2>
+  <div class="tblwrap"><table>
+    <tbody>
+<tr><th scope="row">DC charge ports</th><td>CCS Combo 2; dual-gun charging (two plugs at once) possible</td><td class="src"><a href="https://www.sany-trucks.com/documents/20127/31635541/SANY_e-Truck_e263_SY0179_EN.pdf/c976df85-75ff-eab1-fc85-430b95f92a15?t=1756791737053" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.sany-trucks.com/web/sany-trucks/news-article-detail/-/asset_publisher/sany-e263s-4x2-electric-semi-trailer-truck-at-iaa-transportation-2026" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Max DC charge power<small>On one CCS2 plug. With dual-gun charging, SANY says up to 700 kW for demanding applications</small></th><td>400 <span class="u">kW</span></td><td class="src"><a href="https://www.sany-trucks.com/documents/20127/31635541/SANY_e-Truck_e263_SY0179_EN.pdf/c976df85-75ff-eab1-fc85-430b95f92a15?t=1756791737053" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.sany-trucks.com/web/sany-trucks/news-article-detail/-/asset_publisher/sany-e263s-4x2-electric-semi-trailer-truck-at-iaa-transportation-2026" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.electrive.com/2026/09/10/sany-expands-european-e-truck-portfolio/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Charge time 20–80 %<small>With suitable dual CCS2 chargers</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Megawatt Charging System (MCS)<small>Earlier: 'Yes', from the report's general statement that every compared truck except the DAF offers MCS (avs)</small></th><td>Planned: SANY says the e263 will later also take megawatt charging (MCS); the current data sheet lists CCS2 only</td><td class="src"><a href="https://www.sany-trucks.com/news-article-detail/-/asset_publisher/sany-etrucks-supported-by-putzmeister-expands-its-european-electric-truck-portfolio" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.sany-trucks.com/documents/20127/31635541/SANY_e-Truck_e263_SY0179_EN.pdf/c976df85-75ff-eab1-fc85-430b95f92a15?t=1756791737053" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">AC charging</th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Vehicle-to-grid / bidirectional<small>yes / no</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+    </tbody>
+  </table></div>
+</section>
+<section class="block">
+  <h2>Powertrain <span class="count">5 / 7</span></h2>
+  <div class="tblwrap"><table>
+    <tbody>
+<tr><th scope="row">Motor layout<small>Earlier: e-axle on the drive axle (avs)</small></th><td>Dual-motor e-axle</td><td class="src"><a href="https://www.sany-trucks.com/documents/20127/31635541/SANY_e-Truck_e263_SY0179_EN.pdf/c976df85-75ff-eab1-fc85-430b95f92a15?t=1756791737053" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.sany-trucks.com/web/sany-trucks/news-article-detail/-/asset_publisher/sany-e263s-4x2-electric-semi-trailer-truck-at-iaa-transportation-2026" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Continuous power<small>Rated power at 4,500 rpm</small></th><td>420 <span class="u">kW</span></td><td class="src"><a href="https://www.sany-trucks.com/documents/20127/31635541/SANY_e-Truck_e263_SY0179_EN.pdf/c976df85-75ff-eab1-fc85-430b95f92a15?t=1756791737053" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.sany-trucks.com/web/sany-trucks/news-article-detail/-/asset_publisher/sany-e263s-4x2-electric-semi-trailer-truck-at-iaa-transportation-2026" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.electrive.com/2026/09/10/sany-expands-european-e-truck-portfolio/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Peak power<small>≈ 941 hp</small></th><td>730 <span class="u">kW</span></td><td class="src"><a href="https://www.sany-trucks.com/documents/20127/31635541/SANY_e-Truck_e263_SY0179_EN.pdf/c976df85-75ff-eab1-fc85-430b95f92a15?t=1756791737053" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.sany-trucks.com/web/sany-trucks/news-article-detail/-/asset_publisher/sany-e263s-4x2-electric-semi-trailer-truck-at-iaa-transportation-2026" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.electrive.com/2026/06/04/sany-delivers-long-haul-electric-trucks-in-europe/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Peak torque<small>At the motors, not at the wheel; 1,000 Nm rated. SANY's release gives the peak at 8,500 rpm, its data sheet prints 4,500 rpm</small></th><td>1760 <span class="u">Nm</span></td><td class="src"><a href="https://www.sany-trucks.com/documents/20127/31635541/SANY_e-Truck_e263_SY0179_EN.pdf/c976df85-75ff-eab1-fc85-430b95f92a15?t=1756791737053" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.sany-trucks.com/web/sany-trucks/news-article-detail/-/asset_publisher/sany-e263s-4x2-electric-semi-trailer-truck-at-iaa-transportation-2026" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Transmission<small>direct drive, 2-speed, 4-speed …</small></th><td>Two-speed</td><td class="src"><a href="https://www.sany-trucks.com/documents/20127/31635541/SANY_e-Truck_e263_SY0179_EN.pdf/c976df85-75ff-eab1-fc85-430b95f92a15?t=1756791737053" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.sany-trucks.com/web/sany-trucks/news-article-detail/-/asset_publisher/sany-e263s-4x2-electric-semi-trailer-truck-at-iaa-transportation-2026" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Gradeability at GCW</th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Acceleration 0–80 km/h at GCW</th><td><span class="none">not published</span></td><td class="src"></td></tr>
+    </tbody>
+  </table></div>
+</section>
+<section class="block">
+  <h2>Cab and equipment <span class="count">7 / 7</span></h2>
+  <div class="tblwrap"><table>
+    <tbody>
+<tr><th scope="row">Cab type</th><td>CB329 E high-roof cab, flat floor (no engine tunnel)</td><td class="src"><a href="https://www.sany-trucks.com/documents/20127/31635541/SANY_e-Truck_e263_SY0179_EN.pdf/c976df85-75ff-eab1-fc85-430b95f92a15?t=1756791737053" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.sany-trucks.com/web/sany-trucks/news-article-detail/-/asset_publisher/sany-e263s-4x2-electric-semi-trailer-truck-at-iaa-transportation-2026" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Standard equipment<small>Standard version; SANY says to check the quotation for the exact delivery scope</small></th><td>LED headlights, digital driver and entertainment displays, air-suspended heated driver seat, heated steering wheel, built-in fridge, automatic air conditioning, DAB+ radio, Bluetooth hands-free, heated electric mirrors, 360° camera</td><td class="src"><a href="https://www.sany-trucks.com/documents/20127/31635541/SANY_e-Truck_e263_SY0179_EN.pdf/c976df85-75ff-eab1-fc85-430b95f92a15?t=1756791737053" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.sany-trucks.com/web/sany-trucks/news-article-detail/-/asset_publisher/sany-e263s-4x2-electric-semi-trailer-truck-at-iaa-transportation-2026" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Power take-off (ePTO)<small>The e-motor PTO drives hydraulic or mechanical equipment while driving (for example mixer trailers); the gearbox PTO is for tippers, walking-floor and silo trailers</small></th><td>22 kW / 400 V electric power take-off; also a separate 45 kW e-motor PTO (85 kW peak) and a 210 kW gearbox PTO</td><td class="src"><a href="https://www.sany-trucks.com/documents/20127/31635541/SANY_e-Truck_e263_SY0179_EN.pdf/c976df85-75ff-eab1-fc85-430b95f92a15?t=1756791737053" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.sany-trucks.com/news-article-detail/-/asset_publisher/sany-etrucks-supported-by-putzmeister-expands-its-european-electric-truck-portfolio" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Driver position<small>Left-hand drive (LHD) on the data sheet</small></th><td>Left</td><td class="src"><a href="https://www.sany-trucks.com/documents/20127/31635541/SANY_e-Truck_e263_SY0179_EN.pdf/c976df85-75ff-eab1-fc85-430b95f92a15?t=1756791737053" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Driver assistance (ADAS)<small>As SANY lists it: EBS, ESC, ISA, PCW, REV, TPMS, DDAW, ADDW, MOIS, LDWS, BSIS, AEBS, ACC; standard, per SANY's IAA release</small></th><td>Adaptive cruise control, emergency braking, stability control, speed assistant, pedestrian and cyclist warning, reversing detection, drowsiness and distraction warning, moving-off and blind-spot warning, lane-departure warning, tyre-pressure monitoring, 360° camera, front parking sensors</td><td class="src"><a href="https://www.sany-trucks.com/documents/20127/31635541/SANY_e-Truck_e263_SY0179_EN.pdf/c976df85-75ff-eab1-fc85-430b95f92a15?t=1756791737053" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.sany-trucks.com/web/sany-trucks/news-article-detail/-/asset_publisher/sany-e263s-4x2-electric-semi-trailer-truck-at-iaa-transportation-2026" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Euro NCAP rating<small>Stars, or not tested</small></th><td>Not tested; no new entrant in the report has a Euro NCAP rating</td><td class="src"><a href="https://www.transportenvironment.org/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Tyres<small>Michelin, Continental and Goodyear are named as suppliers</small></th><td>Front 385/55 R22.5, rear 315/70 R22.5, steel rims</td><td class="src"><a href="https://www.sany-trucks.com/documents/20127/31635541/SANY_e-Truck_e263_SY0179_EN.pdf/c976df85-75ff-eab1-fc85-430b95f92a15?t=1756791737053" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+    </tbody>
+  </table></div>
+</section>
+<section class="block">
+  <h2>Service and warranty <span class="count">3 / 5</span></h2>
+  <div class="tblwrap"><table>
+    <tbody>
+<tr><th scope="row">Service interval</th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Vehicle warranty<small>years / km</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Service network in Europe<small>SANY spoke of 700+ Alltrucks workshops at its launch in September 2025</small></th><td>Alltrucks Truck &amp; Trailer Service, about 650 workshops across Europe; spare-parts centre in Germany run by Putzmeister; 24/7 roadside assistance</td><td class="src"><a href="https://www.electrive.com/2026/09/10/sany-expands-european-e-truck-portfolio/" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.electrive.com/2026/06/04/sany-delivers-long-haul-electric-trucks-in-europe/" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.sany-trucks.com/news-article-detail/-/asset_publisher/sany-etrucks-supported-by-putzmeister-expands-its-european-electric-truck-portfolio" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Over-the-air updates<small>yes / no</small></th><td>Yes: over-the-air updates and remote diagnosis</td><td class="src"><a href="https://www.sany-trucks.com/news-article-detail/-/asset_publisher/sany-etrucks-supported-by-putzmeister-expands-its-european-electric-truck-portfolio" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Telematics / fleet portal</th><td>Remote (telematic) diagnosis</td><td class="src"><a href="https://www.sany-trucks.com/news-article-detail/-/asset_publisher/sany-etrucks-supported-by-putzmeister-expands-its-european-electric-truck-portfolio" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+    </tbody>
+  </table></div>
+</section>
+<section class="block">
+  <h2>Production and market <span class="count">4 / 11</span></h2>
+  <div class="tblwrap"><table>
+    <tbody>
+<tr><th scope="row">Production / assembly</th><td>Built in Changsha, China; adapted for Europe by Putzmeister in Germany</td><td class="src"><a href="https://www.electrive.com/2026/06/04/sany-delivers-long-haul-electric-trucks-in-europe/" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.electrive.com/2026/09/10/sany-expands-european-e-truck-portfolio/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Key suppliers</th><td>EVE Energy (battery cells); Putzmeister (European adaptation, parts and support); Alltrucks (workshops)</td><td class="src"><a href="https://www.sany-trucks.com/web/sany-trucks/news-article-detail/-/asset_publisher/sany-e263s-4x2-electric-semi-trailer-truck-at-iaa-transportation-2026" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.electrive.com/2026/06/04/sany-delivers-long-haul-electric-trucks-in-europe/" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.sany-trucks.com/news-article-detail/-/asset_publisher/sany-etrucks-supported-by-putzmeister-expands-its-european-electric-truck-portfolio" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">First European customer</th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Homologation<small>SANY Heavy Truck calls it the first mass-produced battery-electric heavy truck from a Chinese maker with EU WVTA</small></th><td>EU whole-vehicle type approval (WVTA)</td><td class="src"><a href="https://www.sany-trucks.com/web/sany-trucks/news-article-detail/-/asset_publisher/sany-e263s-4x2-electric-semi-trailer-truck-at-iaa-transportation-2026" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.prnewswire.com/news-releases/sany-heavy-truck-debuts-production-ready-electric-truck-portfolio-at-iaa-transportation-2026-302879468.html" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Availability in Europe<small>Shown at IAA 2026 in Hall 12, stand C40 (electrive preview), with three- and four-axle rigid trucks. SANY Heavy Truck also names Türkiye among its markets</small></th><td>Delivering: first trucks in operation in Germany since spring 2026 (deliveries were planned from the first quarter of 2026); SANY promises short delivery times</td><td class="src"><a href="https://www.electrive.com/2026/06/04/sany-delivers-long-haul-electric-trucks-in-europe/" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.sany-trucks.com/news-article-detail/-/asset_publisher/sany-etrucks-supported-by-putzmeister-expands-its-european-electric-truck-portfolio" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.sany-trucks.com/web/sany-trucks/news-article-detail/-/asset_publisher/sany-e263s-4x2-electric-semi-trailer-truck-at-iaa-transportation-2026" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Trucks delivered to date</th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">List price, Europe<small>Not published; SANY calls it significantly more affordable than today's alternatives (electrive, 4 June 2026)</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Lease rate<small>Term and mileage</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Maintenance cost<small>Contract or estimate. SANY offers full-service contracts of 6 to 10 years (September 2025); no price published</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Residual value after 5 years<small>Of list price</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Toll and CO₂ class<small>EU CO₂ class 5 = zero-emission</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+    </tbody>
+  </table></div>
+</section>
+<section class="block">
+  <h2>Company <span class="count">3 / 3</span></h2>
+  <div class="tblwrap"><table>
+    <tbody>
+<tr><th scope="row">Manufacturer</th><td>SANY Group, China; heavy-equipment maker, electric trucks sold in Europe as SANY eTruck</td><td class="src"><a href="https://www.sanyglobal.com/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Website<small>SANY eTrucks Europe, run with Putzmeister; group site sanyglobal.com</small></th><td>sany-trucks.com</td><td class="src"><a href="https://www.sany-trucks.com/web/sany-trucks/news-article-detail/-/asset_publisher/sany-e263s-4x2-electric-semi-trailer-truck-at-iaa-transportation-2026" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Sales contact</th><td>info@sany-trucks.com, +49 7127 599-0</td><td class="src"><a href="https://www.sany-trucks.com/web/sany-trucks/news-article-detail/-/asset_publisher/sany-e263s-4x2-electric-semi-trailer-truck-at-iaa-transportation-2026" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+    </tbody>
+  </table></div>
+</section>
+<section class="block">
+  <h2>Where these figures come from</h2>
+  <ul class="srcs">
+    <li><a href="https://www.transportenvironment.org/" rel="noopener nofollow" target="_blank">Apollo Vehicle Safety for Transport &amp; Environment: Comparison of electric truck models from European incumbents and new entrants (AVS377, August 2026)</a></li>
+    <li><a href="https://www.sanyglobal.com/" rel="noopener nofollow" target="_blank">SANY Group</a></li>
+    <li><a href="https://www.sany-trucks.com/web/sany-trucks/news-article-detail/-/asset_publisher/sany-e263s-4x2-electric-semi-trailer-truck-at-iaa-transportation-2026" rel="noopener nofollow" target="_blank">SANY eTrucks (Putzmeister), 3 September 2026: SANY e263S 4x2 electric semi-trailer truck at IAA Transportation 2026</a></li>
+    <li><a href="https://www.sany-trucks.com/documents/20127/31635541/SANY_e-Truck_e263_SY0179_EN.pdf/c976df85-75ff-eab1-fc85-430b95f92a15?t=1756791737053" rel="noopener nofollow" target="_blank">SANY eTrucks (Putzmeister), July 2026: Full-electric semi-trailer tractor SANY e263, technical data (SY0179-1 EN, PDF)</a></li>
+    <li><a href="https://www.sany-trucks.com/news-article-detail/-/asset_publisher/sany-etrucks-supported-by-putzmeister-expands-its-european-electric-truck-portfolio" rel="noopener nofollow" target="_blank">SANY eTrucks (Putzmeister), 12 September 2025: SANY eTrucks supported by Putzmeister expands its European electric truck portfolio</a></li>
+    <li><a href="https://www.prnewswire.com/news-releases/sany-heavy-truck-debuts-production-ready-electric-truck-portfolio-at-iaa-transportation-2026-302879468.html" rel="noopener nofollow" target="_blank">SANY Heavy Truck (PR Newswire), 15 September 2026: SANY Heavy Truck Debuts Production-Ready Electric Truck Portfolio at IAA Transportation 2026</a></li>
+    <li><a href="https://www.electrive.com/2026/06/04/sany-delivers-long-haul-electric-trucks-in-europe/" rel="noopener nofollow" target="_blank">electrive, 4 June 2026: Sany delivers long-haul electric trucks in Europe (Cora Werwitzke)</a></li>
+    <li><a href="https://www.electrive.com/2026/09/10/sany-expands-european-e-truck-portfolio/" rel="noopener nofollow" target="_blank">electrive, 10 September 2026: Sany expands European e-truck portfolio (Cora Werwitzke)</a></li>
+    <li><a href="https://www.electrive.com/2026/09/03/preview-electric-truck-innovations-at-iaa-transportation/" rel="noopener nofollow" target="_blank">electrive, 3 September 2026: Preview: electric truck innovations at IAA Transportation (Sany: Hall 12, Stand C40)</a></li>
+  </ul>
+</section>
+
+  <p class="kind">Other truck sheets (t&amp;e comparison)</p>
+  <div class="others">
+    <a href="/superpanther-etopas-600/">SuperPanther eTopas 600</a>
+    <a href="/farizon-homtruck/">Farizon Homtruck</a>
+    <a href="/tesla-semi/">Tesla Semi</a>
+    <a href="/windrose-e700/">Windrose E700</a>
+    <a href="/daf-xg-electric/">DAF XG Electric</a>
+    <a href="/mercedes-benz-eactros-600/">Mercedes-Benz eActros 600</a>
+    <a href="/iveco-s-eway-artic/">IVECO S-eWay Artic</a>
+    <a href="/man-etgx/">MAN eTGX</a>
+    <a href="/scania-r-series-electric/">Scania R-series electric</a>
+    <a href="/renault-trucks-e-tech-t-585/">Renault Trucks E-Tech T 585</a>
+    <a href="/renault-trucks-e-tech-t-780/">Renault Trucks E-Tech T 780</a>
+    <a href="/volvo-fh-aero-electric-extended-range/">Volvo FH Aero Electric, extended range</a>
+    <a href="/sheets/">All 94 sheets</a>
+  </div>
+</div>
+</main>
+<footer><div class="wrap">
+  <div><b>eTruckTCO.be</b> — independent electric-truck cost comparison for Belgian fleets.</div>
+  <div>These specification sheets are kept on <a href="https://etrucktco.eu/sheets/">eTRUCKTCO.eu</a> and listed on <a href="https://etrucksandchargers.com/">eTrucksAndChargers.com</a>; what you read here is what they said when this page was built. Every figure carries the page it was read from.</div>
+  <div>Estimates for guidance only. Not financial advice — your real costs depend on routes, energy contract and truck.</div>
+</div></footer>
+</body>
+</html>

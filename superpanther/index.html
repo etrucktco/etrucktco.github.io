@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>SuperPanther — specifications, battery, range and charging | eTruckTCO.be</title>
+<meta name="description" content="SuperPanther, a Chinese electric-truck start-up from 2022 with its European company in Germany. Its truck is the eTopas 600: a 4x2 tractor built by Steyr Automotive in Austria, with a 621 kWh LFP battery, up to 560 km in real traffic, 660 kW charging over two CCS plugs (20–80 % in about 38 minutes),">
+<link rel="canonical" href="https://etrucksandchargers.com/superpanther/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="eTruckTCO.be">
+<meta property="og:title" content="SuperPanther — specifications, battery, range and charging | eTruckTCO.be">
+<meta property="og:description" content="SuperPanther, a Chinese electric-truck start-up from 2022 with its European company in Germany. Its truck is the eTopas 600: a 4x2 tractor built by Steyr Automotive in Austria, with a 621 kWh LFP battery, up to 560 km in real traffic, 660 kW charging over two CCS plugs (20–80 % in about 38 minutes),">
+<meta property="og:url" content="https://etrucksandchargers.com/superpanther/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2326231c'/%3E%3Cpath d='M18.2 3 9 18h5.6l-1.6 11L23 13.6h-6.1z' fill='%231faa6e'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="/fonts/fonts.css">
+<style>
+:root{--ink:#16140f;--paper:#f4efe4;--paper2:#ece4d3;--diesel:#b8772a;--diesel-dark:#8a5418;
+  --volt:#1faa6e;--volt-dark:#137a4d;--volt-light:#d7f2e5;--line:#d8cdb6;--muted:#736b58;
+  --road:#26231c;--navy:#1e2a33;--sans:'Barlow',-apple-system,sans-serif;--cond:'Barlow Condensed',sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:var(--sans);color:var(--ink);line-height:1.55;min-height:100vh;display:flex;flex-direction:column;
+  background:radial-gradient(110% 70% at 85% -5%, rgba(31,170,110,.12), transparent 55%),linear-gradient(180deg,var(--paper),var(--paper2))}
+.wrap{width:100%;max-width:1000px;margin:0 auto;padding:0 20px}
+.topbar{background:var(--road);color:#f4efe4;padding:11px 0;border-bottom:4px solid var(--diesel)}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.brand{font-family:var(--cond);font-weight:900;font-size:23px;letter-spacing:.02em;text-transform:uppercase;display:flex;align-items:center;gap:8px}
+.brand .plug{color:var(--volt)}
+.brand .be{font-size:12px;background:var(--diesel-dark);color:#fff;padding:2px 7px;border-radius:4px;font-weight:700;letter-spacing:.05em}
+.nav{display:flex;gap:16px;flex-wrap:wrap}
+.nav a{color:#cdbf9f;text-decoration:none;font-size:13.5px}
+.nav a:hover,.nav a[aria-current]{color:#fff}
+main{flex:1}
+.hero{padding:26px 0 6px}
+.crumbs{font-size:13px;color:var(--muted);margin-bottom:10px}
+.crumbs a{color:var(--volt-dark)}
+.kind{font-family:var(--cond);text-transform:uppercase;letter-spacing:.08em;font-weight:700;color:var(--diesel-dark);font-size:13.5px}
+h1{font-family:var(--cond);font-weight:900;font-size:clamp(30px,5vw,44px);line-height:1.06;margin:4px 0 8px}
+.lead{max-width:70ch;font-size:16.5px}
+.mast{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,380px);gap:22px;align-items:start;margin-top:14px}
+.mast img{width:100%;border-radius:14px;border:1.5px solid var(--line);background:#fff;display:block}
+.mast .credit{display:block;margin-top:4px;font-size:12px;color:var(--muted);text-align:right}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:18px 0 6px}
+.facts div{background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:10px 13px}
+.facts b{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700}
+.facts span{display:block;font-family:var(--cond);font-size:21px;font-weight:800;margin-top:2px}
+.block{background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:16px 18px;margin:16px 0}
+.block h2{font-family:var(--cond);text-transform:uppercase;letter-spacing:.04em;font-size:19px;font-weight:900;margin-bottom:8px}
+.block h2 .count{font-size:12px;color:var(--muted);font-weight:700;letter-spacing:.02em}
+.tblwrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+tbody th{text-align:left;font-weight:600;font-size:14.5px;padding:7px 10px 7px 0;border-bottom:1px solid var(--line);vertical-align:top;width:44%}
+tbody th small{display:block;font-weight:400;font-size:12.5px;color:var(--muted);margin-top:2px}
+tbody td{padding:7px 8px;border-bottom:1px solid var(--line);font-size:15px;vertical-align:top}
+tbody td.src{width:32px;text-align:right}
+tbody td.src a{color:var(--volt-dark);text-decoration:none}
+.u{color:var(--muted);font-size:13px}
+.none{color:#a49a83}
+.srcs{list-style:none;font-size:14px}
+.srcs li{padding:5px 0;border-bottom:1px solid var(--line)}
+.srcs li:last-child{border-bottom:0}
+.srcs a{color:var(--volt-dark)}
+.correct{background:var(--volt-light);border:1.5px solid #a9dec5;border-radius:14px;padding:16px 18px;margin:16px 0}
+.correct a{display:inline-block;margin-top:8px;background:var(--volt-dark);color:#fff;text-decoration:none;font-weight:700;
+  padding:11px 18px;border-radius:999px}
+.film .filmlink{position:relative;display:block;border-radius:12px;overflow:hidden;background:var(--road);aspect-ratio:16/9}
+.film .filmlink img{width:100%;height:100%;object-fit:cover;display:block}
+.film .play{position:absolute;left:50%;top:50%;width:70px;height:70px;margin:-35px 0 0 -35px;border-radius:999px;background:rgba(38,35,28,.72);
+  display:flex;align-items:center;justify-content:center}
+.film .play::after{content:"";border-style:solid;border-width:14px 0 14px 23px;border-color:transparent transparent transparent #fff;margin-left:6px}
+.film .cap{margin-top:8px;font-size:13.5px;color:var(--muted)}
+.others{display:flex;flex-wrap:wrap;gap:7px;margin:16px 0}
+.others a{background:#fff;border:1.5px solid var(--line);border-radius:999px;padding:6px 12px;font-size:13px;text-decoration:none;color:var(--ink)}
+.others a:hover{border-color:var(--volt)}
+footer{margin-top:38px;background:var(--road);color:#a99e85;padding:22px 0 30px;font-size:12.5px}
+footer .wrap>div{margin-bottom:6px}
+footer a{color:#cdbf9f}
+@media(max-width:760px){.mast{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="wrap">
+  <div class="brand">e<span class="plug">⚡</span>TruckTCO <span class="be">BE</span></div>
+  <nav class="nav">
+    <a href="/index.html">Home</a>
+    <a href="/eTruckCost.html">Quick answer</a>
+    <a href="/eTruckAnalysis.html">Full analysis</a>
+    <a href="/models.html">Trucks</a>
+    <a href="/compare.html">Head to head</a>
+    <a href="/sheets/">Specifications</a>
+  </nav>
+</div></div>
+<main>
+<div class="wrap">
+  <div class="hero">
+    <p class="crumbs"><a href="/index.html">Home</a> › <a href="/sheets/">Specifications</a> › SuperPanther</p>
+    <p class="kind">SuperPanther · Truck makers</p>
+    <h1>SuperPanther</h1>
+    <div class="mast">
+      <div>
+        <p class="lead">SuperPanther, a Chinese electric-truck start-up from 2022 with its European company in Germany. Its truck is the eTopas 600: a 4x2 tractor built by Steyr Automotive in Austria, with a 621 kWh LFP battery, up to 560 km in real traffic, 660 kW charging over two CCS plugs (20–80 % in about 38 minutes), 42 t and EU type approval. In use since July with DHL and others; about 100 trucks by the end of 2026.</p>
+        <div class="facts"><div><b>Battery</b><span>621 <span class="u">kWh</span></span></div><div><b>DC charging</b><span>660 <span class="u">kW</span></span></div></div>
+      </div>
+      <figure><img src="https://etrucktco.eu/assets/pic/superpanther.1918434956.svg" alt="SuperPanther logo" loading="lazy" decoding="async"></figure>
+    </div>
+  </div>
+
+  <div class="correct">
+    <b>30 of 34 values are filled in.</b>
+    Know one we are missing, or one that is wrong? This sheet is open for anyone to correct — type into it on eTRUCKTCO.eu, press Review &amp; send, and confirm the e-mail. It is on all three sites the moment we have checked it.
+    <a href="https://etrucktco.eu/superpanther/">Correct or complete this sheet</a>
+  </div>
+
+<section class="block film">
+  <h2>On film</h2>
+  <a class="filmlink" href="https://www.youtube.com/watch?v=RZ2J0_Fkpt4" rel="noopener" target="_blank">
+    <img src="https://etrucktco.eu/assets/pic/superpanther-film.e46c0f763b.jpg" alt="The SuperPanther eTopas 600 on the test track at IAA Transportation 2026" loading="lazy" decoding="async">
+    <span class="play" aria-hidden="true"></span>
+  </a>
+  <p class="cap">A test ride in SuperPanther’s eTopas 600 at IAA Transportation 2026 — watch it on YouTube · Test ride · eTrucksAndChargers.com · 20 September 2026</p>
+</section>
+<section class="block">
+  <h2>Company <span class="count">5 / 5</span></h2>
+  <div class="tblwrap"><table>
+    <tbody>
+<tr><th scope="row">Headquarters<small>Earlier on this sheet: &quot;China; European assembly in Austria&quot; (no source)</small></th><td>Beijing, China (address in its website imprint); European company SuperPanther GmbH in Heimsheim, Germany</td><td class="src"><a href="https://www.superpanther.eu/Imprint" rel="noopener nofollow" target="_blank">↗</a> <a href="https://exhibitors.iaa-transportation.com/company/SuperPanther--3809375" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Parent group<small>Start-up founded in 2022; no parent group named</small></th><td>SuperPanther, Inc.; European arm SuperPanther GmbH (managing director Chao Liu)</td><td class="src"><a href="https://www.superpanther.eu/Imprint" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Truck brands</th><td>SuperPanther</td><td class="src"></td></tr>
+<tr><th scope="row">Founded<small>400+ employees (IAA exhibitor profile)</small></th><td>2022</td><td class="src"><a href="https://exhibitors.iaa-transportation.com/company/SuperPanther--3809375" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Website</th><td>superpanther.eu; IAA site superpanther-iaa.com</td><td class="src"><a href="https://www.superpanther.eu/" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.superpanther-iaa.com/productsheet" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+    </tbody>
+  </table></div>
+</section>
+<section class="block">
+  <h2>IAA Transportation 2026 <span class="count">5 / 5</span></h2>
+  <div class="tblwrap"><table>
+    <tbody>
+<tr><th scope="row">Hall and stand<small>Test drives with the eTopas 600 from Hall 14/15, TD03</small></th><td>Hall 12, Stand D46</td><td class="src"><a href="https://www.iaa-transportation.com/dam/jcr:1ce302c3-ecda-4258-9964-2d115a14693c/iaa-2026-press-conference-lineup.pdf" rel="noopener nofollow" target="_blank">↗</a> <a href="https://exhibitors.iaa-transportation.com/company/SuperPanther--3809375" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.superpanther.eu/page86" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Premiered in Hanover<small>World or European premieres on the stand</small></th><td>&quot;Truck Brain&quot; AI system, presented by CEO Chao Liu on the IAA main stage on 15 September; new in-house parts for the coming eTopas series: EverDrive e-axle, high-voltage domain controller, integrated thermal management</td><td class="src"><a href="https://www.superpanther.eu/page87" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.verkehrsrundschau.de/nachrichten/nfz-fuhrpark/superpanther-zeigt-truck-brain-und-neue-e-lkw-technologien-3903860" rel="noopener nofollow" target="_blank">↗</a> <a href="https://exhibitors.iaa-transportation.com/company/SuperPanther--3809375" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Trucks on the stand<small>Earlier: &quot;Electric trucks built at Steyr Automotive&quot; (trans.info)</small></th><td>eTopas 600 4x2 electric tractor (series-built, with test drives), plus the EverDrive e-axle, high-voltage domain controller and thermal management system</td><td class="src"><a href="https://exhibitors.iaa-transportation.com/company/SuperPanther--3809375" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.superpanther.eu/page86" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Announcements at the show<small>Earlier the delivery figures and the DHL agreement came from secondary coverage only (yunshuren.com, 15 September 2026); now reported by VerkehrsRundschau from the company</small></th><td>Memorandum of understanding signed with DHL on intelligent and automated transport. About 100 trucks to be delivered to European customers by the end of 2026, 1,000 in total by the end of 2027. For 2027: an L2+ motorway pilot with active lane changes, the driver staying responsible. Truck Brain runs a seven-billion-parameter AI model on a 1,000 TOPS computer and works without a permanent cloud link</td><td class="src"><a href="https://www.verkehrsrundschau.de/nachrichten/nfz-fuhrpark/superpanther-zeigt-truck-brain-und-neue-e-lkw-technologien-3903860" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.superpanther.eu/page87" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Who to talk to on the stand<small>Name and role, as the maker publishes it</small></th><td>Chao Liu, founder and CEO; Michael Ruf, President and head of Europe (both spoke at IAA)</td><td class="src"><a href="https://www.superpanther.eu/page87" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.superpanther.eu/page85" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.verkehrsrundschau.de/nachrichten/nfz-fuhrpark/superpanther-zeigt-truck-brain-und-neue-e-lkw-technologien-3903860" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+    </tbody>
+  </table></div>
+</section>
+<section class="block">
+  <h2>Long-haul electric line-up <span class="count">12 / 12</span></h2>
+  <div class="tblwrap"><table>
+    <tbody>
+<tr><th scope="row">Flagship long-haul electric tractor<small>Model name</small></th><td>SuperPanther eTopas 600</td><td class="src"><a href="https://trans.info/en/iaa-transportation-2026-these-five-trends-could-transform-truck-transport-500348" rel="noopener nofollow" target="_blank">↗</a> <a href="https://03a3d24e-e91a-4f11-9dbc-c85070eafd1c.usrfiles.com/ugd/2b775d_78e1d66da08f43708477b240f669deef.pdf" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Electric heavy trucks offered in Europe<small>Models, or &quot;none yet&quot;</small></th><td>eTopas 600 4x2 tractor, in series production</td><td class="src"><a href="https://03a3d24e-e91a-4f11-9dbc-c85070eafd1c.usrfiles.com/ugd/2b775d_78e1d66da08f43708477b240f669deef.pdf" rel="noopener nofollow" target="_blank">↗</a> <a href="https://exhibitors.iaa-transportation.com/company/SuperPanther--3809375" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Axle configurations<small>4x2, 6x2, 6x4 …</small></th><td>4x2</td><td class="src"><a href="https://03a3d24e-e91a-4f11-9dbc-c85070eafd1c.usrfiles.com/ugd/2b775d_78e1d66da08f43708477b240f669deef.pdf" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Gross combination weight<small>eTopas 600; kerb weight 10.8 t</small></th><td>42 <span class="u">t</span></td><td class="src"><a href="https://03a3d24e-e91a-4f11-9dbc-c85070eafd1c.usrfiles.com/ugd/2b775d_78e1d66da08f43708477b240f669deef.pdf" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Battery capacity, largest pack<small>eTopas 600, LFP from CATL, up to 4,500 full charge cycles. Logistra (28 July 2026) gives the battery life as 4,500 cycles, 1.2 million km or eight years</small></th><td>621 <span class="u">kWh</span></td><td class="src"><a href="https://03a3d24e-e91a-4f11-9dbc-c85070eafd1c.usrfiles.com/ugd/2b775d_78e1d66da08f43708477b240f669deef.pdf" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Range, as claimed<small>Maker's real-world test in Europe: round trips, hilly terrain, mixed loads; average 0.94 kWh/km. Earlier figures: about 500 km (IAA newsroom, February 2026) and about 600 km in real operation (trans.info, 4 August 2026)</small></th><td>up to 560 <span class="u">km</span></td><td class="src"><a href="https://03a3d24e-e91a-4f11-9dbc-c85070eafd1c.usrfiles.com/ugd/2b775d_78e1d66da08f43708477b240f669deef.pdf" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.verkehrsrundschau.de/nachrichten/nfz-fuhrpark/superpanther-zeigt-truck-brain-und-neue-e-lkw-technologien-3903860" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Max DC charge power<small>Two CCS2 connectors; 20–80 % in about 38 minutes</small></th><td>660 <span class="u">kW</span></td><td class="src"><a href="https://03a3d24e-e91a-4f11-9dbc-c85070eafd1c.usrfiles.com/ugd/2b775d_78e1d66da08f43708477b240f669deef.pdf" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Megawatt Charging System (MCS)<small>available / planned / no</small></th><td>optional: MCS, 20–80 % in 30+ minutes, up to 660 kW</td><td class="src"><a href="https://03a3d24e-e91a-4f11-9dbc-c85070eafd1c.usrfiles.com/ugd/2b775d_78e1d66da08f43708477b240f669deef.pdf" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Cell chemistry<small>LFP, NMC …</small></th><td>LFP (CATL)</td><td class="src"><a href="https://03a3d24e-e91a-4f11-9dbc-c85070eafd1c.usrfiles.com/ugd/2b775d_78e1d66da08f43708477b240f669deef.pdf" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Peak power<small>394 kW continuous; two motors on a 13 t e-axle with a two-speed gearbox; 800 V platform (earlier reports: 876 V)</small></th><td>692 <span class="u">kW</span></td><td class="src"><a href="https://03a3d24e-e91a-4f11-9dbc-c85070eafd1c.usrfiles.com/ugd/2b775d_78e1d66da08f43708477b240f669deef.pdf" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Cab<small>Adaptive and predictive cruise control, blind-spot information; OTA updates and remote diagnostics; optional ePTO (80 kW DC or 43 kW AC); heat pump for use down to −30 °C; top speed 89 km/h</small></th><td>XL sleeper cab with flat floor and one bed</td><td class="src"><a href="https://03a3d24e-e91a-4f11-9dbc-c85070eafd1c.usrfiles.com/ugd/2b775d_78e1d66da08f43708477b240f669deef.pdf" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Diesel or other long-haul trucks shown<small>For makers not all-electric</small></th><td>None: SuperPanther builds only electric trucks</td><td class="src"><a href="https://exhibitors.iaa-transportation.com/company/SuperPanther--3809375" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+    </tbody>
+  </table></div>
+</section>
+<section class="block">
+  <h2>Europe <span class="count">6 / 10</span></h2>
+  <div class="tblwrap"><table>
+    <tbody>
+<tr><th scope="row">European production or assembly<small>Semi-knocked-down (SKD) kits from China combined with European parts</small></th><td>Steyr Automotive, Steyr (Austria), contract assembly; series production since late July 2026</td><td class="src"><a href="https://trans.info/en/iaa-transportation-2026-these-five-trends-could-transform-truck-transport-500348" rel="noopener nofollow" target="_blank">↗</a> <a href="https://trans.info/en/superpanther-production-492556" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.verkehrsrundschau.de/nachrichten/nfz-fuhrpark/superpanther-zeigt-truck-brain-und-neue-e-lkw-technologien-3903860" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">European partners<small>Importers, dealers, financing, charging</small></th><td>Steyr Automotive (assembly); CATL (batteries); ZF, Schaeffler, Continental and Aumovio (parts); Alltrucks (service); DHL (memorandum on automated transport)</td><td class="src"><a href="https://www.iaa-transportation.com/en/newsroom/new-ev-truck-brand-superpanther-launches-skd-production-in-europe" rel="noopener nofollow" target="_blank">↗</a> <a href="https://trans.info/en/superpanther-production-492556" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.verkehrsrundschau.de/nachrichten/nfz-fuhrpark/superpanther-zeigt-truck-brain-und-neue-e-lkw-technologien-3903860" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Service network in Europe<small>Own workshops, partners, mobile service</small></th><td>Alltrucks independent workshop network with 24-hour roadside assistance; own spare-parts supply, remote diagnostics and software updates being built up; My Panther app</td><td class="src"><a href="https://trans.info/en/superpanther-production-492556" rel="noopener nofollow" target="_blank">↗</a> <a href="https://logistra.de/en/news/600-kilometers-range-and-local-service-chinese-electric-truck-challenges-european-manufacturers-502587.html" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.superpanther.eu/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Homologation in the EU<small>EU WVTA, national, …</small></th><td>EU type approval (eTopas 600)</td><td class="src"><a href="https://www.verkehrsrundschau.de/nachrichten/nfz-fuhrpark/superpanther-zeigt-truck-brain-und-neue-e-lkw-technologien-3903860" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Availability in Europe<small>Order now, deliveries from …</small></th><td>eTopas 600 in series production and in commercial use since July 2026</td><td class="src"><a href="https://exhibitors.iaa-transportation.com/company/SuperPanther--3809375" rel="noopener nofollow" target="_blank">↗</a> <a href="https://trans.info/en/superpanther-production-492556" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Trucks delivered in Europe to date<small>Target: about 100 by the end of 2026 and 1,000 in total by the end of 2027 (VerkehrsRundschau, 15 September 2026); no delivered count published</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Reference customers in Europe</th><td>DHL Freight (first European-built truck), GRESS, TEMMEL and LONTEX; trucks at work in Germany, the Netherlands, Austria, Switzerland, Poland and the Czech Republic</td><td class="src"><a href="https://trans.info/en/superpanther-production-492556" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.verkehrsrundschau.de/nachrichten/nfz-fuhrpark/superpanther-zeigt-truck-brain-und-neue-e-lkw-technologien-3903860" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">List price, Europe<small>Flagship long-haul tractor</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Lease rate<small>Term and mileage</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Battery and vehicle warranty<small>years / km / % state of health</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+    </tbody>
+  </table></div>
+</section>
+<section class="block">
+  <h2>On this site <span class="count">2 / 2</span></h2>
+  <div class="tblwrap"><table>
+    <tbody>
+<tr><th scope="row">Truck sheets on this site<small>Sheets of this maker in the T&amp;E comparison, if any</small></th><td>SuperPanther eTopas 600: etrucktco.eu/sheets/avs/superpanther-etopas-600/</td><td class="src"></td></tr>
+<tr><th scope="row">Anything else worth knowing</th><td>Test trucks covered more than 70,000 km in Germany and Austria from March 2026. Company mission: &quot;Driving BLUE Transportation&quot; (Better economics, Lower carbon, Ultra-efficiency, Embodied intelligence)</td><td class="src"><a href="https://trans.info/en/superpanther-production-492556" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.superpanther.eu/page85" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+    </tbody>
+  </table></div>
+</section>
+<section class="block">
+  <h2>Where these figures come from</h2>
+  <ul class="srcs">
+    <li><a href="https://trans.info/en/iaa-transportation-2026-these-five-trends-could-transform-truck-transport-500348" rel="noopener nofollow" target="_blank">trans.info, IAA Transportation 2026 preview, 6 September 2026</a></li>
+    <li><a href="https://www.electrive.com/2026/09/03/preview-electric-truck-innovations-at-iaa-transportation/" rel="noopener nofollow" target="_blank">electrive, preview of electric truck innovations at IAA Transportation, 3 September 2026</a></li>
+    <li><a href="https://www.iaa-transportation.com/" rel="noopener nofollow" target="_blank">IAA Transportation 2026, Hanover, 15-20 September 2026</a></li>
+    <li><a href="https://www.superpanther.eu/" rel="noopener nofollow" target="_blank">SuperPanther (official site)</a></li>
+    <li><a href="https://www.iaa-transportation.com/dam/jcr:1ce302c3-ecda-4258-9964-2d115a14693c/iaa-2026-press-conference-lineup.pdf" rel="noopener nofollow" target="_blank">IAA Transportation 2026: press conference line-up, 14–15 September (SuperPanther: Hall 12, D46)</a></li>
+    <li><a href="https://exhibitors.iaa-transportation.com/company/SuperPanther--3809375" rel="noopener nofollow" target="_blank">IAA Transportation 2026 exhibitor directory: SuperPanther (Heimsheim), profile written by the exhibitor</a></li>
+    <li><a href="https://03a3d24e-e91a-4f11-9dbc-c85070eafd1c.usrfiles.com/ugd/2b775d_78e1d66da08f43708477b240f669deef.pdf" rel="noopener nofollow" target="_blank">SuperPanther, 2026: eTopas 600 4x2 Electric Heavy-Duty Tractor, technology sheet (PDF, linked from its IAA 2026 site)</a></li>
+    <li><a href="https://www.superpanther-iaa.com/productsheet" rel="noopener nofollow" target="_blank">SuperPanther IAA 2026 site: eTopas 600 product sheet</a></li>
+    <li><a href="https://www.superpanther.eu/page87" rel="noopener nofollow" target="_blank">SuperPanther, 16 September 2026: SuperPanther CEO Chao Liu Unveils &quot;Truck Brain&quot; at IAA 2026</a></li>
+    <li><a href="https://www.superpanther.eu/page85" rel="noopener nofollow" target="_blank">SuperPanther, 16 September 2026: SuperPanther at IAA 2026: Electrification is the Foundation, Embodied Intelligence is the Mission</a></li>
+    <li><a href="https://www.superpanther.eu/page86" rel="noopener nofollow" target="_blank">SuperPanther, 16 September 2026: Day 2 at IAA TRANSPORTATION 2026</a></li>
+    <li><a href="https://www.superpanther.eu/Imprint" rel="noopener nofollow" target="_blank">SuperPanther GmbH (superpanther.eu): Imprint</a></li>
+    <li><a href="https://www.verkehrsrundschau.de/nachrichten/nfz-fuhrpark/superpanther-zeigt-truck-brain-und-neue-e-lkw-technologien-3903860" rel="noopener nofollow" target="_blank">VerkehrsRundschau, 15 September 2026: IAA 2026: SuperPanther zeigt Truck Brain und neue E-Lkw-Technologien</a></li>
+    <li><a href="https://www.iaa-transportation.com/en/newsroom/new-ev-truck-brand-superpanther-launches-skd-production-in-europe" rel="noopener nofollow" target="_blank">IAA Transportation newsroom, 25 February 2026: New EV Truck Brand SuperPanther Launches SKD Production in Europe</a></li>
+    <li><a href="https://trans.info/en/superpanther-production-492556" rel="noopener nofollow" target="_blank">trans.info, 4 August 2026: SuperPanther begins series production of eTopas 600 electric truck in Austria</a></li>
+    <li><a href="https://logistra.de/en/news/600-kilometers-range-and-local-service-chinese-electric-truck-challenges-european-manufacturers-502587.html" rel="noopener nofollow" target="_blank">Logistra, 28 July 2026: 600 kilometers range and local service: Chinese electric truck challenges European manufacturers</a></li>
+    <li><a href="https://youtu.be/RZ2J0_Fkpt4" rel="noopener nofollow" target="_blank">eTrucksAndChargers.com, 20 September 2026: a test ride in the SuperPanther eTopas 600 at IAA Transportation 2026 (video, 1 min 44)</a></li>
+  </ul>
+</section>
+
+  <p class="kind">Other truck makers</p>
+  <div class="others">
+    <a href="/daimler-truck/">Daimler Truck</a>
+    <a href="/man/">MAN Truck &amp; Bus</a>
+    <a href="/daf/">DAF Trucks</a>
+    <a href="/scania/">Scania</a>
+    <a href="/volvo-trucks/">Volvo Trucks</a>
+    <a href="/renault-trucks/">Renault Trucks</a>
+    <a href="/ford-trucks/">Ford Trucks</a>
+    <a href="/byd/">BYD</a>
+    <a href="/dongfeng/">Dongfeng</a>
+    <a href="/faw/">FAW Trucks (FAW Jiefang)</a>
+    <a href="/foton/">Foton</a>
+    <a href="/sinotruk/">Sinotruk</a>
+    <a href="/sheets/">All 94 sheets</a>
+  </div>
+</div>
+</main>
+<footer><div class="wrap">
+  <div><b>eTruckTCO.be</b> — independent electric-truck cost comparison for Belgian fleets.</div>
+  <div>These specification sheets are kept on <a href="https://etrucktco.eu/sheets/">eTRUCKTCO.eu</a> and listed on <a href="https://etrucksandchargers.com/">eTrucksAndChargers.com</a>; what you read here is what they said when this page was built. Every figure carries the page it was read from.</div>
+  <div>Estimates for guidance only. Not financial advice — your real costs depend on routes, energy contract and truck.</div>
+</div></footer>
+</body>
+</html>

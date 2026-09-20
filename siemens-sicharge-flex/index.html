@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Siemens SICHARGE FLEX — specifications, battery, range and charging | eTruckTCO.be</title>
+<meta name="description" content="Siemens eMobility's megawatt charging system, first on its IAA stand: one power cabinet of 480 to 1,680 kW feeds up to six CCS or MCS dispensers (up to four MCS, 1,500 A) placed up to 300 m away, shifting power in 80 or 120 kW steps. On sale from 2026; OMV ordered the first one for Kufstein in Austr">
+<link rel="canonical" href="https://etrucksandchargers.com/siemens-sicharge-flex/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="eTruckTCO.be">
+<meta property="og:title" content="Siemens SICHARGE FLEX — specifications, battery, range and charging | eTruckTCO.be">
+<meta property="og:description" content="Siemens eMobility's megawatt charging system, first on its IAA stand: one power cabinet of 480 to 1,680 kW feeds up to six CCS or MCS dispensers (up to four MCS, 1,500 A) placed up to 300 m away, shifting power in 80 or 120 kW steps. On sale from 2026; OMV ordered the first one for Kufstein in Austr">
+<meta property="og:url" content="https://etrucksandchargers.com/siemens-sicharge-flex/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2326231c'/%3E%3Cpath d='M18.2 3 9 18h5.6l-1.6 11L23 13.6h-6.1z' fill='%231faa6e'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="/fonts/fonts.css">
+<style>
+:root{--ink:#16140f;--paper:#f4efe4;--paper2:#ece4d3;--diesel:#b8772a;--diesel-dark:#8a5418;
+  --volt:#1faa6e;--volt-dark:#137a4d;--volt-light:#d7f2e5;--line:#d8cdb6;--muted:#736b58;
+  --road:#26231c;--navy:#1e2a33;--sans:'Barlow',-apple-system,sans-serif;--cond:'Barlow Condensed',sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:var(--sans);color:var(--ink);line-height:1.55;min-height:100vh;display:flex;flex-direction:column;
+  background:radial-gradient(110% 70% at 85% -5%, rgba(31,170,110,.12), transparent 55%),linear-gradient(180deg,var(--paper),var(--paper2))}
+.wrap{width:100%;max-width:1000px;margin:0 auto;padding:0 20px}
+.topbar{background:var(--road);color:#f4efe4;padding:11px 0;border-bottom:4px solid var(--diesel)}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.brand{font-family:var(--cond);font-weight:900;font-size:23px;letter-spacing:.02em;text-transform:uppercase;display:flex;align-items:center;gap:8px}
+.brand .plug{color:var(--volt)}
+.brand .be{font-size:12px;background:var(--diesel-dark);color:#fff;padding:2px 7px;border-radius:4px;font-weight:700;letter-spacing:.05em}
+.nav{display:flex;gap:16px;flex-wrap:wrap}
+.nav a{color:#cdbf9f;text-decoration:none;font-size:13.5px}
+.nav a:hover,.nav a[aria-current]{color:#fff}
+main{flex:1}
+.hero{padding:26px 0 6px}
+.crumbs{font-size:13px;color:var(--muted);margin-bottom:10px}
+.crumbs a{color:var(--volt-dark)}
+.kind{font-family:var(--cond);text-transform:uppercase;letter-spacing:.08em;font-weight:700;color:var(--diesel-dark);font-size:13.5px}
+h1{font-family:var(--cond);font-weight:900;font-size:clamp(30px,5vw,44px);line-height:1.06;margin:4px 0 8px}
+.lead{max-width:70ch;font-size:16.5px}
+.mast{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,380px);gap:22px;align-items:start;margin-top:14px}
+.mast img{width:100%;border-radius:14px;border:1.5px solid var(--line);background:#fff;display:block}
+.mast .credit{display:block;margin-top:4px;font-size:12px;color:var(--muted);text-align:right}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:18px 0 6px}
+.facts div{background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:10px 13px}
+.facts b{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700}
+.facts span{display:block;font-family:var(--cond);font-size:21px;font-weight:800;margin-top:2px}
+.block{background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:16px 18px;margin:16px 0}
+.block h2{font-family:var(--cond);text-transform:uppercase;letter-spacing:.04em;font-size:19px;font-weight:900;margin-bottom:8px}
+.block h2 .count{font-size:12px;color:var(--muted);font-weight:700;letter-spacing:.02em}
+.tblwrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+tbody th{text-align:left;font-weight:600;font-size:14.5px;padding:7px 10px 7px 0;border-bottom:1px solid var(--line);vertical-align:top;width:44%}
+tbody th small{display:block;font-weight:400;font-size:12.5px;color:var(--muted);margin-top:2px}
+tbody td{padding:7px 8px;border-bottom:1px solid var(--line);font-size:15px;vertical-align:top}
+tbody td.src{width:32px;text-align:right}
+tbody td.src a{color:var(--volt-dark);text-decoration:none}
+.u{color:var(--muted);font-size:13px}
+.none{color:#a49a83}
+.srcs{list-style:none;font-size:14px}
+.srcs li{padding:5px 0;border-bottom:1px solid var(--line)}
+.srcs li:last-child{border-bottom:0}
+.srcs a{color:var(--volt-dark)}
+.correct{background:var(--volt-light);border:1.5px solid #a9dec5;border-radius:14px;padding:16px 18px;margin:16px 0}
+.correct a{display:inline-block;margin-top:8px;background:var(--volt-dark);color:#fff;text-decoration:none;font-weight:700;
+  padding:11px 18px;border-radius:999px}
+.film .filmlink{position:relative;display:block;border-radius:12px;overflow:hidden;background:var(--road);aspect-ratio:16/9}
+.film .filmlink img{width:100%;height:100%;object-fit:cover;display:block}
+.film .play{position:absolute;left:50%;top:50%;width:70px;height:70px;margin:-35px 0 0 -35px;border-radius:999px;background:rgba(38,35,28,.72);
+  display:flex;align-items:center;justify-content:center}
+.film .play::after{content:"";border-style:solid;border-width:14px 0 14px 23px;border-color:transparent transparent transparent #fff;margin-left:6px}
+.film .cap{margin-top:8px;font-size:13.5px;color:var(--muted)}
+.others{display:flex;flex-wrap:wrap;gap:7px;margin:16px 0}
+.others a{background:#fff;border:1.5px solid var(--line);border-radius:999px;padding:6px 12px;font-size:13px;text-decoration:none;color:var(--ink)}
+.others a:hover{border-color:var(--volt)}
+footer{margin-top:38px;background:var(--road);color:#a99e85;padding:22px 0 30px;font-size:12.5px}
+footer .wrap>div{margin-bottom:6px}
+footer a{color:#cdbf9f}
+@media(max-width:760px){.mast{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="wrap">
+  <div class="brand">e<span class="plug">⚡</span>TruckTCO <span class="be">BE</span></div>
+  <nav class="nav">
+    <a href="/index.html">Home</a>
+    <a href="/eTruckCost.html">Quick answer</a>
+    <a href="/eTruckAnalysis.html">Full analysis</a>
+    <a href="/models.html">Trucks</a>
+    <a href="/compare.html">Head to head</a>
+    <a href="/sheets/">Specifications</a>
+  </nav>
+</div></div>
+<main>
+<div class="wrap">
+  <div class="hero">
+    <p class="crumbs"><a href="/index.html">Home</a> › <a href="/sheets/">Specifications</a> › Siemens SICHARGE FLEX</p>
+    <p class="kind">Siemens eMobility · Charger sheets</p>
+    <h1>Siemens SICHARGE FLEX</h1>
+    <div class="mast">
+      <div>
+        <p class="lead">Siemens eMobility's megawatt charging system, first on its IAA stand: one power cabinet of 480 to 1,680 kW feeds up to six CCS or MCS dispensers (up to four MCS, 1,500 A) placed up to 300 m away, shifting power in 80 or 120 kW steps. On sale from 2026; OMV ordered the first one for Kufstein in Austria.</p>
+        
+      </div>
+      <figure><img src="https://etrucktco.eu/assets/pic/siemens-sicharge-flex.8d11a96125.jpg" alt="Siemens SICHARGE FLEX" loading="lazy" decoding="async"><span class="credit">Image: Siemens</span></figure>
+    </div>
+  </div>
+
+  <div class="correct">
+    <b>28 of 43 values are filled in.</b>
+    Know one we are missing, or one that is wrong? This sheet is open for anyone to correct — type into it on eTRUCKTCO.eu, press Review &amp; send, and confirm the e-mail. It is on all three sites the moment we have checked it.
+    <a href="https://etrucktco.eu/siemens-sicharge-flex/">Correct or complete this sheet</a>
+  </div>
+
+
+<section class="block">
+  <h2>Company <span class="count">4 / 4</span></h2>
+  <div class="tblwrap"><table>
+    <tbody>
+<tr><th scope="row">Company<small>Legal name</small></th><td>Siemens AG, Siemens eMobility</td><td class="src"><a href="https://www.siemens.com/en-us/products/emobility/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Headquarters<small>City, country</small></th><td>Erlangen, Germany (Siemens eMobility); Siemens AG: Berlin and Munich</td><td class="src"><a href="https://assets.new.siemens.com/siemens/assets/api/uuid:27334298-acaa-4958-a434-2203eec13611/si-emobility-sicharge-flex-brochure-digital.pdf" rel="noopener nofollow" target="_blank">↗</a> <a href="https://exhibitors.iaa-transportation.com/company/Siemens--3712477" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Parent group</th><td>Siemens AG</td><td class="src"><a href="https://www.siemens.com/en-us/products/emobility/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Website</th><td>siemens.com/emobility</td><td class="src"><a href="https://www.siemens.com/en-us/products/emobility/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+    </tbody>
+  </table></div>
+</section>
+<section class="block">
+  <h2>IAA Transportation 2026 <span class="count">4 / 5</span></h2>
+  <div class="tblwrap"><table>
+    <tbody>
+<tr><th scope="row">Hall and stand<small>e.g. Hall 13, Stand C26</small></th><td>Hall 13, Booth E15</td><td class="src"><a href="https://www.siemens.com/en-us/events/iaa-transportation/" rel="noopener nofollow" target="_blank">↗</a> <a href="https://exhibitors.iaa-transportation.com/company/Siemens--3712477" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Premiered in Hanover<small>SICHARGE FLEX was launched at Busworld 2025 in Brussels; Siemens' IAA page does not announce a premiere</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Charging products on the stand<small>Models shown</small></th><td>SICHARGE FLEX with a two-year Sifinity Control licence included; SIVACON S1 distribution boards; pantographs</td><td class="src"><a href="https://www.siemens.com/en-us/events/iaa-transportation/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Announcements at the show<small>Partnerships, orders, launch dates</small></th><td>Keynote &quot;Charging beyond hardware&quot; by Markus Mildner, CEO Siemens eMobility, Main Stage (Hall 18), 15 September 2026, 14:45. Short talks on the stand every day, among them &quot;Introducing SICHARGE FLEX&quot; (Tuesday, Wednesday and Friday, 16:00), Sifinity Control, and on-board and inverted pantographs</td><td class="src"><a href="https://exhibitors.iaa-transportation.com/company/Siemens--3712477" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.siemens.com/en-us/events/iaa-transportation/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Who to talk to on the stand<small>As listed on Siemens' profile in the organiser's exhibitor directory</small></th><td>Norbert Vierheilig, Senior Comms Manager, Siemens AG</td><td class="src"><a href="https://exhibitors.iaa-transportation.com/company/Siemens--3712477" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+    </tbody>
+  </table></div>
+</section>
+<section class="block">
+  <h2>The charging system <span class="count">12 / 19</span></h2>
+  <div class="tblwrap"><table>
+    <tbody>
+<tr><th scope="row">Model<small>Product name as sold</small></th><td>SICHARGE FLEX</td><td class="src"><a href="https://www.siemens.com/en-us/events/iaa-transportation/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Architecture<small>Split DC (power cabinet + dispensers) or all-in-one</small></th><td>Split DC: one central power cabinet feeds up to six dispensers (floor columns, or wall and overhead dispenser cabinets) placed up to 300 m away, with dynamic power allocation between outlets</td><td class="src"><a href="https://www.siemens.com/en-us/products/emobility/sicharge-flex/" rel="noopener nofollow" target="_blank">↗</a> <a href="https://assets.new.siemens.com/siemens/assets/api/uuid:27334298-acaa-4958-a434-2203eec13611/si-emobility-sicharge-flex-brochure-digital.pdf" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.siemens.com/en-us/events/iaa-transportation/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Power per cabinet or unit<small>Three cabinet sizes: 480/560, 960/1,120 and 1,680 kW</small></th><td>480 / 560 / 960 / 1120 / 1680 <span class="u">kW</span></td><td class="src"><a href="https://assets.new.siemens.com/siemens/assets/api/uuid:27334298-acaa-4958-a434-2203eec13611/si-emobility-sicharge-flex-brochure-digital.pdf" rel="noopener nofollow" target="_blank">↗</a> <a href="https://press.siemens.com/global/en/pressrelease/sicharge-flex-siemens-unveils-next-gen-ev-charging-system-megawatt-era" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Power-sharing step<small>Smallest block of power that can move between outlets</small></th><td>80 / 120 <span class="u">kW</span></td><td class="src"><a href="https://www.siemens.com/en-us/products/emobility/sicharge-flex/" rel="noopener nofollow" target="_blank">↗</a> <a href="https://assets.new.siemens.com/siemens/assets/api/uuid:27334298-acaa-4958-a434-2203eec13611/si-emobility-sicharge-flex-brochure-digital.pdf" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Outlets per power unit<small>Dispensers per power cabinet, single or dual plug; up to 4 of them MCS. electrive reports CCS expandable to 12–18 charging points</small></th><td>6</td><td class="src"><a href="https://www.siemens.com/en-us/products/emobility/sicharge-flex/" rel="noopener nofollow" target="_blank">↗</a> <a href="https://assets.new.siemens.com/siemens/assets/api/uuid:27334298-acaa-4958-a434-2203eec13611/si-emobility-sicharge-flex-brochure-digital.pdf" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Max power per CCS outlet</th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Max current, CCS<small>375 A continuous with an air-cooled cable, 500 A with a liquid-cooled cable; single or dual plug</small></th><td>375 / 500 <span class="u">A</span></td><td class="src"><a href="https://assets.new.siemens.com/siemens/assets/api/uuid:27334298-acaa-4958-a434-2203eec13611/si-emobility-sicharge-flex-brochure-digital.pdf" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.siemens.com/en-us/products/emobility/sicharge-flex/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Megawatt Charging System (MCS)<small>Up to 4 MCS charging points per system; on sale from 2026</small></th><td>available</td><td class="src"><a href="https://press.siemens.com/global/en/pressrelease/sicharge-flex-siemens-unveils-next-gen-ev-charging-system-megawatt-era" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.siemens.com/en-us/products/emobility/sicharge-flex/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Max power per MCS outlet<small>Largest cabinet; Siemens says power can go to one charging point in amounts from 80 kW up to 1.68 MW</small></th><td>1680 <span class="u">kW</span></td><td class="src"><a href="https://press.siemens.com/global/en/pressrelease/sicharge-flex-siemens-unveils-next-gen-ev-charging-system-megawatt-era" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Max current, MCS<small>MCS dispenser. The MCS connector allows up to 3,000 A</small></th><td>1500 <span class="u">A</span></td><td class="src"><a href="https://press.siemens.com/global/en/pressrelease/sicharge-flex-siemens-unveils-next-gen-ev-charging-system-megawatt-era" rel="noopener nofollow" target="_blank">↗</a> <a href="https://assets.new.siemens.com/siemens/assets/api/uuid:27334298-acaa-4958-a434-2203eec13611/si-emobility-sicharge-flex-brochure-digital.pdf" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Output voltage range</th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Efficiency, grid to plug<small>As published by the maker</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Loss grid to battery, overnight depot<small>As assumed in the eTRUCKTCO calculators</small></th><td>Not modelled; the calculators only carry the SICHARGE UC (≈ 11–12 %) <span class="u">%</span></td><td class="src"><a href="https://etrucktco.eu/business-case/#explain-charging" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Cooling<small>Liquid-cooled cables / air</small></th><td>Air- or liquid-cooled cables on the dispenser columns; Siemens says the cabinet's cooling concept keeps the installation area small</td><td class="src"><a href="https://assets.new.siemens.com/siemens/assets/api/uuid:27334298-acaa-4958-a434-2203eec13611/si-emobility-sicharge-flex-brochure-digital.pdf" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Cable length<small>Various cable lengths offered; not specified</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Protection and temperature range<small>IP rating, °C</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Noise</th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Battery buffer<small>Built-in storage to soften the grid peak, if any</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Size and weight<small>Cabinet dimensions and weights not published</small></th><td>Power cabinet: up to 656 kW per m²; dispenser column 0.10 m² (CCS 375 A), MCS dispenser 0.2 m², wall or overhead dispenser cabinet 0.16 m² (CCS 375 A)</td><td class="src"><a href="https://www.siemens.com/en-us/products/emobility/sicharge-flex/" rel="noopener nofollow" target="_blank">↗</a> <a href="https://press.siemens.com/global/en/pressrelease/sicharge-flex-siemens-unveils-next-gen-ev-charging-system-megawatt-era" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+    </tbody>
+  </table></div>
+</section>
+<section class="block">
+  <h2>Software and standards <span class="count">3 / 4</span></h2>
+  <div class="tblwrap"><table>
+    <tbody>
+<tr><th scope="row">OCPP<small>Version</small></th><td>Supported, configurable in Sifinity Control to link any backend; version not published</td><td class="src"><a href="https://assets.new.siemens.com/siemens/assets/api/uuid:27334298-acaa-4958-a434-2203eec13611/si-emobility-sicharge-flex-brochure-digital.pdf" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">ISO 15118 / Plug &amp; Charge</th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Load and fleet management<small>Dynamic power sharing, depot peak control</small></th><td>Fully dynamic power allocation in 80/120 kW steps, based on what each vehicle asks for in real time; Sifinity Control for peak management</td><td class="src"><a href="https://assets.new.siemens.com/siemens/assets/api/uuid:27334298-acaa-4958-a434-2203eec13611/si-emobility-sicharge-flex-brochure-digital.pdf" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.siemens.com/en-us/events/iaa-transportation/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Software offered<small>Back-end, app, monitoring</small></th><td>Sifinity Control web application (two-year licence included): live charger status, remote access for regional service teams, exportable event log, outlet and OCPP settings. Options: advertising screen, payment solutions, MID-certified DC meter, VDV 261</td><td class="src"><a href="https://www.siemens.com/en-us/events/iaa-transportation/" rel="noopener nofollow" target="_blank">↗</a> <a href="https://assets.new.siemens.com/siemens/assets/api/uuid:27334298-acaa-4958-a434-2203eec13611/si-emobility-sicharge-flex-brochure-digital.pdf" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+    </tbody>
+  </table></div>
+</section>
+<section class="block">
+  <h2>Buying and running it in Europe <span class="count">3 / 8</span></h2>
+  <div class="tblwrap"><table>
+    <tbody>
+<tr><th scope="row">List price<small>Per cabinet or per outlet, say which</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Price per kW installed<small>Hardware only or turnkey, say which</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Availability in Europe<small>Order now, deliveries from …</small></th><td>On sale from 2026; launched at Busworld 2025 in Brussels</td><td class="src"><a href="https://press.siemens.com/global/en/pressrelease/sicharge-flex-siemens-unveils-next-gen-ev-charging-system-megawatt-era" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Units delivered in Europe to date</th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Reference customers in Europe<small>Fleets, operators, hubs</small></th><td>OMV ordered the first system for its Kufstein site on the A12 in Austria: 6 charging points, 10 after the grid is reinforced, for cars, trucks and buses</td><td class="src"><a href="https://press.siemens.com/global/en/pressrelease/sicharge-flex-siemens-unveils-next-gen-ev-charging-system-megawatt-era" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.electrive.com/2025/10/04/siemens-introduces-sicharge-flex-megawatt-charging-system/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Warranty<small>Years, service levels</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Service network in Europe<small>Own technicians, partners, response time</small></th><td>Service agreements, on-site and spare-part service by staff trained by the manufacturer, remote services, upgrades and retrofits, and training</td><td class="src"><a href="https://assets.new.siemens.com/siemens/assets/api/uuid:27334298-acaa-4958-a434-2203eec13611/si-emobility-sicharge-flex-brochure-digital.pdf" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Turnkey partners<small>Who installs it, including the grid connection</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+    </tbody>
+  </table></div>
+</section>
+<section class="block">
+  <h2>On this site <span class="count">2 / 3</span></h2>
+  <div class="tblwrap"><table>
+    <tbody>
+<tr><th scope="row">In the eTRUCKTCO calculators<small>Which option, and with what loss and cost factor</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Trucks on this site it can charge at full power<small>See the truck sheets</small></th><td>Every truck of the T&amp;E comparison except the DAF XG Electric is MCS-capable or announced so (MAN eTGX up to 750 kW): see the truck sheets at /sheets/avs/</td><td class="src"><a href="https://www.transportenvironment.org/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Anything else worth knowing</th><td>Siemens says it has installed more than 80,000 chargers in over 60 countries through more than 800 projects. The SICHARGE UC, which the calculators carry, has a sheet of its own on this site</td><td class="src"><a href="https://assets.new.siemens.com/siemens/assets/api/uuid:27334298-acaa-4958-a434-2203eec13611/si-emobility-sicharge-flex-brochure-digital.pdf" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+    </tbody>
+  </table></div>
+</section>
+<section class="block">
+  <h2>Where these figures come from</h2>
+  <ul class="srcs">
+    <li><a href="https://www.siemens.com/en-us/events/iaa-transportation/" rel="noopener nofollow" target="_blank">Siemens eMobility at IAA Transportation 2026 (Hall 13, Booth E15)</a></li>
+    <li><a href="https://www.siemens.com/en-us/products/emobility/" rel="noopener nofollow" target="_blank">Siemens eMobility (official site)</a></li>
+    <li><a href="https://etrucktco.eu/business-case/#explain-charging" rel="noopener nofollow" target="_blank">eTRUCKTCO business case: the four charging systems in the calculators (loss, cost multiplier, auto-selection)</a></li>
+    <li><a href="https://www.iaa-transportation.com/" rel="noopener nofollow" target="_blank">IAA Transportation 2026, Hanover, 15-20 September 2026</a></li>
+    <li><a href="https://www.transportenvironment.org/" rel="noopener nofollow" target="_blank">Apollo Vehicle Safety for Transport &amp; Environment: comparison of electric truck models (AVS377, August 2026)</a></li>
+    <li><a href="https://www.siemens.com/en-us/products/emobility/sicharge-flex/" rel="noopener nofollow" target="_blank">Siemens: SICHARGE FLEX – Experience beyond hardware (product page)</a></li>
+    <li><a href="https://assets.new.siemens.com/siemens/assets/api/uuid:27334298-acaa-4958-a434-2203eec13611/si-emobility-sicharge-flex-brochure-digital.pdf" rel="noopener nofollow" target="_blank">Siemens AG, October 2025: SICHARGE FLEX – Experience beyond hardware (brochure, PDF)</a></li>
+    <li><a href="https://press.siemens.com/global/en/pressrelease/sicharge-flex-siemens-unveils-next-gen-ev-charging-system-megawatt-era" rel="noopener nofollow" target="_blank">Siemens, 4 October 2025: SICHARGE FLEX: Siemens unveils Next-Gen EV Charging System for the Megawatt era</a></li>
+    <li><a href="https://www.electrive.com/2025/10/04/siemens-introduces-sicharge-flex-megawatt-charging-system/" rel="noopener nofollow" target="_blank">electrive, 4 October 2025: Siemens introduces Sicharge Flex megawatt charging system</a></li>
+    <li><a href="https://exhibitors.iaa-transportation.com/company/Siemens--3712477" rel="noopener nofollow" target="_blank">IAA TRANSPORTATION exhibitor directory, 16 September 2026: Siemens (Hall 13, Stand E15), contacts and programme</a></li>
+  </ul>
+</section>
+
+  <p class="kind">Other charger sheets</p>
+  <div class="others">
+    <a href="/huawei-fusioncharge-ds720/">Huawei FusionCharge DS720</a>
+    <a href="/kempower-satellite/">Kempower Satellite</a>
+    <a href="/alpitronic-hypercharger-hyc400/">Alpitronic Hypercharger HYC400</a>
+    <a href="/siemens-sicharge-uc/">Siemens SICHARGE UC</a>
+    <a href="/kempower-mega-satellite-flex/">Kempower Mega Satellite Flex</a>
+    <a href="/alpitronic-hyc1000/">Alpitronic HYC1000</a>
+    <a href="/abb-mcs1200/">ABB E-mobility MCS1200</a>
+    <a href="/milence-power-electronics-mcs/">Milence × Power Electronics MCS</a>
+    <a href="/ekoenergetyka-sat-1500/">Ekoenergetyka SAT 1500 MCS</a>
+    <a href="/hitachi-energy-grid-emotion-fleet/">Hitachi Energy Grid-eMotion Fleet</a>
+    <a href="/aumovio-vdo-chargers/">AUMOVIO VDO charging portfolio</a>
+    <a href="/zerova-sailwind-mcs/">ZEROVA Sailwind MCS</a>
+    <a href="/sheets/">All 94 sheets</a>
+  </div>
+</div>
+</main>
+<footer><div class="wrap">
+  <div><b>eTruckTCO.be</b> — independent electric-truck cost comparison for Belgian fleets.</div>
+  <div>These specification sheets are kept on <a href="https://etrucktco.eu/sheets/">eTRUCKTCO.eu</a> and listed on <a href="https://etrucksandchargers.com/">eTrucksAndChargers.com</a>; what you read here is what they said when this page was built. Every figure carries the page it was read from.</div>
+  <div>Estimates for guidance only. Not financial advice — your real costs depend on routes, energy contract and truck.</div>
+</div></footer>
+</body>
+</html>

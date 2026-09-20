@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Alpitronic Hypercharger HYC400 — specifications, battery, range and charging | eTruckTCO.be</title>
+<meta name="description" content="alpitronic's all-in-one 400 kW Hypercharger: two CCS plugs share four 100 kW power stacks, up to 98.2 % efficient by alpitronic's figure. The eTRUCKTCO calculators list it as the higher-loss option for an overnight depot. alpitronic is.">
+<link rel="canonical" href="https://etrucksandchargers.com/alpitronic-hypercharger-hyc400/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="eTruckTCO.be">
+<meta property="og:title" content="Alpitronic Hypercharger HYC400 — specifications, battery, range and charging | eTruckTCO.be">
+<meta property="og:description" content="alpitronic's all-in-one 400 kW Hypercharger: two CCS plugs share four 100 kW power stacks, up to 98.2 % efficient by alpitronic's figure. The eTRUCKTCO calculators list it as the higher-loss option for an overnight depot. alpitronic is.">
+<meta property="og:url" content="https://etrucksandchargers.com/alpitronic-hypercharger-hyc400/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2326231c'/%3E%3Cpath d='M18.2 3 9 18h5.6l-1.6 11L23 13.6h-6.1z' fill='%231faa6e'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="/fonts/fonts.css">
+<style>
+:root{--ink:#16140f;--paper:#f4efe4;--paper2:#ece4d3;--diesel:#b8772a;--diesel-dark:#8a5418;
+  --volt:#1faa6e;--volt-dark:#137a4d;--volt-light:#d7f2e5;--line:#d8cdb6;--muted:#736b58;
+  --road:#26231c;--navy:#1e2a33;--sans:'Barlow',-apple-system,sans-serif;--cond:'Barlow Condensed',sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:var(--sans);color:var(--ink);line-height:1.55;min-height:100vh;display:flex;flex-direction:column;
+  background:radial-gradient(110% 70% at 85% -5%, rgba(31,170,110,.12), transparent 55%),linear-gradient(180deg,var(--paper),var(--paper2))}
+.wrap{width:100%;max-width:1000px;margin:0 auto;padding:0 20px}
+.topbar{background:var(--road);color:#f4efe4;padding:11px 0;border-bottom:4px solid var(--diesel)}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.brand{font-family:var(--cond);font-weight:900;font-size:23px;letter-spacing:.02em;text-transform:uppercase;display:flex;align-items:center;gap:8px}
+.brand .plug{color:var(--volt)}
+.brand .be{font-size:12px;background:var(--diesel-dark);color:#fff;padding:2px 7px;border-radius:4px;font-weight:700;letter-spacing:.05em}
+.nav{display:flex;gap:16px;flex-wrap:wrap}
+.nav a{color:#cdbf9f;text-decoration:none;font-size:13.5px}
+.nav a:hover,.nav a[aria-current]{color:#fff}
+main{flex:1}
+.hero{padding:26px 0 6px}
+.crumbs{font-size:13px;color:var(--muted);margin-bottom:10px}
+.crumbs a{color:var(--volt-dark)}
+.kind{font-family:var(--cond);text-transform:uppercase;letter-spacing:.08em;font-weight:700;color:var(--diesel-dark);font-size:13.5px}
+h1{font-family:var(--cond);font-weight:900;font-size:clamp(30px,5vw,44px);line-height:1.06;margin:4px 0 8px}
+.lead{max-width:70ch;font-size:16.5px}
+.mast{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,380px);gap:22px;align-items:start;margin-top:14px}
+.mast img{width:100%;border-radius:14px;border:1.5px solid var(--line);background:#fff;display:block}
+.mast .credit{display:block;margin-top:4px;font-size:12px;color:var(--muted);text-align:right}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:18px 0 6px}
+.facts div{background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:10px 13px}
+.facts b{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700}
+.facts span{display:block;font-family:var(--cond);font-size:21px;font-weight:800;margin-top:2px}
+.block{background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:16px 18px;margin:16px 0}
+.block h2{font-family:var(--cond);text-transform:uppercase;letter-spacing:.04em;font-size:19px;font-weight:900;margin-bottom:8px}
+.block h2 .count{font-size:12px;color:var(--muted);font-weight:700;letter-spacing:.02em}
+.tblwrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+tbody th{text-align:left;font-weight:600;font-size:14.5px;padding:7px 10px 7px 0;border-bottom:1px solid var(--line);vertical-align:top;width:44%}
+tbody th small{display:block;font-weight:400;font-size:12.5px;color:var(--muted);margin-top:2px}
+tbody td{padding:7px 8px;border-bottom:1px solid var(--line);font-size:15px;vertical-align:top}
+tbody td.src{width:32px;text-align:right}
+tbody td.src a{color:var(--volt-dark);text-decoration:none}
+.u{color:var(--muted);font-size:13px}
+.none{color:#a49a83}
+.srcs{list-style:none;font-size:14px}
+.srcs li{padding:5px 0;border-bottom:1px solid var(--line)}
+.srcs li:last-child{border-bottom:0}
+.srcs a{color:var(--volt-dark)}
+.correct{background:var(--volt-light);border:1.5px solid #a9dec5;border-radius:14px;padding:16px 18px;margin:16px 0}
+.correct a{display:inline-block;margin-top:8px;background:var(--volt-dark);color:#fff;text-decoration:none;font-weight:700;
+  padding:11px 18px;border-radius:999px}
+.film .filmlink{position:relative;display:block;border-radius:12px;overflow:hidden;background:var(--road);aspect-ratio:16/9}
+.film .filmlink img{width:100%;height:100%;object-fit:cover;display:block}
+.film .play{position:absolute;left:50%;top:50%;width:70px;height:70px;margin:-35px 0 0 -35px;border-radius:999px;background:rgba(38,35,28,.72);
+  display:flex;align-items:center;justify-content:center}
+.film .play::after{content:"";border-style:solid;border-width:14px 0 14px 23px;border-color:transparent transparent transparent #fff;margin-left:6px}
+.film .cap{margin-top:8px;font-size:13.5px;color:var(--muted)}
+.others{display:flex;flex-wrap:wrap;gap:7px;margin:16px 0}
+.others a{background:#fff;border:1.5px solid var(--line);border-radius:999px;padding:6px 12px;font-size:13px;text-decoration:none;color:var(--ink)}
+.others a:hover{border-color:var(--volt)}
+footer{margin-top:38px;background:var(--road);color:#a99e85;padding:22px 0 30px;font-size:12.5px}
+footer .wrap>div{margin-bottom:6px}
+footer a{color:#cdbf9f}
+@media(max-width:760px){.mast{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="wrap">
+  <div class="brand">e<span class="plug">⚡</span>TruckTCO <span class="be">BE</span></div>
+  <nav class="nav">
+    <a href="/index.html">Home</a>
+    <a href="/eTruckCost.html">Quick answer</a>
+    <a href="/eTruckAnalysis.html">Full analysis</a>
+    <a href="/models.html">Trucks</a>
+    <a href="/compare.html">Head to head</a>
+    <a href="/sheets/">Specifications</a>
+  </nav>
+</div></div>
+<main>
+<div class="wrap">
+  <div class="hero">
+    <p class="crumbs"><a href="/index.html">Home</a> › <a href="/sheets/">Specifications</a> › Alpitronic Hypercharger HYC400</p>
+    <p class="kind">alpitronic · Charger sheets</p>
+    <h1>Alpitronic Hypercharger HYC400</h1>
+    <div class="mast">
+      <div>
+        <p class="lead">alpitronic's all-in-one 400 kW Hypercharger: two CCS plugs share four 100 kW power stacks, up to 98.2 % efficient by alpitronic's figure. The eTRUCKTCO calculators list it as the higher-loss option for an overnight depot. alpitronic is.</p>
+        
+      </div>
+      <figure><img src="https://etrucktco.eu/assets/pic/alpitronic-hypercharger-hyc400.e3c02506b0.jpg" alt="Alpitronic Hypercharger HYC400" loading="lazy" decoding="async"><span class="credit">Image: alpitronic</span></figure>
+    </div>
+  </div>
+
+  <div class="correct">
+    <b>29 of 43 values are filled in.</b>
+    Know one we are missing, or one that is wrong? This sheet is open for anyone to correct — type into it on eTRUCKTCO.eu, press Review &amp; send, and confirm the e-mail. It is on all three sites the moment we have checked it.
+    <a href="https://etrucktco.eu/alpitronic-hypercharger-hyc400/">Correct or complete this sheet</a>
+  </div>
+
+
+<section class="block">
+  <h2>Company <span class="count">3 / 4</span></h2>
+  <div class="tblwrap"><table>
+    <tbody>
+<tr><th scope="row">Company<small>Legal name</small></th><td>alpitronic GmbH</td><td class="src"><a href="https://www.alpitronic.it/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Headquarters<small>City, country</small></th><td>Bolzano, Italy</td><td class="src"><a href="https://www.alpitronic.it/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Parent group</th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Website</th><td>alpitronic.it</td><td class="src"><a href="https://www.alpitronic.it/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+    </tbody>
+  </table></div>
+</section>
+<section class="block">
+  <h2>IAA Transportation 2026 <span class="count">2 / 5</span></h2>
+  <div class="tblwrap"><table>
+    <tbody>
+<tr><th scope="row">Hall and stand<small>e.g. Hall 13, Stand C26</small></th><td>Hall 13, Stand E11</td><td class="src"><a href="https://www.electrive.com/2026/09/10/alpitronic-adds-compact-depot-dispenser-to-hyc1000-range/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Premiered in Hanover<small>World or European premieres on the stand</small></th><td>Public debut of the HYC1000 Depot Dispenser (400 kW); see the HYC1000 sheet</td><td class="src"><a href="https://www.electrive.com/2026/09/10/alpitronic-adds-compact-depot-dispenser-to-hyc1000-range/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Charging products on the stand<small>Models shown</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Announcements at the show<small>Partnerships, orders, launch dates</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Who to talk to on the stand<small>Name and role, as the maker publishes it</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+    </tbody>
+  </table></div>
+</section>
+<section class="block">
+  <h2>The charging system <span class="count">15 / 19</span></h2>
+  <div class="tblwrap"><table>
+    <tbody>
+<tr><th scope="row">Model<small>Product name as sold. A HYC400 Series 2 (22-inch screen, Gen 2 power stacks, 600 A continuous) is listed next to it</small></th><td>Hypercharger HYC400</td><td class="src"><a href="https://www.alpitronic.it/" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.alpitronic.it/en/hypercharger/hyc-400/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Architecture<small>Split DC (power cabinet + dispensers) or all-in-one</small></th><td>All-in-one DC: power electronics and outlets in one cabinet</td><td class="src"><a href="https://www.alpitronic.it/" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.alpitronic.it/en/hypercharger/hyc-400/" rel="noopener nofollow" target="_blank">↗</a> <a href="https://etrucktco.eu/business-case/#explain-charging" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Power per cabinet or unit<small>Four 100 kW power stacks; also built with one, two or three stacks (100, 200, 300 kW) and upgradeable</small></th><td>400 <span class="u">kW</span></td><td class="src"><a href="https://www.alpitronic.it/" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.alpitronic.it/en/hypercharger/hyc-400/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Power-sharing step<small>Smallest block of power that can move between outlets</small></th><td>50 <span class="u">kW</span></td><td class="src"><a href="https://www.alpitronic.it/en/hypercharger/hyc-400/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Outlets per power unit<small>Two vehicles at 200 kW each at the same time. Connectors CCS2 and CHAdeMO; CCS1, NACS and GB/T only on special request by vehicle makers</small></th><td>2</td><td class="src"><a href="https://www.alpitronic.it/en/hypercharger/hyc-400/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Max power per CCS outlet<small>Total DC output shared by the two plugs (2 × 200 kW when two vehicles charge); alpitronic does not state a per-plug maximum</small></th><td>400 <span class="u">kW</span></td><td class="src"><a href="https://www.alpitronic.it/en/hypercharger/hyc-400/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Max current, CCS<small>Continuous, 600 A boost (preliminary data); with four stacks at most 2 × 600 A. CHAdeMO up to 200 A. Series 2: 600 A continuous</small></th><td>500 <span class="u">A</span></td><td class="src"><a href="https://www.alpitronic.it/en/hypercharger/hyc-400/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Megawatt Charging System (MCS)<small>No MCS connector on the HYC400; alpitronic's MCS is on the HYC1000 (own sheet)</small></th><td>no</td><td class="src"><a href="https://www.alpitronic.it/en/hypercharger/hyc-400/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Max power per MCS outlet</th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Max current, MCS<small>MCS connector allows up to 3,000 A</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Output voltage range</th><td>150–1000 <span class="u">V</span></td><td class="src"><a href="https://www.alpitronic.it/en/hypercharger/hyc-400/" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.alpitronic.it/en/hypercharger/hyc-400-series-2/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Efficiency, grid to plug<small>Maximum (&quot;up to&quot;), as published by the maker; 97.5 % at full load. Series 2: up to 98.2 % peak, 97.7 % at full load</small></th><td>98.2 <span class="u">%</span></td><td class="src"><a href="https://www.alpitronic.it/en/hypercharger/hyc-400/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Loss grid to battery, overnight depot<small>As assumed in the eTRUCKTCO calculators</small></th><td>≈ 11–12 (all-in-one: more conversion and cable loss every night) <span class="u">%</span></td><td class="src"><a href="https://etrucktco.eu/business-case/#explain-charging" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Cooling<small>Liquid-cooled cables / air</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Cable length<small>With or without cable management system. Series 2: 5 or 5.5 m with cable management</small></th><td>3.5 / 5 <span class="u">m</span></td><td class="src"><a href="https://www.alpitronic.it/en/hypercharger/hyc-400/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Protection and temperature range<small>Up to 4,000 m altitude (2,000 m with CHAdeMO cables)</small></th><td>IP54, IK10; −30 to +55 °C</td><td class="src"><a href="https://www.alpitronic.it/en/hypercharger/hyc-400/" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.alpitronic.it/en/hypercharger/hyc-400-series-2/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Noise<small>dB(A) at 20 °C and 3 m; the maximum noise level can be set for day and night. Series 2: &lt; 52 dB(A) at 1 m</small></th><td>&lt; 52 <span class="u">dB</span></td><td class="src"><a href="https://www.alpitronic.it/en/hypercharger/hyc-400/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Battery buffer<small>Built-in storage to soften the grid peak, if any</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Size and weight<small>Floor-mounted on a plinth or base; Series 2 has the same size and weight</small></th><td>2,185 × 732 × 663 mm (H × W × D), 560–890 kg depending on configuration</td><td class="src"><a href="https://www.alpitronic.it/en/hypercharger/hyc-400/" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.alpitronic.it/en/hypercharger/hyc-400-series-2/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+    </tbody>
+  </table></div>
+</section>
+<section class="block">
+  <h2>Software and standards <span class="count">4 / 4</span></h2>
+  <div class="tblwrap"><table>
+    <tbody>
+<tr><th scope="row">OCPP<small>Series 2: 1.6 J and 2.0.1 J</small></th><td>1.6 J, ready for 2.0 J</td><td class="src"><a href="https://www.alpitronic.it/en/hypercharger/hyc-400/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">ISO 15118 / Plug &amp; Charge</th><td>ISO 15118 and DIN SPEC 70121 for CCS; CHAdeMO 1.2; GB/T 27930</td><td class="src"><a href="https://www.alpitronic.it/en/hypercharger/hyc-400/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Load and fleet management<small>Dynamic power sharing, depot peak control</small></th><td>The power stacks are shared dynamically between the two charge points, in 50 kW steps</td><td class="src"><a href="https://www.alpitronic.it/en/hypercharger/hyc-400/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Software offered<small>Back-end, app, monitoring</small></th><td>Remote access, diagnostics and software updates over 4G or Ethernet; card and QR payment readers and German calibration-law DC meters as options; screen in 27 languages; Hypersuite portal for documents, training and configuration</td><td class="src"><a href="https://www.alpitronic.it/en/hypercharger/hyc-400/" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.alpitronic.it/en/hyperservices/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+    </tbody>
+  </table></div>
+</section>
+<section class="block">
+  <h2>Buying and running it in Europe <span class="count">2 / 8</span></h2>
+  <div class="tblwrap"><table>
+    <tbody>
+<tr><th scope="row">List price<small>Per cabinet or per outlet, say which</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Price per kW installed<small>Hardware only or turnkey, say which</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Availability in Europe<small>No delivery times published</small></th><td>Listed on alpitronic's site with an online configurator and datasheet; a HYC400 Series 2 is listed next to it</td><td class="src"><a href="https://www.alpitronic.it/en/hypercharger/hyc-400/" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.alpitronic.it/en/hypercharger/hyc-400-series-2/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Units delivered in Europe to date</th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Reference customers in Europe<small>Fleets, operators, hubs</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Warranty<small>Years, service levels</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Service network in Europe<small>Own technicians, partners, response time</small></th><td>24/7 after-sales support, remotely and on site, by alpitronic with certified partners; service levels up to same-day resolution; spare-parts delivery</td><td class="src"><a href="https://www.alpitronic.it/en/hyperservices/" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.alpitronic.it/en/hypercharger/hyc-400/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Turnkey partners<small>Who installs it, including the grid connection</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+    </tbody>
+  </table></div>
+</section>
+<section class="block">
+  <h2>On this site <span class="count">3 / 3</span></h2>
+  <div class="tblwrap"><table>
+    <tbody>
+<tr><th scope="row">In the eTRUCKTCO calculators<small>Which option, and with what loss and cost factor</small></th><td>Yes: &quot;Alpitronic Hypercharger · all-in-one · 11–12 % loss&quot;, hardware factor 1.05; flagged as &quot;avoid for overnight depot&quot; and never chosen automatically</td><td class="src"><a href="https://etrucktco.eu/business-case/#explain-charging" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Trucks on this site it can charge at full power<small>See the truck sheets</small></th><td>Every truck of the T&amp;E comparison except the DAF XG Electric is MCS-capable or announced so (MAN eTGX up to 750 kW): see the truck sheets at /sheets/avs/</td><td class="src"><a href="https://www.transportenvironment.org/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Anything else worth knowing</th><td>alpitronic's split-DC megawatt system, the HYC1000, has a sheet of its own on this site</td><td class="src"><a href="https://www.electrive.com/2026/09/10/alpitronic-adds-compact-depot-dispenser-to-hyc1000-range/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+    </tbody>
+  </table></div>
+</section>
+<section class="block">
+  <h2>Where these figures come from</h2>
+  <ul class="srcs">
+    <li><a href="https://www.alpitronic.it/" rel="noopener nofollow" target="_blank">alpitronic (official site)</a></li>
+    <li><a href="https://www.electrive.com/2026/09/10/alpitronic-adds-compact-depot-dispenser-to-hyc1000-range/" rel="noopener nofollow" target="_blank">electrive, 10 September 2026: Alpitronic adds compact Depot Dispenser to HYC1000 range (debut at IAA, Hall 13, Stand E11)</a></li>
+    <li><a href="https://etrucktco.eu/business-case/#explain-charging" rel="noopener nofollow" target="_blank">eTRUCKTCO business case: the four charging systems in the calculators (loss, cost multiplier, auto-selection)</a></li>
+    <li><a href="https://www.iaa-transportation.com/" rel="noopener nofollow" target="_blank">IAA Transportation 2026, Hanover, 15-20 September 2026</a></li>
+    <li><a href="https://www.transportenvironment.org/" rel="noopener nofollow" target="_blank">Apollo Vehicle Safety for Transport &amp; Environment: comparison of electric truck models (AVS377, August 2026)</a></li>
+    <li><a href="https://www.alpitronic.it/en/hypercharger/hyc-400/" rel="noopener nofollow" target="_blank">alpitronic: Hypercharger HYC400 product page and technical specifications (datasheet v02-1)</a></li>
+    <li><a href="https://www.alpitronic.it/en/hypercharger/hyc-400-series-2/" rel="noopener nofollow" target="_blank">alpitronic: Hypercharger HYC400 Series 2 product page and technical specifications</a></li>
+    <li><a href="https://www.alpitronic.it/en/hyperservices/" rel="noopener nofollow" target="_blank">alpitronic: Hyperservices (after-sales service) and Hypersuite</a></li>
+  </ul>
+</section>
+
+  <p class="kind">Other charger sheets</p>
+  <div class="others">
+    <a href="/huawei-fusioncharge-ds720/">Huawei FusionCharge DS720</a>
+    <a href="/kempower-satellite/">Kempower Satellite</a>
+    <a href="/siemens-sicharge-uc/">Siemens SICHARGE UC</a>
+    <a href="/kempower-mega-satellite-flex/">Kempower Mega Satellite Flex</a>
+    <a href="/alpitronic-hyc1000/">Alpitronic HYC1000</a>
+    <a href="/siemens-sicharge-flex/">Siemens SICHARGE FLEX</a>
+    <a href="/abb-mcs1200/">ABB E-mobility MCS1200</a>
+    <a href="/milence-power-electronics-mcs/">Milence × Power Electronics MCS</a>
+    <a href="/ekoenergetyka-sat-1500/">Ekoenergetyka SAT 1500 MCS</a>
+    <a href="/hitachi-energy-grid-emotion-fleet/">Hitachi Energy Grid-eMotion Fleet</a>
+    <a href="/aumovio-vdo-chargers/">AUMOVIO VDO charging portfolio</a>
+    <a href="/zerova-sailwind-mcs/">ZEROVA Sailwind MCS</a>
+    <a href="/sheets/">All 94 sheets</a>
+  </div>
+</div>
+</main>
+<footer><div class="wrap">
+  <div><b>eTruckTCO.be</b> — independent electric-truck cost comparison for Belgian fleets.</div>
+  <div>These specification sheets are kept on <a href="https://etrucktco.eu/sheets/">eTRUCKTCO.eu</a> and listed on <a href="https://etrucksandchargers.com/">eTrucksAndChargers.com</a>; what you read here is what they said when this page was built. Every figure carries the page it was read from.</div>
+  <div>Estimates for guidance only. Not financial advice — your real costs depend on routes, energy contract and truck.</div>
+</div></footer>
+</body>
+</html>

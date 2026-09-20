@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Humble Hauler — specifications, battery, range and charging | eTruckTCO.be</title>
+<meta name="description" content="A self-driving electric container carrier without a cab, from a San Francisco start-up: about 320 km of range, 55 mph, for ports, rail yards and warehouses first, with pilots later in 2026. Setting it against a diesel tractor and trailer is not possible yet: Humble has published no battery size, no ">
+<link rel="canonical" href="https://etrucksandchargers.com/humble-hauler/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="eTruckTCO.be">
+<meta property="og:title" content="Humble Hauler — specifications, battery, range and charging | eTruckTCO.be">
+<meta property="og:description" content="A self-driving electric container carrier without a cab, from a San Francisco start-up: about 320 km of range, 55 mph, for ports, rail yards and warehouses first, with pilots later in 2026. Setting it against a diesel tractor and trailer is not possible yet: Humble has published no battery size, no ">
+<meta property="og:url" content="https://etrucksandchargers.com/humble-hauler/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2326231c'/%3E%3Cpath d='M18.2 3 9 18h5.6l-1.6 11L23 13.6h-6.1z' fill='%231faa6e'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="/fonts/fonts.css">
+<style>
+:root{--ink:#16140f;--paper:#f4efe4;--paper2:#ece4d3;--diesel:#b8772a;--diesel-dark:#8a5418;
+  --volt:#1faa6e;--volt-dark:#137a4d;--volt-light:#d7f2e5;--line:#d8cdb6;--muted:#736b58;
+  --road:#26231c;--navy:#1e2a33;--sans:'Barlow',-apple-system,sans-serif;--cond:'Barlow Condensed',sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:var(--sans);color:var(--ink);line-height:1.55;min-height:100vh;display:flex;flex-direction:column;
+  background:radial-gradient(110% 70% at 85% -5%, rgba(31,170,110,.12), transparent 55%),linear-gradient(180deg,var(--paper),var(--paper2))}
+.wrap{width:100%;max-width:1000px;margin:0 auto;padding:0 20px}
+.topbar{background:var(--road);color:#f4efe4;padding:11px 0;border-bottom:4px solid var(--diesel)}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.brand{font-family:var(--cond);font-weight:900;font-size:23px;letter-spacing:.02em;text-transform:uppercase;display:flex;align-items:center;gap:8px}
+.brand .plug{color:var(--volt)}
+.brand .be{font-size:12px;background:var(--diesel-dark);color:#fff;padding:2px 7px;border-radius:4px;font-weight:700;letter-spacing:.05em}
+.nav{display:flex;gap:16px;flex-wrap:wrap}
+.nav a{color:#cdbf9f;text-decoration:none;font-size:13.5px}
+.nav a:hover,.nav a[aria-current]{color:#fff}
+main{flex:1}
+.hero{padding:26px 0 6px}
+.crumbs{font-size:13px;color:var(--muted);margin-bottom:10px}
+.crumbs a{color:var(--volt-dark)}
+.kind{font-family:var(--cond);text-transform:uppercase;letter-spacing:.08em;font-weight:700;color:var(--diesel-dark);font-size:13.5px}
+h1{font-family:var(--cond);font-weight:900;font-size:clamp(30px,5vw,44px);line-height:1.06;margin:4px 0 8px}
+.lead{max-width:70ch;font-size:16.5px}
+.mast{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,380px);gap:22px;align-items:start;margin-top:14px}
+.mast img{width:100%;border-radius:14px;border:1.5px solid var(--line);background:#fff;display:block}
+.mast .credit{display:block;margin-top:4px;font-size:12px;color:var(--muted);text-align:right}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:18px 0 6px}
+.facts div{background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:10px 13px}
+.facts b{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700}
+.facts span{display:block;font-family:var(--cond);font-size:21px;font-weight:800;margin-top:2px}
+.block{background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:16px 18px;margin:16px 0}
+.block h2{font-family:var(--cond);text-transform:uppercase;letter-spacing:.04em;font-size:19px;font-weight:900;margin-bottom:8px}
+.block h2 .count{font-size:12px;color:var(--muted);font-weight:700;letter-spacing:.02em}
+.tblwrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+tbody th{text-align:left;font-weight:600;font-size:14.5px;padding:7px 10px 7px 0;border-bottom:1px solid var(--line);vertical-align:top;width:44%}
+tbody th small{display:block;font-weight:400;font-size:12.5px;color:var(--muted);margin-top:2px}
+tbody td{padding:7px 8px;border-bottom:1px solid var(--line);font-size:15px;vertical-align:top}
+tbody td.src{width:32px;text-align:right}
+tbody td.src a{color:var(--volt-dark);text-decoration:none}
+.u{color:var(--muted);font-size:13px}
+.none{color:#a49a83}
+.srcs{list-style:none;font-size:14px}
+.srcs li{padding:5px 0;border-bottom:1px solid var(--line)}
+.srcs li:last-child{border-bottom:0}
+.srcs a{color:var(--volt-dark)}
+.correct{background:var(--volt-light);border:1.5px solid #a9dec5;border-radius:14px;padding:16px 18px;margin:16px 0}
+.correct a{display:inline-block;margin-top:8px;background:var(--volt-dark);color:#fff;text-decoration:none;font-weight:700;
+  padding:11px 18px;border-radius:999px}
+.film .filmlink{position:relative;display:block;border-radius:12px;overflow:hidden;background:var(--road);aspect-ratio:16/9}
+.film .filmlink img{width:100%;height:100%;object-fit:cover;display:block}
+.film .play{position:absolute;left:50%;top:50%;width:70px;height:70px;margin:-35px 0 0 -35px;border-radius:999px;background:rgba(38,35,28,.72);
+  display:flex;align-items:center;justify-content:center}
+.film .play::after{content:"";border-style:solid;border-width:14px 0 14px 23px;border-color:transparent transparent transparent #fff;margin-left:6px}
+.film .cap{margin-top:8px;font-size:13.5px;color:var(--muted)}
+.others{display:flex;flex-wrap:wrap;gap:7px;margin:16px 0}
+.others a{background:#fff;border:1.5px solid var(--line);border-radius:999px;padding:6px 12px;font-size:13px;text-decoration:none;color:var(--ink)}
+.others a:hover{border-color:var(--volt)}
+footer{margin-top:38px;background:var(--road);color:#a99e85;padding:22px 0 30px;font-size:12.5px}
+footer .wrap>div{margin-bottom:6px}
+footer a{color:#cdbf9f}
+@media(max-width:760px){.mast{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="wrap">
+  <div class="brand">e<span class="plug">⚡</span>TruckTCO <span class="be">BE</span></div>
+  <nav class="nav">
+    <a href="/index.html">Home</a>
+    <a href="/eTruckCost.html">Quick answer</a>
+    <a href="/eTruckAnalysis.html">Full analysis</a>
+    <a href="/models.html">Trucks</a>
+    <a href="/compare.html">Head to head</a>
+    <a href="/sheets/">Specifications</a>
+  </nav>
+</div></div>
+<main>
+<div class="wrap">
+  <div class="hero">
+    <p class="crumbs"><a href="/index.html">Home</a> › <a href="/sheets/">Specifications</a> › Humble Hauler</p>
+    <p class="kind">Humble Robotics · More electric trucks</p>
+    <h1>Humble Hauler</h1>
+    <div class="mast">
+      <div>
+        <p class="lead">A self-driving electric container carrier without a cab, from a San Francisco start-up: about 320 km of range, 55 mph, for ports, rail yards and warehouses first, with pilots later in 2026. Setting it against a diesel tractor and trailer is not possible yet: Humble has published no battery size, no charging power, no weight and no price, and it offers the vehicle in the US as a freight service rather than for sale in Europe.</p>
+        <div class="facts"><div><b>Range</b><span>322 <span class="u">km</span></span></div></div>
+      </div>
+      <figure><img src="https://etrucktco.eu/assets/pic/humble-hauler.b3b53ad2b4.jpg" alt="Humble Hauler" loading="lazy" decoding="async"><span class="credit">Image: Humble Robotics</span></figure>
+    </div>
+  </div>
+
+  <div class="correct">
+    <b>23 of 89 values are filled in.</b>
+    Know one we are missing, or one that is wrong? This sheet is open for anyone to correct — type into it on eTRUCKTCO.eu, press Review &amp; send, and confirm the e-mail. It is on all three sites the moment we have checked it.
+    <a href="https://etrucktco.eu/humble-hauler/">Correct or complete this sheet</a>
+  </div>
+
+
+<section class="block">
+  <h2>General <span class="count">6 / 19</span></h2>
+  <div class="tblwrap"><table>
+    <tbody>
+<tr><th scope="row">Model<small>Model name as sold</small></th><td>Humble Hauler</td><td class="src"><a href="https://www.iaa-transportation.com/en/newsroom/us-startup-humble-robotics-develops-autonomous-electric-truck-without-a-cab" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.prnewswire.com/news-releases/humble-emerges-from-stealth-to-bring-autonomous-electric-haulers-to-real-world-freight-302748014.html" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Vehicle type<small>e.g. tractor, rigid</small></th><td>Battery-electric autonomous freight platform without a cab (US Class 8): a self-driving container chassis that replaces tractor and trailer</td><td class="src"><a href="https://www.iaa-transportation.com/en/newsroom/us-startup-humble-robotics-develops-autonomous-electric-truck-without-a-cab" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.prnewswire.com/news-releases/humble-emerges-from-stealth-to-bring-autonomous-electric-haulers-to-real-world-freight-302748014.html" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.electrive.com/2026/05/08/humble-robotics-plans-autonomous-container-truck-without-drivers-cabin/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Axle configuration<small>Which axles are driven is not published</small></th><td>Three axles (short version, 20-foot containers) or four axles (long version, 40- and 53-foot containers)</td><td class="src"><a href="https://www.iaa-transportation.com/en/newsroom/us-startup-humble-robotics-develops-autonomous-electric-truck-without-a-cab" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.electrive.com/2026/05/08/humble-robotics-plans-autonomous-container-truck-without-drivers-cabin/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Gross combination weight<small>Class 8 in US terms means more than 33,000 lb (15 t) gross; no figure published</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Gross vehicle weight<small>Not published</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Kerb weight<small>Not published. Humble says it weighs far less than a day cab plus chassis; InsideEVs (22 April 2026) reports 20 % lighter than a semi-truck doing the same job</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Payload<small>Not published</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Payload if the Council position on 96/53/EC is adopted<small>US vehicle; no European version announced</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Axle design loads<small>Not published</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Drive-axle load at maximum payload<small>Not published</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Overall length<small>Not published</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Overall width<small>Not published</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Overall height<small>Not published</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Wheelbase<small>Not published</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Turning radius, minimum<small>Not published</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Top speed<small>55 mph as published, converted (1 mph = 1.609 km/h); the IAA article rounds it to 90 km/h</small></th><td>88.5 <span class="u">km/h</span></td><td class="src"><a href="https://www.iaa-transportation.com/en/newsroom/us-startup-humble-robotics-develops-autonomous-electric-truck-without-a-cab" rel="noopener nofollow" target="_blank">↗</a> <a href="https://humblerobotics.ai/technology" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Suspension<small>Not published</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Fifth wheel</th><td>None: the platform carries the container itself on a universal lock-and-twist interface, and it can also be towed by any Class 8 tractor</td><td class="src"><a href="https://humblerobotics.ai/technology" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.electrive.com/2026/05/08/humble-robotics-plans-autonomous-container-truck-without-drivers-cabin/" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.iaa-transportation.com/en/newsroom/us-startup-humble-robotics-develops-autonomous-electric-truck-without-a-cab" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Clean-sheet electric design or converted diesel platform</th><td>Clean sheet: designed from the ground up without a cab, not a converted tractor</td><td class="src"><a href="https://www.prnewswire.com/news-releases/humble-emerges-from-stealth-to-bring-autonomous-electric-haulers-to-real-world-freight-302748014.html" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.truckinginfo.com/news/autonomous-start-up-humble-announces-cabless-autonomous-electric-hauler" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+    </tbody>
+  </table></div>
+</section>
+<section class="block">
+  <h2>Battery <span class="count">0 / 9</span></h2>
+  <div class="tblwrap"><table>
+    <tbody>
+<tr><th scope="row">Battery capacity, installed (gross)<small>Not published</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Battery capacity, usable<small>Not published</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Cell chemistry<small>Not published</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Cell supplier<small>Not published. Humble's CEO told Transport Topics (22 May 2026) that he would look for a US battery supplier as development goes on</small></th><td><span class="none">not published</span></td><td class="src"><a href="https://www.ttnews.com/articles/humble-autonomous-shorthaul" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">System voltage<small>Not published</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Pack architecture</th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Battery life, rated<small>cycles / km / years</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Operating temperature, battery and thermal system</th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Battery warranty<small>years / km / % state of health</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+    </tbody>
+  </table></div>
+</section>
+<section class="block">
+  <h2>Range and energy <span class="count">1 / 8</span></h2>
+  <div class="tblwrap"><table>
+    <tbody>
+<tr><th scope="row">Range, as claimed<small>200 miles as published, converted (1 mile = 1.609 km); the IAA article says about 320 km. Load and conditions not stated; InsideEVs thinks it may apply to the smaller version</small></th><td>322 <span class="u">km</span></td><td class="src"><a href="https://humblerobotics.ai/technology" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.iaa-transportation.com/en/newsroom/us-startup-humble-robotics-develops-autonomous-electric-truck-without-a-cab" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Range, favourable conditions<small>Not published</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Range, real-world</th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Range test condition<small>Not published</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Energy consumption<small>Not published</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Test fleet mileage</th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Drag coefficient (Cd)</th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Regenerative braking, peak</th><td><span class="none">not published</span></td><td class="src"></td></tr>
+    </tbody>
+  </table></div>
+</section>
+<section class="block">
+  <h2>Charging <span class="count">0 / 6</span></h2>
+  <div class="tblwrap"><table>
+    <tbody>
+<tr><th scope="row">DC charge ports<small>Not published</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Max DC charge power<small>Not published</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Charge time 20–80 %<small>Not published</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Megawatt Charging System (MCS)<small>Not published</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">AC charging</th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Vehicle-to-grid / bidirectional<small>yes / no</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+    </tbody>
+  </table></div>
+</section>
+<section class="block">
+  <h2>Powertrain <span class="count">1 / 7</span></h2>
+  <div class="tblwrap"><table>
+    <tbody>
+<tr><th scope="row">Motor layout<small>Number of motors and axles driven not published; InsideEVs (22 April 2026) reports a pair of e-axles</small></th><td>Electric axles (Humble: &quot;eAxle technology&quot;)</td><td class="src"><a href="https://humblerobotics.ai/technology" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Continuous power<small>Not published</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Peak power<small>Not published</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Peak torque<small>Not published</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Transmission<small>Not published</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Gradeability, maximum</th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Acceleration 0–80 km/h at GCW</th><td><span class="none">not published</span></td><td class="src"></td></tr>
+    </tbody>
+  </table></div>
+</section>
+<section class="block">
+  <h2>Autonomous driving <span class="count">6 / 12</span></h2>
+  <div class="tblwrap"><table>
+    <tbody>
+<tr><th scope="row">Level of automation<small>SAE level</small></th><td>Level 4 capable: drives itself with no one on board</td><td class="src"><a href="https://humblerobotics.ai/technology" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.iaa-transportation.com/en/newsroom/us-startup-humble-robotics-develops-autonomous-electric-truck-without-a-cab" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Operational domain<small>Where it is meant to drive itself</small></th><td>Controlled and semi-controlled logistics sites first — container terminals, ports, rail yards, warehouses — from dock to dock; public roads later</td><td class="src"><a href="https://www.iaa-transportation.com/en/newsroom/us-startup-humble-robotics-develops-autonomous-electric-truck-without-a-cab" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.prnewswire.com/news-releases/humble-emerges-from-stealth-to-bring-autonomous-electric-haulers-to-real-world-freight-302748014.html" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.truckinginfo.com/news/autonomous-start-up-humble-announces-cabless-autonomous-electric-hauler" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Lidar sensors<small>Number not published</small></th><td>Yes, in sensor pods</td><td class="src"><a href="https://humblerobotics.ai/technology" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.iaa-transportation.com/en/newsroom/us-startup-humble-robotics-develops-autonomous-electric-truck-without-a-cab" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Millimetre-wave radars<small>Number not published</small></th><td>Yes, in sensor pods</td><td class="src"><a href="https://humblerobotics.ai/technology" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.iaa-transportation.com/en/newsroom/us-startup-humble-robotics-develops-autonomous-electric-truck-without-a-cab" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">High-definition cameras<small>Number not published</small></th><td>Automotive cameras; with the lidars and radars: 360° view around the vehicle</td><td class="src"><a href="https://humblerobotics.ai/technology" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.prnewswire.com/news-releases/humble-emerges-from-stealth-to-bring-autonomous-electric-haulers-to-real-world-freight-302748014.html" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Trucks one operator can supervise<small>Not published; Humble names 24/7 remote operational support</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Manoeuvring precision, autonomous docking<small>Not published. Humble says it is the first Class 8 solution that can unload directly at the dock without human help</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Obstacle detection, 360°</th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Predictive emergency braking<small>Humble names predictive safety and redundant failsafe systems, without detail</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Navigation</th><td>Vision-language-action (VLA) AI model that explains in plain language what it sees and decides; no mapping or fixed route programming needed, according to Humble</td><td class="src"><a href="https://humblerobotics.ai/technology" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.iaa-transportation.com/en/newsroom/us-startup-humble-robotics-develops-autonomous-electric-truck-without-a-cab" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Cybersecurity</th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Safety driver required in Europe<small>No cab and no seat for a driver; not planned for Europe so far</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+    </tbody>
+  </table></div>
+</section>
+<section class="block">
+  <h2>Safety <span class="count">1 / 3</span></h2>
+  <div class="tblwrap"><table>
+    <tbody>
+<tr><th scope="row">Truck safety rating<small>Not rated</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Driver assistance (ADAS)<small>No driver: see Autonomous driving</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Braking and stability<small>No detail on brakes published</small></th><td>Redundant, fault-tolerant safety systems and independent safety controls with fixed guardrails</td><td class="src"><a href="https://humblerobotics.ai/technology" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.prnewswire.com/news-releases/humble-emerges-from-stealth-to-bring-autonomous-electric-haulers-to-real-world-freight-302748014.html" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+    </tbody>
+  </table></div>
+</section>
+<section class="block">
+  <h2>Cab and equipment <span class="count">2 / 5</span></h2>
+  <div class="tblwrap"><table>
+    <tbody>
+<tr><th scope="row">Cab type</th><td>None: no cab</td><td class="src"><a href="https://www.iaa-transportation.com/en/newsroom/us-startup-humble-robotics-develops-autonomous-electric-truck-without-a-cab" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.prnewswire.com/news-releases/humble-emerges-from-stealth-to-bring-autonomous-electric-haulers-to-real-world-freight-302748014.html" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Standard equipment</th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Power take-off (ePTO)<small>A concrete-mixer version is shown as an idea; no ePTO figure published</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Driver position<small>left, right, centre</small></th><td>None</td><td class="src"><a href="https://www.iaa-transportation.com/en/newsroom/us-startup-humble-robotics-develops-autonomous-electric-truck-without-a-cab" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.prnewswire.com/news-releases/humble-emerges-from-stealth-to-bring-autonomous-electric-haulers-to-real-world-freight-302748014.html" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Tyres</th><td><span class="none">not published</span></td><td class="src"></td></tr>
+    </tbody>
+  </table></div>
+</section>
+<section class="block">
+  <h2>Service and warranty <span class="count">2 / 5</span></h2>
+  <div class="tblwrap"><table>
+    <tbody>
+<tr><th scope="row">Service interval</th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Vehicle warranty<small>Not published</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Service network in Europe<small>No European service announced. Conflicting: Humble's CEO told FreightWaves (8 September 2026) that Humble plans to sell the vehicles to other operators rather than run its own fleet, while its website still offers a full freight service</small></th><td>None announced; in the US Humble offers freight transport as a full service, with 24/7 remote operational support and charging</td><td class="src"><a href="https://humblerobotics.ai/" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.freightwaves.com/news/cabless-trucks-are-coming-faster-than-carriers-think" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Over-the-air updates<small>yes / no</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Telematics / fleet portal</th><td>Live battery telemetry</td><td class="src"><a href="https://humblerobotics.ai/technology" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+    </tbody>
+  </table></div>
+</section>
+<section class="block">
+  <h2>Production and market <span class="count">2 / 12</span></h2>
+  <div class="tblwrap"><table>
+    <tbody>
+<tr><th scope="row">Production / assembly<small>Plant not named; Transport Topics (22 May 2026) reports that the vehicles are to be built in the United States</small></th><td>First prototype built in just under six months; the seed money is to pay for early manufacturing</td><td class="src"><a href="https://www.prnewswire.com/news-releases/humble-emerges-from-stealth-to-bring-autonomous-electric-haulers-to-real-world-freight-302748014.html" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.truckinginfo.com/news/autonomous-start-up-humble-announces-cabless-autonomous-electric-hauler" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.ttnews.com/articles/humble-autonomous-shorthaul" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Key suppliers</th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">First customer<small>Humble says it is working with logistics and supply-chain companies on testing and pilots; none named. Transport Topics (22 May 2026) reported a first customer pilot within 12 months</small></th><td><span class="none">not published</span></td><td class="src"><a href="https://www.ttnews.com/articles/humble-autonomous-shorthaul" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Homologation in the EU<small>Humble's own wording: 'designed to meet federal and state regulations'</small></th><td>Designed to meet US federal and state rules; no European approval announced</td><td class="src"><a href="https://humblerobotics.ai/technology" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Availability in Europe<small>Not announced. Pilot tests (in the US) are to start later in 2026, according to the IAA article</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Trucks delivered to date</th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">List price, Europe<small>Not published. Humble's CEO said on FreightWaves Today (8 September 2026) that such cabless platforms could cost below 100,000 US dollars at high production volumes — a forecast, not a price</small></th><td><span class="none">not published</span></td><td class="src"><a href="https://www.freightwaves.com/news/cabless-trucks-are-coming-faster-than-carriers-think" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Lease rate</th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Maintenance cost</th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Residual value after 5 years</th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">Toll and CO₂ class<small>EU CO₂ class 5 = zero-emission</small></th><td><span class="none">not published</span></td><td class="src"></td></tr>
+<tr><th scope="row">IAA Transportation 2026<small>Not at the show, as far as published: not in the press-conference line-up and not found in the IAA exhibitor directory (searched 16 September 2026); reported in the IAA newsroom on 12 May 2026</small></th><td><span class="none">not published</span></td><td class="src"><a href="https://exhibitors.iaa-transportation.com/" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+    </tbody>
+  </table></div>
+</section>
+<section class="block">
+  <h2>Company <span class="count">2 / 3</span></h2>
+  <div class="tblwrap"><table>
+    <tbody>
+<tr><th scope="row">Manufacturer<small>The IAA article names former staff of Apple, Google, Rivian, Tesla, Uber and Waabi</small></th><td>Humble (Humble Robotics), San Francisco; founder and CEO Eyal Cohen; 24 million US dollars of seed funding led by Eclipse, with Energy Impact Partners</td><td class="src"><a href="https://www.prnewswire.com/news-releases/humble-emerges-from-stealth-to-bring-autonomous-electric-haulers-to-real-world-freight-302748014.html" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.freightwaves.com/news/humble-hauler-cabless-autonomous-truck" rel="noopener nofollow" target="_blank">↗</a> <a href="https://www.iaa-transportation.com/en/newsroom/us-startup-humble-robotics-develops-autonomous-electric-truck-without-a-cab" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Website</th><td>humblerobotics.ai</td><td class="src"><a href="https://www.prnewswire.com/news-releases/humble-emerges-from-stealth-to-bring-autonomous-electric-haulers-to-real-world-freight-302748014.html" rel="noopener nofollow" target="_blank">↗</a></td></tr>
+<tr><th scope="row">Sales contact</th><td><span class="none">not published</span></td><td class="src"></td></tr>
+    </tbody>
+  </table></div>
+</section>
+<section class="block">
+  <h2>Where these figures come from</h2>
+  <ul class="srcs">
+    <li><a href="https://www.iaa-transportation.com/en/newsroom/us-startup-humble-robotics-develops-autonomous-electric-truck-without-a-cab" rel="noopener nofollow" target="_blank">IAA Transportation newsroom, 12 May 2026: US Startup Humble Robotics Develops Autonomous Electric Truck Without a Cab</a></li>
+    <li><a href="https://www.prnewswire.com/news-releases/humble-emerges-from-stealth-to-bring-autonomous-electric-haulers-to-real-world-freight-302748014.html" rel="noopener nofollow" target="_blank">Humble (PR Newswire), 21 April 2026: Humble Emerges from Stealth to Bring Autonomous Electric Haulers to Real-World Freight</a></li>
+    <li><a href="https://humblerobotics.ai/technology" rel="noopener nofollow" target="_blank">Humble Robotics: Technology — Fully Autonomous, Class 8 Haulers for Commercial Freight (read 16 September 2026)</a></li>
+    <li><a href="https://humblerobotics.ai/" rel="noopener nofollow" target="_blank">Humble Robotics: home page</a></li>
+    <li><a href="https://www.electrive.com/2026/05/08/humble-robotics-plans-autonomous-container-truck-without-drivers-cabin/" rel="noopener nofollow" target="_blank">electrive, 8 May 2026: Humble Robotics plans autonomous container truck without driver's cabin (Florian Treiss)</a></li>
+    <li><a href="https://www.truckinginfo.com/news/autonomous-start-up-humble-announces-cabless-autonomous-electric-hauler" rel="noopener nofollow" target="_blank">Heavy Duty Trucking, 21 April 2026: Autonomous Start-Up Humble Announces Cabless Autonomous Electric Hauler</a></li>
+    <li><a href="https://www.freightwaves.com/news/humble-hauler-cabless-autonomous-truck" rel="noopener nofollow" target="_blank">FreightWaves, 23 April 2026: Humble Robotics raises $24M for cabless hauler (Thomas Wasson)</a></li>
+    <li><a href="https://insideevs.com/news/793664/humble-hauler-electric-autonomous-truck/" rel="noopener nofollow" target="_blank">InsideEVs, 22 April 2026: The Humble Hauler Is A Cab-Less Autonomous Truck With 200 Miles Of Range (Iulian Dnistran)</a></li>
+    <li><a href="https://www.freightwaves.com/news/cabless-trucks-are-coming-faster-than-carriers-think" rel="noopener nofollow" target="_blank">FreightWaves, 8 September 2026: Cabless trucks are coming faster than carriers think (FreightWaves Today, with Humble Robotics CEO Eyal Cohen)</a></li>
+    <li><a href="https://www.ttnews.com/articles/humble-autonomous-shorthaul" rel="noopener nofollow" target="_blank">Transport Topics, 22 May 2026: What Is the Lowest-Cost Regional Freight Format? (Keiron Greenhalgh)</a></li>
+    <li><a href="https://exhibitors.iaa-transportation.com/" rel="noopener nofollow" target="_blank">IAA TRANSPORTATION 2026: Exhibitor and Partner Directory (searched 16 September 2026)</a></li>
+  </ul>
+</section>
+
+  <p class="kind">Other more electric trucks</p>
+  <div class="others">
+    <a href="/skyworth-z9/">Skyworth Z9</a>
+    <a href="/byd-ett-44/">BYD ETT 44</a>
+    <a href="/volvo-electric-80-tonne/">Volvo FH Electric 80-tonne rigid</a>
+    <a href="/mercedes-benz-eactros-lowliner/">Mercedes-Benz eActros Lowliner</a>
+    <a href="/maxus-edeliver-420l/">MAXUS eDELIVER 420L</a>
+    <a href="/foton-cavan-beacon/">Foton CAVAN BEACON</a>
+    <a href="/daf-xb-electric/">DAF XB Electric</a>
+    <a href="/daf-xd-electric/">DAF XD Electric</a>
+    <a href="/daf-xf-electric/">DAF XF Electric</a>
+    <a href="/mercedes-benz-nextgenh2-truck/">Mercedes-Benz NextGenH2 Truck</a>
+    <a href="/faw-jiefang-j6p-sodium-ion/">FAW Jiefang J6P sodium-ion electric tractor</a>
+    <a href="/ford-trucks-f-line-e/">Ford Trucks F-LINE E</a>
+    <a href="/sheets/">All 94 sheets</a>
+  </div>
+</div>
+</main>
+<footer><div class="wrap">
+  <div><b>eTruckTCO.be</b> — independent electric-truck cost comparison for Belgian fleets.</div>
+  <div>These specification sheets are kept on <a href="https://etrucktco.eu/sheets/">eTRUCKTCO.eu</a> and listed on <a href="https://etrucksandchargers.com/">eTrucksAndChargers.com</a>; what you read here is what they said when this page was built. Every figure carries the page it was read from.</div>
+  <div>Estimates for guidance only. Not financial advice — your real costs depend on routes, energy contract and truck.</div>
+</div></footer>
+</body>
+</html>

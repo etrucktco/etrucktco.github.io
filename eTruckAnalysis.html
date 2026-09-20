@@ -102,10 +102,9 @@
   .inv-frame .inv-legend { margin: 4px 0 4px; }
   .inv-frame .inv-detail-toggle { margin: 2px 0 5px; }
   @media (max-width: 720px) { #inv-svg svg { max-width: 100%; } }
-  @media (min-width: 1080px) {
-    .cf-returns-row { display: flex; gap: 18px; align-items: flex-start; }
-    .cf-returns-row > .excel-block { flex: 1 1 0; min-width: 0; }
-  }
+  /* The cashflow and NPV/MIRR tables stack, each at the full 980 px column width, the way
+     etrucktco.eu/business-case/ shows them. Side by side they were squeezed on a desktop and the
+     seven-column returns table ran out of the card. (20 September 2026) */
   .excel-block.kpi-flash { animation: kpiflash 1.6s ease; }
   @keyframes kpiflash { 0%,15% { box-shadow: 0 0 0 3px var(--gold); } 100% { box-shadow: 0 0 0 3px transparent; } }
 

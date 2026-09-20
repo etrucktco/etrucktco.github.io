@@ -207,21 +207,23 @@
       <div class="ctrl">
         <label for="c-left">Left truck</label>
         <select id="c-left">
-          <option value="man" selected>MAN eTGX 2026 (€320k)</option>
-          <option value="windrose">Windrose R700 (€198k)</option>
+          <option value="etopas" selected>SuperPanther eTopas 600 (€220k)</option>
+          <option value="man">MAN eTGX 2026 (€320k)</option>
           <option value="daimler">Daimler eActros 600 (€300k)</option>
           <option value="volvo">Volvo FH Electric (€290k)</option>
           <option value="daf">DAF XD Electric (€260k)</option>
+          <option value="windrose">Windrose R700 (€198k)</option>
         </select>
       </div>
       <div class="ctrl">
         <label for="c-right">Right truck</label>
         <select id="c-right">
-          <option value="windrose" selected>Windrose R700 (€198k)</option>
-          <option value="man">MAN eTGX 2026 (€320k)</option>
+          <option value="man" selected>MAN eTGX 2026 (€320k)</option>
+          <option value="etopas">SuperPanther eTopas 600 (€220k)</option>
           <option value="daimler">Daimler eActros 600 (€300k)</option>
           <option value="volvo">Volvo FH Electric (€290k)</option>
           <option value="daf">DAF XD Electric (€260k)</option>
+          <option value="windrose">Windrose R700 (€198k)</option>
         </select>
       </div>
       <div class="ctrl">
@@ -351,8 +353,8 @@
 
 <script>
 (function(){
-  var PRICES = { windrose:198, daimler:300, volvo:290, daf:260, man:320 };
-  var NAMES  = { windrose:'Windrose R700', daimler:'Daimler eActros 600', volvo:'Volvo FH Electric', daf:'DAF XD Electric', man:'MAN eTGX 2026' };
+  var PRICES = { etopas:220, daimler:300, volvo:290, daf:260, man:320, windrose:198 };
+  var NAMES  = { etopas:'SuperPanther eTopas 600', daimler:'Daimler eActros 600', volvo:'Volvo FH Electric', daf:'DAF XD Electric', man:'MAN eTGX 2026', windrose:'Windrose R700' };
   var $ = function(id){ return document.getElementById(id); };
   var fL = $('fL'), fR = $('fR'), fE = $('fE');
   var ready = { L:false, R:false, E:false };

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated": "2026-09-03",
+  "updated": "2026-09-20",
   "readme": "Single source of truth for every truck model page on eTruckTCO.be. Edit this file, then run: node tools/build-models.js — that regenerates the model pages and the comparison page. Every number carries a confidence label; see confidence_levels below. Never state an estimate as if it were official.",
   "confidence_levels": {
     "official": "Published by the manufacturer (press release, spec sheet, press conference).",
@@ -112,6 +112,102 @@
     }
   },
   "models": [
+    {
+      "slug": "superpanther-etopas-600",
+      "brand": "SuperPanther",
+      "name": "eTopas 600",
+      "generation": "First series",
+      "full_name": "SuperPanther eTopas 600",
+      "year_introduced": 2026,
+      "positioning": "Heavy long-haul",
+      "intro": "A Chinese-designed long-haul tractor built in Austria: SuperPanther has its eTopas 600 assembled by Steyr Automotive in Steyr, on a 621 kWh LFP pack from CATL. It is the truck this site opens on, because it is the one a Belgian fleet can be quoted on today at a price under the European flagships.",
+      "og_summary": "621 kWh, 500 km rated and about 600 km driven, 660 kW on two CCS2 plugs at once, built in Austria.",
+      "markets": {
+        "value": [
+          "Germany",
+          "Netherlands",
+          "Austria",
+          "Switzerland",
+          "Poland",
+          "Czech Republic"
+        ],
+        "confidence": "reported",
+        "note": "The countries SuperPanther named for its first deliveries. Belgium is not among them yet; the importer for the Benelux is the party to ask."
+      },
+      "availability": {
+        "shown": "IAA Transportation 2026, Hannover",
+        "production": "Assembled by Steyr Automotive in Austria. SuperPanther told VerkehrsRundschau it aims for about 100 trucks delivered by the end of 2026 and 1,000 by the end of 2027.",
+        "confidence": "reported"
+      },
+      "variants": [
+        {
+          "key": "4x2",
+          "label": "4x2 tractor, 621 kWh",
+          "headline": true,
+          "axle_config": "4x2",
+          "battery_packs": {
+            "value": null,
+            "confidence": "estimate",
+            "note": "SuperPanther does not publish a pack count."
+          },
+          "battery_kwh": {
+            "value": 621,
+            "confidence": "official",
+            "note": "LFP cells from CATL. SuperPanther publishes this as the capacity; no separate net figure is given."
+          },
+          "range_claimed_km": {
+            "value": 500,
+            "confidence": "official",
+            "note": "SuperPanther’s figure for one charge."
+          },
+          "range_loaded_km": {
+            "value": 560,
+            "confidence": "reported",
+            "note": "Driven, not claimed: up to about 600 km was reported in real-world testing without fully emptying the battery, which is the higher figure of the two and the one with conditions attached."
+          },
+          "range_realistic_km": {
+            "min": 420,
+            "max": 470,
+            "confidence": "estimate",
+            "note": "What we would schedule against year-round: winter, traffic and an arrival reserve included."
+          },
+          "power_hp": {
+            "min": 536,
+            "max": 941,
+            "confidence": "official",
+            "note": "394 kW continuous, 692 kW peak, converted to horsepower."
+          },
+          "charging_mcs_kw_max": {
+            "value": 660,
+            "confidence": "official",
+            "note": "Not megawatt charging: two CCS2 plugs in parallel, 660 kW together. One CCS2 plug alone takes up to 400 kW. An MCS version has been announced but is not what is delivered today."
+          },
+          "charge_20_80_min": {
+            "value": 38,
+            "confidence": "official",
+            "note": "20 to 80 % on two CCS2 chargers at once. On one charger it takes about twice as long."
+          },
+          "price_eur": {
+            "value": 220000,
+            "confidence": "estimate",
+            "note": "Our working assumption for a truck assembled in Austria without a published European price. SuperPanther publishes none; a quote is the only firm figure."
+          }
+        }
+      ],
+      "range_note": "Two figures, and they point the same way: 500 km is what SuperPanther claims on one charge, and about 600 km is what was driven in testing without emptying the pack. We plan against 420 to 470 km in Belgian conditions, which is the number the business case on this site uses.",
+      "charging_note": "The eTopas charges on ordinary CCS2, not on megawatt hardware: two plugs at once give 660 kW and 20 to 80 % in under 40 minutes. That matters for a depot — it is the charger you can already buy.",
+      "tco_note": "The price is the argument. At an assumed €220k the eTopas undercuts the European flagships by €80k to €100k, which is what the calculators on this site let you test against your own kilometres, your own electricity price and your own tolls.",
+      "sources": [
+        {
+          "title": "SuperPanther eTopas 600 — specification sheet, eTrucksAndChargers.com",
+          "url": "https://etrucksandchargers.com/superpanther-etopas-600/"
+        },
+        {
+          "title": "SuperPanther at IAA Transportation 2026 — the maker’s sheet",
+          "url": "https://etrucksandchargers.com/superpanther/"
+        }
+      ]
+    },
     {
       "slug": "man-etgx",
       "brand": "MAN",

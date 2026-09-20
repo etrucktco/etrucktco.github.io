@@ -332,7 +332,7 @@ function modelsPage() {
 
   return head({
     slug: 'models',
-    title: 'Electric truck specifications compared — MAN eTGX and Windrose R700 | eTruckTCO',
+    title: 'Electric truck specifications compared — SuperPanther eTopas 600, MAN eTGX, Windrose R700 | eTruckTCO',
     desc: 'Battery, range, charging and indicative price for long-haul electric trucks, with every figure labelled by how firm it is. Plus a range calculator for your own duty.'
   }) + `
 <div class="wrap">

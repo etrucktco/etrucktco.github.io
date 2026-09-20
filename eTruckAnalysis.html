@@ -724,11 +724,12 @@
       <div class="param-group">
         <label for="p-truck-model">Electric truck</label>
         <select id="p-truck-model">
-          <option value="windrose" selected>Windrose R700 (€198k)</option>
+          <option value="etopas" selected>SuperPanther eTopas 600 (€220k)</option>
           <option value="daimler">Daimler eActros 600 (€300k)</option>
           <option value="volvo">Volvo FH Electric (€290k)</option>
           <option value="daf">DAF XD Electric (€260k)</option>
           <option value="man">MAN eTGX 2026 (€320k)</option>
+          <option value="windrose">Windrose R700 (€198k)</option>
         </select>
       </div>
       <div class="param-group">
@@ -1769,7 +1770,7 @@
   // ~11-12% for high-power all-in-one (Alpitronic, Siemens fast depot DC).
   const CHARGING_LOSS = { huawei: 0.08, kempower: 0.08, alpitronic: 0.115, siemens: 0.12 };
 
-  const TRUCK_PRICES = { windrose: 198, volvo: 290, daimler: 300, daf: 260, man: 320 };
+  const TRUCK_PRICES = { etopas: 220, volvo: 290, daimler: 300, daf: 260, man: 320, windrose: 198 };
   const DIESEL_REFUND_PER_L = 0.1913;
 
   // ===== Six-zone kilometerheffing / toll engine — single source of truth =====
@@ -3004,7 +3005,7 @@
   const CFG_SPEC = {
     trucks:     { kind:'select', el:'p-trucks',      num:true,  enum:['20','50','80','100','150','200'] },
     years:      { kind:'select', el:'p-years',       num:true,  enum:['5','7','10'] },
-    truckModel: { kind:'select', el:'p-truck-model',            enum:['windrose','daimler','volvo','daf','man'] },
+    truckModel: { kind:'select', el:'p-truck-model',            enum:['etopas','daimler','volvo','daf','man','windrose'] },
     km:         { kind:'select', el:'p-km',          num:true,  enum:['80000','100000','117000','120000','150000'] },
     diesel:     { kind:'range',  el:'p-diesel',      min:1.30, max:2.00 },
     power:      { kind:'range',  el:'p-power',       min:0.15, max:0.30 },
@@ -3034,14 +3035,14 @@
   };
   // Built-in presets shipped in code (not files). CONSERVATIVE == the calibrated default state of this tool.
   const PRESET_CONSERVATIVE = Object.freeze({
-    trucks:80, years:7, truckModel:'windrose', km:100000, diesel:1.50, power:0.26, subsidy:0,
+    trucks:80, years:7, truckModel:'etopas', km:100000, diesel:1.50, power:0.26, subsidy:0,
     maint:'icct', idiesel:3, ielec:2, igen:2, disc:8, dcons:30, econs:1.10, charger:'auto',
     costBand:'mid', dtruck:120, resid:'conservative',
     tollSplitVL:45, tollSplitBR:2, tollSplitWA:8, tollSplitNL:18, tollSplitFR:15, tollSplitDE:12,
     tollBrMw:100, tollTolledShare:90, tollIdx:2.0, tollVatRecov:true, tollZev:'cliff'
   });
   const PRESET_OPTIMISTIC = Object.freeze({
-    trucks:200, years:10, truckModel:'windrose', km:150000, diesel:1.80, power:0.15, subsidy:40,
+    trucks:200, years:10, truckModel:'etopas', km:150000, diesel:1.80, power:0.15, subsidy:40,
     maint:'optimistic', idiesel:4, ielec:1, igen:2, disc:7, dcons:33, econs:1.05, charger:'huawei',
     costBand:'low', dtruck:100, resid:'optimistic',
     tollSplitVL:100, tollSplitBR:0, tollSplitWA:0, tollSplitNL:0, tollSplitFR:0, tollSplitDE:0,
@@ -3049,7 +3050,7 @@
   });
   // Minimal single-zone view: 100% Flanders (no foreign km, no cross-border detail)
   const PRESET_FLANDERS = Object.freeze({
-    trucks:80, years:7, truckModel:'windrose', km:100000, diesel:1.50, power:0.26, subsidy:0,
+    trucks:80, years:7, truckModel:'etopas', km:100000, diesel:1.50, power:0.26, subsidy:0,
     maint:'icct', idiesel:3, ielec:2, igen:2, disc:8, dcons:30, econs:1.10, charger:'auto',
     costBand:'mid', dtruck:120, resid:'conservative',
     tollSplitVL:100, tollSplitBR:0, tollSplitWA:0, tollSplitNL:0, tollSplitFR:0, tollSplitDE:0,

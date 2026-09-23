@@ -109,7 +109,13 @@
   .ctrl .name{font-weight:700;font-size:15.5px}
   .ctrl .val{font-family:var(--cond);font-weight:800;font-size:22px;color:var(--diesel-dark)}
   .ctrl .val .un{font-size:13px;color:var(--muted);font-weight:600}
-  .ctrl .src{margin-top:9px;font-size:12.5px;line-height:1.45;color:var(--muted)}
+  .ctrl .srcrow{display:flex;gap:12px;align-items:flex-start;margin-top:10px;flex-wrap:wrap}
+  .ctrl .today{font:inherit;font-size:13px;font-weight:700;white-space:nowrap;padding:7px 13px;
+    border-radius:9px;border:1.5px solid var(--line);background:#fff;color:var(--volt-dark);cursor:pointer}
+  .ctrl .today:hover:not([disabled]){background:var(--volt-light);border-color:var(--volt)}
+  .ctrl .today:focus-visible{outline:2px solid var(--volt-dark);outline-offset:2px}
+  .ctrl .today[disabled]{opacity:.55;cursor:default}
+  .ctrl .src{flex:1 1 15rem;min-width:0;font-size:12.5px;line-height:1.45;color:var(--muted)}
   .ctrl .src b{color:var(--diesel-dark);font-weight:700}
   .ctrl .src a{color:var(--volt-dark)}
   input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:8px;border-radius:8px;background:linear-gradient(90deg,var(--diesel) 0%,var(--diesel) var(--p,50%),#e7dcc6 var(--p,50%),#e7dcc6 100%);outline:none}
@@ -267,7 +273,13 @@
          fetched from eTruckTCO.eu (diesel.js); the line under it says when
          that price is from. -->
     <input type="range" id="diesel" min="1.00" max="3.00" step="0.01" value="1.50">
-    <div class="src" id="diesel-src"></div>
+    <div class="srcrow">
+      <!-- Goes and asks the European Commission's bulletin on the spot, through
+           eTruckTCO.eu. The page already opens on a fresh price; this is for
+           the visitor who wants to see that for themselves. -->
+      <button class="today" id="diesel-today"></button>
+      <div class="src" id="diesel-src"></div>
+    </div>
   </div>
 
   <div class="ctrl">
@@ -631,7 +643,15 @@
   if(window.ETTB && window.ETTB.diesel) st.diesel=window.ETTB.diesel.exVat;
   setRangeFill($('km'));
   showDiesel();
-  // And if a fresher one lands a moment after the page has drawn.
+  // The button beside the slider: go and check now. Pressing it is asking for
+  // the handle to be moved, so unlike the automatic update below it does move a
+  // slider the visitor has already set.
+  if(window.ETTB) window.ETTB.today($('diesel-today'), function(row){
+    dieselByHand=false;
+    st.diesel=row.exVat; showDiesel(); render();
+  }, function(){ return st.diesel; });
+
+  // And if a fresher one lands by itself a moment after the page has drawn.
   if(window.ETTB) window.ETTB.onDiesel(function(row){
     if(dieselByHand){ window.ETTB.note($('diesel-src')); return; }
     st.diesel=row.exVat; showDiesel(); render();

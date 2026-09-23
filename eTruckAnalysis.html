@@ -174,6 +174,12 @@
   .param-hint-value { color: var(--green); font-weight: 700; white-space: nowrap; }
   /* The 'where this price came from' line under the diesel slider: a plain
      sentence that wraps, not a label/value pair like the hint above it. */
+  .param-today { margin-top: 7px; font-family: var(--sans); font-size: 12px; font-weight: 700;
+    padding: 6px 11px; border-radius: 5px; border: 1px solid var(--excel-grid); background: #fff;
+    color: var(--green); cursor: pointer; white-space: nowrap; }
+  .param-today:hover:not([disabled]) { background: #eefaf3; border-color: var(--green); }
+  .param-today:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
+  .param-today[disabled] { opacity: .55; cursor: default; }
   #p-diesel-src { display: block; font-family: var(--sans); font-size: 11px; line-height: 1.5; letter-spacing: 0; }
   #p-diesel-src a { color: var(--green); }
   .be-params-note { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--excel-grid); font-size: 11.5px; color: var(--excel-muted); line-height: 1.5; }
@@ -757,6 +763,9 @@
           <span>after €0.1913/L professional refund (BE 2026)</span>
           <span class="param-hint-value" id="p-diesel-net">net: €1.31/L</span>
         </div>
+        <!-- Goes and asks the European Commission's bulletin on the spot,
+             through eTruckTCO.eu. -->
+        <button class="param-today" id="p-diesel-today"></button>
         <div class="param-hint"><span id="p-diesel-src"></span></div>
       </div>
       <div class="param-group">
@@ -3266,7 +3275,14 @@
   // The real Belgian price, as of this browser's last visit (diesel.js), and
   // the fresher one when it lands — unless the visitor has moved the handle.
   if(window.ETTB && window.ETTB.diesel) elDiesel.value=window.ETTB.diesel.exVat;
+  // The button beside the slider: go and check now. Pressing it is asking for
+  // the handle to be moved, so unlike the automatic update below it does move a
+  // slider the visitor has already set.
   let dieselByHand=false;
+  if(window.ETTB) window.ETTB.today($('p-diesel-today'), function(row){
+    dieselByHand=false;
+    elDiesel.value=row.exVat; showDiesel(); calculate();
+  }, function(){ return parseFloat(elDiesel.value); });
   elDiesel.addEventListener('input', () => { dieselByHand=true; });
   if(window.ETTB) window.ETTB.onDiesel(function(row){
     if(dieselByHand){ window.ETTB.note($('p-diesel-src')); return; }

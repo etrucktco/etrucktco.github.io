@@ -46,6 +46,76 @@
     /** Be told when a fresher price arrives. fn(row) — row.exVat is the price. */
     onDiesel: function (fn) { if (typeof fn === 'function') waiting.push(fn); },
     /**
+     * Go and check the bulletin now, because somebody pressed the button.
+     *
+     * The ordinary load never waits for the feed. This does: ?refresh=1 makes
+     * the Worker on eTruckTCO.eu fetch before it answers. `cache: 'no-store'`
+     * matters as much as the parameter — without it a browser can hand back
+     * the copy it already has and the button appears to do nothing.
+     *
+     * Resolves with the row, or null; it never rejects.
+     */
+    refresh: function () {
+      if (typeof fetch !== 'function') return Promise.resolve(null);
+      return fetch(URL_ + '?refresh=1', { cache: 'no-store', headers: { accept: 'application/json' } })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (snap) {
+          var row = rowOf(snap);
+          if (!row) return null;
+          try { localStorage.setItem(STORE, JSON.stringify(snap)); } catch (e) { /* full, or refused */ }
+          ETTB.diesel = row;
+          return row;
+        })
+        .catch(function () { return null; });
+    },
+
+    /**
+     * The "Today's price" button beside a diesel slider.
+     *
+     * One helper for all three, because the words matter more than the code:
+     * the button has to say what it will do before it is pressed and what it
+     * found afterwards, and saying that three different ways on three pages is
+     * how a visitor stops believing any of it.
+     *
+     * `apply(row)` is the page's own job — move its slider, redraw its sums.
+     * `before()` says what the slider reads at the moment of the press, so a
+     * visitor who had dragged the handle to €2.50 is told "updated" and not
+     * "already today's" when it jumps back to €1.89.
+     */
+    today: function (button, apply, before) {
+      if (!button) return;
+      var IDLE = 'Today’s price';
+      var busy = false;
+
+      button.type = 'button';
+      button.textContent = IDLE;
+      button.title = 'Check the European Commission’s bulletin now and put today’s price on the slider';
+
+      function say(text, ms) {
+        button.textContent = text;
+        setTimeout(function () { if (!busy) button.textContent = IDLE; }, ms);
+      }
+
+      button.addEventListener('click', function () {
+        if (busy) return;
+        busy = true;
+        var was = typeof before === 'function' ? before() : null;
+        button.disabled = true;
+        button.textContent = 'Checking…';
+
+        ETTB.refresh().then(function (row) {
+          busy = false;
+          button.disabled = false;
+          if (!row) { say('Could not check', 4000); return; }
+          try { apply(row); } catch (e) { /* the page's problem, not the button's */ }
+          // Something is always said. A button that looks like it did nothing
+          // is a button nobody presses twice.
+          say(was != null && Math.abs(row.exVat - was) < 0.005 ? 'Already today’s' : 'Updated', 3000);
+        });
+      });
+    },
+
+    /**
      * The sentence under a slider, as elements rather than as a string of
      * HTML: part of it is written by another server.
      */

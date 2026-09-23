@@ -68,6 +68,12 @@
   .ctrl select{background:#0f1922;color:#eef2f4;border:1px solid #33454f;border-radius:7px;padding:6px 8px;font:inherit;font-size:14px}
   .ctrl .rv{font-size:13px;color:#8fd9b6;font-weight:700;margin-left:7px}
   .ctrl .rowline{display:flex;align-items:center}
+  .ctrl .today{margin-top:7px;font:inherit;font-size:12px;font-weight:700;white-space:nowrap;
+    padding:5px 10px;border-radius:7px;border:1px solid #33454f;background:#0f1922;
+    color:#8fd9b6;cursor:pointer}
+  .ctrl .today:hover:not([disabled]){background:#16242f;border-color:var(--volt)}
+  .ctrl .today:focus-visible{outline:2px solid var(--volt);outline-offset:2px}
+  .ctrl .today[disabled]{opacity:.5;cursor:default}
   .ctrl input[type=range]{accent-color:var(--volt)}
 
   /* ---------- verdict ---------- */
@@ -250,6 +256,8 @@
         <!-- To €3.00, like the two calculators. It opens on the real Belgian
              price (diesel.js) and pushes it into both panels. -->
         <div class="rowline"><input type="range" id="c-diesel" min="1.00" max="3.00" step="0.01" value="1.50"><span class="rv" id="c-diesel-v">€1.50</span></div>
+        <!-- Goes and asks the European Commission's bulletin on the spot. -->
+        <button class="today" id="c-diesel-today"></button>
       </div>
       <div class="ctrl">
         <label for="c-power">Depot power</label>
@@ -479,6 +487,13 @@
   var dieselByHand = false;
   function showDiesel(){ $('c-diesel-v').textContent = '€' + parseFloat($('c-diesel').value).toFixed(2); }
   if (window.ETTB && window.ETTB.diesel) { $('c-diesel').value = window.ETTB.diesel.exVat; showDiesel(); }
+  // The button beside the slider: go and check now. Pressing it is asking for
+  // the handle to be moved, so unlike the automatic update below it does move a
+  // slider the visitor has already set.
+  if (window.ETTB) window.ETTB.today($('c-diesel-today'), function(row){
+    dieselByHand = false;
+    $('c-diesel').value = row.exVat; showDiesel(); applyBoth();
+  }, function(){ return parseFloat($('c-diesel').value); });
   if (window.ETTB) window.ETTB.onDiesel(function(row){
     if (dieselByHand) return;
     $('c-diesel').value = row.exVat; showDiesel(); applyBoth();

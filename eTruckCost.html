@@ -109,6 +109,9 @@
   .ctrl .name{font-weight:700;font-size:15.5px}
   .ctrl .val{font-family:var(--cond);font-weight:800;font-size:22px;color:var(--diesel-dark)}
   .ctrl .val .un{font-size:13px;color:var(--muted);font-weight:600}
+  .ctrl .src{margin-top:9px;font-size:12.5px;line-height:1.45;color:var(--muted)}
+  .ctrl .src b{color:var(--diesel-dark);font-weight:700}
+  .ctrl .src a{color:var(--volt-dark)}
   input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:8px;border-radius:8px;background:linear-gradient(90deg,var(--diesel) 0%,var(--diesel) var(--p,50%),#e7dcc6 var(--p,50%),#e7dcc6 100%);outline:none}
   input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;height:26px;width:26px;border-radius:50%;background:#fff;border:3px solid var(--diesel-dark);cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.25)}
   input[type=range]::-moz-range-thumb{height:26px;width:26px;border-radius:50%;background:#fff;border:3px solid var(--diesel-dark);cursor:pointer}
@@ -259,8 +262,12 @@
   </div>
 
   <div class="ctrl">
-    <div class="top"><span class="name">Diesel price at the pump</span><span class="val">€<span id="diesel-val">1.50</span> <span class="un">/ litre</span></span></div>
-    <input type="range" id="diesel" min="1.20" max="2.20" step="0.05" value="1.50">
+    <div class="top"><span class="name">Diesel price, without VAT</span><span class="val">€<span id="diesel-val">1.50</span> <span class="un">/ litre</span></span></div>
+    <!-- Up to €3.00 a litre. The handle opens on the real Belgian price,
+         fetched from eTruckTCO.eu (diesel.js); the line under it says when
+         that price is from. -->
+    <input type="range" id="diesel" min="1.00" max="3.00" step="0.01" value="1.50">
+    <div class="src" id="diesel-src"></div>
   </div>
 
   <div class="ctrl">
@@ -381,6 +388,7 @@
   </div>
 </footer>
 
+<script src="diesel.js"></script>
 <script>
 (function(){
   "use strict";
@@ -600,7 +608,18 @@
   }
   // One handler used everywhere: update state, then ALWAYS re-render every output
   function onKm(){ st.km=+this.value; $('km-val').textContent=st.km.toLocaleString('en-US').replace(/,/g, ' '); setRangeFill(this); render(); }
-  function onDiesel(){ st.diesel=+this.value; $('diesel-val').textContent=st.diesel.toFixed(2); setRangeFill(this); render(); }
+  // Once the visitor has taken hold of the slider, a fresher price leaves it
+  // alone: their scenario is never moved under their hand.
+  var dieselByHand=false;
+  function onDiesel(){ dieselByHand=true; st.diesel=+this.value; $('diesel-val').textContent=st.diesel.toFixed(2); setRangeFill(this); render(); }
+  function showDiesel(){
+    // Read back, not assumed: the slider snaps to its step, so whatever it
+    // settles on is the figure shown and the figure calculated with.
+    $('diesel').value=st.diesel; st.diesel=+$('diesel').value;
+    $('diesel-val').textContent=st.diesel.toFixed(2);
+    setRangeFill($('diesel'));
+    if(window.ETTB) window.ETTB.note($('diesel-src'));
+  }
   $('km').addEventListener('input', onKm);
   $('km').addEventListener('change', onKm);
   $('diesel').addEventListener('input', onDiesel);
@@ -608,7 +627,15 @@
   document.querySelectorAll('#years-seg button').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('#years-seg button').forEach(function(x){x.classList.remove('on');});this.classList.add('on');st.years=+this.dataset.y;render();});});
   document.querySelectorAll('#charge-seg button').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('#charge-seg button').forEach(function(x){x.classList.remove('on');});this.classList.add('on');st.charge=this.dataset.c;render();});});
 
-  setRangeFill($('km')); setRangeFill($('diesel'));
+  // The real Belgian price, as of this browser's last visit (diesel.js).
+  if(window.ETTB && window.ETTB.diesel) st.diesel=window.ETTB.diesel.exVat;
+  setRangeFill($('km'));
+  showDiesel();
+  // And if a fresher one lands a moment after the page has drawn.
+  if(window.ETTB) window.ETTB.onDiesel(function(row){
+    if(dieselByHand){ window.ETTB.note($('diesel-src')); return; }
+    st.diesel=row.exVat; showDiesel(); render();
+  });
   render();
   console.log('eTruckCost build 2026-06-02b — hero numbers recalc live');
 })();

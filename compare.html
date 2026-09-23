@@ -246,8 +246,10 @@
         </select>
       </div>
       <div class="ctrl">
-        <label for="c-diesel">Diesel at pump</label>
-        <div class="rowline"><input type="range" id="c-diesel" min="1.30" max="2.00" step="0.05" value="1.50"><span class="rv" id="c-diesel-v">€1.50</span></div>
+        <label for="c-diesel">Diesel, without VAT</label>
+        <!-- To €3.00, like the two calculators. It opens on the real Belgian
+             price (diesel.js) and pushes it into both panels. -->
+        <div class="rowline"><input type="range" id="c-diesel" min="1.00" max="3.00" step="0.01" value="1.50"><span class="rv" id="c-diesel-v">€1.50</span></div>
       </div>
       <div class="ctrl">
         <label for="c-power">Depot power</label>
@@ -351,6 +353,7 @@
   </div>
 </footer>
 
+<script src="diesel.js"></script>
 <script>
 (function(){
   var PRICES = { etopas:220, daimler:300, volvo:290, daf:260, man:320, windrose:198 };
@@ -471,7 +474,16 @@
   function setSlider(id, v){ var el = $(id); el.value = String(v); $(id + '-v').textContent = '€' + v + 'k'; }
   $('c-pl').addEventListener('input', function(){ $('c-pl-v').textContent = '€' + this.value + 'k'; applyBoth(); });
   $('c-pr').addEventListener('input', function(){ $('c-pr-v').textContent = '€' + this.value + 'k'; applyBoth(); });
-  $('c-diesel').addEventListener('input', function(){ $('c-diesel-v').textContent = '€' + parseFloat(this.value).toFixed(2); applyBoth(); });
+  // The real Belgian price, as of this browser's last visit, and the fresher
+  // one when it lands — unless the visitor has moved the slider themselves.
+  var dieselByHand = false;
+  function showDiesel(){ $('c-diesel-v').textContent = '€' + parseFloat($('c-diesel').value).toFixed(2); }
+  if (window.ETTB && window.ETTB.diesel) { $('c-diesel').value = window.ETTB.diesel.exVat; showDiesel(); }
+  if (window.ETTB) window.ETTB.onDiesel(function(row){
+    if (dieselByHand) return;
+    $('c-diesel').value = row.exVat; showDiesel(); applyBoth();
+  });
+  $('c-diesel').addEventListener('input', function(){ dieselByHand = true; showDiesel(); applyBoth(); });
   $('c-power').addEventListener('input',  function(){ $('c-power-v').textContent  = '€' + parseFloat(this.value).toFixed(2); applyBoth(); });
 
   /* ---------- synchronised scrolling ----------

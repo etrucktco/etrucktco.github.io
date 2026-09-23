@@ -752,11 +752,11 @@
         </select>
       </div>
       <div class="param-group">
-        <label for="p-diesel">Diesel price, without VAT (€/L)</label>
+        <label for="p-diesel">Diesel price at the pump (€/L)</label>
         <div class="range-wrap">
           <!-- To €3.00. The handle opens on the real Belgian price, fetched
                from eTruckTCO.eu (diesel.js). -->
-          <input type="range" id="p-diesel" min="1.00" max="3.00" step="0.01" value="1.50">
+          <input type="range" id="p-diesel" min="1.20" max="3.00" step="0.01" value="1.50">
           <span class="range-value" id="p-diesel-val">€1.50</span>
         </div>
         <div class="param-hint">
@@ -1788,6 +1788,7 @@
 
   const TRUCK_PRICES = { etopas: 220, volvo: 290, daimler: 300, daf: 260, man: 320, windrose: 198 };
   const DIESEL_REFUND_PER_L = 0.1913;
+  const VAT_PCT = 21;             // Belgian VAT on road fuel
 
   // ===== Six-zone kilometerheffing / toll engine — single source of truth =====
   // Belgium is regional (VL/BR/WA diverge from 1 Jul 2026) plus three foreign zones (NL/DE/FR).
@@ -2328,8 +2329,12 @@
     const trucks = (ovN > 0) ? Math.round(ovN) : parseInt(elTrucks.value);
     const years = parseInt(elYears.value);
     const truckPriceK = (ovPe > 0) ? ovPe : TRUCK_PRICES[elTruckModel.value];
+    // The slider is the pump price, VAT and all. Two steps take it to what the
+    // business burns: the VAT comes back to any company, and part of the fuel
+    // tax comes back to a professional haulier.
     const dieselPrice = parseFloat(elDiesel.value);
-    const dieselPriceNet = Math.max(0, dieselPrice - RD);
+    const dieselExVat = dieselPrice / (1 + VAT_PCT / 100);
+    const dieselPriceNet = Math.max(0, dieselExVat - RD);
     const powerPrice = parseFloat(elPower.value);
     const subsidyPct = parseInt(elSubsidy.value);
     const kmPerYear = (ovKm > 0) ? Math.round(ovKm) : parseInt(elKm.value);
@@ -2632,7 +2637,7 @@
     setCell('m-Md', '€' + p.maintDcum + 'k'); setCell('m-Me', '€' + p.maintEcum + 'k'); setCell('m-Vr', '€' + p.residualPerTruck + 'k');
     // §3 (nominal sums; subs show the principle)
     setCell('m-d-capex-sub', '= ' + eK(p.dTruckK) + ' × ' + p.trucks); setCell('m-d-capex', fM(p.dCapex));
-    setCell('m-d-pnet-sub', '= max(0, ' + p.dieselPrice.toFixed(2) + ' − ' + p.RD.toFixed(4) + ')'); setCell('m-d-pnet', fL(p.dieselPriceNet));
+    setCell('m-d-pnet-sub', '= max(0, ' + p.dieselPrice.toFixed(2) + ' / ' + (1 + VAT_PCT / 100).toFixed(2) + ' − ' + p.RD.toFixed(4) + ')'); setCell('m-d-pnet', fL(p.dieselPriceNet));
     setCell('m-d-energy-sub', '= Σ year (' + km + ' × ' + (p.dCons/100).toFixed(2) + ' × ' + p.dieselPriceNet.toFixed(2) + ' × (1+' + (p.iD*100).toFixed(1) + '%)^ʸ⁻¹) × ' + p.trucks); setCell('m-d-energy', fM(p.dEnergy));
     setCell('m-d-tolls-sub', '= Σ year (' + km + ' × €' + p.tollDfirst.toFixed(3) + '→€' + p.tollDlast.toFixed(3) + '/km, year-indexed) × ' + p.trucks);
     // §T — toll engine full block
@@ -3274,19 +3279,19 @@
   }
   // The real Belgian price, as of this browser's last visit (diesel.js), and
   // the fresher one when it lands — unless the visitor has moved the handle.
-  if(window.ETTB && window.ETTB.diesel) elDiesel.value=window.ETTB.diesel.exVat;
+  if(window.ETTB && window.ETTB.diesel) elDiesel.value=window.ETTB.diesel.gross;
   // The button beside the slider: go and check now. Pressing it is asking for
   // the handle to be moved, so unlike the automatic update below it does move a
   // slider the visitor has already set.
   let dieselByHand=false;
   if(window.ETTB) window.ETTB.today($('p-diesel-today'), function(row){
     dieselByHand=false;
-    elDiesel.value=row.exVat; showDiesel(); calculate();
+    elDiesel.value=row.gross; showDiesel(); calculate();
   }, function(){ return parseFloat(elDiesel.value); });
   elDiesel.addEventListener('input', () => { dieselByHand=true; });
   if(window.ETTB) window.ETTB.onDiesel(function(row){
     if(dieselByHand){ window.ETTB.note($('p-diesel-src')); return; }
-    elDiesel.value=row.exVat; showDiesel(); calculate();
+    elDiesel.value=row.gross; showDiesel(); calculate();
   });
   showDiesel();
   calculate();

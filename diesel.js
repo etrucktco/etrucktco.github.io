@@ -37,7 +37,9 @@
 
   function rowOf(snap) {
     var r = snap && snap.countries && snap.countries[CODE];
-    return r && typeof r.exVat === 'number' ? r : null;
+    // Both, because the slider holds the pump price and the engine needs the
+    // one without VAT.
+    return r && typeof r.gross === 'number' && typeof r.exVat === 'number' ? r : null;
   }
 
   var ETTB = {
@@ -110,7 +112,7 @@
           try { apply(row); } catch (e) { /* the page's problem, not the button's */ }
           // Something is always said. A button that looks like it did nothing
           // is a button nobody presses twice.
-          say(was != null && Math.abs(row.exVat - was) < 0.005 ? 'Already today’s' : 'Updated', 3000);
+          say(was != null && Math.abs(row.gross - was) < 0.005 ? 'Already today’s' : 'Updated', 3000);
         });
       });
     },
@@ -259,21 +261,22 @@
       function euro(n, d) { return '€' + Number(n).toFixed(d || 2); }
       function bold(text) { var b = document.createElement('b'); b.textContent = text; return b; }
 
-      target.appendChild(bold(euro(row.exVat)));
+      target.appendChild(bold(euro(row.gross)));
       if (row.live) {
         target.appendChild(document.createTextNode(
-          ' is the Belgian average of ' + euro(row.gross) + ' a litre on ' + when
-          + ', without the 21% VAT a company gets back. Take off the ' + euro(row.refund, 4)
-          + ' a litre professional hauliers are refunded and it is '));
+          ' is what a litre costs at the pump in Belgium, on ' + when
+          + '. A company gets the 21% VAT back, which leaves ' + euro(row.exVat)
+          + '. A professional haulier gets ' + euro(row.refund, 4)
+          + ' a litre of the fuel tax back on top of that, so the sums run on '));
         target.appendChild(bold(euro(row.afterRefund)));
-        target.appendChild(document.createTextNode(', which is what the sums run on. '));
+        target.appendChild(document.createTextNode('. '));
         var a = document.createElement('a');
         a.href = 'https://etrucktco.eu/dieselprices/';
         a.textContent = 'Diesel prices, week by week';
         a.rel = 'noopener';
         target.appendChild(a);
       } else {
-        target.appendChild(document.createTextNode(' a litre without VAT, our own figure for now.'));
+        target.appendChild(document.createTextNode(' a litre at the pump, our own figure for now.'));
       }
     },
   };

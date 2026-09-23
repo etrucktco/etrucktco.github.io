@@ -294,11 +294,11 @@
   </div>
 
   <div class="ctrl">
-    <div class="top"><span class="name">Diesel price, without VAT</span><span class="val">€<span id="diesel-val">1.50</span> <span class="un">/ litre</span></span></div>
+    <div class="top"><span class="name">Diesel price at the pump</span><span class="val">€<span id="diesel-val">1.50</span> <span class="un">/ litre</span></span></div>
     <!-- Up to €3.00 a litre. The handle opens on the real Belgian price,
          fetched from eTruckTCO.eu (diesel.js); the line under it says when
          that price is from. -->
-    <input type="range" id="diesel" min="1.00" max="3.00" step="0.01" value="1.50">
+    <input type="range" id="diesel" min="1.20" max="3.00" step="0.01" value="1.50">
     <div class="srcrow">
       <!-- Goes and asks the European Commission's bulletin on the spot, through
            eTruckTCO.eu. The page already opens on a fresh price; this is for
@@ -441,6 +441,11 @@
 
   // ---- constants (consistent with eTruckTCO.be) ----
   var DIESEL_REFUND=0.1913;       // €/L professional refund
+  var VAT_PCT=21;                 // Belgian VAT on road fuel
+  // Belgian VAT on road fuel. The slider holds the PUMP price, VAT and all,
+  // because that is the number on the sign; a company gets this back, and a
+  // professional haulier then gets part of the fuel tax back on top.
+  function dieselNet_(pump){ return Math.max(0, pump/(1+VAT_PCT/100) - DIESEL_REFUND); }
   var PUBLIC_PRICE=0.46;          // €/kWh public
   var DEPOT_PRICE=0.26;           // €/kWh depot
   var TRUCK_E=198;                // €k Windrose R700
@@ -508,7 +513,7 @@
 
   function calc(){
     var km=st.km, years=st.years;
-    var dieselNet=Math.max(0,st.diesel-DIESEL_REFUND);
+    var dieselNet=dieselNet_(st.diesel);
     var pubShare = st.charge==='depot'?0 : (st.charge==='mix'?0.25:0.7);
     var ePrice = DEPOT_PRICE*(1-pubShare)+PUBLIC_PRICE*pubShare;
 
@@ -682,7 +687,7 @@
   document.querySelectorAll('#charge-seg button').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('#charge-seg button').forEach(function(x){x.classList.remove('on');});this.classList.add('on');st.charge=this.dataset.c;render();});});
 
   // The real Belgian price, as of this browser's last visit (diesel.js).
-  if(window.ETTB && window.ETTB.diesel) st.diesel=window.ETTB.diesel.exVat;
+  if(window.ETTB && window.ETTB.diesel) st.diesel=window.ETTB.diesel.gross;
   setRangeFill($('km'));
   showDiesel();
   showMix();
@@ -691,7 +696,7 @@
   // slider the visitor has already set.
   if(window.ETTB) window.ETTB.today($('diesel-today'), function(row){
     dieselByHand=false;
-    st.diesel=row.exVat; showDiesel(); showMix(); render();
+    st.diesel=row.gross; showDiesel(); showMix(); render();
   }, function(){ return st.diesel; });
 
   // And if a fresher one lands by itself a moment after the page has drawn.
@@ -700,7 +705,7 @@
     // redrawn even when the visitor has set the slider themselves.
     showMix();
     if(dieselByHand){ window.ETTB.note($('diesel-src')); return; }
-    st.diesel=row.exVat; showDiesel(); render();
+    st.diesel=row.gross; showDiesel(); render();
   });
   render();
   console.log('eTruckCost build 2026-06-02b — hero numbers recalc live');

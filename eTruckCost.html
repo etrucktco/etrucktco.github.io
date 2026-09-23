@@ -116,6 +116,32 @@
   .ctrl .today:focus-visible{outline:2px solid var(--volt-dark);outline-offset:2px}
   .ctrl .today[disabled]{opacity:.55;cursor:default}
   .ctrl .src{flex:1 1 15rem;min-width:0;font-size:12.5px;line-height:1.45;color:var(--muted)}
+  details.mixwrap{margin-top:12px;border-top:1px solid #efe8d8;padding-top:11px}
+  details.mixwrap summary{cursor:pointer;font-weight:700;font-size:13.5px;color:var(--volt-dark);list-style:none}
+  details.mixwrap summary::-webkit-details-marker{display:none}
+  details.mixwrap summary::before{content:"B8 ";display:inline-block;transition:.15s}
+  details.mixwrap[open] summary::before{transform:rotate(90deg)}
+  .mix{margin-top:13px}
+  .mix-bar{display:flex;width:100%;height:34px;border-radius:8px;overflow:hidden;border:1.5px solid var(--line);background:var(--paper)}
+  .mix-seg{display:flex;align-items:center;justify-content:center;min-width:0;font-family:var(--cond);font-weight:800;font-size:13px;color:#fff;white-space:nowrap;overflow:hidden}
+  .mix-seg.mix-product,.mix-key.mix-product{background:#b8772a}
+  .mix-seg.mix-distribution,.mix-key.mix-distribution{background:#d4a05c}
+  .mix-seg.mix-distribution{color:#3d2a10}
+  .mix-seg.mix-excise,.mix-key.mix-excise{background:var(--road)}
+  .mix-seg.mix-vat,.mix-key.mix-vat{background:#6b6455}
+  .mix-list{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:7px}
+  .mix-list li{display:flex;align-items:baseline;gap:9px;font-size:14px;line-height:1.45}
+  .mix-key{width:13px;height:13px;border-radius:3px;flex-shrink:0;align-self:center}
+  .mix-name{font-weight:700;flex-shrink:0}
+  .mix-what{color:var(--muted);font-size:13px}
+  .mix-val{margin-left:auto;font-weight:800;font-variant-numeric:tabular-nums;white-space:nowrap;flex-shrink:0}
+  .mix-pct{color:var(--muted);font-weight:600;font-size:12.5px}
+  .mix-sum{margin-top:12px;padding-top:11px;border-top:1.5px solid #e4dbc5;font-size:14px;line-height:1.5}
+  .mix-sum b{color:var(--diesel-dark)}
+  .mix-src{margin-top:10px;font-size:12.5px;line-height:1.5;color:var(--muted)}
+  .mix-src a{color:var(--volt-dark)}
+  .mix-src b{color:#534c3d}
+  @media(max-width:560px){.mix-list li{flex-wrap:wrap}.mix-what{flex-basis:100%;padding-left:22px}.mix-seg{font-size:11px}}
   .ctrl .src b{color:var(--diesel-dark);font-weight:700}
   .ctrl .src a{color:var(--volt-dark)}
   input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:8px;border-radius:8px;background:linear-gradient(90deg,var(--diesel) 0%,var(--diesel) var(--p,50%),#e7dcc6 var(--p,50%),#e7dcc6 100%);outline:none}
@@ -280,6 +306,13 @@
       <button class="today" id="diesel-today"></button>
       <div class="src" id="diesel-src"></div>
     </div>
+    <!-- Where that litre actually goes (ETTB.mix in diesel.js). Shut by
+         default, and removed altogether when the whole litre cannot be
+         accounted for. -->
+    <details class="mixwrap" id="diesel-mix-wrap">
+      <summary>Where does that money go?</summary>
+      <div id="diesel-mix"></div>
+    </details>
   </div>
 
   <div class="ctrl">
@@ -632,6 +665,15 @@
     setRangeFill($('diesel'));
     if(window.ETTB) window.ETTB.note($('diesel-src'));
   }
+
+  // What that litre is made of. Redrawn whenever a fresher price lands, because
+  // every block is a share of that price.
+  function showMix(){
+    var wrap=$('diesel-mix-wrap');
+    if(!wrap) return;
+    var drawn = window.ETTB && window.ETTB.mix ? window.ETTB.mix($('diesel-mix')) : false;
+    wrap.style.display = drawn ? '' : 'none';
+  }
   $('km').addEventListener('input', onKm);
   $('km').addEventListener('change', onKm);
   $('diesel').addEventListener('input', onDiesel);
@@ -643,16 +685,20 @@
   if(window.ETTB && window.ETTB.diesel) st.diesel=window.ETTB.diesel.exVat;
   setRangeFill($('km'));
   showDiesel();
+  showMix();
   // The button beside the slider: go and check now. Pressing it is asking for
   // the handle to be moved, so unlike the automatic update below it does move a
   // slider the visitor has already set.
   if(window.ETTB) window.ETTB.today($('diesel-today'), function(row){
     dieselByHand=false;
-    st.diesel=row.exVat; showDiesel(); render();
+    st.diesel=row.exVat; showDiesel(); showMix(); render();
   }, function(){ return st.diesel; });
 
   // And if a fresher one lands by itself a moment after the page has drawn.
   if(window.ETTB) window.ETTB.onDiesel(function(row){
+    // The breakdown is of the published price, not of the slider, so it is
+    // redrawn even when the visitor has set the slider themselves.
+    showMix();
     if(dieselByHand){ window.ETTB.note($('diesel-src')); return; }
     st.diesel=row.exVat; showDiesel(); render();
   });

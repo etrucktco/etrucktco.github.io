@@ -116,6 +116,134 @@
     },
 
     /**
+     * What a litre is made of: one stacked bar and a list under it.
+     *
+     * Belgium does not let a station charge what it likes. The government sets
+     * a MAXIMUM price and builds it in four blocks: the ex-refinery price, a
+     * distribution margin fixed in cents a litre, the excise fixed in cents a
+     * litre, and 21% VAT on the sum of those three. Only the first moves with
+     * the oil price.
+     *
+     * Three of the four the Worker on eTruckTCO.eu works out from the weekly
+     * bulletin itself, because the bulletin publishes both the pump price and
+     * the price without any tax. The fourth - where the untaxed part splits
+     * between the fuel and the distribution margin - is the one figure that
+     * comes from a person, and the line under the bar says whose.
+     *
+     * Draws nothing at all when the whole litre cannot be accounted for.
+     */
+    mix: function (target) {
+      if (!target) return false;
+      target.textContent = '';
+      var row = ETTB.diesel, p = row && row.parts;
+      if (!p || !p.gross || p.untaxed == null || p.excise == null) return false;
+
+      function euro(n, d) { return '€' + Number(n).toFixed(d || 2); }
+      function el(tag, cls, text) {
+        var e = document.createElement(tag);
+        if (cls) e.className = cls;
+        if (text != null) e.textContent = text;
+        return e;
+      }
+
+      var whole = p.gross, blocks = [];
+      if (p.product != null && p.distribution != null) {
+        blocks.push({ cls: 'product', name: 'The fuel itself', v: p.product,
+          what: 'crude oil, refined into diesel and sold on at the refinery gate. The only block that moves with the oil price.' });
+        blocks.push({ cls: 'distribution', name: 'Getting it to the pump', v: p.distribution,
+          what: (p.marginSource && p.marginSource.explains)
+            || 'transport, storage, the filling station and its margin.' });
+      } else {
+        blocks.push({ cls: 'product', name: 'The fuel, and getting it to the pump', v: p.untaxed,
+          what: 'the refinery, transport, storage and the filling station together.' });
+      }
+      blocks.push({ cls: 'excise', name: 'Fuel tax', v: p.excise,
+        what: 'excise duty: a fixed amount on every litre, the same whether the oil price is high or low.' });
+      blocks.push({ cls: 'vat', name: 'VAT', v: p.vat,
+        what: (row.vatPct || 21) + '% on everything above, tax included - so there is VAT on the fuel tax too.' });
+
+      var root = el('div', 'mix');
+
+      var bar = el('div', 'mix-bar');
+      bar.setAttribute('role', 'img');
+      bar.setAttribute('aria-label', blocks.map(function (b) {
+        return b.name + ' ' + euro(b.v);
+      }).join(', ') + ' - together ' + euro(whole) + ' a litre.');
+      blocks.forEach(function (b) {
+        var seg = el('div', 'mix-seg mix-' + b.cls);
+        seg.style.width = (b.v / whole * 100).toFixed(2) + '%';
+        if (b.v / whole > 0.13) seg.textContent = euro(b.v);
+        seg.title = b.name + ' - ' + euro(b.v);
+        bar.appendChild(seg);
+      });
+      root.appendChild(bar);
+
+      var list = el('ul', 'mix-list');
+      blocks.forEach(function (b) {
+        var li = el('li');
+        li.appendChild(el('span', 'mix-key mix-' + b.cls));
+        li.appendChild(el('span', 'mix-name', b.name));
+        li.appendChild(el('span', 'mix-what', b.what));
+        var val = el('span', 'mix-val', euro(b.v));
+        val.appendChild(document.createTextNode(' '));
+        val.appendChild(el('span', 'mix-pct', Math.round(b.v / whole * 100) + '%'));
+        li.appendChild(val);
+        list.appendChild(li);
+      });
+      root.appendChild(list);
+
+      var tax = p.excise + p.vat;
+      var sum = el('div', 'mix-sum');
+      sum.appendChild(document.createTextNode('A litre costs '));
+      sum.appendChild(el('b', null, euro(whole)));
+      sum.appendChild(document.createTextNode(' at the pump, of which '));
+      sum.appendChild(el('b', null, euro(tax)));
+      sum.appendChild(document.createTextNode(' - ' + Math.round(tax / whole * 100) + '% - is tax. '));
+      sum.appendChild(document.createTextNode(
+        'The fuel tax is a fixed amount, not a percentage, so that share falls as the oil price rises. '));
+      sum.appendChild(document.createTextNode('A company gets the ' + euro(p.vat) + ' VAT back'));
+      if (p.refund > 0) {
+        sum.appendChild(document.createTextNode(
+          ', and a professional haulier gets ' + euro(p.refund, 4) + ' of the fuel tax back as well'));
+      }
+      sum.appendChild(document.createTextNode(', which leaves '));
+      sum.appendChild(el('b', null, euro(p.afterRefund)));
+      sum.appendChild(document.createTextNode(' - the figure every sum on this page runs on.'));
+      root.appendChild(sum);
+
+      var src = el('div', 'mix-src');
+      var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      var d = String(row.observedAt || '').split('-');
+      if (d.length === 3) {
+        src.appendChild(document.createTextNode('Pump price and tax-free price: '));
+        src.appendChild(el('b', null, 'European Commission, Weekly Oil Bulletin'));
+        src.appendChild(document.createTextNode(', week of ' + (+d[2]) + ' ' + months[+d[1] - 1] + ' ' + d[0]
+          + '. The fuel tax is not quoted from anywhere - it is what is left between those two figures once the VAT is out. '));
+      }
+      if (p.marginSource && p.marginSource.who) {
+        src.appendChild(document.createTextNode('The split between the fuel and getting it to the pump is the one figure here taken from a person: '));
+        src.appendChild(el('b', null, p.marginSource.who));
+        if (p.marginSource.what) {
+          src.appendChild(document.createTextNode(', '));
+          if (p.marginSource.url) {
+            var a = el('a', null, p.marginSource.what);
+            a.href = p.marginSource.url;
+            a.rel = 'noopener';
+            a.target = '_blank';
+            src.appendChild(a);
+          } else {
+            src.appendChild(document.createTextNode(p.marginSource.what));
+          }
+        }
+        src.appendChild(document.createTextNode('.'));
+      }
+      root.appendChild(src);
+
+      target.appendChild(root);
+      return true;
+    },
+
+    /**
      * The sentence under a slider, as elements rather than as a string of
      * HTML: part of it is written by another server.
      */

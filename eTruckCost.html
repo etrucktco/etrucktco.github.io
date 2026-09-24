@@ -119,7 +119,7 @@
   details.mixwrap{margin-top:12px;border-top:1px solid #efe8d8;padding-top:11px}
   details.mixwrap summary{cursor:pointer;font-weight:700;font-size:13.5px;color:var(--volt-dark);list-style:none}
   details.mixwrap summary::-webkit-details-marker{display:none}
-  details.mixwrap summary::before{content:"B8 ";display:inline-block;transition:.15s}
+  details.mixwrap summary::before{content:"▸ ";display:inline-block;transition:.15s}
   details.mixwrap[open] summary::before{transform:rotate(90deg)}
   .mix{margin-top:13px}
   .mix-bar{display:flex;width:100%;height:34px;border-radius:8px;overflow:hidden;border:1.5px solid var(--line);background:var(--paper)}
@@ -440,12 +440,22 @@
   var $=function(id){return document.getElementById(id);};
 
   // ---- constants (consistent with eTruckTCO.be) ----
-  var DIESEL_REFUND=0.1913;       // €/L professional refund
-  var VAT_PCT=21;                 // Belgian VAT on road fuel
+  // The three figures that turn a pump price into what a haulier pays - the
+  // VAT rate, how much of that VAT comes back, and the professional refund -
+  // all read from the live snapshot eTruckTCO.eu publishes (diesel.js), at the
+  // moment they are used. The numbers after || are only what this page falls
+  // back to if that snapshot has never reached this browser.
+  function liveRow(){ return (window.ETTB && window.ETTB.diesel) || {}; }
+  function DIESEL_REFUND_(){ var r=liveRow().refund; return typeof r==='number' ? r : 0.1913; }
+  function VAT_PCT_(){ var v=liveRow().vatPct; return typeof v==='number' ? v : 21; }
+  function VAT_BACK_(){ var d=liveRow().vatDeductiblePct; return typeof d==='number' ? d : 100; }
   // Belgian VAT on road fuel. The slider holds the PUMP price, VAT and all,
   // because that is the number on the sign; a company gets this back, and a
   // professional haulier then gets part of the fuel tax back on top.
-  function dieselNet_(pump){ return Math.max(0, pump/(1+VAT_PCT/100) - DIESEL_REFUND); }
+  function dieselNet_(pump){
+    var vat = pump - pump/(1+VAT_PCT_()/100);
+    return Math.max(0, pump - vat*VAT_BACK_()/100 - DIESEL_REFUND_());
+  }
   var PUBLIC_PRICE=0.46;          // €/kWh public
   var DEPOT_PRICE=0.26;           // €/kWh depot
   var TRUCK_E=198;                // €k Windrose R700

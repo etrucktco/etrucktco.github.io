@@ -760,7 +760,7 @@
           <span class="range-value" id="p-diesel-val">€1.50</span>
         </div>
         <div class="param-hint">
-          <span>after €0.1913/L professional refund (BE 2026)</span>
+          <span id="p-diesel-refund">less VAT and the professional refund</span>
           <span class="param-hint-value" id="p-diesel-net">net: €1.31/L</span>
         </div>
         <!-- Goes and asks the European Commission's bulletin on the spot,
@@ -1114,7 +1114,7 @@
           <div class="math-row"><span class="math-var">y</span><span class="math-eq">= period of use (years)</span><span class="math-val"><select class="ma-in" id="ma-years" style="width:64px;text-align:right;"><option value="5">5</option><option value="7" selected>7</option><option value="10">10</option></select></span></div>
           <div class="math-row"><span class="math-var">P<sub>e</sub></span><span class="math-eq">= electric truck price (€k) — empty = selected model</span><span class="math-val">€<input class="ma-in" id="ma-Pe" type="number" step="1" min="0" placeholder="198">k</span></div>
           <div class="math-row"><span class="math-var">P<sub>d</sub></span><span class="math-eq">= diesel pump price (€/L)</span><span class="math-val"><input class="ma-in" id="ma-Pd" type="number" step="0.05" min="1.30" max="2.00" value="1.50"></span></div>
-          <div class="math-row"><span class="math-var">R<sub>d</sub></span><span class="math-eq">= professional diesel refund (€/L, BE 2026)</span><span class="math-val"><input class="ma-in" id="ma-rd" type="number" step="0.0001" min="0" value="0.1913" style="width:70px;"></span></div>
+          <div class="math-row"><span class="math-var">R<sub>d</sub></span><span class="math-eq">= professional diesel refund (€/L, BE 2026)</span><span class="math-val"><input class="ma-in" id="ma-rd" type="number" step="0.0001" min="0" placeholder="0.1913" style="width:70px;"></span></div>
           <div class="math-row"><span class="math-var">P<sub>k</sub></span><span class="math-eq">= depot power price (€/kWh)</span><span class="math-val"><input class="ma-in" id="ma-Pk" type="number" step="0.01" min="0.15" max="0.30" value="0.26"></span></div>
           <div class="math-row"><span class="math-var">s</span><span class="math-eq">= subsidy on infra (%)</span><span class="math-val"><input class="ma-in" id="ma-s" type="number" step="5" min="0" max="70" value="0"></span></div>
           <div class="math-row"><span class="math-var">k</span><span class="math-eq">= annual km per truck — empty = panel value</span><span class="math-val"><input class="ma-in" id="ma-km" type="number" step="1000" min="0" placeholder="100 000" style="width:78px;"></span></div>
@@ -1787,8 +1787,12 @@
   const CHARGING_LOSS = { huawei: 0.08, kempower: 0.08, alpitronic: 0.115, siemens: 0.12 };
 
   const TRUCK_PRICES = { etopas: 220, volvo: 290, daimler: 300, daf: 260, man: 320, windrose: 198 };
-  const DIESEL_REFUND_PER_L = 0.1913;
-  const VAT_PCT = 21;             // Belgian VAT on road fuel
+  // Read from the live snapshot (diesel.js) at the moment of use; the numbers
+  // after the ?? are only the fallback if it has never reached this browser.
+  const liveRow = () => (window.ETTB && window.ETTB.diesel) || {};
+  const dieselRefundPerL = () => (typeof liveRow().refund === 'number' ? liveRow().refund : 0.1913);
+  const vatPct = () => (typeof liveRow().vatPct === 'number' ? liveRow().vatPct : 21);
+  const vatBackPct = () => (typeof liveRow().vatDeductiblePct === 'number' ? liveRow().vatDeductiblePct : 100);
 
   // ===== Six-zone kilometerheffing / toll engine — single source of truth =====
   // Belgium is regional (VL/BR/WA diverge from 1 Jul 2026) plus three foreign zones (NL/DE/FR).
@@ -2323,7 +2327,7 @@
   function calculate() {
     const _num = id => { const el = $(id); if (!el) return NaN; return parseFloat(el.value); };
     const ovN = _num('ma-N'), ovPe = _num('ma-Pe'), ovKm = _num('ma-km'), ovMd = _num('ma-md');
-    const RD = (v => v > 0 ? v : DIESEL_REFUND_PER_L)(_num('ma-rd'));
+    const RD = (v => v > 0 ? v : dieselRefundPerL())(_num('ma-rd'));
     const FD = (v => v > 0 ? v : DIESEL_FIXED_YR)(_num('ma-fd'));
     const FE = (v => v > 0 ? v : ELEC_FIXED_YR)(_num('ma-fe'));
     const trucks = (ovN > 0) ? Math.round(ovN) : parseInt(elTrucks.value);
@@ -2333,8 +2337,9 @@
     // business burns: the VAT comes back to any company, and part of the fuel
     // tax comes back to a professional haulier.
     const dieselPrice = parseFloat(elDiesel.value);
-    const dieselExVat = dieselPrice / (1 + VAT_PCT / 100);
-    const dieselPriceNet = Math.max(0, dieselExVat - RD);
+    const dieselExVat = dieselPrice / (1 + vatPct() / 100);
+    const vatBack = (dieselPrice - dieselExVat) * vatBackPct() / 100;
+    const dieselPriceNet = Math.max(0, dieselPrice - vatBack - RD);
     const powerPrice = parseFloat(elPower.value);
     const subsidyPct = parseInt(elSubsidy.value);
     const kmPerYear = (ovKm > 0) ? Math.round(ovKm) : parseInt(elKm.value);
@@ -2637,7 +2642,7 @@
     setCell('m-Md', '€' + p.maintDcum + 'k'); setCell('m-Me', '€' + p.maintEcum + 'k'); setCell('m-Vr', '€' + p.residualPerTruck + 'k');
     // §3 (nominal sums; subs show the principle)
     setCell('m-d-capex-sub', '= ' + eK(p.dTruckK) + ' × ' + p.trucks); setCell('m-d-capex', fM(p.dCapex));
-    setCell('m-d-pnet-sub', '= max(0, ' + p.dieselPrice.toFixed(2) + ' / ' + (1 + VAT_PCT / 100).toFixed(2) + ' − ' + p.RD.toFixed(4) + ')'); setCell('m-d-pnet', fL(p.dieselPriceNet));
+    setCell('m-d-pnet-sub', '= max(0, ' + p.dieselPrice.toFixed(2) + ' / ' + (1 + vatPct() / 100).toFixed(2) + ' − ' + p.RD.toFixed(4) + ')'); setCell('m-d-pnet', fL(p.dieselPriceNet));
     setCell('m-d-energy-sub', '= Σ year (' + km + ' × ' + (p.dCons/100).toFixed(2) + ' × ' + p.dieselPriceNet.toFixed(2) + ' × (1+' + (p.iD*100).toFixed(1) + '%)^ʸ⁻¹) × ' + p.trucks); setCell('m-d-energy', fM(p.dEnergy));
     setCell('m-d-tolls-sub', '= Σ year (' + km + ' × €' + p.tollDfirst.toFixed(3) + '→€' + p.tollDlast.toFixed(3) + '/km, year-indexed) × ' + p.trucks);
     // §T — toll engine full block
@@ -3028,7 +3033,7 @@
     years:      { kind:'select', el:'p-years',       num:true,  enum:['5','7','10'] },
     truckModel: { kind:'select', el:'p-truck-model',            enum:['etopas','daimler','volvo','daf','man','windrose'] },
     km:         { kind:'select', el:'p-km',          num:true,  enum:['80000','100000','117000','120000','150000'] },
-    diesel:     { kind:'range',  el:'p-diesel',      min:1.30, max:2.00 },
+    diesel:     { kind:'range',  el:'p-diesel',      min:1.20, max:3.00 },
     power:      { kind:'range',  el:'p-power',       min:0.15, max:0.30 },
     subsidy:    { kind:'range',  el:'p-subsidy',     min:0,    max:70 },
     maint:      { kind:'select', el:'p-maint',                  enum:['optimistic','tno','central','icct','conservative'] },
@@ -3272,9 +3277,17 @@
   // handle had moved, which is now visible because the handle starts on the
   // real price rather than on 1.50.
   function showDiesel(){
-    const pump=parseFloat(elDiesel.value), net=Math.max(0,pump-DIESEL_REFUND_PER_L);
+    // The same two steps the model takes: VAT out (as much as comes back),
+    // then the professional refund. Computing it any other way here is how the
+    // hint and the sums end up quoting different numbers.
+    const pump=parseFloat(elDiesel.value);
+    const net=Math.max(0, pump - (pump - pump/(1+vatPct()/100))*vatBackPct()/100 - dieselRefundPerL());
     $('p-diesel-val').textContent='€'+pump.toFixed(2);
     const h=$('p-diesel-net'); if(h) h.textContent='net: €'+net.toFixed(2)+'/L';
+    // Filled from the live snapshot, not typed into the markup.
+    const rh=$('p-diesel-refund'); const refundNow=dieselRefundPerL();
+    if(rh) rh.textContent='less '+vatPct()+'% VAT and the €'+refundNow.toFixed(4)+'/L professional refund';
+    const rd=$('ma-rd'); if(rd) rd.placeholder=refundNow.toFixed(4);
     if(window.ETTB) window.ETTB.note($('p-diesel-src'));
   }
   // The real Belgian price, as of this browser's last visit (diesel.js), and

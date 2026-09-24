@@ -203,14 +203,21 @@
       sum.appendChild(document.createTextNode(' - ' + Math.round(tax / whole * 100) + '% - is tax. '));
       sum.appendChild(document.createTextNode(
         'The fuel tax is a fixed amount, not a percentage, so that share falls as the oil price rises. '));
-      sum.appendChild(document.createTextNode('A company gets the ' + euro(p.vat) + ' VAT back'));
+      var back = p.vatRecovered != null ? p.vatRecovered : p.vat;
+      sum.appendChild(document.createTextNode(back >= p.vat
+        ? 'A company gets the ' + euro(p.vat) + ' VAT back'
+        : 'A company gets ' + euro(back) + ' of the ' + euro(p.vat) + ' VAT back (' + p.vatDeductiblePct + '%)'));
       if (p.refund > 0) {
         sum.appendChild(document.createTextNode(
           ', and a professional haulier gets ' + euro(p.refund, 4) + ' of the fuel tax back as well'));
       }
       sum.appendChild(document.createTextNode(', which leaves '));
       sum.appendChild(el('b', null, euro(p.afterRefund)));
-      sum.appendChild(document.createTextNode(' - the figure every sum on this page runs on.'));
+      sum.appendChild(document.createTextNode(' - where the slider starts. '));
+      var more = el('a', null, 'VAT per country');
+      more.href = 'https://etrucktco.eu/dieselprices/indirecttax/';
+      more.rel = 'noopener';
+      sum.appendChild(more);
       root.appendChild(sum);
 
       var src = el('div', 'mix-src');
@@ -253,7 +260,19 @@
       if (!target) return;
       var row = ETTB.diesel;
       target.textContent = '';
-      if (!row) return;
+      if (!row) {
+        // Nothing has ever reached this browser - no stored snapshot, and
+        // eTruckTCO.eu not answering. Say so, rather than leave a slider on a
+        // typed-in number with no word about where it came from.
+        target.appendChild(document.createTextNode(
+          'The live price could not be reached, so this is the figure the page ships with. '));
+        var a0 = document.createElement('a');
+        a0.href = 'https://etrucktco.eu/dieselprices/';
+        a0.textContent = 'Diesel prices, week by week';
+        a0.rel = 'noopener';
+        target.appendChild(a0);
+        return;
+      }
 
       var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
       var p = String(row.observedAt || '').split('-');
@@ -265,11 +284,18 @@
       if (row.live) {
         target.appendChild(document.createTextNode(
           ' is what a litre costs at the pump in Belgium, on ' + when
-          + '. A company gets the 21% VAT back, which leaves ' + euro(row.exVat)
-          + '. A professional haulier gets ' + euro(row.refund, 4)
-          + ' a litre of the fuel tax back on top of that, so the sums run on '));
+          + '. ' + ((row.vatDeductiblePct == null || row.vatDeductiblePct >= 100)
+            ? 'A company gets the ' + row.vatPct + '% VAT back, which leaves ' + euro(row.exVat) + '.'
+            : 'A company gets back only ' + row.vatDeductiblePct + '% of the ' + row.vatPct + '% VAT, so part of it stays a cost.')
+          + (row.refund > 0
+            ? ' A professional haulier gets ' + euro(row.refund, 4) + ' a litre of the fuel tax back on top of that, so at today’s price a litre comes to '
+            : ' That is where the sliders start: ')));
         target.appendChild(bold(euro(row.afterRefund)));
         target.appendChild(document.createTextNode('. '));
+        if (row.refundStale) {
+          target.appendChild(document.createTextNode(
+            'That refund is set per calendar year and this year\u2019s amount has not been published yet, so it is last year\u2019s. '));
+        }
         var a = document.createElement('a');
         a.href = 'https://etrucktco.eu/dieselprices/';
         a.textContent = 'Diesel prices, week by week';
